@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail pozice | SINTERA</title>
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="SINTERA — úvod">
+      <img src="assets/img/logo-color-mark.png" alt="SINTERA">
+    </a>
+    <nav class="nav-links">
+      <a href="pozice.html" class="active">Volné pozice</a>
+      <a href="direct-search.html">Pro firmy</a>
+      <a href="reference.html">Reference</a>
+      <a href="spolecnost.html">O nás</a>
+    </nav>
+    <a class="btn btn-acc btn-nav-cta" href="kontakt.html">Kontakt</a>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile-menu">
+  <div class="wrap">
+    <a href="index.html">Úvod</a>
+    <a href="pozice.html">Volné pozice</a>
+    <a href="direct-search.html">Pro firmy</a>
+    <a href="reference.html">Reference</a>
+    <a href="spolecnost.html">O nás</a>
+    <a href="kontakt.html">Kontakt</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" style="padding-bottom:44px">
+  <div class="orb o1"></div>
+  <div class="wrap">
+    <a href="pozice.html" class="back-link">← Zpět na všechny pozice</a>
+    <h1 class="h-sec" id="dTitle" style="max-width:22ch">Detail pozice</h1>
+    <div class="hero-meta" id="dMeta"></div>
+  </div>
+</section>
+
+<!-- OBSAH -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap detail-grid">
+    <div class="detail-body" id="dBody"><!-- naplní JS --></div>
+    <aside class="apply-card">
+      <h3>Zaujala vás tato pozice?</h3>
+      <p class="sub">Pošlete nám na sebe kontakt a životopis. Ozveme se v krátké době.</p>
+      <form class="form" id="applyForm">
+        <input type="text" placeholder="Jméno a příjmení" required aria-label="Jméno">
+        <input type="email" placeholder="E-mail" required aria-label="E-mail">
+        <input type="tel" placeholder="Telefon" aria-label="Telefon">
+        <div class="file">📎 Přiložit životopis (PDF, DOCX)</div>
+        <button class="btn btn-acc" type="submit" style="width:100%">Odeslat reakci <span class="arr">→</span></button>
+        <p class="gdpr">Odesláním souhlasíte se zpracováním osobních údajů společností Sintera Czech s.r.o. pro účely zprostředkování práce.</p>
+        <p class="gdpr" id="applyOk" style="display:none;color:var(--ok);font-weight:700">✓ Děkujeme, vaše reakce byla odeslána. Ozveme se co nejdříve.</p>
+      </form>
+    </aside>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-card reveal">
+      <h2>Podívejte se i na další pozice</h2>
+      <p>Filtrujte podle oboru, kraje nebo seniority — bez registrace.</p>
+      <div class="hero-cta">
+        <a class="btn btn-white" href="pozice.html">Všechny pozice <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <a href="index.html"><img src="assets/img/logo-color-mark.png" alt="SINTERA"></a>
+      <div class="foot-links">
+        <a href="pozice.html">Volné pozice</a>
+        <a href="direct-search.html">Pro firmy</a>
+        <a href="reference.html">Reference</a>
+        <a href="spolecnost.html">O nás</a>
+        <a href="kariera.html">Kariéra</a>
+        <a href="kontakt.html">Kontakt</a>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="yr">2026</span> Sintera Czech s.r.o. · IČ 29130336 · Praha &amp; Hradec Králové</span>
+      <span>
+        <a href="mailto:info@sintera.cz">info@sintera.cz</a> ·
+        <a href="tel:+420499599861">+420 499 599 861</a> ·
+        <a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/pozice-data.js"></script>
+<script>
+(function(){
+  "use strict";
+  function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+  /* ukázkový plný obsah (reálná pozice #856 ze sintera.cz) */
+  var FULL = {
+    856: {
+      intro: "Strategická role pro zkušeného lídra výroby, který chce mít reálný vliv na fungování několika výrobních závodů mezinárodní společnosti.",
+      sections: [
+        { h:"Hlavní odpovědnosti", items:[
+          "zastřešení výrobních aktivit napříč několika výrobními závody",
+          "vedení výrobních týmů a spolupráce s managementem jednotlivých provozů",
+          "odpovědnost za výkon, stabilitu a efektivitu výroby",
+          "nastavování a optimalizace výrobních procesů a standardů",
+          "identifikace příležitostí pro zvyšování produktivity a efektivity",
+          "koordinace spolupráce napříč výrobou, kvalitou a technologiemi",
+          "podpora rozvoje firemní kultury, leadershipu a spolupráce mezi závody",
+          "aktivní účast na strategickém směřování výrobní organizace",
+          "řízení změn a dlouhodobý rozvoj výrobního prostředí"
+        ]},
+        { h:"Koho hledáme", items:[
+          "zkušenosti s řízením výroby nebo provozu ve výrobní společnosti",
+          "zkušenost s vedením větších týmů a výrobních struktur",
+          "schopnost kombinovat strategický pohled s každodenní realitou výroby",
+          "přirozený leadership, schopnost získat důvěru lidí i managementu",
+          "orientace na výsledky, efektivitu a dlouhodobý rozvoj organizace",
+          "komunikativní znalost anglického jazyka",
+          "zkušenost mimo automotive výhodou"
+        ]},
+        { h:"Klíčové benefity role", items:[
+          "strategická manažerská role s vysokou mírou autonomie",
+          "reálný vliv na fungování výroby a další rozvoj organizace",
+          "dlouhodobá perspektiva ve stabilní mezinárodní společnosti",
+          "zajímavé finanční ohodnocení včetně bonusové složky",
+          "služební automobil i k soukromému využití",
+          "prostředí otevřené novým nápadům, inovacím a rozvoji"
+        ]}
+      ]
+    }
+  };
+
+  var id = parseInt(new URLSearchParams(window.location.search).get("id") || "856", 10);
+  var p = POZICE.filter(function(x){ return x.id === id; })[0];
+  if(!p){ p = POZICE[0]; id = p.id; }
+
+  document.title = p.t + " | SINTERA";
+  document.getElementById("dTitle").textContent = p.t;
+
+  var meta = '<span class="p-tag cop">' + esc(OBORY[p.o]) + '</span>' +
+             '<span class="p-tag">' + esc(SENIORITY[p.s]) + '</span>' +
+             '<span class="p-tag">' + esc(p.k.join(" / ")) + '</span>' +
+             (p.bonus ? '<span class="p-tag" style="background:var(--ok-tint);color:var(--ok)">Náborový příspěvek ' + esc(p.bonus) + '</span>' : '');
+  document.getElementById("dMeta").innerHTML = meta;
+
+  var body = "";
+  var full = FULL[id];
+  if(full){
+    body += '<p class="lead">' + esc(full.intro) + '</p>';
+    full.sections.forEach(function(s){
+      body += '<h2>' + esc(s.h) + '</h2><ul>' + s.items.map(function(i){ return '<li>' + esc(i) + '</li>'; }).join("") + '</ul>';
+    });
+    body += '<p style="margin-top:30px;color:var(--mut)">Pokud vás pozice zaujala, zašlete nám prosím strukturovaný životopis. V krátké době vás budeme kontaktovat s dalšími podrobnostmi.</p>';
+  } else {
+    body += '<p class="lead">Kompletní popis této pozice vám rádi zašleme — stačí krátká reakce přes formulář. <em style="font-style:normal;color:var(--acc);font-weight:600">(V prototypu je plný obsah ukázkově načten u pozice Operations Manager; v ostré verzi jej doplní redakční systém.)</em></p>';
+    body += '<h2>Co o pozici víme</h2><ul>' +
+      '<li>Obor: ' + esc(OBORY[p.o]) + '</li>' +
+      '<li>Seniorita: ' + esc(SENIORITY[p.s]) + '</li>' +
+      '<li>Lokalita: ' + esc(p.k.join(" / ")) + '</li>' +
+      (p.bonus ? '<li>Náborový příspěvek: ' + esc(p.bonus) + '</li>' : '') +
+      '</ul>';
+    body += '<p style="margin-top:22px"><a class="btn btn-ghost btn-sm" href="https://sintera.cz/cz/pozice/' + id + '" target="_blank" rel="noopener">Aktuální inzerát na sintera.cz <span class="arr">→</span></a></p>';
+  }
+  document.getElementById("dBody").innerHTML = body;
+
+  /* demo odeslání */
+  document.getElementById("applyForm").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    document.getElementById("applyOk").style.display = "block";
+  });
+})();
+</script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontakt | SINTERA</title>
+<meta name="description" content="Kontaktujte Sinteru — Praha i Hradec Králové.">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="SINTERA — úvod">
+      <img src="assets/img/logo-color-mark.png" alt="SINTERA">
+    </a>
+    <nav class="nav-links"><a href="pozice.html">Volné pozice</a><a href="direct-search.html">Pro firmy</a><a href="reference.html">Reference</a><a href="spolecnost.html">O nás</a></nav>
+    <a class="btn btn-acc btn-nav-cta" href="kontakt.html">Kontakt</a>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile-menu">
+  <div class="wrap">
+    <a href="index.html">Úvod</a>
+    <a href="pozice.html">Volné pozice</a>
+    <a href="direct-search.html">Pro firmy</a>
+    <a href="reference.html">Reference</a>
+    <a href="spolecnost.html">O nás</a>
+    <a href="kontakt.html">Kontakt</a>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="orb o1"></div>
+  <div class="wrap">
+    <div class="label reveal">Kontakt</div>
+    <h1 class="h-display reveal d1" style="max-width:18ch">Dejte nám vědět.</h1>
+    <p class="lead reveal d2">Telefonem, e-mailem, na LinkedInu — nebo přes formulář níže.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:30px">
+  <div class="wrap">
+    <div class="cards-2">
+      <div class="card reveal">
+        <div class="label">Praha</div>
+        <h3 class="h-card">Sintera Czech s.r.o.</h3>
+        <div class="detail-body" style="margin-top:12px">
+          <ul>
+            <li><a href="https://goo.gl/maps/wjfr2k47Qo62" target="_blank" rel="noopener">Nádražní 344/23, 150 00 Praha 5</a></li>
+            <li><a href="tel:+420226633891">+420 226 633 891</a></li>
+            <li><a href="mailto:info@sintera.cz">info@sintera.cz</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card reveal d1">
+        <div class="label">Hradec Králové</div>
+        <h3 class="h-card">Sintera Czech s.r.o.</h3>
+        <div class="detail-body" style="margin-top:12px">
+          <ul>
+            <li><a href="https://goo.gl/maps/ChD1ZAgnrXq" target="_blank" rel="noopener">Uhelná 160/24, 500 03 Hradec Králové</a></li>
+            <li><a href="tel:+420499599861">+420 499 599 861</a></li>
+            <li><a href="mailto:info@sintera.cz">info@sintera.cz</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p style="color:var(--soft);font-size:14px;margin-top:18px">IČ: 29130336 · DIČ: CZ29130336</p>
+  </div>
+</section>
+
+<section class="sec sec-alt">
+  <div class="wrap" style="max-width:720px">
+    <div class="label reveal">Rychlý formulář</div>
+    <h2 class="h-sec reveal d1">Napište nám</h2>
+    <p class="lead reveal d2" style="margin-bottom:30px">Vyplňte prosím i telefon, ať vám můžeme zavolat zpět. Ozveme se nejpozději následující pracovní den.</p>
+    <form class="form reveal" id="contactForm">
+      <input type="text" placeholder="Jméno a příjmení *" required aria-label="Jméno">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px">
+        <input type="email" placeholder="E-mail *" required aria-label="E-mail">
+        <input type="tel" placeholder="Telefon" aria-label="Telefon">
+      </div>
+      <textarea placeholder="Vaše zpráva *" required aria-label="Zpráva"></textarea>
+      <button class="btn btn-acc" type="submit" style="align-self:flex-start">Odeslat zprávu <span class="arr">→</span></button>
+      <p class="gdpr" id="contactOk" style="display:none;color:var(--ok);font-weight:700">✓ Děkujeme, vaše zpráva byla odeslána. Ozveme se nejpozději následující pracovní den.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <a href="index.html"><img src="assets/img/logo-color-mark.png" alt="SINTERA"></a>
+      <div class="foot-links">
+        <a href="pozice.html">Volné pozice</a>
+        <a href="direct-search.html">Pro firmy</a>
+        <a href="reference.html">Reference</a>
+        <a href="spolecnost.html">O nás</a>
+        <a href="kariera.html">Kariéra</a>
+        <a href="kontakt.html">Kontakt</a>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="yr">2026</span> Sintera Czech s.r.o. · IČ 29130336 · Praha &amp; Hradec Králové</span>
+      <span>
+        <a href="mailto:info@sintera.cz">info@sintera.cz</a> ·
+        <a href="tel:+420499599861">+420 499 599 861</a> ·
+        <a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a>
+      </span>
+    </div>
+  </div>
+</footer>
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(ev){
+  ev.preventDefault();
+  document.getElementById("contactOk").style.display = "block";
+});
+</script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
