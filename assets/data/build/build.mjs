@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* =====================================================================
-   Sintera web — build skript (Google Sheets → statické JSON + SEO).
+   Sintera web · build skript (Google Sheets → statické JSON + SEO).
    Node 18+ (používá globální fetch). Spuštění:  node build/build.mjs
 
    Co dělá:
@@ -9,7 +9,7 @@
    3) Doplní cesty k logům ze slugů.
    4) Zapíše data do assets/data/ (+ aktualizuje reference-data.js wrapper).
    5) Vygeneruje sitemap.xml a robots.txt.
-   6) prerender(): doplní obsah do index.html (SEO) — viz TODO níže.
+   6) prerender(): doplní obsah do index.html (SEO) · viz TODO níže.
    7) Fallback: když Sheet selže, použije commitnutý JSON, web se nikdy nerozbije.
 
    Konfigurace: build/config.json (zkopíruj z config.example.json a doplň URL).
@@ -139,7 +139,7 @@ function jobPostingLD(positions) {
    Tím je obsah v HTML kvůli SEO; klientský JS řeší jen interakce.
 */
 function prerender(site) {
-  console.log("  (prerender) TODO: vlož sekce do index.html — viz komentář v build.mjs");
+  console.log("  (prerender) TODO: vlož sekce do index.html · viz komentář v build.mjs");
 }
 
 /* ---------- main ---------- */

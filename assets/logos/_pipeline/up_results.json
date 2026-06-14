@@ -184,7 +184,7 @@
   "raw_filename": "bronswerk.svg",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "Official Bronswerk Heat Transfer footer logo (vector SVG) from bronswerk.com. Renders as the blue 'BRONSWERK / HEAT TRANSFER' wordmark — exact match to the internal ground-truth mark (same wordmark and blue color; internal additionally carries the 'Dynamic Heat Exchange Solutions' strapline, but core brand identical). Clean vector, valid <svg>...</svg>."
+  "notes": "Official Bronswerk Heat Transfer footer logo (vector SVG) from bronswerk.com. Renders as the blue 'BRONSWERK / HEAT TRANSFER' wordmark · exact match to the internal ground-truth mark (same wordmark and blue color; internal additionally carries the 'Dynamic Heat Exchange Solutions' strapline, but core brand identical). Clean vector, valid <svg>...</svg>."
  },
  {
   "slug": "bull",
@@ -195,7 +195,7 @@
   "raw_filename": "bull.svg",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "Official Bull logo (vector SVG) from bull.com header. CORRECT company (Bull, the French HPC/IT firm, now part of Atos/Eviden) but this is the CURRENT post-Atos rebrand: navy 'Bull' wordmark with an orange square-tree icon. The internal ground-truth is the OLDER glossy grey/green 'BuLL' wordmark with a green square. Same entity, newer official mark — standard practice for a reference site. Caveat: visual style differs from internal due to rebrand."
+  "notes": "Official Bull logo (vector SVG) from bull.com header. CORRECT company (Bull, the French HPC/IT firm, now part of Atos/Eviden) but this is the CURRENT post-Atos rebrand: navy 'Bull' wordmark with an orange square-tree icon. The internal ground-truth is the OLDER glossy grey/green 'BuLL' wordmark with a green square. Same entity, newer official mark · standard practice for a reference site. Caveat: visual style differs from internal due to rebrand."
  },
  {
   "slug": "busch-vyroba",
@@ -206,7 +206,7 @@
   "raw_filename": "busch-vyroba.png",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "Busch Vacuum Solutions logo, 1205x369 transparent PNG (alpha min 0). Official Wikimedia/official SVG was unreachable (Wikimedia 429 IP throttle on all paths; buschvacuum.com bot-blocked 406; seeklogo gave a white-bg thumbnail). This AIChE-hosted copy is the genuine current Busch Vacuum Solutions logo: orange 'BUSCH' with the U-shape motif + 'VACUUM SOLUTIONS' — exact match to the internal orange BUSCH/U-shapes mark (internal is icon-only crop). Busch rebranded to 'Busch Vacuum Solutions' in 2020; this is the correct current full logo."
+  "notes": "Busch Vacuum Solutions logo, 1205x369 transparent PNG (alpha min 0). Official Wikimedia/official SVG was unreachable (Wikimedia 429 IP throttle on all paths; buschvacuum.com bot-blocked 406; seeklogo gave a white-bg thumbnail). This AIChE-hosted copy is the genuine current Busch Vacuum Solutions logo: orange 'BUSCH' with the U-shape motif + 'VACUUM SOLUTIONS' · exact match to the internal orange BUSCH/U-shapes mark (internal is icon-only crop). Busch rebranded to 'Busch Vacuum Solutions' in 2020; this is the correct current full logo."
  },
  {
   "slug": "cd-telematika",
@@ -239,7 +239,7 @@
   "raw_filename": "",
   "confidence": "high",
   "brand_match": "unsure",
-  "notes": "No acceptable asset. Official cikautxo.com header logo (/assets/img/logo.png) is only 180x93 — far below the 600px threshold (though transparent and correct: 'cikautxo S.COOP.' with orange swirl). No inline SVG, no press/media SVG, no worldvectorlogo/Wikimedia entry. Wikimedia throttled. Keep internal logo."
+  "notes": "No acceptable asset. Official cikautxo.com header logo (/assets/img/logo.png) is only 180x93 · far below the 600px threshold (though transparent and correct: 'cikautxo S.COOP.' with orange swirl). No inline SVG, no press/media SVG, no worldvectorlogo/Wikimedia entry. Wikimedia throttled. Keep internal logo."
  },
  {
   "slug": "comap",
@@ -250,7 +250,7 @@
   "raw_filename": "comap.svg",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "Official ComAp logo extracted as inline header SVG from comap-control.com (Czech control-systems maker; viewBox 0 0 351 80, red accent #E20714). Renders as black 'ComAp' wordmark with the red play-triangle — exact match to the internal ground-truth (internal additionally has 'the heart of smart control' tagline). IMPORTANT: deliberately AVOIDED worldvectorlogo/seeklogo/cdnlogo 'Comap' entries — those are the FRENCH Comap plumbing company (magenta 'COMAP' wordmark), a different entity. Verified by rendering."
+  "notes": "Official ComAp logo extracted as inline header SVG from comap-control.com (Czech control-systems maker; viewBox 0 0 351 80, red accent #E20714). Renders as black 'ComAp' wordmark with the red play-triangle · exact match to the internal ground-truth (internal additionally has 'the heart of smart control' tagline). IMPORTANT: deliberately AVOIDED worldvectorlogo/seeklogo/cdnlogo 'Comap' entries · those are the FRENCH Comap plumbing company (magenta 'COMAP' wordmark), a different entity. Verified by rendering."
  },
  {
   "slug": "continental",
@@ -261,7 +261,7 @@
   "raw_filename": "continental.svg",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "Continental AG official wordmark (vector SVG, viewBox ~220x45). Renders as the classic 'Continental' wordmark with the distinctive 'C' enclosing the 'o' — unmistakably Continental, exact wordmark match to the internal ground-truth. This version is black (internal is the orange color variant); the wordmark shape is identical, color can be themed on-site. Wikimedia (Continental_logo.svg) was 429-throttled so used worldvectorlogo's clean copy instead."
+  "notes": "Continental AG official wordmark (vector SVG, viewBox ~220x45). Renders as the classic 'Continental' wordmark with the distinctive 'C' enclosing the 'o' · unmistakably Continental, exact wordmark match to the internal ground-truth. This version is black (internal is the orange color variant); the wordmark shape is identical, color can be themed on-site. Wikimedia (Continental_logo.svg) was 429-throttled so used worldvectorlogo's clean copy instead."
  },
  {
   "slug": "coorstek",
@@ -360,7 +360,7 @@
   "raw_filename": "",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "Internal mark = dark-red diamond/rhombus with 'DTZ' wordmark. Correct entity is DTZ s.r.o., Liberec (Czech mechanical-engineering / technological-equipment supplier; dtzgroup.cz) — NOT the DTZ real-estate firm. Only logo on the official site is a 127x61px WHITE knockout PNG (transparent but invisible on white, far below the 600px minimum and wrong color vs the dark-red internal mark). Not on Wikimedia (small Czech firm). No clean correct asset available, so keeping the internal logo."
+  "notes": "Internal mark = dark-red diamond/rhombus with 'DTZ' wordmark. Correct entity is DTZ s.r.o., Liberec (Czech mechanical-engineering / technological-equipment supplier; dtzgroup.cz) · NOT the DTZ real-estate firm. Only logo on the official site is a 127x61px WHITE knockout PNG (transparent but invisible on white, far below the 600px minimum and wrong color vs the dark-red internal mark). Not on Wikimedia (small Czech firm). No clean correct asset available, so keeping the internal logo."
  },
  {
   "slug": "durr",
@@ -371,7 +371,7 @@
   "raw_filename": "durr.svg",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "Dürr AG (German mechanical/plant engineering). Wikimedia 'Dürr AG logo.svg' — single-color blue (#00488e) boxed 'DÜRR' wordmark, exact match to internal ground truth. Chose this cleaner AG version over the multi-color 'Dürr Group' swoosh logo because it matches the internal boxed wordmark. Validated (<svg/</svg>, rendered correctly)."
+  "notes": "Dürr AG (German mechanical/plant engineering). Wikimedia 'Dürr AG logo.svg' · single-color blue (#00488e) boxed 'DÜRR' wordmark, exact match to internal ground truth. Chose this cleaner AG version over the multi-color 'Dürr Group' swoosh logo because it matches the internal boxed wordmark. Validated (<svg/</svg>, rendered correctly)."
  },
  {
   "slug": "egston",
@@ -382,7 +382,7 @@
   "raw_filename": "egston.svg",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "EGSTON (Austrian electronics / power systems, Eggenburg). Wikimedia 'Logo Egston.svg' — lime-green (#bbd63f) building/bar pictogram + black 'EGSTON' wordmark on transparent. Matches internal mark (internal had the lime background; this is the clean transparent version). Validated and rendered correctly."
+  "notes": "EGSTON (Austrian electronics / power systems, Eggenburg). Wikimedia 'Logo Egston.svg' · lime-green (#bbd63f) building/bar pictogram + black 'EGSTON' wordmark on transparent. Matches internal mark (internal had the lime background; this is the clean transparent version). Validated and rendered correctly."
  },
  {
   "slug": "era",
@@ -393,7 +393,7 @@
   "raw_filename": "era.svg",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "ERA a.s., Pardubice (Czech air-traffic surveillance / avionics). Official site SVG — magenta/crimson (#B50938) lowercase 'era' wordmark with the small airplane symbol, exact match to internal ground truth. Disambiguated from other 'ERA' brands by the airplane mark. Validated and rendered correctly."
+  "notes": "ERA a.s., Pardubice (Czech air-traffic surveillance / avionics). Official site SVG · magenta/crimson (#B50938) lowercase 'era' wordmark with the small airplane symbol, exact match to internal ground truth. Disambiguated from other 'ERA' brands by the airplane mark. Validated and rendered correctly."
  },
  {
   "slug": "erwin-junker",
@@ -404,7 +404,7 @@
   "raw_filename": "erwin-junker.svg",
   "confidence": "medium",
   "brand_match": "yes",
-  "notes": "Erwin Junker Maschinenfabrik / JUNKER Group (German precision grinding machines). worldvectorlogo SVG of the blue (#08c) stylized 'EJ/J' symbol — exactly the mark inside the blue circle of the internal 'JUNKER partner for precision' logo. Confirmed it is the grinding-machine Junker, NOT the unrelated Junkers aircraft/heating brand. The downloaded file had a baked-in full-canvas white background rect (fill=#fff) which I removed to make it transparent; re-rendered clean. Caveat: this is the symbol only (no wordmark/tagline), but a clean correct vector upgrade over the internal raster."
+  "notes": "Erwin Junker Maschinenfabrik / JUNKER Group (German precision grinding machines). worldvectorlogo SVG of the blue (#08c) stylized 'EJ/J' symbol · exactly the mark inside the blue circle of the internal 'JUNKER partner for precision' logo. Confirmed it is the grinding-machine Junker, NOT the unrelated Junkers aircraft/heating brand. The downloaded file had a baked-in full-canvas white background rect (fill=#fff) which I removed to make it transparent; re-rendered clean. Caveat: this is the symbol only (no wordmark/tagline), but a clean correct vector upgrade over the internal raster."
  },
  {
   "slug": "eurosoftware",
@@ -415,7 +415,7 @@
   "raw_filename": "",
   "confidence": "high",
   "brand_match": "unsure",
-  "notes": "Internal mark = striped-sphere symbol + 'EURO SOFTWARE' wordmark + 'A Member of the GK SOFTWARE Group'. EuroSoftware s.r.o. (Plzeň) is now fully absorbed into parent GK Software — eurosoftware.cz redirects to GK Software's careers portal, and the company page shows only the GK Software / GK-Fujitsu parent logo (a DIFFERENT mark). No clean source for the EuroSoftware-specific divisional logo (striped sphere) on Wikimedia/Brandfetch/seeklogo. Deliberately avoided substituting the GK Software parent logo (would be the wrong mark). Keeping the internal logo."
+  "notes": "Internal mark = striped-sphere symbol + 'EURO SOFTWARE' wordmark + 'A Member of the GK SOFTWARE Group'. EuroSoftware s.r.o. (Plzeň) is now fully absorbed into parent GK Software · eurosoftware.cz redirects to GK Software's careers portal, and the company page shows only the GK Software / GK-Fujitsu parent logo (a DIFFERENT mark). No clean source for the EuroSoftware-specific divisional logo (striped sphere) on Wikimedia/Brandfetch/seeklogo. Deliberately avoided substituting the GK Software parent logo (would be the wrong mark). Keeping the internal logo."
  },
  {
   "slug": "explosia",
@@ -426,7 +426,7 @@
   "raw_filename": "explosia.svg",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "Explosia a.s., Semtín/Pardubice (Czech explosives manufacturer, maker of Semtex). Official site SVG (CorelDRAW export) — red (#E31E24) 'E' with star inside a circle + 'EXPLOSIA' wordmark, exact match to internal ground truth. Validated and rendered correctly."
+  "notes": "Explosia a.s., Semtín/Pardubice (Czech explosives manufacturer, maker of Semtex). Official site SVG (CorelDRAW export) · red (#E31E24) 'E' with star inside a circle + 'EXPLOSIA' wordmark, exact match to internal ground truth. Validated and rendered correctly."
  },
  {
   "slug": "foxconn",
@@ -437,7 +437,7 @@
   "raw_filename": "foxconn.svg",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "Foxconn / Hon Hai. Wikimedia 'Foxconn logo.svg' — blue (#0165b0) 'FOXCONN' wordmark with registered-trademark mark, exact match to internal ground truth. Validated (<svg/</svg>) and rendered correctly."
+  "notes": "Foxconn / Hon Hai. Wikimedia 'Foxconn logo.svg' · blue (#0165b0) 'FOXCONN' wordmark with registered-trademark mark, exact match to internal ground truth. Validated (<svg/</svg>) and rendered correctly."
  },
  {
   "slug": "fresh-revolution",
@@ -624,7 +624,7 @@
   "raw_filename": "",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "Impact Industry Brno, a.s. (Rosice u Brna), engineering/sheet-metal firm — confirmed correct entity (impactbrno.cz). Internal mark = grey/red 'i' triangle symbol + 'Impact Industry'. Only logo on their site is /themes/web/logo.png at 220x80, RGB on white (no transparency) — fails both the >=600px and transparency requirements. No Wikimedia/vector source exists for this small Czech company. Keeping internal raster."
+  "notes": "Impact Industry Brno, a.s. (Rosice u Brna), engineering/sheet-metal firm · confirmed correct entity (impactbrno.cz). Internal mark = grey/red 'i' triangle symbol + 'Impact Industry'. Only logo on their site is /themes/web/logo.png at 220x80, RGB on white (no transparency) · fails both the >=600px and transparency requirements. No Wikimedia/vector source exists for this small Czech company. Keeping internal raster."
  },
  {
   "slug": "interkov",
@@ -635,7 +635,7 @@
   "raw_filename": "interkov.png",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "INTERKOV spol. s r.o. (Czech, Praha) — manufacturer of lever-arch binder mechanisms / volume metalwork. Logo pulled from official interkov.cz header. PNG 900x169, RGBA transparent (alpha 0-255). Matches internal ground-truth blue 'INTERKOV' italic wordmark. No SVG available on site; transparent PNG at 900px is a clean upgrade over the internal jpg."
+  "notes": "INTERKOV spol. s r.o. (Czech, Praha) · manufacturer of lever-arch binder mechanisms / volume metalwork. Logo pulled from official interkov.cz header. PNG 900x169, RGBA transparent (alpha 0-255). Matches internal ground-truth blue 'INTERKOV' italic wordmark. No SVG available on site; transparent PNG at 900px is a clean upgrade over the internal jpg."
  },
  {
   "slug": "inteva",
@@ -646,7 +646,7 @@
   "raw_filename": "inteva.png",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "Inteva Products LLC (automotive interiors/closures) — logo from official intevaproducts.com header. PNG 1200x247, RGBA transparent. Matches internal ground-truth: blue half-circle 'i' symbol + black 'INTEVA' italic + 'PRODUCTS'. No clean official SVG found; 1200px transparent PNG is a solid upgrade."
+  "notes": "Inteva Products LLC (automotive interiors/closures) · logo from official intevaproducts.com header. PNG 1200x247, RGBA transparent. Matches internal ground-truth: blue half-circle 'i' symbol + black 'INTEVA' italic + 'PRODUCTS'. No clean official SVG found; 1200px transparent PNG is a solid upgrade."
  },
  {
   "slug": "itw",
@@ -657,7 +657,7 @@
   "raw_filename": "itw.svg",
   "confidence": "medium",
   "brand_match": "yes",
-  "notes": "Internal reference reads 'ITW PRONOVIA, s.r.o. - Global Automotive Components Group' with the red ITW mark; ITW Pronovia is the Czech subsidiary of Illinois Tool Works (ITW) — the parent group brand is correct. Took the official ITW corporate wordmark SVG from itw.com (dark-gray #414141 version, the standard brand color; itw.com's red version was not offered as a clean asset). Valid SVG, has </svg>. Caveat: this is the corporate ITW mark, not the 'Pronovia' subsidiary lockup; color is dark-gray rather than the internal red, but it is the authoritative ITW group logo."
+  "notes": "Internal reference reads 'ITW PRONOVIA, s.r.o. - Global Automotive Components Group' with the red ITW mark; ITW Pronovia is the Czech subsidiary of Illinois Tool Works (ITW) · the parent group brand is correct. Took the official ITW corporate wordmark SVG from itw.com (dark-gray #414141 version, the standard brand color; itw.com's red version was not offered as a clean asset). Valid SVG, has </svg>. Caveat: this is the corporate ITW mark, not the 'Pronovia' subsidiary lockup; color is dark-gray rather than the internal red, but it is the authoritative ITW group logo."
  },
  {
   "slug": "jablotron",
@@ -679,7 +679,7 @@
   "raw_filename": "",
   "confidence": "medium",
   "brand_match": "unsure",
-  "notes": "Jansen Display s.r.o. (Czech POS/display manufacturer, Prestanov). The internal mark is the classic 'jansendisplay - see the difference!' wordmark with a blue bracket. The company has rebranded as 'Showdown Displays Europe'; current jansen-display.cz only serves a rebranded 'JD by SDE' header logo (364x96, fully opaque white background) — wrong/updated mark AND fails size+transparency. No clean transparent source for the original 'jansendisplay see the difference' logo found. Keeping internal raster to avoid using the wrong (rebranded) mark."
+  "notes": "Jansen Display s.r.o. (Czech POS/display manufacturer, Prestanov). The internal mark is the classic 'jansendisplay - see the difference!' wordmark with a blue bracket. The company has rebranded as 'Showdown Displays Europe'; current jansen-display.cz only serves a rebranded 'JD by SDE' header logo (364x96, fully opaque white background) · wrong/updated mark AND fails size+transparency. No clean transparent source for the original 'jansendisplay see the difference' logo found. Keeping internal raster to avoid using the wrong (rebranded) mark."
  },
  {
   "slug": "jtekt",
@@ -701,7 +701,7 @@
   "raw_filename": "",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "KDK Automotive (Czech plant in Tachov; plastic interior components, parent KDK Automotive GmbH) — confirmed correct entity. Internal ground-truth = circular interlocked KDK monogram (blue/grey) + 'KDK Automotive' text. Official site (kdkautomotive.com, old TYPO3) serves only kdk_logo.gif at 288x54 on a white background (opaque, no alpha) — fails >=600px and transparency, and is a GIF not SVG/PNG. No Wikimedia/vector or transparent source found. Keeping internal raster."
+  "notes": "KDK Automotive (Czech plant in Tachov; plastic interior components, parent KDK Automotive GmbH) · confirmed correct entity. Internal ground-truth = circular interlocked KDK monogram (blue/grey) + 'KDK Automotive' text. Official site (kdkautomotive.com, old TYPO3) serves only kdk_logo.gif at 288x54 on a white background (opaque, no alpha) · fails >=600px and transparency, and is a GIF not SVG/PNG. No Wikimedia/vector or transparent source found. Keeping internal raster."
  },
  {
   "slug": "kermi",
@@ -954,7 +954,7 @@
   "raw_filename": "mz-liberec.svg",
   "confidence": "high",
   "brand_match": "unsure",
-  "notes": "Right company confirmed (MZ Liberec, mzliberec.cz, medical/industrial gas distribution systems). This is the CURRENT official logo: a modern black 'MZ' monogram + black 'Liberec'. However it differs notably from the internal ground truth, which is the OLDER blue circular 'mz' emblem (m/z in a dark-blue ring) + blue 'mz Liberec'. Same entity, newer brand version, different symbol and color — flagged unsure so the orchestrator can decide whether to keep the internal blue-emblem version. The file itself is a clean valid SVG."
+  "notes": "Right company confirmed (MZ Liberec, mzliberec.cz, medical/industrial gas distribution systems). This is the CURRENT official logo: a modern black 'MZ' monogram + black 'Liberec'. However it differs notably from the internal ground truth, which is the OLDER blue circular 'mz' emblem (m/z in a dark-blue ring) + blue 'mz Liberec'. Same entity, newer brand version, different symbol and color · flagged unsure so the orchestrator can decide whether to keep the internal blue-emblem version. The file itself is a clean valid SVG."
  },
  {
   "slug": "notino",
@@ -1163,7 +1163,7 @@
   "raw_filename": "swoboda-stamping.svg",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "Official Swoboda group logo SVG from swoboda.com (valid SVG, 12.9KB, viewBox 197x59). The 'swoboda' wordmark matches the internal exactly; internal additionally has 'stamping' (a division label). This is the parent/group mark — same brand, division suffix omitted. Clean blue vector."
+  "notes": "Official Swoboda group logo SVG from swoboda.com (valid SVG, 12.9KB, viewBox 197x59). The 'swoboda' wordmark matches the internal exactly; internal additionally has 'stamping' (a division label). This is the parent/group mark · same brand, division suffix omitted. Clean blue vector."
  },
  {
   "slug": "tech-data",
@@ -1207,7 +1207,7 @@
   "raw_filename": "tkd-epcos.svg",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "TDK full logo SVG (blue #0A57A0 geometric triangle/diamond symbol + 'TDK' wordmark), rendered and visually confirmed. Correct entity: internal mark is the TDK symbol + 'TDK / TDK-EPC' — EPCOS AG became TDK Electronics (formerly TDK-EPC), so the current TDK corporate logo is the right brand. Wikimedia TDK SVGs existed but upload.wikimedia.org was IP-blocked; used companieslogo full-size vector. The internal 'TDK-EPC' sub-text is legacy and not in the current corporate mark."
+  "notes": "TDK full logo SVG (blue #0A57A0 geometric triangle/diamond symbol + 'TDK' wordmark), rendered and visually confirmed. Correct entity: internal mark is the TDK symbol + 'TDK / TDK-EPC' · EPCOS AG became TDK Electronics (formerly TDK-EPC), so the current TDK corporate logo is the right brand. Wikimedia TDK SVGs existed but upload.wikimedia.org was IP-blocked; used companieslogo full-size vector. The internal 'TDK-EPC' sub-text is legacy and not in the current corporate mark."
  },
  {
   "slug": "trcz",
@@ -1328,6 +1328,6 @@
   "raw_filename": "",
   "confidence": "high",
   "brand_match": "yes",
-  "notes": "Výzkumný ústav železniční, a.s. (VUZ), cdvuz.cz — Czech railway research institute. Ground-truth internal mark is the italic-bold 'VUZ' wordmark inside a stadium/pill double-border outline; I confirmed the brand by matching the official site's header logo (vuz-logo.webp), which is pixel-for-pixel the same mark. No SVG exists anywhere (site theme assets, footer, or Wikimedia Commons). The only official transparent assets are the header WebP (500x298) and footer PNG (500x298), both white-on-transparent and identical to the internal asset — both below the 600px minimum width and not better than the internal raster. Honest outcome: keep the internal logo."
+  "notes": "Výzkumný ústav železniční, a.s. (VUZ), cdvuz.cz · Czech railway research institute. Ground-truth internal mark is the italic-bold 'VUZ' wordmark inside a stadium/pill double-border outline; I confirmed the brand by matching the official site's header logo (vuz-logo.webp), which is pixel-for-pixel the same mark. No SVG exists anywhere (site theme assets, footer, or Wikimedia Commons). The only official transparent assets are the header WebP (500x298) and footer PNG (500x298), both white-on-transparent and identical to the internal asset · both below the 600px minimum width and not better than the internal raster. Honest outcome: keep the internal logo."
  }
 ]

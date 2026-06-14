@@ -240,64 +240,29 @@ window.SINTERA_DATA = {
   ],
   "rotor": [
     {
-      "q": "Reference opakovaně potvrzují kandidáty, kteří splňují požadavky role. Neřeší se objem CV, ale relevantní výběr.",
-      "c": "Přesnost",
+      "q": "Představujeme kandidáty s jasným důvodem, proč má smysl s nimi mluvit. Ne profily, u kterých si musíte domýšlet, proč vám přišly.",
+      "c": "",
       "id": "rot_01"
     },
     {
-      "q": "V referencích se vrací stejný motiv: kandidáti odpovídají zadání a odpadá třídění profilů mimo rozsah.",
-      "c": "Přesnost",
+      "q": "Když je search vedený přesně, firma netřídí hromadu nerelevantních CV. Vede rozhovory s lidmi, kteří dávají smysl.",
+      "c": "",
       "id": "rot_02"
     },
     {
-      "q": "Některé reference popisují uchazeče, kteří původně působili jako nedostupní. Právě tam začíná smysl cíleného search procesu.",
-      "c": "Kandidáti mimo aktivní trh",
+      "q": "Někdy nejde o to najít víc reakcí. Jde o to najít lidi, kteří se běžně neukážou, protože práci mají.",
+      "c": "",
       "id": "rot_03"
     },
     {
-      "q": "Podklady nejsou jen CV. Obsahují komentář, mzdová očekávání, motivaci ke změně i dostupnost k pohovoru.",
-      "c": "Kontext",
+      "q": "Kandidát nemá být jen někde poblíž zadání. Má mít jasný důvod, proč stojí za rozhovor.",
+      "c": "",
       "id": "rot_04"
     },
     {
-      "q": "Dobře vedený search začíná otázkami. Konzultanti se doptávají do detailů ještě před tím, než začnou hledat.",
-      "c": "Zadání",
+      "q": "Dobrý výstup ze search procesu není jen CV. Je to kontext, který pomáhá firmě rozhodnout se rychleji a věcněji.",
+      "c": "",
       "id": "rot_05"
-    },
-    {
-      "q": "U úzkých technických rolí reference ukazují vysokou úspěšnost trefení profilu a rychlejší posun k rozhovorům.",
-      "c": "Specifické role",
-      "id": "rot_06"
-    },
-    {
-      "q": "Search nemusí fungovat jako černá skříňka. Pravidelný reporting ukazuje aktivity, trh i směr hledání.",
-      "c": "Reporting",
-      "id": "rot_07"
-    },
-    {
-      "q": "Část spoluprací trvá roky. Důvodem není zvyk, ale znalost firmy, pozic a trhu kandidátů.",
-      "c": "Dlouhodobá spolupráce",
-      "id": "rot_08"
-    },
-    {
-      "q": "Rychlost tady neznamená poslat první dostupné CV. Znamená rychle najít správný směr a držet ho bez zbytečných koleček.",
-      "c": "Rychlost",
-      "id": "rot_09"
-    },
-    {
-      "q": "Stabilní tým konzultantů drží znalost firmy i oboru. Zadání se proto nemusí pokaždé stavět od nuly.",
-      "c": "Stabilní tým",
-      "id": "rot_10"
-    },
-    {
-      "q": "Kvalitu spolupráce potvrzuje i druhá strana trhu. Některé reference zmiňují pozitivní zpětnou vazbu samotných kandidátů.",
-      "c": "Candidate experience",
-      "id": "rot_11"
-    },
-    {
-      "q": "Některé reference potvrzují konkrétní konec procesu: nabídku, podpis smlouvy a nástup v dohodnutém termínu.",
-      "c": "Výsledek",
-      "id": "rot_12"
     }
   ],
   "clients": [

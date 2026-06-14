@@ -1,4 +1,4 @@
-/* SINTERA — aktuální pozice (staženo ze sintera.cz, obor + seniorita doplněny návrhem)
+/* SINTERA · aktuální pozice (staženo ze sintera.cz, obor + seniorita doplněny návrhem)
    obor:  vyroba | auto | tech | kvalita | logistika | servis | projekty | finance | hr | obchod
    sen:   spec (Specialisté a technici) | man (Management) | top (Top management)
    bonus: true = náborový příspěvek v názvu pozice */

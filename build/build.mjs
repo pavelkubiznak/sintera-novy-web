@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /* =====================================================================
-   Sintera web — build (Google Sheets → statické HTML + SEO).
+   Sintera web · build (Google Sheets → statické HTML + SEO).
    Node 18+ (globální fetch).  Spuštění:  node build/build.mjs
 
    1) Načte publikované Google Sheets (CSV) pro pozice / reference / cases / klienty.
-   2) Při výpadku nebo prázdné URL použije commitnutý JSON (fallback) — web se nikdy nerozbije.
+   2) Při výpadku nebo prázdné URL použije commitnutý JSON (fallback) · web se nikdy nerozbije.
    3) Zapíše snapshoty do assets/data/ a reference-data.js (zdroj pro klientský JS).
    4) Prerender: z build/templates/index.template.html vyrobí index.html (obsah v HTML, SEO).
    5) Vygeneruje samostatné stránky pozic pozice/<id>.html s JobPosting JSON-LD
@@ -106,7 +106,7 @@ function mapPositions(rows) {
 /* ---------- generátory HTML sekcí (prerender) ---------- */
 function rotorHTML(rotor) {
   return rotor.map((r, i) =>
-    `<figure class="rotor-item${i === 0 ? " active" : ""}"><blockquote>„${esc(r.q)}“</blockquote><figcaption>${esc(r.c)}</figcaption></figure>`
+    `<figure class="rotor-item${i === 0 ? " active" : ""}"><blockquote>„${esc(r.q)}“</blockquote>${r.c ? `<figcaption>${esc(r.c)}</figcaption>` : ""}</figure>`
   ).join("\n");
 }
 function casesHTML(cases, n = 6) {
@@ -134,9 +134,11 @@ function marqueeHTML(clients) {
   const one = clients.map(node).join("");
   return one + one; // zdvojeno pro plynulou smyčku
 }
+const HOMEPAGE_POS = [830, 856, 862, 853, 805, 833, 795, 827, 832]; // kurátorský výběr pro homepage (max 9); ostatní zůstávají na pozice/<id>.html + v sitemap
 function positionsHTML(positions, labels) {
-  const sorted = positions.slice().sort((a, b) => b.id - a.id);
-  return sorted.map(p => {
+  const byId = new Map(positions.map(p => [p.id, p]));
+  const curated = HOMEPAGE_POS.map(id => byId.get(id)).filter(Boolean).slice(0, 9);
+  return curated.map(p => {
     const bonus = p.bonus ? `<span class="bonus">Příspěvek ${esc(p.bonus)}</span>` : "";
     return `<div class="pos-item"><a class="pos-row" href="pozice/${esc(p.id)}.html">` +
       `<span class="t">${esc(p.t)}${bonus}</span>` +

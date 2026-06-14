@@ -96,7 +96,7 @@
     var el = document.getElementById("presnost-rotor");
     if (!el || !data.length) return;
     el.innerHTML = data.map(function (r, i) {
-      return '<figure class="rotor-item' + (i === 0 ? " active" : "") + '"><blockquote>„' + esc(r.q) + "“</blockquote><figcaption>" + esc(r.c) + "</figcaption></figure>";
+      return '<figure class="rotor-item' + (i === 0 ? " active" : "") + '"><blockquote>„' + esc(r.q) + "“</blockquote>" + (r.c ? "<figcaption>" + esc(r.c) + "</figcaption>" : "") + "</figure>";
     }).join("");
     var items = el.querySelectorAll(".rotor-item");
     if (items.length < 2 || reduced) return;
@@ -185,35 +185,19 @@
 
   /* ---------- pozice: filtr + detail + formulář ---------- */
   var OB = window.OBORY || {}, SEN = window.SENIORITY || {}, KR = window.KRAJE || [];
-  var POS = (window.POZICE || []).slice().sort(function (a, b) { return b.id - a.id; }).map(function (p) {
-    return { id: p.id, title: p.t, field: OB[p.o] || p.o, level: SEN[p.s] || p.s, locs: p.k || [], loc: (p.k || []).join(" / "), bonus: p.bonus || "" };
+  // kurátorský výběr rolí pro homepage (max 9). Všechny pozice zůstávají v datech i na vlastních stránkách pozice/<id>.html.
+  var HOMEPAGE_POS = [830, 856, 862, 853, 805, 833, 795, 827, 832];
+  var byId = {}; (window.POZICE || []).forEach(function (p) { byId[p.id] = p; });
+  var POS = HOMEPAGE_POS.map(function (id) { return byId[id]; }).filter(Boolean).slice(0, 9).map(function (p) {
+    return { id: p.id, title: p.t, field: OB[p.o] || p.o, level: SEN[p.s] || p.s, loc: (p.k || []).join(" / "), bonus: p.bonus || "" };
   });
-  var state = { loc: null, field: null, level: null };
   var list = document.getElementById("pos-list");
   var empty = document.getElementById("pos-empty");
-  var count = document.getElementById("f-count");
-
-  function uniq(key) {
-    if (key === "loc") {
-      var seen = {}, out = [];
-      POS.forEach(function (p) { p.locs.forEach(function (k) { if (!seen[k]) { seen[k] = 1; out.push(k); } }); });
-      return out.sort(function (a, b) { var ia = KR.indexOf(a), ib = KR.indexOf(b); if (ia < 0) ia = 99; if (ib < 0) ib = 99; return ia - ib || a.localeCompare(b, "cs"); });
-    }
-    var s = {};
-    return POS.map(function (p) { return p[key]; }).filter(function (v) { if (!v || s[v]) return false; s[v] = 1; return true; })
-      .sort(function (a, b) { return a.localeCompare(b, "cs"); });
-  }
-  function matches(p) {
-    return (!state.loc || p.locs.indexOf(state.loc) > -1) &&
-      (!state.field || p.field === state.field) &&
-      (!state.level || p.level === state.level);
-  }
 
   function renderPositions() {
     if (!list) return;
-    var rows = POS.filter(matches);
     list.innerHTML = "";
-    rows.forEach(function (p, i) {
+    POS.forEach(function (p, i) {
       var wrap = document.createElement("div");
       wrap.className = "pos-item";
       var row = document.createElement("div");
@@ -261,46 +245,7 @@
         window.location.href = "mailto:info@sintera.cz?subject=" + encodeURIComponent(form.dataset.subject) + "&body=" + encodeURIComponent(body);
       });
     });
-    if (empty) empty.hidden = rows.length !== 0;
-    if (count) {
-      var has = state.loc || state.field || state.level;
-      count.textContent = has ? "Zobrazeno " + rows.length + " z " + POS.length + " pozic" : POS.length + " otevřených pozic";
-    }
-  }
-
-  function buildFilters() {
-    document.querySelectorAll(".f-chip").forEach(function (chip) {
-      var key = chip.dataset.key, menu = chip.querySelector(".f-menu"), label = chip.querySelector("summary b");
-      function buildMenu() {
-        menu.innerHTML = "";
-        ["vše"].concat(uniq(key)).forEach(function (opt) {
-          var b = document.createElement("button"); b.type = "button"; b.textContent = opt;
-          var val = opt === "vše" ? null : opt;
-          if (state[key] === val) b.classList.add("sel");
-          b.addEventListener("click", function () {
-            state[key] = val; label.textContent = opt; chip.dataset.active = val ? "true" : "false";
-            chip.removeAttribute("open"); buildMenu(); renderPositions();
-          });
-          menu.appendChild(b);
-        });
-      }
-      buildMenu();
-      chip.addEventListener("toggle", function () {
-        if (chip.open) document.querySelectorAll(".f-chip[open]").forEach(function (o) { if (o !== chip) o.removeAttribute("open"); });
-      });
-    });
-    document.addEventListener("click", function (ev) {
-      if (!ev.target.closest(".f-chip")) document.querySelectorAll(".f-chip[open]").forEach(function (c) { c.removeAttribute("open"); });
-    });
-    var reset = document.getElementById("f-reset");
-    if (reset) reset.addEventListener("click", function () {
-      state = { loc: null, field: null, level: null };
-      document.querySelectorAll(".f-chip").forEach(function (chip) {
-        chip.querySelector("summary b").textContent = "vše"; chip.dataset.active = "false";
-        chip.querySelectorAll(".f-menu button").forEach(function (b, i) { b.classList.toggle("sel", i === 0); });
-      });
-      renderPositions();
-    });
+    if (empty) empty.hidden = POS.length !== 0;
   }
 
   /* ---------- render vše ---------- */
@@ -308,7 +253,6 @@
   renderRotor(DATA.rotor || []);
   renderReferences((DATA.references || []).slice(0, 9));
   renderCases((DATA.cases || []).slice(0, 6));
-  buildFilters();
   renderPositions();
   var yr = document.getElementById("yr"); if (yr) yr.textContent = new Date().getFullYear();
   window.dispatchEvent(new Event("sintera:rendered"));
