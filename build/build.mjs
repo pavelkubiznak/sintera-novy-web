@@ -131,8 +131,8 @@ function marqueeHTML(clients) {
   const node = c => c.logo
     ? `<span class="logo-slot"><img src="${esc(c.logo)}" alt="${esc(c.name)}" loading="lazy" /></span>`
     : `<span class="client-name">${esc(c.name)}</span>`;
-  const one = clients.map(node).join("");
-  return one + one; // zdvojeno pro plynulou smyčku
+  const group = `<div class="mq-group">${clients.map(node).join("")}</div>`;
+  return group + group; // dvě identické skupiny pro plynulou smyčku bez mezery
 }
 const HOMEPAGE_POS = [830, 856, 862, 853, 805, 833, 795, 827, 832]; // kurátorský výběr pro homepage (max 9); ostatní zůstávají na pozice/<id>.html + v sitemap
 function positionsHTML(positions, labels) {

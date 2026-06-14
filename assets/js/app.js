@@ -87,8 +87,9 @@
   function renderMarquee(data) {
     var el = document.getElementById("marquee-track");
     if (!el) return;
-    var html = data.map(clientNode).join("");
-    el.innerHTML = html + html;
+    var group = '<div class="mq-group">' + data.map(clientNode).join("") + "</div>";
+    el.innerHTML = group + group;
+    el.style.animationDuration = Math.max(30, Math.round(data.length * 2.5)) + "s";
   }
 
   /* ---------- rotující výroky o přesnosti ---------- */
@@ -101,8 +102,15 @@
     var items = el.querySelectorAll(".rotor-item");
     if (items.length < 2 || reduced) return;
     var idx = 0, timer;
-    function tick() { if (docEl.dataset.motion === "jemne") return; items[idx].classList.remove("active"); idx = (idx + 1) % items.length; items[idx].classList.add("active"); }
-    function start() { clearInterval(timer); timer = setInterval(tick, 4200); }
+    function tick() {
+      if (docEl.dataset.motion === "jemne") return;
+      var cur = items[idx];
+      cur.classList.remove("active"); cur.classList.add("exit");
+      idx = (idx + 1) % items.length;
+      items[idx].classList.add("active");
+      setTimeout(function () { cur.classList.remove("exit"); }, 750);
+    }
+    function start() { clearInterval(timer); timer = setInterval(tick, 7700); }
     el.addEventListener("mouseenter", function () { clearInterval(timer); });
     el.addEventListener("mouseleave", start);
     start();
@@ -461,11 +469,13 @@
     if (items.length < 2 || reduced) return;
     var idx = 0, timer;
     function go() {
-      items[idx].classList.remove("active"); items[idx].setAttribute("aria-hidden", "true");
+      var cur = items[idx];
+      cur.classList.remove("active"); cur.classList.add("exit"); cur.setAttribute("aria-hidden", "true");
       idx = (idx + 1) % items.length;
       items[idx].classList.add("active"); items[idx].setAttribute("aria-hidden", "false");
+      setTimeout(function () { cur.classList.remove("exit"); }, 750);
     }
-    function start() { clearInterval(timer); timer = setInterval(go, 6000); }
+    function start() { clearInterval(timer); timer = setInterval(go, 7700); }
     rotor.addEventListener("mouseenter", function () { clearInterval(timer); });
     rotor.addEventListener("mouseleave", start);
     start();

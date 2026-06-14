@@ -199,7 +199,8 @@ html[data-theme="svetly"] .logo-dark { display: none; }
   transition: background 0.4s ease;
 }
 .marquee { overflow: hidden; }
-.marquee-track { display: flex; gap: 72px; width: max-content; animation: mq 32s linear infinite; padding-right: 72px; }
+.marquee-track { display: flex; width: max-content; animation: mq 320s linear infinite; }
+.mq-group { display: flex; align-items: center; gap: 64px; padding-right: 64px; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 .marquee-track span {
   font-size: 15px;
@@ -954,8 +955,9 @@ html[data-motion="jemne"] .logo-band-track { animation: none; }
 
 /* ---------- rotující výroky o přesnosti ---------- */
 .rotor { display: grid; margin-top: clamp(36px, 5vw, 52px); }
-.rotor-item { grid-area: 1 / 1; opacity: 0; transition: opacity 0.8s ease; }
-.rotor-item.active { opacity: 1; }
+.rotor-item { grid-area: 1 / 1; opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.rotor-item.active { opacity: 1; transform: translateX(0); }
+.rotor-item.exit { opacity: 0; transform: translateX(-40px); }
 .rotor-item blockquote { margin: 0; font-family: var(--serif-text); font-style: italic; font-size: clamp(19px, 1.7vw, 25px); line-height: 1.42; text-wrap: pretty; }
 .rotor-item figcaption { margin-top: 16px; font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); display: flex; align-items: center; gap: 12px; }
 .rotor-item figcaption::before { content: ""; width: 22px; height: 2px; background: var(--accent); display: block; }
@@ -992,6 +994,24 @@ html[data-motion="jemne"] .logo-band-track { animation: none; }
   .process-progress { display: none; }
   .step { min-height: auto; padding: 36px 0; opacity: 1; transform: none; }
   .pos-detail-pad { grid-template-columns: 1fr; }
+
+  /* dekorativní "nit" se na úzkých displejích kříží s textem → skrýt */
+  #thread-svg { display: none; }
+
+  /* pozice: blokové rozložení místo pevných sloupců (oprava přetékání doprava) */
+  .pos-row {
+    display: block;
+    grid-template-columns: none;
+    position: relative;
+    padding: 22px 42px 22px 8px;
+  }
+  .pos-row:hover { padding-left: 8px; padding-right: 42px; }
+  .pos-row .t { display: block; margin-bottom: 6px; }
+  .pos-row .m { display: inline; font-size: 14px; }
+  .pos-row .m.field::after,
+  .pos-row .m.level::after { content: " · "; color: var(--dim); }
+  .pos-row .arr { position: absolute; right: 6px; top: 22px; transform: none; opacity: 1; text-align: right; }
+  .pos-row[aria-expanded="true"] .arr { transform: rotate(90deg); }
 }
 
 @media (max-width: 860px) {
@@ -1024,18 +1044,8 @@ html[data-motion="jemne"] .logo-band-track { animation: none; }
   .proof-pill { margin-bottom: 16px; }
   .refs-grid, .cases-grid { grid-template-columns: 1fr; }
   .infra-figure { grid-template-columns: repeat(2, 1fr); }
-  .pos-row {
-    grid-template-columns: 1fr 28px;
-    grid-template-areas: "title arr" "meta arr";
-    gap: 6px 16px;
-    row-gap: 8px;
-  }
-  .pos-row .t { grid-area: title; }
-  .pos-row .arr { grid-area: arr; align-self: center; }
+  /* .pos-row řešeno výše v ≤1080 (blokové rozložení, bez přetékání) */
   .pos-row .m { font-size: 13px; }
-  .pos-row .m.field { grid-area: meta; }
-  .pos-row .m.level, .pos-row .m.loc { display: inline; }
-  .pos-row .m.level::after { content: " · "; color: var(--line); }
 }
 
 @media (max-width: 640px) {
@@ -1074,6 +1084,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .pos-row:focus-vis
 
 /* rotující klientské citace (.mcite-rotor) — stejný vizuál jako .mcite, jen se prolínají */
 .mcite-rotor { display: grid; max-width: 760px; margin: clamp(40px, 5vw, 60px) 0 0; }
-.mcite-rotor .mcite { grid-area: 1 / 1; max-width: none; margin: 0; opacity: 0; transition: opacity 0.6s ease; }
-.mcite-rotor .mcite.active { opacity: 1; }
+.mcite-rotor .mcite { grid-area: 1 / 1; max-width: none; margin: 0; opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.mcite-rotor .mcite.active { opacity: 1; transform: translateX(0); }
+.mcite-rotor .mcite.exit { opacity: 0; transform: translateX(-40px); }
 @media (prefers-reduced-motion: reduce) { .mcite-rotor .mcite { transition: none; } }

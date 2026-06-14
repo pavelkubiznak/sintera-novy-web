@@ -267,40 +267,36 @@ window.SINTERA_DATA = {
   ],
   "clients": [
     {
-      "name": "Nestlé",
-      "logo": "assets/logos/processed/mono-light/nestle-mono-light.svg"
-    },
-    {
-      "name": "Siemens Energy",
-      "logo": "assets/logos/processed/mono-light/siemens-energy-mono-light.svg"
-    },
-    {
-      "name": "Panasonic",
-      "logo": "assets/logos/processed/mono-light/panasonic-mono-light.svg"
-    },
-    {
-      "name": "ZF",
-      "logo": "assets/logos/processed/mono-light/zf-mono-light.svg"
-    },
-    {
-      "name": "Safran",
-      "logo": "assets/logos/processed/mono-light/safran-cabin-mono-light.svg"
+      "name": "Aisan Industry",
+      "logo": "assets/logos/processed/mono-light/aisan-mono-light.svg"
     },
     {
       "name": "Alstom",
       "logo": "assets/logos/processed/mono-light/alstom-mono-light.svg"
     },
     {
-      "name": "Vitesco",
-      "logo": "assets/logos/processed/mono-light/vitesco-mono-light.svg"
-    },
-    {
       "name": "Edwards",
       "logo": "assets/logos/processed/mono-light/edwards-mono-light.svg"
     },
     {
-      "name": "Aisan Industry",
-      "logo": "assets/logos/processed/mono-light/aisan-mono-light.svg"
+      "name": "Nestlé",
+      "logo": "assets/logos/processed/mono-light/nestle-mono-light.svg"
+    },
+    {
+      "name": "Panasonic",
+      "logo": "assets/logos/processed/mono-light/panasonic-mono-light.svg"
+    },
+    {
+      "name": "Safran Cabin",
+      "logo": "assets/logos/processed/mono-light/safran-cabin-mono-light.svg"
+    },
+    {
+      "name": "Siemens Energy",
+      "logo": "assets/logos/processed/mono-light/siemens-energy-mono-light.svg"
+    },
+    {
+      "name": "Winning Group",
+      "logo": "assets/logos/processed/mono-light/winning-group-mono-light.svg"
     },
     {
       "name": "LINET",
@@ -311,8 +307,488 @@ window.SINTERA_DATA = {
       "logo": "assets/logos/processed/mono-light/secheron-hasler-mono-light.png"
     },
     {
-      "name": "Winning Group",
-      "logo": "assets/logos/processed/mono-light/winning-group-mono-light.svg"
+      "name": "Vitesco Technologies",
+      "logo": "assets/logos/processed/mono-light/vitesco-mono-light.svg"
+    },
+    {
+      "name": "ZF",
+      "logo": "assets/logos/processed/mono-light/zf-mono-light.svg"
+    },
+    {
+      "name": "Adp",
+      "logo": "assets/logos/processed/mono-light/adp-mono-light.png"
+    },
+    {
+      "name": "Aero",
+      "logo": "assets/logos/processed/mono-light/aero-mono-light.png"
+    },
+    {
+      "name": "Aero Vodochody",
+      "logo": "assets/logos/processed/mono-light/aero-vodochody-mono-light.png"
+    },
+    {
+      "name": "Alldest",
+      "logo": "assets/logos/processed/mono-light/alldest-mono-light.png"
+    },
+    {
+      "name": "Araymond",
+      "logo": "assets/logos/processed/mono-light/araymond-mono-light.png"
+    },
+    {
+      "name": "Automotive Lighting",
+      "logo": "assets/logos/processed/mono-light/automotive-lighting-mono-light.png"
+    },
+    {
+      "name": "Benteler",
+      "logo": "assets/logos/processed/mono-light/benteler-mono-light.png"
+    },
+    {
+      "name": "Best",
+      "logo": "assets/logos/processed/mono-light/best-mono-light.png"
+    },
+    {
+      "name": "Bombardier",
+      "logo": "assets/logos/processed/mono-light/bombardier-mono-light.png"
+    },
+    {
+      "name": "Bosch",
+      "logo": "assets/logos/processed/mono-light/bosch-mono-light.png"
+    },
+    {
+      "name": "Bronswerk",
+      "logo": "assets/logos/processed/mono-light/bronswerk-mono-light.png"
+    },
+    {
+      "name": "Bull",
+      "logo": "assets/logos/processed/mono-light/bull-mono-light.png"
+    },
+    {
+      "name": "Busch Výroba",
+      "logo": "assets/logos/processed/mono-light/busch-vyroba-mono-light.png"
+    },
+    {
+      "name": "Comap",
+      "logo": "assets/logos/processed/mono-light/comap-mono-light.png"
+    },
+    {
+      "name": "Continental",
+      "logo": "assets/logos/processed/mono-light/continental-mono-light.png"
+    },
+    {
+      "name": "Coorstek",
+      "logo": "assets/logos/processed/mono-light/coorstek-mono-light.png"
+    },
+    {
+      "name": "Crystalex",
+      "logo": "assets/logos/processed/mono-light/crystalex-mono-light.png"
+    },
+    {
+      "name": "CSAD",
+      "logo": "assets/logos/processed/mono-light/csad-mono-light.png"
+    },
+    {
+      "name": "Daiho",
+      "logo": "assets/logos/processed/mono-light/daiho-mono-light.png"
+    },
+    {
+      "name": "Daikin",
+      "logo": "assets/logos/processed/mono-light/daikin-mono-light.png"
+    },
+    {
+      "name": "Danzer",
+      "logo": "assets/logos/processed/mono-light/danzer-mono-light.png"
+    },
+    {
+      "name": "Durr",
+      "logo": "assets/logos/processed/mono-light/durr-mono-light.png"
+    },
+    {
+      "name": "Egston",
+      "logo": "assets/logos/processed/mono-light/egston-mono-light.png"
+    },
+    {
+      "name": "Era",
+      "logo": "assets/logos/processed/mono-light/era-mono-light.png"
+    },
+    {
+      "name": "Explosia",
+      "logo": "assets/logos/processed/mono-light/explosia-mono-light.png"
+    },
+    {
+      "name": "Foxconn",
+      "logo": "assets/logos/processed/mono-light/foxconn-mono-light.png"
+    },
+    {
+      "name": "Fte",
+      "logo": "assets/logos/processed/mono-light/fte-mono-light.png"
+    },
+    {
+      "name": "Gebauer Griller",
+      "logo": "assets/logos/processed/mono-light/gebauer-griller-mono-light.png"
+    },
+    {
+      "name": "Gerresheimer",
+      "logo": "assets/logos/processed/mono-light/gerresheimer-mono-light.png"
+    },
+    {
+      "name": "Glenmark",
+      "logo": "assets/logos/processed/mono-light/glenmark-mono-light.png"
+    },
+    {
+      "name": "Grammer",
+      "logo": "assets/logos/processed/mono-light/grammer-mono-light.png"
+    },
+    {
+      "name": "Hyundai Mobis",
+      "logo": "assets/logos/processed/mono-light/hyundai-mobis-mono-light.png"
+    },
+    {
+      "name": "Ideal Automotive",
+      "logo": "assets/logos/processed/mono-light/ideal-automotive-mono-light.png"
+    },
+    {
+      "name": "Interkov",
+      "logo": "assets/logos/processed/mono-light/interkov-mono-light.png"
+    },
+    {
+      "name": "Inteva",
+      "logo": "assets/logos/processed/mono-light/inteva-mono-light.png"
+    },
+    {
+      "name": "Jablotron",
+      "logo": "assets/logos/processed/mono-light/jablotron-mono-light.png"
+    },
+    {
+      "name": "Jtekt",
+      "logo": "assets/logos/processed/mono-light/jtekt-mono-light.png"
+    },
+    {
+      "name": "Kermi",
+      "logo": "assets/logos/processed/mono-light/kermi-mono-light.png"
+    },
+    {
+      "name": "Konplan",
+      "logo": "assets/logos/processed/mono-light/konplan-mono-light.png"
+    },
+    {
+      "name": "Lactalis - Mlékárna Klatovy",
+      "logo": "assets/logos/processed/mono-light/lactalis-mlekarna-klatovy-mono-light.png"
+    },
+    {
+      "name": "Leoni",
+      "logo": "assets/logos/processed/mono-light/leoni-mono-light.png"
+    },
+    {
+      "name": "Madeta",
+      "logo": "assets/logos/processed/mono-light/madeta-mono-light.png"
+    },
+    {
+      "name": "Magna",
+      "logo": "assets/logos/processed/mono-light/magna-mono-light.png"
+    },
+    {
+      "name": "Mahle",
+      "logo": "assets/logos/processed/mono-light/mahle-mono-light.png"
+    },
+    {
+      "name": "Mann Hummel",
+      "logo": "assets/logos/processed/mono-light/mann-hummel-mono-light.png"
+    },
+    {
+      "name": "Mea",
+      "logo": "assets/logos/processed/mono-light/mea-mono-light.png"
+    },
+    {
+      "name": "Meopta",
+      "logo": "assets/logos/processed/mono-light/meopta-mono-light.png"
+    },
+    {
+      "name": "Mobis Czech",
+      "logo": "assets/logos/processed/mono-light/mobis-czech-mono-light.png"
+    },
+    {
+      "name": "Mssl",
+      "logo": "assets/logos/processed/mono-light/mssl-mono-light.png"
+    },
+    {
+      "name": "Mubea",
+      "logo": "assets/logos/processed/mono-light/mubea-mono-light.png"
+    },
+    {
+      "name": "MZ Liberec",
+      "logo": "assets/logos/processed/mono-light/mz-liberec-mono-light.png"
+    },
+    {
+      "name": "Notino",
+      "logo": "assets/logos/processed/mono-light/notino-mono-light.png"
+    },
+    {
+      "name": "Omega Optics",
+      "logo": "assets/logos/processed/mono-light/omega-optics-mono-light.png"
+    },
+    {
+      "name": "Openmatics",
+      "logo": "assets/logos/processed/mono-light/openmatics-mono-light.png"
+    },
+    {
+      "name": "Pekm - Cvg",
+      "logo": "assets/logos/processed/mono-light/pekm-cvg-mono-light.png"
+    },
+    {
+      "name": "Prysmian Group",
+      "logo": "assets/logos/processed/mono-light/prysmian-group-mono-light.png"
+    },
+    {
+      "name": "Rs Automotive",
+      "logo": "assets/logos/processed/mono-light/rs-automotive-mono-light.png"
+    },
+    {
+      "name": "Sanborn",
+      "logo": "assets/logos/processed/mono-light/sanborn-mono-light.png"
+    },
+    {
+      "name": "SITEL",
+      "logo": "assets/logos/processed/mono-light/sitel-mono-light.png"
+    },
+    {
+      "name": "Skaličan",
+      "logo": "assets/logos/processed/mono-light/skalican-mono-light.png"
+    },
+    {
+      "name": "SSI Schäfer",
+      "logo": "assets/logos/processed/mono-light/ssi-schafer-mono-light.png"
+    },
+    {
+      "name": "Swoboda-stamping",
+      "logo": "assets/logos/processed/mono-light/swoboda-stamping-mono-light.png"
+    },
+    {
+      "name": "Škoda",
+      "logo": "assets/logos/processed/mono-light/skoda-mono-light.png"
+    },
+    {
+      "name": "Technistone",
+      "logo": "assets/logos/processed/mono-light/technistone-mono-light.png"
+    },
+    {
+      "name": "Tgs",
+      "logo": "assets/logos/processed/mono-light/tgs-mono-light.png"
+    },
+    {
+      "name": "TKD - Epcos",
+      "logo": "assets/logos/processed/mono-light/tkd-epcos-mono-light.png"
+    },
+    {
+      "name": "Trw",
+      "logo": "assets/logos/processed/mono-light/trw-mono-light.png"
+    },
+    {
+      "name": "Voith",
+      "logo": "assets/logos/processed/mono-light/voith-mono-light.png"
+    },
+    {
+      "name": "Wanzl",
+      "logo": "assets/logos/processed/mono-light/wanzl-mono-light.png"
+    },
+    {
+      "name": "Zodiac",
+      "logo": "assets/logos/processed/mono-light/zodiac-mono-light.png"
+    },
+    {
+      "name": "Akt",
+      "logo": "assets/logos/processed/mono-light/akt-mono-light.png"
+    },
+    {
+      "name": "Astos Machinery",
+      "logo": "assets/logos/processed/mono-light/astos-machinery-mono-light.png"
+    },
+    {
+      "name": "Čd Telematika",
+      "logo": "assets/logos/processed/mono-light/cd-telematika-mono-light.png"
+    },
+    {
+      "name": "Erwin Junker",
+      "logo": "assets/logos/processed/mono-light/erwin-junker-mono-light.png"
+    },
+    {
+      "name": "Eurosoftware",
+      "logo": "assets/logos/processed/mono-light/eurosoftware-mono-light.png"
+    },
+    {
+      "name": "Gce",
+      "logo": "assets/logos/processed/mono-light/gce-mono-light.png"
+    },
+    {
+      "name": "Glanztoff",
+      "logo": "assets/logos/processed/mono-light/glanztoff-mono-light.png"
+    },
+    {
+      "name": "Gmc",
+      "logo": "assets/logos/processed/mono-light/gmc-mono-light.png"
+    },
+    {
+      "name": "Grupo Antolin",
+      "logo": "assets/logos/processed/mono-light/grupo-antolin-mono-light.png"
+    },
+    {
+      "name": "Itw",
+      "logo": "assets/logos/processed/mono-light/itw-mono-light.png"
+    },
+    {
+      "name": "Leadec",
+      "logo": "assets/logos/processed/mono-light/leadec-mono-light.png"
+    },
+    {
+      "name": "Lukov",
+      "logo": "assets/logos/processed/mono-light/lukov-mono-light.png"
+    },
+    {
+      "name": "MBtech",
+      "logo": "assets/logos/processed/mono-light/mbtech-mono-light.png"
+    },
+    {
+      "name": "Md Elektronik",
+      "logo": "assets/logos/processed/mono-light/md-elektronik-mono-light.png"
+    },
+    {
+      "name": "Megatech",
+      "logo": "assets/logos/processed/mono-light/megatech-mono-light.png"
+    },
+    {
+      "name": "Membrain",
+      "logo": "assets/logos/processed/mono-light/membrain-mono-light.png"
+    },
+    {
+      "name": "Phillips Medisize",
+      "logo": "assets/logos/processed/mono-light/phillips-medisize-mono-light.png"
+    },
+    {
+      "name": "PMP PAL",
+      "logo": "assets/logos/processed/mono-light/pmp-pal-mono-light.png"
+    },
+    {
+      "name": "Pražská Strojírna",
+      "logo": "assets/logos/processed/mono-light/prazska-strojirna-mono-light.png"
+    },
+    {
+      "name": "Schneider",
+      "logo": "assets/logos/processed/mono-light/schneider-mono-light.png"
+    },
+    {
+      "name": "Tech Data",
+      "logo": "assets/logos/processed/mono-light/tech-data-mono-light.png"
+    },
+    {
+      "name": "Tristone",
+      "logo": "assets/logos/processed/mono-light/tristone-mono-light.png"
+    },
+    {
+      "name": "Volke MB",
+      "logo": "assets/logos/processed/mono-light/volke-mb-mono-light.png"
+    },
+    {
+      "name": "Výzkumný ústav železniční",
+      "logo": "assets/logos/processed/mono-light/vuz-mono-light.png"
+    },
+    {
+      "name": "Amtek",
+      "logo": "assets/logos/processed/mono-light/amtek-mono-light.png"
+    },
+    {
+      "name": "Apag",
+      "logo": "assets/logos/processed/mono-light/apag-mono-light.png"
+    },
+    {
+      "name": "Aufeerdesign",
+      "logo": "assets/logos/processed/mono-light/aufeerdesign-mono-light.png"
+    },
+    {
+      "name": "Autometal",
+      "logo": "assets/logos/processed/mono-light/autometal-mono-light.png"
+    },
+    {
+      "name": "Certicon",
+      "logo": "assets/logos/processed/mono-light/certicon-mono-light.png"
+    },
+    {
+      "name": "Cikautxo",
+      "logo": "assets/logos/processed/mono-light/cikautxo-mono-light.png"
+    },
+    {
+      "name": "Draka",
+      "logo": "assets/logos/processed/mono-light/draka-mono-light.png"
+    },
+    {
+      "name": "Draka - Prismian",
+      "logo": "assets/logos/processed/mono-light/draka-prismian-mono-light.png"
+    },
+    {
+      "name": "Dtz",
+      "logo": "assets/logos/processed/mono-light/dtz-mono-light.png"
+    },
+    {
+      "name": "Fresh Revolution",
+      "logo": "assets/logos/processed/mono-light/fresh-revolution-mono-light.png"
+    },
+    {
+      "name": "Fuji Koyo",
+      "logo": "assets/logos/processed/mono-light/fuji-koyo-mono-light.png"
+    },
+    {
+      "name": "Gtw",
+      "logo": "assets/logos/processed/mono-light/gtw-mono-light.png"
+    },
+    {
+      "name": "Hls",
+      "logo": "assets/logos/processed/mono-light/hls-mono-light.png"
+    },
+    {
+      "name": "Hud",
+      "logo": "assets/logos/processed/mono-light/hud-mono-light.png"
+    },
+    {
+      "name": "Impact Industry Brno",
+      "logo": "assets/logos/processed/mono-light/impact-industry-brno-mono-light.png"
+    },
+    {
+      "name": "Jansen Display",
+      "logo": "assets/logos/processed/mono-light/jansen-display-mono-light.png"
+    },
+    {
+      "name": "KDK Automotive",
+      "logo": "assets/logos/processed/mono-light/kdk-automotive-mono-light.png"
+    },
+    {
+      "name": "Kiswire",
+      "logo": "assets/logos/processed/mono-light/kiswire-mono-light.png"
+    },
+    {
+      "name": "Mas",
+      "logo": "assets/logos/processed/mono-light/mas-mono-light.png"
+    },
+    {
+      "name": "Moravia Propag",
+      "logo": "assets/logos/processed/mono-light/moravia-propag-mono-light.png"
+    },
+    {
+      "name": "Olbrich",
+      "logo": "assets/logos/processed/mono-light/olbrich-mono-light.png"
+    },
+    {
+      "name": "Parfums",
+      "logo": "assets/logos/processed/mono-light/parfums-mono-light.png"
+    },
+    {
+      "name": "Redtoo",
+      "logo": "assets/logos/processed/mono-light/redtoo-mono-light.png"
+    },
+    {
+      "name": "SpofaDental",
+      "logo": "assets/logos/processed/mono-light/spofadental-mono-light.png"
+    },
+    {
+      "name": "Trcz",
+      "logo": "assets/logos/processed/mono-light/trcz-mono-light.png"
     }
   ],
   "homepage": [
