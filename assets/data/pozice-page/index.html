@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+  STRÁNKA VŠECH POZIC · umísti jako  /pozice/index.html  (vedle pozice/<id>.html).
+  Cesty jsou relativní k této složce (../assets/...). Detailní odkazy míří do stejné
+  složky (<id>.html), proto data-detail-base="" na seznamu.
+  DOPLŇ: zkopíruj <header>/<nav> a <footer> z kořenového index.html na vyznačená místa,
+  ať je hlavička a patička 1:1 se zbytkem webu.
+-->
+<html lang="cs" data-theme="tmavy" data-motion="plne" data-reading="svetle">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Volné pozice · Sintera Czech</title>
+  <meta name="description" content="Všechny aktuálně hledané pozice ve výrobě, technice, kvalitě, logistice a managementu. Filtrujte podle oboru, seniority a kraje." />
+  <link rel="canonical" href="https://www.sintera.cz/pozice/" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0e1230" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Volné pozice · Sintera Czech" />
+  <meta property="og:description" content="Všechny aktuálně hledané pozice. Filtrujte podle oboru, seniority a kraje." />
+  <meta property="og:url" content="https://www.sintera.cz/pozice/" />
+  <meta property="og:image" content="https://www.sintera.cz/assets/img/og-cover.png" />
+  <meta property="og:locale" content="cs_CZ" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+  <!-- DOPLŇ: stejné odkazy na fonty/CSS jako v index.html (pořadí zachovej) -->
+  <link rel="stylesheet" href="../assets/css/fonts.css" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#pozice-vse">Přeskočit na obsah</a>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===== DOPLŇ: <header>/<nav> zkopíruj z kořenového index.html ===== -->
+  <!-- (logo/wordmark odkazuje na ../ , odkazy v menu na ../#trh, ../#cases, ../#reference, ../#pozice, ../#kontakt) -->
+
+  <main>
+    <section class="block" id="pozice-vse">
+      <div class="block-inner">
+        <span class="kicker">Volné pozice</span>
+        <div class="sect-head">
+          <h2>Všechny aktuálně hledané pozice</h2>
+        </div>
+        <p class="positions-lead">
+          Výběr rolí, na kterých pracujeme. Ne všechny search projekty zveřejňujeme.
+          Filtrujte podle oboru, seniority nebo kraje, případně hledejte podle názvu.
+        </p>
+
+        <div class="filters" id="pos-all-filters"><!-- filtry doplní pozice-list.js --></div>
+
+        <div class="pos-list" id="pos-all-list" data-detail-base=""><!-- pozice doplní pozice-list.js --></div>
+        <div class="pos-empty" id="pos-all-empty" hidden>Pro zvolené filtry nic neodpovídá. Zkuste filtry zrušit.</div>
+
+        <p style="margin-top:40px">
+          <a class="btn btn-line" href="../#kontakt">Nenašli jste svou roli? Ozvěte se →</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== DOPLŇ: <footer> zkopíruj z kořenového index.html ===== -->
+
+  <!-- skripty: pořadí důležité (data před výpisem) -->
+  <script src="../assets/js/pozice-data.js"></script>
+  <script src="../assets/js/pozice-list.js"></script>
+  <!-- volitelně pro sticky nav / mobilní menu stejné jako jinde: -->
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

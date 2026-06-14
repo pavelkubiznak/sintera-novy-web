@@ -346,6 +346,21 @@ section { padding: 120px 56px; }
 }
 .f-reset:hover { color: var(--accent); }
 .f-count { margin-left: auto; font-size: 13.5px; color: var(--dim); letter-spacing: 0.06em; }
+.f-search {
+  font-family: var(--sans);
+  font-size: 14.5px;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 13px 18px;
+  min-width: 220px;
+  flex: 1 1 220px;
+  max-width: 320px;
+  transition: border-color 0.25s;
+}
+.f-search::placeholder { color: var(--dim); }
+.f-search:focus { outline: none; border-color: var(--accent); }
+@media (max-width: 640px) { .f-search { max-width: none; width: 100%; } }
 
 .pos-list { border-top: 1px solid var(--line); }
 .pos-row {
