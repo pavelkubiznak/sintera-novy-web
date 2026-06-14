@@ -345,12 +345,11 @@
     { name: "Hana P.", loc: "Zlín", role: "Procesní inženýr", proof: "Zavedla měření taktů. Odstranila úzká místa.", status: "práci má" },
     { name: "Jakub N.", loc: "Třinec", role: "Konstruktér", proof: "Navrhl přípravky pro montáž. Zkrátil čas sestavení.", status: "na trhu není vidět" }
   ];
+  // 3 řady × 3 sloupce, rovnoměrné rozprostření s jitterem a hloubkou (organické, ne mřížka)
   var LAYOUT = [
-    { p: 0, left: "28%", top: "29%", d: 1 }, { p: 4, left: "6%", top: "57%", d: 1 },
-    { p: 9, right: "6%", top: "8%", d: 2 }, { p: 3, right: "3%", top: "38%", d: 2 },
-    { p: 6, left: "20%", top: "78%", d: 2 }, { p: 8, left: "42%", top: "62%", d: 3 },
-    { p: 2, right: "6%", top: "78%", d: 3 }, { p: 1, left: "3%", top: "9%", d: 3 },
-    { p: 7, left: "45%", top: "44%", d: 2 }
+    { p: 0, left: "5%",  top: "7%",  d: 1 }, { p: 1, left: "37%", top: "13%", d: 3 }, { p: 9, right: "3%", top: "5%",  d: 2 },
+    { p: 4, left: "2%",  top: "40%", d: 2 }, { p: 7, left: "31%", top: "37%", d: 1 }, { p: 3, right: "2%", top: "39%", d: 3 },
+    { p: 6, left: "7%",  top: "73%", d: 2 }, { p: 8, left: "39%", top: "67%", d: 3 }, { p: 2, right: "4%", top: "74%", d: 2 }
   ];
   var DEPTH = { 1: { o: 0.92, s: 1.0, b: 0, z: 7, amp: 3.5 }, 2: { o: 0.56, s: 0.92, b: 0.6, z: 4, amp: 5 }, 3: { o: 0.32, s: 0.82, b: 1.6, z: 2, amp: 7 } };
 

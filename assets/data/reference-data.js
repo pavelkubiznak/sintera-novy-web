@@ -4,8 +4,8 @@ window.SINTERA_DATA = {
     {
       "company": "ZF Passive Safety",
       "role": "Manažeři a inženýři kvality",
-      "quote": "Nabídnutí kandidáti míří rovnou na pohovor.",
-      "long": "U kvalitářských rolí v automotive se podařilo nastavit spolupráci tak, aby do výběru přicházeli kandidáti odpovídající požadavkům. Odpadá třídění nerelevantních životopisů a naprostá většina nabídnutých kandidátů míří rovnou na pohovor. Většina pozic se obsazuje právě přes Sinteru.",
+      "quote": "99 % nabídnutých kandidátů míří rovnou na pohovor.",
+      "long": "U kvalitářských rolí v automotive se podařilo nastavit spolupráci tak, aby do výběru přicházeli kandidáti odpovídající požadavkům. Odpadá třídění nerelevantních životopisů a 99 % nabídnutých kandidátů míří rovnou na pohovor. Většina pozic se obsazuje právě přes Sinteru.",
       "logo": "assets/logos/processed/mono-light/zf-mono-light.svg",
       "tags": "Přesnost profilů; Použitelné podklady; Dlouhodobá spolupráce",
       "id": "ref_zf_passive"
@@ -176,11 +176,11 @@ window.SINTERA_DATA = {
     },
     {
       "meta": "Manažeři a inženýři kvality · Výrobce bezpečnostních systémů pro automobily · Česká republika",
-      "name": "Přesnost místo objemu",
+      "name": "Přesnost místo objemu: 99 % kandidátů na pohovor",
       "situ": "U kvalitářských rolí nedává smysl ztrácet čas tříděním nerelevantních životopisů.",
       "why": "U těchto rolí rozhoduje přesné cílení. Objem CV nepomáhá, pokud kandidáti nesplňují požadavky.",
       "change": "Sintera podle reference posílá kandidáty, kteří splňují požadavky role.",
-      "win": "Na pohovor míří naprostá většina nabídnutých kandidátů a většina pozic se obsazuje přes Sinteru.",
+      "win": "Na pohovor míří 99 % nabídnutých kandidátů a většina pozic se obsazuje přes Sinteru.",
       "id": "case_zf_99"
     },
     {
@@ -360,7 +360,7 @@ window.SINTERA_DATA = {
     {
       "id": "proof_zf_99",
       "type": "Proof card",
-      "text": "Nabídnutí kandidáti míří rovnou na pohovor.",
+      "text": "99 % nabídnutých kandidátů míří rovnou na pohovor.",
       "source": "ZF Passive Safety"
     },
     {
