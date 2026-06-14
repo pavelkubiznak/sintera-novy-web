@@ -1071,3 +1071,9 @@ html[data-motion="jemne"] .logo-band-track { animation: none; }
 a:focus-visible, button:focus-visible, summary:focus-visible, .pos-row:focus-visible, .ref-card:focus-visible, .case-card:focus-visible, .nav-cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .nav-links a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
 .pos-bonus { display: inline-block; margin-left: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--accent); border: 1px solid color-mix(in oklab, var(--accent) 45%, transparent); border-radius: 999px; padding: 2px 10px; vertical-align: middle; text-transform: none; }
+
+/* rotující klientské citace (.mcite-rotor) — stejný vizuál jako .mcite, jen se prolínají */
+.mcite-rotor { display: grid; max-width: 760px; margin: clamp(40px, 5vw, 60px) 0 0; }
+.mcite-rotor .mcite { grid-area: 1 / 1; max-width: none; margin: 0; opacity: 0; transition: opacity 0.6s ease; }
+.mcite-rotor .mcite.active { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .mcite-rotor .mcite { transition: none; } }

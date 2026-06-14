@@ -446,3 +446,28 @@
   if (document.readyState === "complete") setTimeout(build, 80);
   else window.addEventListener("load", function () { setTimeout(build, 80); });
 })();
+
+/* ============================================================
+   D) Rotující klientské citace (.mcite-rotor) — interval 6 s, jemný fade.
+      Při reduced-motion zůstává jen první citace.
+   ============================================================ */
+(function () {
+  "use strict";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll("[data-mcite-rotor]").forEach(function (rotor) {
+    var items = Array.prototype.slice.call(rotor.querySelectorAll(".mcite"));
+    if (!items.length) return;
+    items.forEach(function (it, i) { it.classList.toggle("active", i === 0); it.setAttribute("aria-hidden", i === 0 ? "false" : "true"); });
+    if (items.length < 2 || reduced) return;
+    var idx = 0, timer;
+    function go() {
+      items[idx].classList.remove("active"); items[idx].setAttribute("aria-hidden", "true");
+      idx = (idx + 1) % items.length;
+      items[idx].classList.add("active"); items[idx].setAttribute("aria-hidden", "false");
+    }
+    function start() { clearInterval(timer); timer = setInterval(go, 6000); }
+    rotor.addEventListener("mouseenter", function () { clearInterval(timer); });
+    rotor.addEventListener("mouseleave", start);
+    start();
+  });
+})();
