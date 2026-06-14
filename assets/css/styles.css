@@ -555,8 +555,8 @@ html[data-motion="jemne"] .hero-net .net-dot { fill: var(--accent); opacity: 1; 
 .hero, #problem, #kontakt { position: relative; z-index: 1; }
 
 /* ---------- loga klientů (marquee + reference) ---------- */
-.marquee-track .logo-slot { display: inline-flex; align-items: center; height: 30px; }
-.marquee-track .logo-slot img { height: 26px; width: auto; max-width: 150px; object-fit: contain; filter: grayscale(1) brightness(0) invert(1); opacity: 0.7; transition: opacity 0.25s, filter 0.25s; }
+.marquee-track .logo-slot { display: inline-flex; align-items: center; justify-content: center; width: 104px; height: 40px; }
+.marquee-track .logo-slot img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(1) brightness(0) invert(1); opacity: 0.78; transition: opacity 0.25s, filter 0.25s; }
 html[data-theme="svetly"] .marquee-track .logo-slot img { filter: grayscale(1); }
 .marquee-track .logo-slot img:hover { opacity: 1; filter: none; }
 /* reference: barevná loga, jednotná velikost + usazení (normalizovaný kanvas 400x160) */
@@ -955,9 +955,9 @@ html[data-motion="jemne"] .logo-band-track { animation: none; }
 
 /* ---------- rotující výroky o přesnosti ---------- */
 .rotor { display: grid; margin-top: clamp(36px, 5vw, 52px); }
-.rotor-item { grid-area: 1 / 1; opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.rotor-item { grid-area: 1 / 1; opacity: 0; transform: translateX(70px); transition: opacity 0.55s ease, transform 0.75s cubic-bezier(0.33, 0, 0.2, 1); }
 .rotor-item.active { opacity: 1; transform: translateX(0); }
-.rotor-item.exit { opacity: 0; transform: translateX(-40px); }
+.rotor-item.exit { opacity: 0; transform: translateX(-70px); }
 .rotor-item blockquote { margin: 0; font-family: var(--serif-text); font-style: italic; font-size: clamp(19px, 1.7vw, 25px); line-height: 1.42; text-wrap: pretty; }
 .rotor-item figcaption { margin-top: 16px; font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); display: flex; align-items: center; gap: 12px; }
 .rotor-item figcaption::before { content: ""; width: 22px; height: 2px; background: var(--accent); display: block; }
@@ -995,8 +995,7 @@ html[data-motion="jemne"] .logo-band-track { animation: none; }
   .step { min-height: auto; padding: 36px 0; opacity: 1; transform: none; }
   .pos-detail-pad { grid-template-columns: 1fr; }
 
-  /* dekorativní "nit" se na úzkých displejích kříží s textem → skrýt */
-  #thread-svg { display: none; }
+  /* nit zůstává viditelná; na mobilu (≤640) ji JS posune do gutteru (x=18) a obsah sekcí se odsadí vlevo */
 
   /* pozice: blokové rozložení místo pevných sloupců (oprava přetékání doprava) */
   .pos-row {
@@ -1049,9 +1048,10 @@ html[data-motion="jemne"] .logo-band-track { animation: none; }
 }
 
 @media (max-width: 640px) {
-  .block { padding: 72px 22px; }
+  /* nit je v gutteru (x=18 z JS) → obsah sekcí odsadit vlevo, ať ho nit nepřekrývá */
+  .block { padding: 72px 22px 72px 42px; }
   section { padding: 76px 22px; }
-  .hero { padding: 118px 22px 64px; min-height: 92vh; }
+  .hero { padding: 118px 22px 64px 42px; min-height: 92vh; }
   #nav { padding: 16px 22px; }
   #nav.scrolled { padding: 12px 22px; }
   .hero-scroll { display: none; }
@@ -1070,6 +1070,16 @@ html[data-motion="jemne"] .logo-band-track { animation: none; }
   footer { flex-direction: column; gap: 32px; padding: 56px 22px; }
   footer .copy { margin-left: 0; align-self: flex-start; }
   .cta { padding: 110px 22px; }
+
+  /* pozice: jednosloupcový vertikální blok (název, obor, seniorita, lokace; šipka vpravo nahoře) */
+  .pos-row { padding: 26px 20px 28px 10px; }
+  .pos-row:hover { padding-left: 10px; padding-right: 20px; }
+  .pos-row .t { display: block; max-width: calc(100% - 44px); margin-bottom: 12px; }
+  .pos-row .m { display: block; margin-top: 5px; }
+  .pos-row .m.field::after,
+  .pos-row .m.level::after { content: none; }
+  .pos-row .m.loc { color: var(--accent); white-space: normal; word-break: normal; overflow-wrap: break-word; }
+  .pos-row .arr { top: 26px; right: 6px; }
 }
 
 /* ============================================================
@@ -1084,7 +1094,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .pos-row:focus-vis
 
 /* rotující klientské citace (.mcite-rotor) — stejný vizuál jako .mcite, jen se prolínají */
 .mcite-rotor { display: grid; max-width: 760px; margin: clamp(40px, 5vw, 60px) 0 0; }
-.mcite-rotor .mcite { grid-area: 1 / 1; max-width: none; margin: 0; opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.mcite-rotor .mcite { grid-area: 1 / 1; max-width: none; margin: 0; opacity: 0; transform: translateX(70px); transition: opacity 0.55s ease, transform 0.75s cubic-bezier(0.33, 0, 0.2, 1); }
 .mcite-rotor .mcite.active { opacity: 1; transform: translateX(0); }
-.mcite-rotor .mcite.exit { opacity: 0; transform: translateX(-40px); }
+.mcite-rotor .mcite.exit { opacity: 0; transform: translateX(-70px); }
 @media (prefers-reduced-motion: reduce) { .mcite-rotor .mcite { transition: none; } }

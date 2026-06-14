@@ -108,7 +108,7 @@
       cur.classList.remove("active"); cur.classList.add("exit");
       idx = (idx + 1) % items.length;
       items[idx].classList.add("active");
-      setTimeout(function () { cur.classList.remove("exit"); }, 750);
+      setTimeout(function () { cur.classList.remove("exit"); }, 800);
     }
     function start() { clearInterval(timer); timer = setInterval(tick, 7700); }
     el.addEventListener("mouseenter", function () { clearInterval(timer); });
@@ -400,7 +400,8 @@
   function anchorPoint(spec) {
     var el = document.querySelector(spec.sel); if (!el) return null;
     var r = el.getBoundingClientRect(), top = r.top + window.scrollY, y = top + r.height / 2 + (spec.dy || 0), x;
-    if (spec.x === "gutter") x = 30; else if (spec.x === "center") x = docEl().clientWidth / 2; else x = r.left + (spec.dx || 0);
+    if (document.documentElement.clientWidth <= 640) x = 18; // mobil: nit rovně do levého gutteru
+    else if (spec.x === "gutter") x = 30; else if (spec.x === "center") x = docEl().clientWidth / 2; else x = r.left + (spec.dx || 0);
     return { x: x, y: y };
   }
   function docEl() { return document.documentElement; }
@@ -473,7 +474,7 @@
       cur.classList.remove("active"); cur.classList.add("exit"); cur.setAttribute("aria-hidden", "true");
       idx = (idx + 1) % items.length;
       items[idx].classList.add("active"); items[idx].setAttribute("aria-hidden", "false");
-      setTimeout(function () { cur.classList.remove("exit"); }, 750);
+      setTimeout(function () { cur.classList.remove("exit"); }, 800);
     }
     function start() { clearInterval(timer); timer = setInterval(go, 7700); }
     rotor.addEventListener("mouseenter", function () { clearInterval(timer); });

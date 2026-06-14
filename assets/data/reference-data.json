@@ -337,42 +337,42 @@
   "clients": [
     {
       "name": "Aisan Industry",
-      "logo": "assets/logos/processed/mono-light/aisan-mono-light.svg",
+      "logo": "assets/logos/processed/mono-light/aisan-mono-light.png",
       "_logoSlug": "aisan"
     },
     {
       "name": "Alstom",
-      "logo": "assets/logos/processed/mono-light/alstom-mono-light.svg",
+      "logo": "assets/logos/processed/mono-light/alstom-mono-light.png",
       "_logoSlug": "alstom"
     },
     {
       "name": "Edwards",
-      "logo": "assets/logos/processed/mono-light/edwards-mono-light.svg",
+      "logo": "assets/logos/processed/mono-light/edwards-mono-light.png",
       "_logoSlug": "edwards"
     },
     {
       "name": "Nestlé",
-      "logo": "assets/logos/processed/mono-light/nestle-mono-light.svg",
+      "logo": "assets/logos/processed/mono-light/nestle-mono-light.png",
       "_logoSlug": "nestle"
     },
     {
       "name": "Panasonic",
-      "logo": "assets/logos/processed/mono-light/panasonic-mono-light.svg",
+      "logo": "assets/logos/processed/mono-light/panasonic-mono-light.png",
       "_logoSlug": "panasonic"
     },
     {
       "name": "Safran Cabin",
-      "logo": "assets/logos/processed/mono-light/safran-cabin-mono-light.svg",
+      "logo": "assets/logos/processed/mono-light/safran-cabin-mono-light.png",
       "_logoSlug": "safran-cabin"
     },
     {
       "name": "Siemens Energy",
-      "logo": "assets/logos/processed/mono-light/siemens-energy-mono-light.svg",
+      "logo": "assets/logos/processed/mono-light/siemens-energy-mono-light.png",
       "_logoSlug": "siemens-energy"
     },
     {
       "name": "Winning Group",
-      "logo": "assets/logos/processed/mono-light/winning-group-mono-light.svg",
+      "logo": "assets/logos/processed/mono-light/winning-group-mono-light.png",
       "_logoSlug": "winning-group"
     },
     {
@@ -387,23 +387,18 @@
     },
     {
       "name": "Vitesco Technologies",
-      "logo": "assets/logos/processed/mono-light/vitesco-mono-light.svg",
+      "logo": "assets/logos/processed/mono-light/vitesco-mono-light.png",
       "_logoSlug": "vitesco"
     },
     {
       "name": "ZF",
-      "logo": "assets/logos/processed/mono-light/zf-mono-light.svg",
+      "logo": "assets/logos/processed/mono-light/zf-mono-light.png",
       "_logoSlug": "zf"
     },
     {
       "name": "Adp",
       "logo": "assets/logos/processed/mono-light/adp-mono-light.png",
       "_logoSlug": "adp"
-    },
-    {
-      "name": "Aero",
-      "logo": "assets/logos/processed/mono-light/aero-mono-light.png",
-      "_logoSlug": "aero"
     },
     {
       "name": "Aero Vodochody",
