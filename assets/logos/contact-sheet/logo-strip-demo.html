@@ -1,0 +1,38 @@
+<!doctype html><html lang="cs"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sintera — logo strip (demo)</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#0e1230;color:#cfd2e6;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  .page{max-width:1200px;margin:0 auto;padding:64px 24px}
+  .kicker{text-align:center;letter-spacing:.16em;text-transform:uppercase;font-size:12px;color:#8a90b8;margin:0 0 30px}
+
+  /* --- desktop: very slow marquee --- */
+  .strip{position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .track{display:flex;width:max-content;animation:scroll 60s linear infinite}
+  .strip:hover .track{animation-play-state:paused}
+  .track ul{display:flex;align-items:center;gap:54px;margin:0;padding:0 27px;list-style:none}
+  .track img{height:34px;width:auto;max-width:170px;opacity:.78;transition:opacity .25s ease;display:block}
+  .track li:hover img{opacity:1}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion: reduce){.track{animation:none}}
+
+  /* --- mobile: horizontal scroll, no animation --- */
+  @media (max-width:640px){
+    .strip{-webkit-mask-image:none;mask-image:none}
+    .track{width:auto;animation:none;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+    .track .dup{display:none}
+    .track ul{gap:36px;padding:4px 20px}
+    .track img{height:30px}
+  }
+</style></head><body>
+<div class="page">
+  <p class="kicker">Vybíráme talenty pro nejlepší firmy</p>
+  <div class="strip">
+    <div class="track">
+      <ul><li><img src="../processed/mono-light/nestle-mono-light.png" alt="Nestlé" loading="lazy"></li><li><img src="../processed/mono-light/siemens-energy-mono-light.png" alt="Siemens Energy" loading="lazy"></li><li><img src="../processed/mono-light/panasonic-mono-light.png" alt="Panasonic" loading="lazy"></li><li><img src="../processed/mono-light/zf-mono-light.png" alt="ZF" loading="lazy"></li><li><img src="../processed/mono-light/safran-cabin-mono-light.png" alt="Safran Cabin" loading="lazy"></li><li><img src="../processed/mono-light/alstom-mono-light.png" alt="Alstom" loading="lazy"></li><li><img src="../processed/mono-light/vitesco-mono-light.png" alt="Vitesco Technologies" loading="lazy"></li><li><img src="../processed/mono-light/edwards-mono-light.png" alt="Edwards" loading="lazy"></li><li><img src="../processed/mono-light/aisan-mono-light.png" alt="Aisan Industry" loading="lazy"></li><li><img src="../processed/mono-light/linet-mono-light.png" alt="LINET" loading="lazy"></li><li><img src="../processed/mono-light/secheron-hasler-mono-light.png" alt="Sécheron Hasler" loading="lazy"></li><li><img src="../processed/mono-light/winning-group-mono-light.png" alt="Winning Group" loading="lazy"></li></ul>
+      <ul class="dup" aria-hidden="true"><li><img src="../processed/mono-light/nestle-mono-light.png" alt="Nestlé" loading="lazy"></li><li><img src="../processed/mono-light/siemens-energy-mono-light.png" alt="Siemens Energy" loading="lazy"></li><li><img src="../processed/mono-light/panasonic-mono-light.png" alt="Panasonic" loading="lazy"></li><li><img src="../processed/mono-light/zf-mono-light.png" alt="ZF" loading="lazy"></li><li><img src="../processed/mono-light/safran-cabin-mono-light.png" alt="Safran Cabin" loading="lazy"></li><li><img src="../processed/mono-light/alstom-mono-light.png" alt="Alstom" loading="lazy"></li><li><img src="../processed/mono-light/vitesco-mono-light.png" alt="Vitesco Technologies" loading="lazy"></li><li><img src="../processed/mono-light/edwards-mono-light.png" alt="Edwards" loading="lazy"></li><li><img src="../processed/mono-light/aisan-mono-light.png" alt="Aisan Industry" loading="lazy"></li><li><img src="../processed/mono-light/linet-mono-light.png" alt="LINET" loading="lazy"></li><li><img src="../processed/mono-light/secheron-hasler-mono-light.png" alt="Sécheron Hasler" loading="lazy"></li><li><img src="../processed/mono-light/winning-group-mono-light.png" alt="Winning Group" loading="lazy"></li></ul>
+    </div>
+  </div>
+</div>
+</body></html>

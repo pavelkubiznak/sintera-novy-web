@@ -1,0 +1,89 @@
+[
+ {
+  "slug": "siemens-energy",
+  "display": "Siemens Energy",
+  "raw": "/tmp/sintera_logos/raw/siemens-energy.svg",
+  "fmt": "svg"
+ },
+ {
+  "slug": "panasonic",
+  "display": "Panasonic",
+  "raw": "/tmp/sintera_logos/raw/panasonic.svg",
+  "fmt": "svg"
+ },
+ {
+  "slug": "zf",
+  "display": "ZF",
+  "raw": "/tmp/sintera_logos/raw/zf.svg",
+  "fmt": "svg",
+  "scale": 1.07
+ },
+ {
+  "slug": "nestle",
+  "display": "Nestl\u00e9",
+  "raw": "/tmp/sintera_logos/raw/nestle.svg",
+  "fmt": "svg"
+ },
+ {
+  "slug": "safran-cabin",
+  "display": "Safran Cabin",
+  "raw": "/tmp/sintera_logos/raw/safran-cabin.svg",
+  "fmt": "svg"
+ },
+ {
+  "slug": "vitesco",
+  "display": "Vitesco Technologies",
+  "raw": "/tmp/sintera_logos/raw/vitesco.svg",
+  "fmt": "svg"
+ },
+ {
+  "slug": "secheron-hasler",
+  "display": "S\u00e9cheron Hasler",
+  "raw": "/tmp/sintera_logos/raw/secheron-hasler.png",
+  "fmt": "png"
+ },
+ {
+  "slug": "winning-group",
+  "display": "Winning Group",
+  "raw": "/tmp/sintera_logos/raw/winning-group.svg",
+  "fmt": "svg"
+ },
+ {
+  "slug": "alstom",
+  "display": "Alstom",
+  "raw": "/tmp/sintera_logos/raw/alstom.svg",
+  "fmt": "svg"
+ },
+ {
+  "slug": "linet",
+  "display": "LINET",
+  "raw": "/tmp/sintera_logos/raw/linet.jpg",
+  "fmt": "jpg",
+  "white_key": true
+ },
+ {
+  "slug": "edwards",
+  "display": "Edwards",
+  "raw": "/tmp/sintera_logos/raw/edwards.svg",
+  "fmt": "svg"
+ },
+ {
+  "slug": "aisan",
+  "display": "Aisan Industry",
+  "raw": "/tmp/sintera_logos/raw/aisan.svg",
+  "fmt": "svg"
+ },
+ {
+  "slug": "sitel",
+  "display": "SITEL",
+  "raw": "/tmp/sintera_logos/raw/sitel.png",
+  "fmt": "png",
+  "mono_mode": "original"
+ },
+ {
+  "slug": "vuz",
+  "display": "V\u00fdzkumn\u00fd \u00fastav \u017eelezni\u010dn\u00ed",
+  "raw": "/tmp/sintera_logos/raw/vuz.png",
+  "fmt": "png"
+ }
+]

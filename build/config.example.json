@@ -1,0 +1,12 @@
+{
+  "site": {
+    "baseUrl": "https://pavelkubiznak.github.io/sintera-novy-web"
+  },
+  "sheets": {
+    "pozice": "",
+    "reference": "",
+    "casestudies": "",
+    "klienti": ""
+  },
+  "_napoveda": "Zkopíruj do config.json a doplň publikované CSV URL listů (Soubor → Sdílet → Publikovat na webu → list → CSV). Prázdné = build použije commitnutý JSON fallback."
+}

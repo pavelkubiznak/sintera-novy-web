@@ -1,0 +1,19 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1540 324" width="1540" height="324">
+	<title>integrated_report_pdf_2024_en-92 (1)-pdf-svg</title>
+	<defs>
+		<clipPath clipPathUnits="userSpaceOnUse" id="cp1">
+			<path d="m6608.2-3241v8237.75h-11659.63v-8237.75z"/>
+		</clipPath>
+	</defs>
+	<style>
+		.s0 { fill: #0a57a0 } 
+	</style>
+	<g id="Clip-Path: Page 1" clip-path="url(#cp1)">
+		<g id="Page 1">
+			<path id="Path 3" fill-rule="evenodd" class="s0" d="m363.7 69.3v-69.2h380.1v69.2h-146.1v253.9h-88v-253.9zm596.2-69.2c127.4 0 181.4 89.3 181.4 161.9 0 72.6-54 161.2-181.4 161.2h-198.7v-323.1zm16.6 253.2c34.6 0 83.1-37.3 83.1-91.3 0-56-48.5-92.7-83.1-92.7h-130.9v184zm268.7-253.1v323h-88.7v-323zm2.1 154.2l166.2-154.3 117 0.1-174.5 154.2 183.5 168.8h-121.9z"/>
+			<path id="Path 4" fill-rule="evenodd" class="s0" d="m254.9 137.1v-137l118.4 204.8zm-254.7 68.5l117.7-204.8v136.3zm305.3 118.3h-236.8l118.4-68.5z"/>
+			<path id="Path 5" fill-rule="evenodd" class="s0" d="m118.6 137.1l67.8-68.5 68.5 68.5zm136.4-137l-68.5 68.5-67.9-68.5zm49.9 323.1l-24.9-93.4 93.4-24.9zm-50.5-186.1l25.6 92.7-93.5 24.9z"/>
+			<path id="Path 6" fill-rule="evenodd" class="s0" d="m0.2 204.9l92.8 24.7-0.1 0.2 0.7 0.2-25.6 93.2zm93.5 24.9l-0.1 0.1 92.9 24.8-68.6-117.6-24.9 92.5z"/>
+		</g>
+	</g>
+</svg>

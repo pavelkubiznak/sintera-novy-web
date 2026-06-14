@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0e22"/>
+      <stop offset="0.55" stop-color="#0e1230"/>
+      <stop offset="1" stop-color="#0b0e22"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.8" cy="0.2" r="0.7">
+      <stop offset="0" stop-color="#d27a51" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#d27a51" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.1" cy="0.1" r="0.6">
+      <stop offset="0" stop-color="#4656aa" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#4656aa" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+
+  <!-- síť uzlů (dekor) -->
+  <g stroke="#aeb4d2" stroke-opacity="0.12" stroke-width="1">
+    <line x1="930" y1="150" x2="1010" y2="210"/>
+    <line x1="1010" y1="210" x2="960" y2="300"/>
+    <line x1="960" y1="300" x2="1060" y2="330"/>
+    <line x1="1010" y1="210" x2="1090" y2="170"/>
+    <line x1="960" y1="300" x2="900" y2="380"/>
+    <line x1="1060" y1="330" x2="1050" y2="430"/>
+  </g>
+  <g fill="#c8ceeb" fill-opacity="0.5">
+    <circle cx="930" cy="150" r="3"/><circle cx="1010" cy="210" r="3"/>
+    <circle cx="960" cy="300" r="3"/><circle cx="1090" cy="170" r="2.5"/>
+    <circle cx="900" cy="380" r="2.5"/>
+  </g>
+  <!-- cílový uzel terakota -->
+  <circle cx="1050" cy="430" r="9" fill="#d27a51"/>
+  <circle cx="1050" cy="430" r="18" fill="none" stroke="#e69169" stroke-opacity="0.55" stroke-width="2"/>
+  <circle cx="1060" cy="330" r="4" fill="#e69169" fill-opacity="0.7"/>
+
+  <!-- wordmark -->
+  <text x="90" y="130" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#eef0f8" letter-spacing="0.5">Sintera</text>
+  <rect x="90" y="150" width="54" height="3" fill="#d27a51"/>
+
+  <!-- headline -->
+  <text x="90" y="300" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="700" fill="#eef0f8">Aktivní kandidáty už jste viděli.</text>
+  <text x="90" y="380" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="700" font-style="italic" fill="#e69169">My najdeme ty ostatní.</text>
+
+  <!-- tagline -->
+  <text x="92" y="470" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#aeb4d2">Direct search · výroba · technika · obchod · management · celá ČR</text>
+  <text x="92" y="540" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#838ab0">Do 30 dnů nejméně dva kandidáti na míru zadání.</text>
+</svg>

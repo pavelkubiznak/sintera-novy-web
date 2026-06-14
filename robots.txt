@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pavelkubiznak.github.io/sintera-novy-web/sitemap.xml

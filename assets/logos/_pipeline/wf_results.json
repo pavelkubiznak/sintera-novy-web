@@ -1,0 +1,630 @@
+[
+  {
+    "slug": "siemens-energy",
+    "display": "Siemens Energy",
+    "entity": "Siemens Energy s.r.o.",
+    "source": {
+      "slug": "siemens-energy",
+      "display_name": "Siemens Energy",
+      "legal_entity": "Siemens Energy s.r.o.",
+      "domain": "siemens-energy.com",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Siemens_Energy_logo.svg",
+      "source_type": "wikimedia",
+      "raw_path": "/tmp/sintera_logos/raw/siemens-energy.svg",
+      "raw_format": "svg",
+      "preview_path": "/tmp/sintera_logos/preview/siemens-energy.png",
+      "download_ok": true,
+      "confidence": "high",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Correct current Siemens Energy two-tone wordmark adopted after the 2020 spin-off from Siemens AG: \"SIEMENS\" in petrol/teal (#009999) over \"energy\" in purple (#641e8c). This is the brand mark requested in the brief, NOT the Siemens AG sans-serif logo. Clean license-clear Wikimedia Commons SVG (1000x343, two solid path fills, no embedded raster). Per brief, the local CZ entity (Siemens Energy s.r.o.) is quoted on the sintera.cz reference page \u2014 but that does not constitute authorization to publish the logo, so permission remains needs_client_approval. Brand colors are mid/bright tones (teal + purple), legible on the dark navy logo strip without modification.",
+      "needs_manual_review": false,
+      "candidate_urls": [
+        "https://commons.wikimedia.org/wiki/File:Siemens_Energy_logo.svg",
+        "https://commons.wikimedia.org/wiki/File:Siemens_Energy_logo_white.svg",
+        "https://commons.wikimedia.org/wiki/File:Siemens_Energy_logo_BG_white.svg",
+        "https://commons.wikimedia.org/wiki/File:Siemens_Energy_logo_white_BG_black.svg",
+        "https://commons.wikimedia.org/wiki/Category:Siemens_logos"
+      ],
+      "agent_notes": "Fetched the brief's first-choice Wikimedia Commons file via Special:FilePath redirect on the first try. Validation passed: file is XML/SVG (3481 bytes), starts with <?xml, contains exactly one </svg>, embedded desc reads \"Logo of Siemens Energy\". Fill colors are #099 (teal) and #641e8c (purple) \u2014 the correct post-2020 Siemens Energy palette. Headless Chrome preview rendered cleanly at 1200x480 and visual inspection confirms the correct current two-tone wordmark (not Siemens AG). Source priority: used #1 (Wikimedia Commons SVG); no need to fall back to press kit, official site, or internal reference. A white variant (Siemens Energy logo white.svg) exists on Commons if a single-color knockout is preferred for the dark navy strip, but the two-tone color version is the canonical brand mark and is legible on dark navy. No internal reference image was provided or needed. Permission kept at needs_client_approval since there is no evidence of explicit client authorization for logo use."
+    },
+    "verify": {
+      "slug": "siemens-energy",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "yes",
+      "source_trustworthy": true,
+      "visual_quality": "good",
+      "transparent_or_vector": true,
+      "final_confidence": "high",
+      "final_needs_manual_review": false,
+      "issues": [
+        "Brief expectation mentions a 'Sustainable Energy gradient mark', but the current Siemens Energy primary logo (and this file) is a flat two-tone wordmark with no gradient \u2014 the delivered asset is correct; the brief phrasing is slightly imprecise.",
+        "Permission remains needs_client_approval: being quoted on the sintera.cz reference page is not authorization to publish the logo (licensing/usage-rights matter, outside this visual verdict)."
+      ],
+      "verdict_notes": "Correct asset on all visual/identity axes. Preview shows the post-2020 Siemens Energy two-tone wordmark: 'SIEMENS' in teal (#099 = #009999) over rounded lowercase 'energy' in purple (#641e8c) \u2014 clearly NOT the Siemens AG monochrome sans-serif logo. SVG validated: 3481 bytes, valid XML, single </svg>, no embedded raster/base64 (true vector, 1000x343), two solid path fills, correct brand palette, and embedded desc reads 'Logo of Siemens Energy'. Entity is Siemens Energy AG / Siemens Energy s.r.o. \u2014 correctly distinct from parent Siemens AG (spun off 2020) and from Siemens Healthineers; no same-name confusion. Logo is current. Wikimedia Commons SVG source is trustworthy and license-clear. The gray fill in the PNG is the preview canvas only; the SVG has no background and is transparent. High confidence, no manual review needed for the visual verdict. Only non-visual caveat is publishing permission, which is a rights question separate from logo correctness."
+    }
+  },
+  {
+    "slug": "panasonic",
+    "display": "Panasonic",
+    "entity": "Panasonic Automotive Systems Czech s.r.o.",
+    "source": {
+      "slug": "panasonic",
+      "display_name": "Panasonic",
+      "legal_entity": "Panasonic Automotive Systems Czech s.r.o.",
+      "domain": "panasonic.com",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Panasonic_logo_(Blue).svg",
+      "source_type": "wikimedia",
+      "raw_path": "/tmp/sintera_logos/raw/panasonic.svg",
+      "raw_format": "svg",
+      "preview_path": "/tmp/sintera_logos/preview/panasonic.png",
+      "download_ok": true,
+      "confidence": "high",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Current blue \"Panasonic\" wordmark (corporate logo since 2008 rebrand from Matsushita). Single uniform fill #0056A8 (Panasonic Blue) across all 13 glyph paths. Clean vector SVG, 504x80 viewBox, sharp on dark navy strip and light reference page alike. Local quoted entity is Panasonic Automotive Systems Czech s.r.o. (subsidiary of Panasonic Holdings); the global corporate wordmark is the correct mark to display for it. If Panasonic Automotive Systems Czech's name/testimonial is published on the sintera.cz reference page, that is a public reference but still does not constitute trademark/logo-use authorisation \u2014 keep needs_client_approval.",
+      "needs_manual_review": false,
+      "candidate_urls": [
+        "https://commons.wikimedia.org/wiki/File:Panasonic_logo_(Blue).svg",
+        "https://commons.wikimedia.org/wiki/File:Panasonic_logo.svg",
+        "https://commons.wikimedia.org/wiki/File:Panasonic_Group_logo.svg"
+      ],
+      "agent_notes": "Fetched the brief's first-candidate Wikimedia Commons file \"Panasonic logo (Blue).svg\" via Special:FilePath. Validated: starts with <?xml, contains </svg>, 9553 bytes, XML 1.0. Inspected fills \u2014 all 14 fill refs are #0056A8 (Panasonic Blue), 13 paths = the 9-letter wordmark. Rendered preview (Chrome headless, 2x) at 1200x480, 22KB; visual read confirms sharp correct current blue \"Panasonic\" wordmark, correct entity. No favicon, no Google Images, no wrong-entity risk. confidence=high (official Commons SVG, current brand, correct color, vector-sharp). Note: \"Panasonic logo.svg\" (600x92) is an alternate Commons file if a slightly different viewBox/spacing is ever preferred. brand_notes_from_brief satisfied."
+    },
+    "verify": {
+      "slug": "panasonic",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "yes",
+      "source_trustworthy": true,
+      "visual_quality": "good",
+      "transparent_or_vector": true,
+      "final_confidence": "high",
+      "final_needs_manual_review": false,
+      "issues": [
+        "Logo-use still requires client trademark/use approval; a published testimonial on the sintera.cz reference page is a public reference but not logo-use authorization (licensing flag, not a correctness defect)."
+      ],
+      "verdict_notes": "Verified independently against both the rendered preview (/tmp/sintera_logos/preview/panasonic.png) and the source SVG (/tmp/sintera_logos/raw/panasonic.svg). Preview shows a sharp, clean current blue 'Panasonic' corporate wordmark. SVG is valid vector (viewBox 0 0 504 80.4), all fills #0056A8 (Panasonic Blue), 9-glyph wordmark, no background rect (effectively transparent). Source is Wikimedia Commons File:Panasonic_logo_(Blue).svg \u2014 trustworthy. Brand correct; this is the global corporate wordmark, which is the right mark for the subsidiary Panasonic Automotive Systems Czech s.r.o. (no distinct division wordmark exists; 'Panasonic' is globally unambiguous, so no wrong-same-name-entity risk). Current version (blue wordmark since the 2008 Matsushita rebrand, still current 2026). Color correct, vector-sharp. No entity, currentness, or quality doubt. Only residual item is trademark-use approval, which is a licensing concern outside logo-correctness scope."
+    }
+  },
+  {
+    "slug": "zf",
+    "display": "ZF",
+    "entity": "ZF Passive Safety Czech s.r.o.",
+    "source": {
+      "slug": "zf",
+      "display_name": "ZF",
+      "legal_entity": "ZF Passive Safety Czech s.r.o.",
+      "domain": "zf.com",
+      "source_url": "https://commons.wikimedia.org/wiki/File:ZF_logo_STD_Blue_3CC.svg",
+      "source_type": "wikimedia",
+      "raw_path": "/tmp/sintera_logos/raw/zf.svg",
+      "raw_format": "svg",
+      "preview_path": "/tmp/sintera_logos/preview/zf.png",
+      "download_ok": true,
+      "confidence": "high",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Blue circular \"ZF\" roundel \u2014 the current/standard ZF corporate mark (parent: ZF Friedrichshafen AG). Chosen file \"ZF logo STD Blue 3CC.svg\" is a single-path vector on TRANSPARENT background with fill #0057B7 (ZF standard brand blue), which structurally matches the internal Sintera ground-truth reference exactly: blue circle outline + blue ZF letterform, no background tile. Rejected two other Wikimedia files that are visually wrong vs the ref: \"ZF Friedrichshafen logo.svg\" (purple-blue #4367c5 SQUARE tile with white ZF cut-out \u2014 inverted, wrong color, wrong shape) and \"ZF Official Logo.svg\" (#036eb8 blue SQUARE tile with white ZF \u2014 inverted). The transparent roundel reads cleanly on a dark navy logo strip. Local Czech entity was formerly TRW, now ZF Passive Safety Czech s.r.o.; per brief this client is quoted on sintera.cz reference page \u2014 but that is a name/testimonial reference, not evidence of authorised logo use, so permission still requires client approval.",
+      "needs_manual_review": false,
+      "candidate_urls": [
+        "https://commons.wikimedia.org/wiki/File:ZF_logo_STD_Blue_3CC.svg",
+        "https://commons.wikimedia.org/wiki/File:ZF_Friedrichshafen_logo.svg",
+        "https://commons.wikimedia.org/wiki/File:ZF_Official_Logo.svg",
+        "https://commons.wikimedia.org/wiki/Category:ZF_Friedrichshafen_logos",
+        "https://brandfetch.com/zf.com"
+      ],
+      "agent_notes": "Sourced from Wikimedia Commons (priority-1 source). Tried the brief's first candidate \"ZF Friedrichshafen logo.svg\" but it is a solid blue SQUARE tile with white ZF cut-out (fill #4367c5) \u2014 does not match the internal ref, which is a transparent blue roundel. Searched Commons category, found \"ZF logo STD Blue 3CC.svg\" (Adobe Illustrator export, single path, #0057B7, transparent bg) \u2014 rendered and confirmed it matches the ground-truth zf.png exactly. Chosen file saved to raw/zf.svg (1089 bytes, valid: starts <?xml, ends </svg>, one path). Preview rendered at 1200x480 via Chrome headless. Minor note: the ref PNG's blue reads slightly lighter/less saturated than #0057B7, but #0057B7 is the documented ZF \"STD Blue\" brand spec, so the SVG is the more authoritative/current color \u2014 confidence high. Entity is unambiguous (ZF / ZF Friedrichshafen AG global mark; local entity ZF Passive Safety Czech, ex-TRW). No favicon, no Google Images, no competitor/outdated mark used."
+    },
+    "verify": {
+      "slug": "zf",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "no",
+      "source_trustworthy": true,
+      "visual_quality": "acceptable",
+      "transparent_or_vector": true,
+      "final_confidence": "medium",
+      "final_needs_manual_review": true,
+      "issues": [
+        "Wrong brand blue: chosen SVG renders #0057B7 (HSV 211/100/72), but the internal ground-truth is #1179BF (HSV 204/91/75) - RGB euclidean distance ~39, visibly more saturated and darker than the approved reference. The lighter/desaturated #1179BF matches ZF's current post-2021 'ZF Blue' brand color; #0057B7 is an older/incorrect shade.",
+        "Sourcing agent's color rationale is backwards: it asserted #0057B7 is the 'more authoritative/current' STD Blue and dismissed the ref as 'slightly lighter'. In fact the internal ref color IS the current ZF blue, so the shipped file carries an outdated/off-brand color.",
+        "Shape, letterform, roundel geometry and transparency all match the reference exactly - the defect is color only, not entity or mark."
+      ],
+      "verdict_notes": "Correct brand (ZF roundel) and correct entity (ZF Friedrichshafen AG, parent of client ZF Passive Safety Czech s.r.o., ex-TRW) - no same-name confusion, the ZF automotive roundel is globally distinctive. Source is trustworthy (Wikimedia Commons), file is a clean single-path transparent SVG, sharp and vector. The agent correctly rejected the inverted blue-square-tile variants. HOWEVER the chosen file ships in the wrong blue: preview is #0057B7 while the internal ground-truth is #1179BF (distance ~39, different hue+saturation). The internal ref matches ZF's current lighter brand blue; #0057B7 is an outdated/over-saturated shade, and the agent's justification for keeping it ('more current/authoritative') is incorrect. Recommend either recoloring the path to match the ground-truth #1179BF or sourcing the current-blue ZF SVG before shipping. Flagging for manual review and lowering confidence to medium on the currentness/color defect; entity and brand are solid. Licence: Wikimedia file plus name-only reference on sintera.cz is not authorization for logo use - client approval still required."
+    }
+  },
+  {
+    "slug": "nestle",
+    "display": "Nestl\u00e9",
+    "entity": "Nestl\u00e9 \u010cesko s.r.o.",
+    "source": {
+      "slug": "nestle",
+      "display_name": "Nestl\u00e9",
+      "legal_entity": "Nestl\u00e9 \u010cesko s.r.o.",
+      "domain": "nestle.com",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Nestl%C3%A9_textlogo.svg",
+      "source_type": "wikimedia",
+      "raw_path": "/tmp/sintera_logos/raw/nestle.svg",
+      "raw_format": "svg",
+      "preview_path": "/tmp/sintera_logos/preview/nestle.png",
+      "download_ok": true,
+      "confidence": "high",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Clean wordmark-only \"Nestl\u00e9\" SVG (the brief's preferred form for a logo strip), sourced from Wikimedia Commons file \"Nestl\u00e9 textlogo.svg\" (nominal 300\u00d782, single vector path, fill #939ca1 grey). This is the current official Nestl\u00e9 wordmark and matches the wordmark portion of the internal Sintera reference image exactly (same grey tone, same modern letterforms with bar-over-N and accented \u00e9). The full reference mark also includes the bird-nest emblem above the word and the \"Good Food, Good Life\" tagline; the wordmark alone is intentionally chosen here as cleaner and more legible on a dark navy strip. Entity is the global Nestl\u00e9 S.A. brand (Czech subsidiary Nestl\u00e9 \u010cesko s.r.o.); the mark is identical across the group. This is a third-party client trademark; no direct evidence the client authorised logo use was found, so approval is still required. The wordmark grey may be recolored (e.g. to white) for a dark-navy strip without changing the mark.",
+      "needs_manual_review": false,
+      "candidate_urls": [
+        "https://commons.wikimedia.org/wiki/File:Nestl%C3%A9_textlogo.svg",
+        "https://commons.wikimedia.org/wiki/File:Nestle_textlogo_blue.svg",
+        "https://commons.wikimedia.org/wiki/File:Nestle_textlogo_black.svg",
+        "https://commons.wikimedia.org/wiki/Category:Nestl%C3%A9_logos"
+      ],
+      "agent_notes": "Read internal reference /tmp/sintera_logos/internal/nestle.png first to confirm correct mark (bird-nest emblem + \"Nestl\u00e9\" wordmark + \"Good Food, Good Life\"). Brief's first Commons candidate \"Nestl\u00e9.svg\" returned an HTML page (404/no such file). Second candidate \"Nestl\u00e9 textlogo.svg\" via Special:FilePath returned a valid SVG (starts with <?xml, contains one </svg>, 6360 bytes, single path, fill #939ca1) \u2014 validated and saved to raw_path. WebSearch confirmed this is a genuine Commons file and surfaced color variants (blue/black/red) if a different tone is wanted later. Preview rendered via headless Chrome at 1200\u00d7480 (2x), RGB, 16.9KB; visual inspection shows a sharp correct \"Nestl\u00e9\" wordmark matching the reference. Chose wordmark-only per brief preference for the strip. raw_path=/tmp/sintera_logos/raw/nestle.svg, preview_path=/tmp/sintera_logos/preview/nestle.png. Permission kept at needs_client_approval (client trademark, no authorization evidence). For a dark navy strip, recolor the single path fill from #939ca1 to white/light."
+    },
+    "verify": {
+      "slug": "nestle",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "yes",
+      "source_trustworthy": true,
+      "visual_quality": "good",
+      "transparent_or_vector": true,
+      "final_confidence": "high",
+      "final_needs_manual_review": true,
+      "issues": [
+        "Wordmark-only: preview omits the bird-nest emblem and 'Good Food, Good Life' tagline present in the internal ground-truth reference. This is an intentional, brief-sanctioned choice for a logo strip, not a defect, but the asset is a partial mark vs. the full reference.",
+        "Third-party client trademark with no evidence of authorization to use Nestle's logo; permission correctly retained at needs_client_approval. Requires human/legal sign-off before shipping on a client site.",
+        "Grey fill #939ca1 will likely need recoloring (e.g. to white) for a dark-navy strip; verify the recolor is acceptable per Nestle brand guidelines."
+      ],
+      "verdict_notes": "Correct brand and correct legal entity. Preview wordmark 'Nestle' matches the wordmark portion of the internal reference exactly: same modern rounded letterforms, the distinctive horizontal bar over the 'N' extending right, and the acute-accented 'e', same grey-blue tone. Nestle is globally unambiguous, so no same-name/different-company entity risk. This is the current official wordmark (no outdated letterforms). Source is Wikimedia Commons (reasonable, though community-edited); the agent's first candidate 404'd and the second resolved to a valid single-path SVG. Asset is sharp, vector, single recolorable path, transparent-friendly. Quality is good. Brand/entity/currentness/quality all pass with high confidence. I keep needs_manual_review=true purely on the licence dimension: this is a third-party trademark with no authorization evidence, which the brief itself flags as approval-required, plus the asset is intentionally a partial (wordmark-only) mark relative to the full reference. Route for client/legal sign-off before publishing."
+    }
+  },
+  {
+    "slug": "safran-cabin",
+    "display": "Safran Cabin",
+    "entity": "Safran Cabin CZ s.r.o.",
+    "source": {
+      "slug": "safran-cabin",
+      "display_name": "Safran Cabin",
+      "legal_entity": "Safran Cabin CZ s.r.o.",
+      "domain": "safran-group.com",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Safran_2016_logo.svg",
+      "source_type": "wikimedia",
+      "raw_path": "/tmp/sintera_logos/raw/safran-cabin.svg",
+      "raw_format": "svg",
+      "preview_path": "/tmp/sintera_logos/preview/safran-cabin.png",
+      "download_ok": true,
+      "confidence": "high",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Used the CURRENT Safran group logo (3D blue gradient swirl \"S\" inside an open circular ring + grey \"SAFRAN\" wordmark), exactly matching the internal Sintera reference (/tmp/sintera_logos/internal/safran.png). This is the correct mark for Safran Cabin, which is a Safran division (former Zodiac Aerospace) \u2014 NOT the old Zodiac Aerospace logo, and NOT a Zodiac-era brand. Parent entity is Safran S.A. The chosen file is the official current corporate identity adopted in 2016. Safran/Safran Cabin is a registered trademark of Safran S.A.; logo use on the Sintera reference page is subject to client/trademark-owner approval.",
+      "needs_manual_review": false,
+      "candidate_urls": [
+        "https://commons.wikimedia.org/wiki/File:Safran_2016_logo.svg",
+        "https://commons.wikimedia.org/wiki/File:The_Safran_Company.svg",
+        "https://commons.wikimedia.org/wiki/File:Logo_Safran.svg"
+      ],
+      "agent_notes": "Wikimedia Commons was the source. The brief's first-try filename \"Safran - Logo.svg\" does not exist (returned an HTML page). Searched the Commons file namespace via API and found candidates: \"Safran 2016 logo.svg\", \"The Safran Company.svg\", \"Logo Safran.svg\". Fetched all three as valid SVGs and rendered \"Safran 2016 logo.svg\", which is a pixel-faithful match to the internal reference (gradient blue swirl S + grey SAFRAN). Promoted that file to the canonical raw path /tmp/sintera_logos/raw/safran-cabin.svg (16454 bytes, starts with <?xml/<svg, contains </svg>) and regenerated the canonical preview at /tmp/sintera_logos/preview/safran-cabin.png (1200x480, 40KB, visually verified). Confidence high: clean current-brand Commons SVG, correct entity (Safran group mark for the Safran Cabin division), sharp vector. Note: this is the corporate Safran group logo; there is no separate distinct \"Safran Cabin\" logotype in public use \u2014 divisions use the group mark, which is consistent with the internal reference and the brief."
+    },
+    "verify": {
+      "slug": "safran-cabin",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "yes",
+      "source_trustworthy": true,
+      "visual_quality": "good",
+      "transparent_or_vector": true,
+      "final_confidence": "high",
+      "final_needs_manual_review": false,
+      "issues": [
+        "Trademark/licensing: Safran is a registered trademark of Safran S.A.; logo use on the client reference page is subject to client/trademark-owner approval (non-asset issue).",
+        "Sourcing agent's first-try filename ('Safran - Logo.svg') did not exist and it picked from multiple Commons candidates; the selected file renders correctly so this is acceptable but worth noting.",
+        "Preview renders on an opaque light-grey canvas; the SVG itself has no background rect and is transparent-capable, so this is cosmetic only."
+      ],
+      "verdict_notes": "Pixel-faithful match to internal ground truth: 3D gradient blue swirl 'S' in an open circular ring + grey 'SAFRAN' wordmark, identical typeface and proportions. This is the current (2016-onward) Safran group corporate mark, which is the correct mark for Safran Cabin (former Zodiac Aerospace) since divisions use the group identity and there is no separate Safran Cabin logotype. Correctly avoided the old Zodiac Aerospace logo per the brief. Raw SVG is well-formed (valid XML header, single closing tag, 16454 bytes), internal Inkscape docname 'LOGO_SAFRAN_rvb' confirms the official Safran RGB source, contains correct Safran palette (blue gradients #0056a5/#0061a7/#0069b5/#5cb9e9/#84cfec, wordmark grey #4f5569), 30 linearGradients + 4 radialGradients for the 3D effect, and zero Zodiac traces. Source is Wikimedia Commons (File:Safran_2016_logo.svg), trustworthy for a clean vector. No entity/currentness/quality doubt. Only open item is trademark approval, which is a client-side licensing matter rather than an asset defect. Confidence high; no manual review needed."
+    }
+  },
+  {
+    "slug": "vitesco",
+    "display": "Vitesco Technologies",
+    "entity": "Vitesco Technologies Czech Republic s.r.o.",
+    "source": {
+      "slug": "vitesco",
+      "display_name": "Vitesco Technologies",
+      "legal_entity": "Vitesco Technologies Czech Republic s.r.o.",
+      "domain": "vitesco-technologies.com",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Vitesco_Technologies_logo.svg",
+      "source_type": "wikimedia",
+      "raw_path": "/tmp/sintera_logos/raw/vitesco.svg",
+      "raw_format": "svg",
+      "preview_path": "/tmp/sintera_logos/preview/vitesco.png",
+      "download_ok": true,
+      "confidence": "high",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Lowercase \"vitesco TECHNOLOGIES\" wordmark, official monochrome dark-gray (#4a4944) version, rendered as vector paths in a clean SVG (1024x378, viewBox present, transparent background). Matches the internal Sintera ground-truth reference exactly (same distinctive rounded letterforms; reference simply places the same mark on the lime/yellow brand background). Source SVG was uploaded to Wikimedia Commons from the official vitesco-technologies.com media library (Vitesco_Logo.svg) and is tagged Public domain (wordmark below threshold of originality) with the standard \"trademarked\" note. NOTE on the dark-navy logo strip: this is the dark-gray-on-transparent primary mark and would be near-invisible on dark navy \u2014 Sintera will need either a white/knockout variant or the lime background tile for the dark strip; it renders correctly on the light reference page. CURRENTNESS CAVEAT: Schaeffler completed acquisition of Vitesco in Oct 2024 and has been integrating/rebranding; as of mid-2026 it is uncertain whether the standalone Vitesco Technologies brand is still actively used. The asset itself is correct and current-as-of-spinoff, but brand validity going forward is unverified.",
+      "needs_manual_review": true,
+      "candidate_urls": [
+        "https://commons.wikimedia.org/wiki/File:Vitesco_Technologies_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/d/d2/Vitesco_Technologies_logo.svg",
+        "https://www.vitesco-technologies.com/getmedia/cac6d46f-b8fd-4ef2-bdf2-7217018bcada/Vitesco_Logo.svg"
+      ],
+      "agent_notes": "Used the priority-1 source: Wikimedia Commons SVG (File:Vitesco Technologies logo.svg), fetched via Special:FilePath. Validated: starts with <?xml, contains </svg>, 7074 bytes, viewBox -1.311 -1.311 125.632 46.322 / 1024x378, single fill #4a4944, text as paths. Saved raw to /tmp/sintera_logos/raw/vitesco.svg and rendered preview to /tmp/sintera_logos/preview/vitesco.png (1200x480 @2x, 41KB) \u2014 visually confirmed identical mark to internal reference /tmp/sintera_logos/internal/vitesco.png. License metadata via Commons API: Public domain, Copyrighted=False, Restrictions=trademarked, UsageTerms=Public domain; underlying file originally from official vitesco-technologies.com media URL, so this is effectively the official asset re-hosted on Commons. permission_status kept at needs_client_approval (client trademark; no evidence of authorized logo use). needs_manual_review=true driven by the Schaeffler-acquisition rebranding/currentness question rather than any asset-quality issue. Confidence high on asset correctness/sharpness/entity; the only soft spot is forward currentness of the brand itself."
+    },
+    "verify": {
+      "slug": "vitesco",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "unknown",
+      "source_trustworthy": true,
+      "visual_quality": "good",
+      "transparent_or_vector": true,
+      "final_confidence": "medium",
+      "final_needs_manual_review": true,
+      "issues": [
+        "BRAND CURRENTNESS RISK: Schaeffler completed the merger of Vitesco Technologies Group AG into Schaeffler AG on 1 Oct 2024. The combined group now operates under the unified 'Schaeffler' corporate brand and is gradually transferring product brands (including Vitesco) into the corporate brand. The standalone Vitesco wordmark is being phased out at group level; its forward validity is uncertain as of mid-2026. Local subsidiary 'Vitesco Technologies Czech Republic s.r.o.' may still use the name transitionally. Needs client confirmation of which brand to display.",
+        "COLOR/USAGE NOTE (non-blocking): Sourced asset is the official monochrome dark-gray (#4a4944) wordmark on transparent. It is near-invisible on a dark-navy logo strip and would need a white/knockout variant or the lime/yellow brand tile for dark backgrounds. The internal reference shows the same mark on the lime/yellow brand background.",
+        "LICENSE/PERMISSION (non-blocking for verification): Asset is public domain on Commons but the wordmark is trademarked; permission_status remains needs_client_approval \u2014 no evidence of authorized logo use yet."
+      ],
+      "verdict_notes": "Asset is the correct brand and correct legal entity. Preview matches the internal ground-truth reference exactly: identical lowercase 'vitesco' wordmark with distinctive rounded/open letterforms and tracked-out 'TECHNOLOGIES' beneath; reference simply places the same mark on the lime/yellow brand background while the preview is the dark-gray-on-transparent primary mark. Raw SVG verified clean vector: starts with <?xml, valid </svg>, width 1024 / height 378, viewBox present, single fill #4a4944, 2 paths, zero embedded raster, transparent background, 7074 bytes \u2014 sharp at any scale. Source is trustworthy (Wikimedia Commons SVG originally from official vitesco-technologies.com media library, public domain). Entity confirmed: the Continental powertrain spin-off (independent 2021), not a same-name unrelated company. The ONLY real doubt is forward brand currentness: web verification confirms Schaeffler completed the merger Oct 2024, the legal entity Vitesco Technologies Group AG was absorbed into Schaeffler AG, and the group is consolidating to the single 'Schaeffler' brand while phasing out product brands. is_current_version set to 'unknown' and manual review flagged on that basis. Confidence medium: asset correctness/quality/entity are high-confidence; brand-validity-going-forward is the open question. Recommend confirming with the client whether they want the Vitesco mark or the Schaeffler brand before shipping."
+    }
+  },
+  {
+    "slug": "secheron-hasler",
+    "display": "S\u00e9cheron Hasler",
+    "entity": "S\u00e9cheron Hasler CZ s.r.o.",
+    "source": {
+      "slug": "secheron-hasler",
+      "display_name": "S\u00e9cheron Hasler",
+      "legal_entity": "S\u00e9cheron Hasler CZ s.r.o.",
+      "domain": "secheron.com",
+      "source_url": "https://commons.wikimedia.org/wiki/File:S%C3%A9cheron_logo_h.png",
+      "source_type": "wikimedia",
+      "raw_path": "/tmp/sintera_logos/raw/secheron-hasler.png",
+      "raw_format": "png",
+      "preview_path": "/tmp/sintera_logos/preview/secheron-hasler.png",
+      "download_ok": true,
+      "confidence": "medium",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Swiss railway electrical-equipment brand. Logo is the green/black overlapping-ellipse \"S\" mark + black \"S\u00e9cheron\" wordmark \u2014 matches the internal Sintera reference (ground truth) exactly in mark, color (green ~#1E7B3E + black) and wordmark. The corporate group is now branded \"S\u00e9cheron Hasler Group\" (confirmed on secheron.com and parent haslerrail.com), formed by merging S\u00e9cheron SA and Hasler Rail; however the S\u00e9cheron product/entity (relevant to client \"S\u00e9cheron Hasler CZ s.r.o.\") still uses this exact \"S\u00e9cheron\" logo on the live site. The official secheron.com header only exposes a MONOCHROME SVG sprite (single fill #EFFFF8, CSS-tinted) plus a favicon \u2014 neither usable as a full-color brand logo \u2014 so the full-color Wikimedia Commons PNG (credited to the company's website) was chosen instead. Chosen file: transparent RGBA PNG 500x143. License on Commons: CC BY-SA 4.0, author \"Unknown\", credit \"The company's website\". This is a B2B reference/trademark use; no evidence the client authorised logo display, so keep client approval.",
+      "needs_manual_review": true,
+      "candidate_urls": [
+        "https://commons.wikimedia.org/wiki/File:S%C3%A9cheron_logo_h.png",
+        "https://upload.wikimedia.org/wikipedia/commons/f/f2/S%C3%A9cheron_logo_h.png",
+        "https://www.secheron.com/",
+        "https://www.secheron.com/wp-content/themes/digitalcover/resources/assets/images/svg/sprite.svg",
+        "https://www.haslerrail.com/",
+        "https://brandfetch.com/secheron.com"
+      ],
+      "agent_notes": "SOURCE CHOICE: Wikimedia Commons full-color transparent PNG (500x143 RGBA), validated PNG signature \\x89PNG, renders correctly and matches /tmp/sintera_logos/internal/secheron.jpg (ground truth). REJECTED: (1) official secheron.com header logo \u2014 it is an SVG sprite symbol 'logo-text' filled #EFFFF8 (monochrome, CSS-tinted), and 'logo' mark with no fills; both are single-color, NOT the green/black brand version. (2) site-icon favicon \u2014 disallowed. (3) Brandfetch (403 via WebFetch and CDN) and Logo.dev (401, needs API key) \u2014 inaccessible. (4) Internal JPEG ref \u2014 kept only as fallback; the Commons PNG is cleaner (transparent vs JPEG-on-white) so it was preferred. CONFIDENCE=medium because raster (no clean SVG available) and group-vs-entity branding nuance (S\u00e9cheron vs S\u00e9cheron Hasler Group). needs_manual_review=true for: PNG-not-SVG, modest 500px resolution, and to confirm which brand lockup Sintera wants on the strip (S\u00e9cheron mark vs S\u00e9cheron Hasler Group). If an SVG is required later, the monochrome sprite at secheron.com could be recolored, but that would lose the two-tone brand color. LICENSE: CC BY-SA 4.0 (attribution + share-alike) per Commons imageinfo \u2014 note attribution obligation if used under that license, though trademark/brand usage for a client reference is the governing concern (needs_client_approval)."
+    },
+    "verify": {
+      "slug": "secheron-hasler",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "yes",
+      "source_trustworthy": true,
+      "visual_quality": "acceptable",
+      "transparent_or_vector": true,
+      "final_confidence": "medium",
+      "final_needs_manual_review": true,
+      "issues": [
+        "Raster PNG, not vector: 500x143 RGBA. Transparent but modest resolution \u2014 borderline crisp on a high-DPI client logo strip. No clean two-tone SVG is available (official site only exposes a monochrome CSS-tinted SVG sprite).",
+        "Brand-lockup ambiguity (the real decision to confirm): the preview is the standalone 'S\u00e9cheron' mark, which is current and live, BUT the corporate group has a combined 'S\u00e9cheron Hasler Group' lockup (seen on the official Dec 2025 corporate brochure header and used as primary identifier on secheron.com/at-a-glance). Client is 'S\u00e9cheron Hasler CZ s.r.o.' \u2014 confirm with Sintera whether the strip should show the standalone 'S\u00e9cheron' mark or the 'S\u00e9cheron Hasler Group' lockup.",
+        "Commons file metadata: author 'Unknown', inception 2010. Mark still matches the current live logo so not outdated, but provenance is weak; credited only as 'the company's website' (VRT ticket #2025080610005575 on file).",
+        "License/usage: CC BY-SA 4.0 requires attribution + share-alike if used under that license; more importantly this is B2B trademark/brand use \u2014 no evidence the client authorised logo display, so client approval still needed."
+      ],
+      "verdict_notes": "VERIFIED as the correct brand and correct entity. Preview shows the green/black overlapping-ellipse 'S' mark + 'S\u00e9cheron' wordmark (acute accent on first e), matching the internal ground truth (/tmp/sintera_logos/internal/secheron.jpg) in mark geometry, two-tone color (green ~#1E7B3E + black), and wordmark. Confirmed against the official S\u00e9cheron Hasler Group December 2025 corporate brochure (secheron.com/wp-content/uploads/2025/12/..._Brochure_SecheronHaslerGroup_s.pdf), whose cover shows this exact standalone 'S\u00e9cheron' logo as a live operational sub-brand at the bottom, with the 'S\u00e9cheron Hasler GROUP' combined lockup in the header. Right industry (Swiss railway / rail electrical protection & traction power) and right entity for client 'S\u00e9cheron Hasler CZ s.r.o.' \u2014 no same-name/different-company risk. Minor color/weight differences between preview and internal ref are consistent with transparent-PNG vs JPEG-on-white sources, not a different brand. CURRENT, not outdated. Kept at medium confidence with manual review because: (1) raster PNG only at 500px, no clean two-tone vector; (2) the genuine open question of which brand lockup Sintera wants (standalone 'S\u00e9cheron' vs 'S\u00e9cheron Hasler Group' group lockup); (3) trademark/brand usage needs client approval. The sourcing agent's reasoning was sound and its rejections (monochrome SVG sprite, favicon, inaccessible Brandfetch/Logo.dev) were correct."
+    }
+  },
+  {
+    "slug": "winning-group",
+    "display": "Winning Group",
+    "entity": "Winning Group a.s.",
+    "source": {
+      "slug": "winning-group",
+      "display_name": "Winning Group",
+      "legal_entity": "Winning Group a.s.",
+      "domain": "winninggroup.cz",
+      "source_url": "https://www.winninggroup.cz/wp-content/themes/winning-group/assets/images/winning-logo.svg",
+      "source_type": "official_website",
+      "raw_path": "/tmp/sintera_logos/raw/winning-group.svg",
+      "raw_format": "svg",
+      "preview_path": "/tmp/sintera_logos/preview/winning-group.png",
+      "download_ok": true,
+      "confidence": "high",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Correct entity confirmed: Winning Group a.s., Brno-based Czech industrial investment holding (founded 2016 by Sebastian P. Wagner; areas: Construction/Development/Industrial-Automotive/Specialty). The lowercase \"winninggroup\" wordmark in the internal Sintera reference matches the official brand exactly. NOTE: the real domain is winninggroup.cz, NOT winning.cz as the brief speculated. Official logo SVG pulled directly from the site theme assets; it renders crisp and matches the internal 240px reference (black \"winning\" #191b1d + gray \"group\" at 0.6 opacity). An official white variant also exists at .../winning-logo_white.svg (saved to /tmp/sintera_logos/winning-white.svg) which is better suited for the dark navy logo strip. A \u00a9 2021 Winning Group a.s. logo manual PDF was also downloaded (/tmp/sintera_logos/winning_logomanual.pdf) corroborating the identity. These are client trademarks; no evidence of authorised logo use found, so approval still required.",
+      "needs_manual_review": false,
+      "candidate_urls": [
+        "https://www.winninggroup.cz/wp-content/themes/winning-group/assets/images/winning-logo.svg",
+        "https://www.winninggroup.cz/wp-content/themes/winning-group/assets/images/winning-logo_white.svg",
+        "https://www.winninggroup.cz/wp-content/uploads/2021/08/Winning-group-Logomanual.pdf",
+        "https://www.winninggroup.cz/en/"
+      ],
+      "agent_notes": "Entity disambiguation resolved with high confidence. Official current SVG wordmark sourced from winninggroup.cz theme assets (fill #191b1d for \"winning\", opacity 0.6 gray for \"group\"), viewBox 0 0 284.989 40, valid (<svg...></svg>, 3684 bytes). Preview rendered at 1200x480 (2x) on light gray bg and visually matches the internal reference one-for-one. For the dark navy strip, recommend reviewer use the white variant (winning-white.svg) instead of this color one. Did not set public_reference_confirmed: no evidence of client authorisation, and could not verify whether Winning Group is published on the sintera.cz reference page."
+    },
+    "verify": {
+      "slug": "winning-group",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "yes",
+      "source_trustworthy": true,
+      "visual_quality": "good",
+      "transparent_or_vector": true,
+      "final_confidence": "high",
+      "final_needs_manual_review": true,
+      "issues": [
+        "Public-reference/authorization not confirmed: sourcing agent found no evidence Winning Group is published on the sintera.cz reference page and no logo-use license; per brief, keep internal ref as raw until confirmed.",
+        "Minor narrative discrepancy: brand_notes describe segments as Construction/Development/Industrial-Automotive/Specialty and a 2016 founding by Sebastian P. Wagner, but the live winninggroup.cz site lists segments as Construction/Properties/Leisure & Services/Vital. Entity identity is unambiguous; only the prose description differs.",
+        "Brief speculated domain winning.cz; verified that winning.cz issues a 301 permanent redirect to www.winninggroup.cz, so winninggroup.cz is the correct canonical domain (brand_notes correct)."
+      ],
+      "verdict_notes": "Entity, brand, and currentness all confirmed with high confidence; review flag is for licensing/public-reference only, not any doubt about the logo itself. ENTITY: Winning Group a.s., Czech industrial/investment holding in Brno (Krizikova 2960/72, 612 00 Brno) \u2014 confirmed via live homepage and a (c)2021 logo manual PDF (GT America typeface, Adobe InDesign 16.3). Not a same-name foreign company. BRAND/MATCH: Sourced SVG (/tmp/sintera_logos/raw/winning-group.svg, 3684 bytes) matches the internal 240px reference (/tmp/sintera_logos/internal/winning.png) one-for-one \u2014 lowercase 'winning' in #191b1d plus 'group' in a g.b group at opacity 0.6, identical geometric sans wordmark. CURRENTNESS: live fetch of the source URL is byte-identical (viewBox 0 0 284.989 40, fill #191b1d, opacity 0.6) to the saved file \u2014 current theme asset. DOMAIN: winning.cz 301-redirects to www.winninggroup.cz; winninggroup.cz is canonical (corrects the brief's winning.cz guess). SOURCE: official site theme assets \u2014 trustworthy. QUALITY: well-formed vector SVG, no background fill (transparent), sharp/scalable; a white variant exists at /tmp/sintera_logos/winning-white.svg (fill #fff) for the dark navy strip. REVIEW REASON: no evidence of client authorization and public_reference unconfirmed \u2014 per the brief, flag needs_manual_review and keep the internal ref as raw until licensing/reference status is verified."
+    }
+  },
+  {
+    "slug": "alstom",
+    "display": "Alstom",
+    "entity": "Alstom (CZ site, former Bombardier Transportation, \u010cesk\u00e1 L\u00edpa)",
+    "source": {
+      "slug": "alstom",
+      "display_name": "Alstom",
+      "legal_entity": "Alstom (CZ site, former Bombardier Transportation, \u010cesk\u00e1 L\u00edpa); parent Alstom SA",
+      "domain": "alstom.com",
+      "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Alstom%20logo.svg",
+      "source_type": "wikimedia",
+      "raw_path": "/tmp/sintera_logos/raw/alstom.svg",
+      "raw_format": "svg",
+      "preview_path": "/tmp/sintera_logos/preview/alstom.png",
+      "download_ok": true,
+      "confidence": "high",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Current post-2020 Alstom logo: navy wordmark \"ALSTOM\" (#1E3246) with the red abstract swirl emblem (#DC3223) replacing the \"O\". Confirmed via WebSearch as the present brand identity (deep blue + red swirl). This is the correct global Alstom SA brand that absorbed Bombardier Transportation \u2014 the CZ \u010cesk\u00e1 L\u00edpa site was formerly Bombardier; NO Bombardier mark used. Clean, license-clear Wikimedia Commons SVG, vector-sharp at any scale, viewBox 329.832x90.954. NOTE for the dark navy logo strip: the wordmark is navy (#1E3246), which has very low contrast on a dark navy background \u2014 a reviewer/designer will likely need a white/light monochrome variant of this same logo for the dark strip; the asset itself is correct and current. No evidence of client authorisation for logo use found, so kept needs_client_approval.",
+      "needs_manual_review": false,
+      "candidate_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Alstom%20logo.svg",
+        "https://brandfetch.com/alstom.com",
+        "https://logokit.com/brands/alstom.com"
+      ],
+      "agent_notes": "Wikimedia Commons candidate \"Alstom logo.svg\" succeeded on first try (priority-1 source). Validated: starts with <?xml, contains one </svg>, 2262 bytes, complete. Preview rendered to PNG at 1200x480 (2x) and visually confirmed as the current Alstom logo (navy ALSTOM + red swirl O). WebSearch corroborated currentness/entity. Colors in SVG: #1E3246 navy text, #DC3223 red swirl. This Commons file is the wordmark-only lockup (no \"Mobility by Nature\" tagline), which is the cleaner choice for a logo strip. Only caveat flagged in brand_notes: navy-on-navy contrast on the dark strip \u2014 designer may want a white knockout variant; correctness of the asset itself is high."
+    },
+    "verify": {
+      "slug": "alstom",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "yes",
+      "source_trustworthy": true,
+      "visual_quality": "good",
+      "transparent_or_vector": true,
+      "final_confidence": "high",
+      "final_needs_manual_review": false,
+      "issues": [
+        "Wordmark is navy #1E3246 \u2014 very low contrast on a dark navy logo strip; a white/light monochrome knockout variant of this same logo will likely be needed for the dark background (display/styling concern, not an asset-correctness defect).",
+        "No evidence of client authorisation for logo use; keep needs_client_approval per normal trademark handling."
+      ],
+      "verdict_notes": "Verified the current post-2020 Alstom logo. Preview (/tmp/sintera_logos/preview/alstom.png) and source SVG (/tmp/sintera_logos/raw/alstom.svg) both show the navy \"ALSTOM\" wordmark with the distinctive red abstract swirl forming the \"O\". SVG fills are #1E3246 (navy) and #DC3223 (red); rendered PNG pixels match exactly (RGB 30,50,70 and 220,50,35), so the render is faithful. Clean vector, viewBox 0 0 329.832 90.954, transparent background (rect fill=\"none\" is just a bounding box). This is the wordmark-only lockup without the \"Mobility by Nature\" tagline \u2014 appropriate for a logo strip. Source is Wikimedia Commons FilePath, trustworthy and license-clear. Entity is correct: Alstom SA, the global rail/transport company \u2014 a distinctive name with no notable same-name collision. Crucially, this is NOT a Bombardier mark: the \u010cesk\u00e1 L\u00edpa site was formerly Bombardier Transportation but was acquired by Alstom (Jan 2021), so the current Alstom brand is the right one. No wrong-brand, wrong-entity, or outdated-version problems found. Only caveat is the navy-on-dark contrast, a presentation matter best solved with a white knockout variant. High confidence; no manual review required."
+    }
+  },
+  {
+    "slug": "linet",
+    "display": "LINET",
+    "entity": "LINET spol. s r.o.",
+    "source": {
+      "slug": "linet",
+      "display_name": "LINET",
+      "legal_entity": "LINET spol. s r.o.",
+      "domain": "linet.com",
+      "source_url": "https://www.linet.com/-/media/Images/website/logos/LINET_logo_male.ashx",
+      "source_type": "official_website",
+      "raw_path": "/tmp/sintera_logos/raw/linet.jpg",
+      "raw_format": "jpg",
+      "preview_path": "/tmp/sintera_logos/preview/linet.png",
+      "download_ok": true,
+      "confidence": "medium",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Correct current LINET full mark: grey/red diamond-checkmark device + red \"LINET\" wordmark + \u00ae symbol. Verified against the internal Sintera ground-truth reference (/tmp/sintera_logos/internal/linet.jpg) \u2014 the official linet.com JPEG and the internal reference are pixel-near-identical (same 1200x630 dims, only JPEG recompression noise; max channel diff 54/255, mean 0.27), confirming entity and mark are correct. Entity is the Czech hospital-bed manufacturer LINET spol. s r.o. (parent LINET Group SE), not LINET Group or wissner-bosserhoff. CAVEAT: this official asset is a JPEG with a baked-in WHITE background, which will show a white box on the dark navy logo strip. The only transparent official asset found (LINET_logo.png / LINET_logo_male* PNG, 1500x580) is WORDMARK-ONLY (red \"LINET\" text WITHOUT the diamond-checkmark device) \u2014 saved as alternative at /tmp/sintera_logos/raw/linet_wordmark_only_transparent.png. Reviewer should decide: (a) use this full-mark JPEG and knock out the white bg for dark navy, or (b) use the transparent wordmark-only PNG if the device is not required. No Wikimedia Commons SVG exists for LINET (searches return only unrelated LINE/Li-Ning/Linear). The linet.com /logos download page is JS-rendered and did not expose direct EPS/AI/ZIP/SVG links via static fetch; a proper full-mark vector likely exists in that download widget or via Brands of the World but was not retrievable cleanly here.",
+      "needs_manual_review": true,
+      "candidate_urls": [
+        "https://www.linet.com/-/media/Images/website/logos/LINET_logo_male.ashx",
+        "https://www.linet.com/-/media/Images/website/logos/LINET_logo.png",
+        "https://www.linet.com/en/news/logos-and-photos/logos",
+        "https://www.brandsoftheworld.com/logo/linet"
+      ],
+      "agent_notes": "Source priority outcome: (1) Wikimedia Commons SVG \u2014 none exists for this entity. (2/3) Official site \u2014 used. Found two official linet.com assets under /-/media/Images/website/logos/: LINET_logo_male.ashx = full mark (device+wordmark) but JPEG w/ white bg; LINET_logo.png = transparent PNG but wordmark-only (no device). (4) Internal reference confirmed as ground truth and matches the official full-mark JPEG. Chose the official full-mark JPEG as raw because the brief's ground truth requires the diamond-checkmark device + wordmark, which the transparent PNG lacks. Confidence=medium: correct brand/entity and sharp, but raster (no vector found) and white-bg JPEG requires bg knockout for the dark navy strip; flagged needs_manual_review for that reason and to let reviewer pick the device-vs-transparency trade-off. permission_status=needs_client_approval per policy (client trademark; no evidence of authorized logo use). Files: raw=/tmp/sintera_logos/raw/linet.jpg (1200x630), alt=/tmp/sintera_logos/raw/linet_wordmark_only_transparent.png (1500x580 transparent), preview=/tmp/sintera_logos/preview/linet.png (1200x480)."
+    },
+    "verify": {
+      "slug": "linet",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "yes",
+      "source_trustworthy": true,
+      "visual_quality": "acceptable",
+      "transparent_or_vector": false,
+      "final_confidence": "medium",
+      "final_needs_manual_review": true,
+      "issues": [
+        "Chosen raw is a JPEG with a baked-in WHITE background (1200x630, no alpha) \u2014 will show a white box on the dark navy logo strip unless the background is manually knocked out, which risks edge halos on the grey/red device.",
+        "No vector (SVG/EPS/AI) was obtained despite the brief preferring an official SVG; asset is raster-only.",
+        "The only transparent official asset (linet_wordmark_only_transparent.png, 1500x580) is WORDMARK-ONLY and lacks the diamond-checkmark device, so it does not satisfy the brief's ground-truth requirement on its own. Neither delivered file is shippable as-is.",
+        "Licence unresolved: client trademark, permission_status=needs_client_approval, no evidence of authorized logo use.",
+        "Sourcing notes indicate a proper full-mark vector likely exists in the JS-rendered linet.com download widget (or Brands of the World) but was not retrieved cleanly."
+      ],
+      "verdict_notes": "Brand and legal entity are confirmed correct: the full-mark raw (/tmp/sintera_logos/raw/linet.jpg) is visually identical to the internal ground-truth (/tmp/sintera_logos/internal/linet.jpg) \u2014 grey/red diamond-checkmark device + red 'LINET' wordmark + \u00ae \u2014 matching the Czech hospital-bed manufacturer LINET spol. s r.o. (parent LINET Group SE), not a same-name different company and not wissner-bosserhoff. Mark appears current (device matches reference). Source is the official linet.com media path. Mark is sharp, hence visual_quality=acceptable rather than poor. However transparent_or_vector=false: the shippable full mark is a white-background JPEG (no alpha, no vector), and the only transparent official asset is wordmark-only (no device). This forces a manual trade-off (knock out white bg vs. accept device-less wordmark) and a real attempt at a full-mark vector. Combined with unresolved trademark licence, medium confidence and manual review are warranted. Preview at /tmp/sintera_logos/preview/linet.png; transparent alt at /tmp/sintera_logos/raw/linet_wordmark_only_transparent.png."
+    }
+  },
+  {
+    "slug": "edwards",
+    "display": "Edwards",
+    "entity": "Edwards s.r.o. (Edwards Vacuum)",
+    "source": {
+      "slug": "edwards",
+      "display_name": "Edwards",
+      "legal_entity": "Edwards s.r.o. (Edwards Vacuum)",
+      "domain": "edwardsvacuum.com",
+      "source_url": "https://www.edwardsvacuum.com/etc.clientlibs/settings/wcm/designs/edwards/clientlib-preloaded/resources/img/svg/logo.svg",
+      "source_type": "official_website",
+      "raw_path": "/tmp/sintera_logos/raw/edwards.svg",
+      "raw_format": "svg",
+      "preview_path": "/tmp/sintera_logos/preview/edwards.png",
+      "download_ok": true,
+      "confidence": "high",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Edwards VACUUM (vacuum pumps / abatement, Atlas Copco group) \u2014 NOT Edwards Lifesciences (medical). Logo is an exact match to the internal Sintera reference: red bold-italic \"EDWARDS\" wordmark, black arrow/swoosh inside the \"E\", and a red curved arc above. Sourced as a clean official SVG directly from edwardsvacuum.com header (clientlib resources). SVG embeds <title>Edwards Logo</title> and uses brand colors red #cf202e, black #231f20, white #fff. Note: the artwork includes a white backing rectangle (#fff fill) as published by Edwards \u2014 fine on a light reference page; for the dark navy logo strip a transparent/monochrome variant may be preferable (an official white-only \"logo-full.svg\" footer variant also exists at /content/dam/brands/edwards-vacuum/svg/logo-full.svg). Trademark of Edwards Vacuum; no evidence the client authorised logo use, so keeps needs_client_approval.",
+      "needs_manual_review": false,
+      "candidate_urls": [
+        "https://www.edwardsvacuum.com/etc.clientlibs/settings/wcm/designs/edwards/clientlib-preloaded/resources/img/svg/logo.svg",
+        "https://www.edwardsvacuum.com/content/dam/brands/edwards-vacuum/svg/logo-full.svg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Edwards%20Vacuum%20Logo.jpg",
+        "https://commons.wikimedia.org/wiki/File:Edwards_Vacuum_Logo.jpg"
+      ],
+      "agent_notes": "Confirmed correct entity by Reading internal reference /tmp/sintera_logos/internal/edwards.jpg before sourcing. Primary chosen source = official edwardsvacuum.com header SVG (full-color, 2507 bytes, viewBox 0 0 283.46 73.7, valid <?xml> + </svg>, contains the EDWARDS wordmark + arc + arrow). Rendered preview /tmp/sintera_logos/preview/edwards.png (1200x480) visually matches the reference 1:1. Alternative sources downloaded and validated as backups: official footer white-only SVG (logo-full.svg, monochrome \u2014 good for dark strip) and Wikimedia Commons CMYK JPEG (Edwards_Vacuum_Logo.jpg, 1181x307, EXIF copyright \"\u00a9 Edwards Vacuum\"). No Commons SVG exists for this entity. Did NOT use favicon or Google Images. Raw kept as SVG (vector, sharp at any size). Only open consideration: the white backing rectangle in the chosen SVG \u2014 for the dark navy logo strip, swap to the white-only logo-full.svg variant."
+    },
+    "verify": {
+      "slug": "edwards",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "yes",
+      "source_trustworthy": true,
+      "visual_quality": "good",
+      "transparent_or_vector": true,
+      "final_confidence": "high",
+      "final_needs_manual_review": false,
+      "issues": [
+        "Raw SVG embeds an opaque white backing rectangle (<rect fill=#fff> covering the full 283.46x73.7 canvas) \u2014 the asset is NOT transparent. It will render as a white box on the client's dark navy logo strip. Swap to the official white-only variant /content/dam/brands/edwards-vacuum/svg/logo-full.svg for dark backgrounds.",
+        "Trademark of Edwards Vacuum; no evidence the client authorised logo use \u2014 keep needs_client_approval."
+      ],
+      "verdict_notes": "Verified correct. This is Edwards VACUUM (vacuum pumps/abatement, Atlas Copco group), NOT Edwards Lifesciences (medical) \u2014 confirmed by the distinctive mark and the official domain. Preview matches the internal ground-truth reference 1:1: red bold-italic EDWARDS wordmark (#cf202e), speedometer-style red arc above the leading letters, and a black (#231f20) arrow/swoosh inside the E; the dark internal variant (edwards_dk.jpg) is the same mark. Source is the genuine official edwardsvacuum.com header clientlib SVG \u2014 I fetched the live URL and it matches the saved raw byte-for-byte in all checkable respects (title 'Edwards Logo', color #cf202e, viewBox 0 0 283.46 73.7). Raw is a true vector SVG: valid <?xml> + </svg>, paths/polygons only, no raster <image> embeds, sharp at any size. Entity, brand, currentness, and source all high-confidence. The one real caveat: the chosen raw bakes in an opaque white background rectangle, so it is not transparent and needs the white-only logo-full.svg swap for the dark strip \u2014 a usability concern, not an entity/quality failure, so not flagging for manual review."
+    }
+  },
+  {
+    "slug": "aisan",
+    "display": "Aisan Industry",
+    "entity": "Aisan Industry Czech s.r.o.",
+    "source": {
+      "slug": "aisan",
+      "display_name": "Aisan Industry",
+      "legal_entity": "Aisan Industry Czech s.r.o.",
+      "domain": "aisan-ind.co.jp",
+      "source_url": "https://www.aisan-ind.co.jp/en/assets/images/logo.svg",
+      "source_type": "official_website",
+      "raw_path": "/tmp/sintera_logos/raw/aisan.svg",
+      "raw_format": "svg",
+      "preview_path": "/tmp/sintera_logos/preview/aisan.png",
+      "download_ok": true,
+      "confidence": "high",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Official Aisan corporate logo: red italic \"Aisan\" script, single path with fill=\"#e60012\" (brand red), viewBox 0 0 200 37. Sourced directly from the parent company's official English site (aisan-ind.co.jp/en/, referenced in both header and footer as /en/assets/images/logo.svg). This clean vector matches the ground-truth internal Sintera reference (same red italic script). NOTE: the official mark is the corporate brand script only and does NOT include the \"AISAN INDUSTRY CZECH s.r.o.\" blue subtext present in the internal reference; the script itself is the canonical, current brand identity shared by the Czech subsidiary. Client is the Czech subsidiary (Aisan Industry Czech s.r.o.), a trademark of the Aisan group; logo use requires client/owner approval. No evidence found of published name+testimonial on sintera.cz reference page.",
+      "needs_manual_review": false,
+      "candidate_urls": [
+        "https://www.aisan-ind.co.jp/en/assets/images/logo.svg",
+        "https://companieslogo.com/aisan-industry/logo/",
+        "https://seeklogo.com/vector-logo/499248/aisan-industry"
+      ],
+      "agent_notes": "Confirmed ground-truth internal reference first (Read /tmp/sintera_logos/internal/aisan.png: 2480x852 RGBA, red italic Aisan script + blue \"AISAN INDUSTRY CZECH s.r.o.\" subtext). Then sourced a superior clean official vector from the parent company's official site rather than falling back to the raster internal ref. WebFetch of aisan-ind.co.jp/en/ revealed the logo asset path; curl downloaded a valid 2977-byte SVG (starts with <svg, ends with </svg>, single path fill=#e60012). Validated: file reports \"SVG Scalable Vector Graphics image\", closing tag present, brand red confirmed. Chrome headless preview rendered to 1200x480 PNG (8.7KB) and visually confirmed as the correct red Aisan script. High confidence on entity and currentness (live official site). Only minor consideration: official mark lacks the Czech-subsidiary subtext line; if Sintera specifically wants the full \"AISAN INDUSTRY CZECH s.r.o.\" lockup, the internal reference PNG at /tmp/sintera_logos/internal/aisan.png is the alternative raw source. Decided the official vector script is the better, sharper, license-clearer brand mark for a dark navy logo strip (note: this is a red mark on dark navy \u2014 should display fine, but reviewer may want to verify contrast on the actual navy background)."
+    },
+    "verify": {
+      "slug": "aisan",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "yes",
+      "source_trustworthy": true,
+      "visual_quality": "good",
+      "transparent_or_vector": true,
+      "final_confidence": "high",
+      "final_needs_manual_review": false,
+      "issues": [
+        "Official corporate vector contains only the red italic 'Aisan' script and omits the blue 'AISAN INDUSTRY CZECH s.r.o.' subtext present in the internal ground-truth reference. This is a deliverable-spec choice (corporate mark vs. full Czech-subsidiary lockup), not a wrong-brand defect. If the full Czech lockup is required, the internal ref PNG (/tmp/sintera_logos/internal/aisan.png) is the alternative raw source.",
+        "Red mark (#e60012) on the intended dark-navy logo strip \u2014 contrast should be checked on the actual navy background by a human (rendering concern, not a sourcing defect).",
+        "Trademark of the Aisan group; client/owner approval required for use (standard for client logos)."
+      ],
+      "verdict_notes": "Verified and confirmed correct. The claimed source URL (https://www.aisan-ind.co.jp/en/assets/images/logo.svg) is live: curl returned HTTP 200, content-type image/svg+xml, and the downloaded bytes are IDENTICAL to the sourced raw at /tmp/sintera_logos/raw/aisan.svg (2977 bytes). WebFetch of the official English homepage confirms the page actively references this exact asset path with alt text \"Aisan Industry Co., Ltd.\" \u2014 so it is the live canonical logo, not a guessed or orphaned file. Company confirmed as AISAN INDUSTRY CO., LTD., a Japanese automotive/engine-parts maker (parent of the Czech client subsidiary) \u2014 correct entity, no same-name confusion. SVG is a clean single path with fill=#e60012 (brand red), viewBox 0 0 200 37, scalable and transparent. The rendered preview (/tmp/sintera_logos/preview/aisan.png) shows the correct red italic 'Aisan' script and matches the brand-script portion of the internal ground-truth reference (/tmp/sintera_logos/internal/aisan.png) exactly \u2014 same crossbar-A, cursive word, and right-extending underline tail. Only divergence from the internal ref is the omitted blue 'AISAN INDUSTRY CZECH s.r.o.' subtext, which is a lockup-scope decision rather than a correctness defect. High confidence; no manual review required."
+    }
+  },
+  {
+    "slug": "sitel",
+    "display": "SITEL",
+    "entity": "SITEL, spol. s r.o.",
+    "source": {
+      "slug": "sitel",
+      "display_name": "SITEL",
+      "legal_entity": "SITEL, spol. s r.o.",
+      "domain": "sitel.cz",
+      "source_url": "https://www.sitel.cz/wp-content/uploads/2022/06/logo_Sitel_1.png",
+      "source_type": "official_website",
+      "raw_path": "/tmp/sintera_logos/raw/sitel.png",
+      "raw_format": "png",
+      "preview_path": "/tmp/sintera_logos/preview/sitel.png",
+      "download_ok": true,
+      "confidence": "high",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Correct entity confirmed: this is the CZECH telecom / data-center cabling & infrastructure company SITEL, spol. s r.o. (sitel.cz), a systems integrator and operator of communication networks founded 1991, HQ Praha, ~500 employees, regional offices across CZ plus subsidiaries in DE/PL/HU/UA. This is NOT the global call-center company \"Sitel\"/Foundever (which uses an entirely different wordmark). The sourced logo is the distinctive SITEL mark: a blue rounded-rectangle badge containing a white \"SiTEL\" wordmark, a yellow four-pointed star, and a yellow dot over the \"i\" \u2014 matching the brand on sitel.cz. Logo is a self-contained blue badge with white wordmark, so it reads correctly on the dark navy logo strip without inversion (it supplies its own blue background). No permission/authorisation evidence found; treat as a client trademark requiring approval.",
+      "needs_manual_review": false,
+      "candidate_urls": [
+        "https://www.sitel.cz/wp-content/uploads/2022/06/logo_Sitel_1.png",
+        "https://www.sitel.cz/wp-content/uploads/2023/09/sitel_500x150.png",
+        "https://www.sitel.cz/wp-content/uploads/2023/09/SITEL_IH.png",
+        "https://www.sitel.cz/wp-content/uploads/2022/06/Kreslici-platno-1.png",
+        "https://www.sitel.cz/wp-content/uploads/2022/05/SITEL280x60.png",
+        "https://www.sitel.cz/wp-content/uploads/2022/06/Kreslici-platno-1@0.75x.png"
+      ],
+      "agent_notes": "Sourced from the official sitel.cz WordPress media library. No Commons SVG or official SVG/press-kit asset exists for this brand (confirmed via WP REST media query \u2014 all branding assets are PNG/JPG). The header logo rendered on the homepage is small (Kreslici-platno-1@0.75x.png = 139x98; full = 185x131). I queried the WP REST API (/wp-json/wp/v2/media) and found a much higher-resolution original: logo_Sitel_1.png at 1052x744, RGBA with transparency, 39 KB. Downloaded, validated (PNG magic bytes, PIL confirms 1052x744 RGBA), visually inspected \u2014 confirmed it is the correct, current, sharp SITEL logo with clean transparent background. Saved as raw /tmp/sintera_logos/raw/sitel.png and rendered preview /tmp/sintera_logos/preview/sitel.png (1200x480 @2x) on light-gray bg; both verified non-trivial and correct. Confidence high (correct entity, current brand, high-res, transparent), but raster not vector \u2014 vectorisation/tracing could be considered if a crisp scalable asset is later needed for large-format use. needs_manual_review=false: entity, currentness, and quality are all clear; only open item is the standard client trademark approval (permission_status=needs_client_approval)."
+    },
+    "verify": {
+      "slug": "sitel",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "yes",
+      "source_trustworthy": true,
+      "visual_quality": "good",
+      "transparent_or_vector": true,
+      "final_confidence": "high",
+      "final_needs_manual_review": false,
+      "issues": [
+        "Raster PNG, not vector \u2014 no official SVG exists for this brand; acceptable at 1052x744 but vectorization would be needed for large-format print use.",
+        "Standard client trademark approval still pending (permission_status=needs_client_approval) \u2014 not a defect, just an open process item."
+      ],
+      "verdict_notes": "Verified correct. This is the CZECH telecom/data-center cabling & network infrastructure company SITEL, spol. s r.o. (sitel.cz) \u2014 NOT the global call-center company Sitel/Foundever. Confirmed via live fetch of sitel.cz: family-owned Czech system integrator / network operator, ~500 employees, clients T-Mobile/Vodafone/CETIN/\u010cEZ \u2014 exactly the expected entity, and the disambiguation hazard is correctly avoided. Logo design matches the distinctive SITEL mark: blue rounded cloud/badge with white 'SiTEL' wordmark, yellow four-pointed star, and yellow dot over the 'i'. Source asset (logo_Sitel_1.png) lives in the same 2022/06 WordPress upload directory as the live header logo, confirming it is the current brand version (just a higher-res variant). Raw file independently validated: PNG 1052x744 RGBA, transparent background, 39KB, sharp. Source is the official sitel.cz media library \u2014 trustworthy. Self-contained blue badge reads correctly on a dark navy logo strip without inversion. Only open items are the raster-not-vector format (no SVG exists) and standard pending trademark approval; neither affects entity/currentness/quality, so no manual review needed."
+    }
+  },
+  {
+    "slug": "vuz",
+    "display": "V\u00fdzkumn\u00fd \u00fastav \u017eelezni\u010dn\u00ed",
+    "entity": "V\u00fdzkumn\u00fd \u00dastav \u017delezni\u010dn\u00ed, a.s. (VUZ)",
+    "source": {
+      "slug": "vuz",
+      "display_name": "V\u00fdzkumn\u00fd \u00fastav \u017eelezni\u010dn\u00ed",
+      "legal_entity": "V\u00fdzkumn\u00fd \u00dastav \u017delezni\u010dn\u00ed, a.s. (VUZ)",
+      "domain": "cdvuz.cz",
+      "source_url": "https://ys-common.s3.amazonaws.com/vuz-web/media/1/2024/07/vuz-logo-footer.png",
+      "source_type": "official_website",
+      "raw_path": "/tmp/sintera_logos/raw/vuz.png",
+      "raw_format": "png",
+      "preview_path": "/tmp/sintera_logos/preview/vuz.png",
+      "download_ok": true,
+      "confidence": "medium",
+      "permission_status": "needs_client_approval",
+      "brand_notes": "Official VUZ logo: white italic \"VUZ\" wordmark inside a double-stroke rounded-rectangle (pill) border. Sourced from the official website footer asset (transparent PNG, 500x298, RGBA). IMPORTANT: this is the WHITE/reversed variant (pure white on transparent) intended for dark backgrounds \u2014 it works on the dark navy logo strip but will be INVISIBLE on the light reference page; a dark-colored variant or a dark backing chip is needed for the light page. No SVG logo is published anywhere on the official site (only social-media icon SVGs and a Safari pinned-tab favicon SVG, neither usable). The header version is the same artwork in WebP; I chose the PNG for broader compatibility. Company is \"\u010cD VUZ\", a subsidiary within the \u010cesk\u00e9 dr\u00e1hy (Czech Railways) group. No published evidence of client authorisation for logo use was found, so keeping needs_client_approval.",
+      "needs_manual_review": true,
+      "candidate_urls": [
+        "https://www.cdvuz.cz/app/themes/cdvuz-theme/dist/assets/images/vuz-logo.1aa735.webp",
+        "https://ys-common.s3.amazonaws.com/vuz-web/media/1/2024/07/vuz-logo-footer.png",
+        "https://ys-common.s3.amazonaws.com/vuz-web/media/1/2024/07/vuz-logo-footer-sk-300x179.png"
+      ],
+      "agent_notes": "Brief's likely_domain \"vuz.cz\" is INCORRECT \u2014 that host returns an invalid TLS certificate (ERR_TLS_CERT_ALTNAME_INVALID) and is not the company site. The real official domain is cdvuz.cz. Logo discovered by downloading the cdvuz.cz homepage HTML and grepping for logo asset references. Two carriers of the brand mark exist: a header WebP (vuz-logo.1aa735.webp) and a footer PNG (vuz-logo-footer.png) \u2014 both identical artwork at 500x298. Selected the footer PNG as the raw file (PNG more universally supported than WebP, transparent RGBA, valid \\x89PNG signature). A Slovak-subsidiary footer variant also exists (vuz-logo-footer-sk) \u2014 NOT used, since the client is the Czech entity. No Wikimedia Commons SVG and no official press/media kit found. Confidence = medium: correct current brand and entity, but raster-only (no SVG) and white-only variant. Raw saved to /tmp/sintera_logos/raw/vuz.png; preview at /tmp/sintera_logos/preview/vuz.png (1200x480, logo visible \u2014 appears faint on grey preview bg because it is pure white). Reviewer should obtain a dark/positive-color VUZ logo variant for the light reference page."
+    },
+    "verify": {
+      "slug": "vuz",
+      "brand_correct": "yes",
+      "entity_correct": "yes",
+      "is_current_version": "yes",
+      "source_trustworthy": true,
+      "visual_quality": "acceptable",
+      "transparent_or_vector": true,
+      "final_confidence": "medium",
+      "final_needs_manual_review": true,
+      "issues": [
+        "White-only reversed variant: every opaque pixel is pure white (255,255,255) on transparent \u2014 will be INVISIBLE on a light reference page. Needs a dark/positive-color variant or a dark backing chip.",
+        "Raster-only (PNG 500x298); no SVG/vector published anywhere on the official site, so limited sharpness when scaled up.",
+        "Brief's likely_domain vuz.cz is incorrect (returns invalid TLS cert); real official domain is cdvuz.cz \u2014 confirmed via live fetch.",
+        "No published evidence of client authorization for logo use; keep needs_client_approval."
+      ],
+      "verdict_notes": "Adversarial verification PASSES on entity, brand, currentness, and source \u2014 but flagged for manual review on quality/usability. Entity confirmed correct via live cdvuz.cz: legal name 'V\u00fdzkumn\u00fd \u00dastav \u017delezni\u010dn\u00ed, a. s.', I\u010c 27257258, subsidiary of \u010cesk\u00e9 dr\u00e1hy (Czech Railways) \u2014 corroborated by a \u010cD press release and Czech Wikipedia. No same-name-different-company risk. Artwork (italic VUZ wordmark in a double-stroke rounded-rectangle pill) matches the current official brand mark and the rendered preview. Source is the official site's own S3 bucket (ys-common.s3.amazonaws.com/vuz-web/), referenced directly by the live cdvuz.cz footer; saved raw is byte-identical to the live asset (MD5 1d4fb594fdb06d582637f96f1ab3f8fe). The decisive issue is that this is the pure-white reversed variant (verified: single opaque color 255,255,255), unusable on a light background without a dark chip, plus raster-only with no SVG available. Confidence held at medium and review flagged due to the white-only/raster limitation and absence of logo-use authorization. Raw: /tmp/sintera_logos/raw/vuz.png; preview: /tmp/sintera_logos/preview/vuz.png."
+    }
+  }
+]

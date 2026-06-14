@@ -1,0 +1,15 @@
+{
+  "site": {
+    "baseUrl": "https://www.sintera.cz",
+    "lang": "cs",
+    "title": "Sintera Czech — přímé vyhledávání kandidátů",
+    "description": "Hledáme kandidáty mimo aktivní trh. Přesné profily s kontextem místo objemu životopisů."
+  },
+  "sheets": {
+    "_napoveda": "Vlož publikované CSV URL každého listu: Soubor → Sdílet → Publikovat na webu → list → CSV. Dokud je prázdné, build použije fallback JSON v assets/data/.",
+    "pozice": "",
+    "reference": "",
+    "casestudies": "",
+    "klienti": ""
+  }
+}

@@ -1,0 +1,213 @@
+<!doctype html><html lang="cs"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sintera — kontrolní arch klientských log</title>
+<style>
+  :root{--navy:#0e1230;--cream:#f2efe7}
+  *{box-sizing:border-box}
+  body{margin:0;background:#0b0d12;color:#e8e6df;font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  header{padding:34px 40px 10px}
+  h1{font-size:23px;margin:0 0 4px}
+  .sub{color:#9a9aa6;font-size:13.5px;max-width:900px}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 4px}
+  .legend span{font-size:12px;color:#b8b8c2;border:1px solid #2a2e3a;border-radius:20px;padding:3px 10px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:18px 40px 48px}
+  .card{background:#161a22;border:1px solid #232838;border-radius:14px;overflow:hidden}
+  .swatches{display:grid;grid-template-columns:1fr 1fr}
+  .sw{height:128px;display:flex;align-items:center;justify-content:center}
+  .sw.dark{background:var(--navy)}
+  .sw.cream{background:var(--cream)}
+  .sw img{width:300px;height:120px;object-fit:contain}
+  .meta{padding:14px 16px 16px}
+  .name{font-weight:700;font-size:16.5px;display:flex;align-items:center;gap:10px}
+  .kept{font-weight:500;font-size:11px;color:#d9a13a;border:1px solid #d9a13a55;border-radius:10px;padding:1px 7px}
+  .entity{color:#9a9aa6;font-size:12.5px;margin:3px 0 9px}
+  .badges{display:flex;gap:6px;flex-wrap:wrap}
+  .badge{font-size:11px;border:1px solid #2a2e3a;border-radius:20px;padding:2px 9px;color:#c8c8d2;background:#10131a}
+  .badge.warn{color:#d9a13a;border-color:#d9a13a66;background:#d9a13a14}
+  .badge.home{color:#7fb8ff;border-color:#7fb8ff55;background:#7fb8ff12}
+  .badge.ref{color:#9a9aa6}
+  .badge.tag{color:#8fd0a8}
+  .src{margin-top:10px;font-size:12px;color:#7d7d8a}
+  .src a{color:#7fb8ff;text-decoration:none}
+</style></head><body>
+<header>
+  <h1>Sintera Czech — kontrolní arch klientských log</h1>
+  <div class="sub">Každé logo na tmavém pozadí <b>#0e1230</b> (mono-light) a krémovém <b>#f2efe7</b> (mono-dark), v reálné velikosti pro web. 2026-06-13 · 14 prémiových klientů. <b>Souhlas s referencí je smluvně ošetřen</b> (rámcová smlouva SINTERA, klauzule o umístění loga referenčního zákazníka) → <code>public_reference_confirmed</code>. Ověřuj už jen <b>správnost loga</b> u označených ⚠.</div>
+  <div class="legend">
+    <span style="color:#3fae7a">● high confidence</span>
+    <span style="color:#d9a13a">● medium</span>
+    <span style="color:#cf5a52">● low</span>
+    <span style="color:#d9a13a">⚠ vyžaduje ruční kontrolu</span>
+    <span style="color:#7fb8ff">★ doporučeno na homepage</span>
+  </div>
+</header>
+<div class="grid">
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/siemens-energy-mono-light.png" alt="Siemens Energy mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/siemens-energy-mono-dark.png" alt="Siemens Energy mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">Siemens Energy</div>
+        <div class="entity">Siemens Energy s.r.o. · siemens-energy.com</div>
+        <div class="badges"><span class="badge" style="background:#3fae7a1a;color:#3fae7a;border-color:#3fae7a55">confidence: high</span><span class="badge tag">wikimedia</span><span class="badge home">★ homepage</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://commons.wikimedia.org/wiki/File:Siemens_Energy_logo.svg" target="_blank">zdroj</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/panasonic-mono-light.png" alt="Panasonic mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/panasonic-mono-dark.png" alt="Panasonic mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">Panasonic</div>
+        <div class="entity">Panasonic Automotive Systems Czech s.r.o. · panasonic.com</div>
+        <div class="badges"><span class="badge" style="background:#3fae7a1a;color:#3fae7a;border-color:#3fae7a55">confidence: high</span><span class="badge tag">wikimedia</span><span class="badge home">★ homepage</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://commons.wikimedia.org/wiki/File:Panasonic_logo_(Blue).svg" target="_blank">zdroj</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/zf-mono-light.png" alt="ZF mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/zf-mono-dark.png" alt="ZF mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">ZF</div>
+        <div class="entity">ZF Passive Safety Czech s.r.o. · zf.com</div>
+        <div class="badges"><span class="badge" style="background:#d9a13a1a;color:#d9a13a;border-color:#d9a13a55">confidence: medium</span><span class="badge warn">⚠ ruční kontrola</span><span class="badge tag">wikimedia</span><span class="badge home">★ homepage</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://commons.wikimedia.org/wiki/File:ZF_logo_STD_Blue_3CC.svg" target="_blank">zdroj</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/nestle-mono-light.png" alt="Nestlé mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/nestle-mono-dark.png" alt="Nestlé mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">Nestlé</div>
+        <div class="entity">Nestlé Česko s.r.o. · nestle.com</div>
+        <div class="badges"><span class="badge" style="background:#3fae7a1a;color:#3fae7a;border-color:#3fae7a55">confidence: high</span><span class="badge warn">⚠ ruční kontrola</span><span class="badge tag">wikimedia</span><span class="badge home">★ homepage</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://commons.wikimedia.org/wiki/File:Nestl%C3%A9_textlogo.svg" target="_blank">zdroj</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/safran-cabin-mono-light.png" alt="Safran Cabin mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/safran-cabin-mono-dark.png" alt="Safran Cabin mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">Safran Cabin</div>
+        <div class="entity">Safran Cabin CZ s.r.o. · safran-group.com</div>
+        <div class="badges"><span class="badge" style="background:#3fae7a1a;color:#3fae7a;border-color:#3fae7a55">confidence: high</span><span class="badge tag">wikimedia</span><span class="badge home">★ homepage</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://commons.wikimedia.org/wiki/File:Safran_2016_logo.svg" target="_blank">zdroj</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/alstom-mono-light.png" alt="Alstom mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/alstom-mono-dark.png" alt="Alstom mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">Alstom</div>
+        <div class="entity">Alstom (CZ site, former Bombardier Transportation, Česká Lípa); parent Alstom SA · alstom.com</div>
+        <div class="badges"><span class="badge" style="background:#3fae7a1a;color:#3fae7a;border-color:#3fae7a55">confidence: high</span><span class="badge tag">wikimedia</span><span class="badge home">★ homepage</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://commons.wikimedia.org/wiki/Special:FilePath/Alstom%20logo.svg" target="_blank">zdroj</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/vitesco-mono-light.png" alt="Vitesco Technologies mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/vitesco-mono-dark.png" alt="Vitesco Technologies mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">Vitesco Technologies</div>
+        <div class="entity">Vitesco Technologies Czech Republic s.r.o. · vitesco-technologies.com</div>
+        <div class="badges"><span class="badge" style="background:#d9a13a1a;color:#d9a13a;border-color:#d9a13a55">confidence: medium</span><span class="badge warn">⚠ ruční kontrola</span><span class="badge tag">wikimedia</span><span class="badge home">★ homepage</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://commons.wikimedia.org/wiki/File:Vitesco_Technologies_logo.svg" target="_blank">zdroj</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/edwards-mono-light.png" alt="Edwards mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/edwards-mono-dark.png" alt="Edwards mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">Edwards</div>
+        <div class="entity">Edwards s.r.o. (Edwards Vacuum) · edwardsvacuum.com</div>
+        <div class="badges"><span class="badge" style="background:#3fae7a1a;color:#3fae7a;border-color:#3fae7a55">confidence: high</span><span class="badge tag">official_website</span><span class="badge home">★ homepage</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://www.edwardsvacuum.com/etc.clientlibs/settings/wcm/designs/edwards/clientlib-preloaded/resources/img/svg/logo.svg" target="_blank">zdroj</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/aisan-mono-light.png" alt="Aisan Industry mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/aisan-mono-dark.png" alt="Aisan Industry mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">Aisan Industry</div>
+        <div class="entity">Aisan Industry Czech s.r.o. · aisan-ind.co.jp</div>
+        <div class="badges"><span class="badge" style="background:#3fae7a1a;color:#3fae7a;border-color:#3fae7a55">confidence: high</span><span class="badge tag">official_website</span><span class="badge home">★ homepage</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://www.aisan-ind.co.jp/en/assets/images/logo.svg" target="_blank">zdroj</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/linet-mono-light.png" alt="LINET mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/linet-mono-dark.png" alt="LINET mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">LINET</div>
+        <div class="entity">LINET spol. s r.o. · linet.com</div>
+        <div class="badges"><span class="badge" style="background:#d9a13a1a;color:#d9a13a;border-color:#d9a13a55">confidence: medium</span><span class="badge warn">⚠ ruční kontrola</span><span class="badge tag">other_public_source</span><span class="badge home">★ homepage</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://worldvectorlogo.com/logo/linet" target="_blank">zdroj</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/secheron-hasler-mono-light.png" alt="Sécheron Hasler mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/secheron-hasler-mono-dark.png" alt="Sécheron Hasler mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">Sécheron Hasler</div>
+        <div class="entity">Sécheron Hasler CZ s.r.o. · secheron.com</div>
+        <div class="badges"><span class="badge" style="background:#d9a13a1a;color:#d9a13a;border-color:#d9a13a55">confidence: medium</span><span class="badge warn">⚠ ruční kontrola</span><span class="badge tag">wikimedia</span><span class="badge home">★ homepage</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://commons.wikimedia.org/wiki/File:S%C3%A9cheron_logo_h.png" target="_blank">zdroj</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/winning-group-mono-light.png" alt="Winning Group mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/winning-group-mono-dark.png" alt="Winning Group mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">Winning Group</div>
+        <div class="entity">Winning Group a.s. · winninggroup.cz</div>
+        <div class="badges"><span class="badge" style="background:#3fae7a1a;color:#3fae7a;border-color:#3fae7a55">confidence: high</span><span class="badge warn">⚠ ruční kontrola</span><span class="badge tag">official_website</span><span class="badge home">★ homepage</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://www.winninggroup.cz/wp-content/themes/winning-group/assets/images/winning-logo.svg" target="_blank">zdroj</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/sitel-mono-light.png" alt="SITEL mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/sitel-mono-dark.png" alt="SITEL mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">SITEL<div class="kept">mono = originál (barevný odznak)</div></div>
+        <div class="entity">SITEL, spol. s r.o. · sitel.cz</div>
+        <div class="badges"><span class="badge" style="background:#3fae7a1a;color:#3fae7a;border-color:#3fae7a55">confidence: high</span><span class="badge tag">official_website</span><span class="badge ref">jen reference</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://www.sitel.cz/wp-content/uploads/2022/06/logo_Sitel_1.png" target="_blank">zdroj</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="swatches">
+        <div class="sw dark"><img src="../processed/mono-light/vuz-mono-light.png" alt="Výzkumný ústav železniční mono-light"></div>
+        <div class="sw cream"><img src="../processed/mono-dark/vuz-mono-dark.png" alt="Výzkumný ústav železniční mono-dark"></div>
+      </div>
+      <div class="meta">
+        <div class="name">Výzkumný ústav železniční</div>
+        <div class="entity">Výzkumný Ústav Železniční, a.s. (VUZ) · cdvuz.cz</div>
+        <div class="badges"><span class="badge" style="background:#d9a13a1a;color:#d9a13a;border-color:#d9a13a55">confidence: medium</span><span class="badge warn">⚠ ruční kontrola</span><span class="badge tag">official_website</span><span class="badge ref">jen reference</span></div>
+        <div class="src">public_reference_confirmed · <a href="https://ys-common.s3.amazonaws.com/vuz-web/media/1/2024/07/vuz-logo-footer.png" target="_blank">zdroj</a></div>
+      </div>
+    </article></div>
+</body></html>
