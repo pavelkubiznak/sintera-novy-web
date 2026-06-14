@@ -65,7 +65,7 @@
       art.setAttribute("role", "button");
       art.setAttribute("tabindex", "0");
       art.setAttribute("aria-label", "Reference: " + r.company);
-      var logo = r.logo ? '<div class="ref-logo"><img src="' + esc(r.logo) + '" alt="' + esc(r.company) + '" loading="lazy" /></div>' : "";
+      var logo = '<div class="ref-logo">' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="' + esc(r.company) + '" loading="lazy" />' : '<span class="ref-logo-name">' + esc(r.company) + "</span>") + "</div>";
       art.innerHTML = logo +
         "<blockquote>„" + esc(r.quote) + "“</blockquote>" +
         '<div class="who"><strong>' + esc(r.company) + "</strong>" + (r.role ? "<span>" + esc(r.role) + "</span>" : "") + "</div>" +
@@ -119,9 +119,7 @@
   }
   function refDetailHTML(r) {
     var tags = (r.tags || "").split(";").map(function (t) { return t.trim(); }).filter(Boolean);
-    var logo = r.logo ? '<div class="ref-logo" style="margin-bottom:22px"><img src="' + esc(r.logo) + '" alt="' + esc(r.company) + '" style="height:30px"></div>' : "";
-    return logo +
-      '<div class="ref-modal-quote">„' + esc(r.long || r.quote) + "“</div>" +
+    return '<div class="ref-modal-quote">„' + esc(r.long || r.quote) + "“</div>" +
       '<div class="ref-modal-who"><strong>' + esc(r.company) + "</strong>" + (r.role ? "<span>" + esc(r.role) + "</span>" : "") + "</div>" +
       (tags.length ? '<p class="ref-modal-ctx">' + tags.map(esc).join(" · ") + "</p>" : "");
   }

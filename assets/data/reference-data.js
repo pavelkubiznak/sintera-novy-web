@@ -6,7 +6,7 @@ window.SINTERA_DATA = {
       "role": "Manažeři a inženýři kvality",
       "quote": "99 % nabídnutých kandidátů míří rovnou na pohovor.",
       "long": "U kvalitářských rolí v automotive se podařilo nastavit spolupráci tak, aby do výběru přicházeli kandidáti odpovídající požadavkům. Odpadá třídění nerelevantních životopisů a 99 % nabídnutých kandidátů míří rovnou na pohovor. Většina pozic se obsazuje právě přes Sinteru.",
-      "logo": "assets/logos/processed/mono-light/zf-mono-light.svg",
+      "logo": "assets/logos/processed/png/zf-400x160.png",
       "tags": "Přesnost profilů; Použitelné podklady; Dlouhodobá spolupráce",
       "id": "ref_zf_passive"
     },
@@ -24,7 +24,7 @@ window.SINTERA_DATA = {
       "role": "Odborné pozice v nákupu",
       "quote": "Ani jeden představený kandidát nemířil mimo rozsah hledané role.",
       "long": "Sintera dodává do nákupního útvaru přesně zacílené kandidáty. Žádný z nich nemíří mimo rozsah hledané role. Podklady přinášejí detailní poznámky k profilům a komunikace pomáhá přesněji pojmenovat očekávání k obsazované pozici.",
-      "logo": "assets/logos/processed/mono-light/alstom-mono-light.svg",
+      "logo": "assets/logos/processed/png/alstom-400x160.png",
       "tags": "Přesnost profilů; Použitelné podklady; Pochopení zadání",
       "id": "ref_alstom"
     },
@@ -42,7 +42,7 @@ window.SINTERA_DATA = {
       "role": "Odborné a technické pozice",
       "quote": "Do dalších kol se často posune několik kandidátů.",
       "long": "Profily kandidátů mají jasnou strukturu, přehledné informace a obsahují to podstatné pro rozhodování. Kandidáti odpovídají požadavkům pozice a často se do dalších kol posune hned několik z nich.",
-      "logo": "assets/logos/processed/mono-light/jtekt-mono-light.png",
+      "logo": "assets/logos/processed/png/jtekt-400x160.png",
       "tags": "Přesnost profilů; Použitelné podklady; Pochopení zadání",
       "id": "ref_jtekt_czech"
     },
@@ -51,7 +51,7 @@ window.SINTERA_DATA = {
       "role": "Produktový a procesní specialista, bezpečnostní technik",
       "quote": "Profily odpovídaly velmi přesně odsouhlasenému zadání.",
       "long": "Profily velmi přesně odpovídají odsouhlasenému zadání. Rychlá komunikace s kandidáty pomáhá posouvat výběr bez zbytečných prodlev. Po několika pohovorech se podařilo vybrat kandidáta na produktovou a procesní roli.",
-      "logo": "assets/logos/processed/mono-light/nestle-mono-light.svg",
+      "logo": "assets/logos/processed/png/nestle-400x160.png",
       "tags": "Přesnost profilů; Rychlost; Pochopení zadání",
       "id": "ref_nestle"
     },
@@ -60,7 +60,7 @@ window.SINTERA_DATA = {
       "role": "Specialista údržby forem",
       "quote": "Výběrové řízení skončilo dřív, než se původně čekalo.",
       "long": "Tým pracuje profesionálně a jasně strukturovaně, což omezuje prostoje vznikající z nejasného zadání. I u velmi specifické pozice splnila většina kandidátů požadavky a výběrové řízení skončilo dřív, než se původně čekalo.",
-      "logo": "assets/logos/processed/mono-light/aisan-mono-light.svg",
+      "logo": "assets/logos/processed/png/aisan-400x160.png",
       "tags": "Pochopení zadání; Přesnost profilů; Rychlost",
       "id": "ref_aisan"
     },
@@ -69,7 +69,7 @@ window.SINTERA_DATA = {
       "role": "Tax Specialist",
       "quote": "Poznámky ke kandidátům se využily přímo při pohovorech.",
       "long": "Komunikace běží rychle a příjemně. Poznámky připojené k životopisům mají dostatečný rozsah a využívají se přímo při pohovorech. Ze čtyř kandidátů postoupili dva do druhého kola a oba dosáhli úrovně nabídky.",
-      "logo": "assets/logos/processed/mono-light/siemens-energy-mono-light.svg",
+      "logo": "assets/logos/processed/png/siemens-energy-400x160.png",
       "tags": "Použitelné podklady; Reporting; Přesnost profilů",
       "id": "ref_siemens_energy"
     },
@@ -78,7 +78,7 @@ window.SINTERA_DATA = {
       "role": "Inženýři kvality a elektro role",
       "quote": "Konzultanti se doptávají do detailů skutečného obsahu role.",
       "long": "Konzultanti jdou po podstatě pozice. Doptávají se na to, co bude člověk dělat, do jakého týmu nastoupí a jak se zadání mění v průběhu hledání. Díky tomu se search neopírá jen o název role, ale o skutečný kontext práce.",
-      "logo": "assets/logos/processed/mono-light/trw-mono-light.png",
+      "logo": "assets/logos/processed/png/trw-400x160.png",
       "tags": "Pochopení zadání; Přesnost profilů; Reporting",
       "id": "ref_trw_carr"
     },
@@ -87,7 +87,7 @@ window.SINTERA_DATA = {
       "role": "SMT, engineering, HR a technické pozice",
       "quote": "Stabilní tým konzultantů drží znalost firmy i oboru.",
       "long": "Sintera drží stabilní tým konzultantů, který zná firmu i automotive prostředí. Kandidáti procházejí důkladným screeningem a profily zvýrazňují klíčové profesní dovednosti očekávané u dané pozice.",
-      "logo": "assets/logos/processed/mono-light/zf-mono-light.svg",
+      "logo": "assets/logos/processed/png/zf-400x160.png",
       "tags": "Pochopení zadání; Použitelné podklady; Dlouhodobá spolupráce",
       "id": "ref_zf_electronics"
     },
@@ -96,7 +96,7 @@ window.SINTERA_DATA = {
       "role": "Lean specialista",
       "quote": "Resumé obsahuje vše podstatné pro rozhodnutí.",
       "long": "Dlouhodobá spolupráce pomáhá dobře znát firmu a vybírat vhodné uchazeče. Resumé k jednotlivým lidem obsahuje vše podstatné pro rozhodnutí a funguje jako praktický podklad pro výběr.",
-      "logo": "assets/logos/processed/mono-light/rs-automotive-mono-light.png",
+      "logo": "assets/logos/processed/png/rs-automotive-400x160.png",
       "tags": "Použitelné podklady; Přesnost profilů; Dlouhodobá spolupráce",
       "id": "ref_rs_automotive"
     },
@@ -105,7 +105,7 @@ window.SINTERA_DATA = {
       "role": "Technické a výrobní pozice",
       "quote": "Komentář shrnuje motivaci, dostupnost i platové očekávání kandidáta.",
       "long": "Sintera pomáhá v krátké době obsadit i těžko obsaditelné pozice. Životopisy odpovídají zadání a úvodní komentář shrnuje informace důležité pro rozhodnutí: motivaci ke změně, dostupnost k pohovoru i platový požadavek.",
-      "logo": "assets/logos/processed/mono-light/sanborn-mono-light.png",
+      "logo": "assets/logos/processed/png/sanborn-400x160.png",
       "tags": "Kandidáti mimo aktivní trh; Použitelné podklady; Rychlost",
       "id": "ref_sanborn"
     },
@@ -114,7 +114,7 @@ window.SINTERA_DATA = {
       "role": "Odborné a technické pozice",
       "quote": "Týdenní report přináší průběžný přehled o searchi.",
       "long": "Týdenní report aktivit přináší průběžný přehled o tom, co se v searchi děje. Spolupráce stojí na pravidelném dodávání profilů a podkladech bez připomínek.",
-      "logo": "assets/logos/processed/mono-light/spofadental-mono-light.png",
+      "logo": "assets/logos/processed/png/spofadental-400x160.png",
       "tags": "Reporting; Rychlost; Použitelné podklady",
       "id": "ref_spofadental"
     },
@@ -123,7 +123,7 @@ window.SINTERA_DATA = {
       "role": "Vývojový konstruktér, projektový manažer",
       "quote": "Profil hledané pozice prošel přesným pochopením.",
       "long": "Profil hledané pozice prošel přesným pochopením. Rešerše potenciálních kandidátů probíhá profesionálně a rychle. Kvalita kandidátů proti benchmarku vychází nadprůměrně a pozice se obsadily v krátké době.",
-      "logo": "assets/logos/processed/mono-light/mas-mono-light.png",
+      "logo": "assets/logos/processed/png/mas-400x160.png",
       "tags": "Pochopení zadání; Rychlost; Přesnost profilů",
       "id": "ref_mas"
     },
@@ -132,7 +132,7 @@ window.SINTERA_DATA = {
       "role": "SW Developer, konstruktér, PLC programátor, vedoucí projektu",
       "quote": "Jednání Sintery si pochvalují i kandidáti doporučení k pohovoru.",
       "long": "Profesionalitu Sintery potvrzuje také zpětná vazba samotných kandidátů po pohovorech. Hodnocení kandidátů a vysvětlení k životopisům zrychluje proces obsazení role.",
-      "logo": "assets/logos/processed/mono-light/konplan-mono-light.png",
+      "logo": "assets/logos/processed/png/konplan-400x160.png",
       "tags": "Reporting; Použitelné podklady; Přesnost profilů",
       "id": "ref_konplan"
     },
@@ -141,7 +141,7 @@ window.SINTERA_DATA = {
       "role": "Category Manager Facility Management",
       "quote": "Vybraný kandidát nastoupil v dohodnutém termínu.",
       "long": "Po zadání objednávky se ihned rozběhly kroky k obsazení pozice. Komunikace probíhá otevřeně a efektivně. Z představených kandidátů se vybral vhodný člověk, následoval podpis smlouvy a nástup v dohodnutém termínu.",
-      "logo": "assets/logos/processed/mono-light/vitesco-mono-light.svg",
+      "logo": "assets/logos/processed/png/vitesco-400x160.png",
       "tags": "Rychlost; Reporting; Přesnost profilů",
       "id": "ref_vitesco"
     },
@@ -150,7 +150,7 @@ window.SINTERA_DATA = {
       "role": "Country Manager India a strategické manažerské role",
       "quote": "Pozici se podařilo obsadit před plánovaným termínem.",
       "long": "Konzultanti přesně identifikovali firmy, kde se vhodný kandidát mohl nacházet. Kandidáti odpovídali požadavkům i nákladovým možnostem. Pozici, se kterou dříve vznikaly potíže, se podařilo obsadit před plánovaným termínem.",
-      "logo": "assets/logos/processed/mono-light/linet-mono-light.png",
+      "logo": "assets/logos/processed/png/linet-400x160.png",
       "tags": "Rychlost; Reporting; Pochopení zadání; Kandidáti mimo aktivní trh",
       "id": "ref_linet"
     },
@@ -159,7 +159,7 @@ window.SINTERA_DATA = {
       "role": "Manažerské pozice a odborní specialisté",
       "quote": "Profily s velkou přesností ladí se zadáním pozic.",
       "long": "Vyhledávání probíhá efektivně a přesně cílí na hledané pozice. Profily přicházejí rychle a podklady přinášejí klíčové informace pro pohovor. Spolupráce trvá řadu let a pokrývá více oborů i úrovní pozic.",
-      "logo": "assets/logos/processed/mono-light/vuz-mono-light.png",
+      "logo": "assets/logos/processed/png/vuz-400x160.png",
       "tags": "Přesnost profilů; Použitelné podklady; Rychlost; Dlouhodobá spolupráce",
       "id": "ref_vuz"
     }

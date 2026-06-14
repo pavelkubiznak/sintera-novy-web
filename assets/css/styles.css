@@ -558,9 +558,10 @@ html[data-motion="jemne"] .hero-net .net-dot { fill: var(--accent); opacity: 1; 
 .marquee-track .logo-slot img { height: 26px; width: auto; max-width: 150px; object-fit: contain; filter: grayscale(1) brightness(0) invert(1); opacity: 0.7; transition: opacity 0.25s, filter 0.25s; }
 html[data-theme="svetly"] .marquee-track .logo-slot img { filter: grayscale(1); }
 .marquee-track .logo-slot img:hover { opacity: 1; filter: none; }
-.ref-logo { height: 30px; margin-bottom: 22px; display: flex; }
-.ref-logo img { height: 28px; width: auto; max-width: 170px; object-fit: contain; filter: grayscale(1); opacity: 0.82; transition: opacity 0.25s, filter 0.25s; }
-.ref-card:hover .ref-logo img { filter: none; opacity: 1; }
+/* reference: barevná loga, jednotná velikost + usazení (normalizovaný kanvas 400x160) */
+.ref-logo { height: 60px; margin-bottom: 24px; display: flex; align-items: center; }
+.ref-logo img { height: 60px; width: 150px; object-fit: contain; object-position: left center; opacity: 1; }
+.ref-logo .ref-logo-name { font-family: var(--serif); font-size: 18px; line-height: 1.15; color: var(--ink); letter-spacing: 0.01em; max-width: 160px; }
 
 /* ---------- globální rytmus ---------- */
 .block { padding: clamp(84px, 11vw, 150px) 56px; position: relative; }

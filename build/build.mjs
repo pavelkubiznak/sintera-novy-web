@@ -119,7 +119,7 @@ function casesHTML(cases, n = 6) {
 }
 function refsHTML(refs, n = 9) {
   return refs.slice(0, n).map(r => {
-    const logo = r.logo ? `<div class="ref-logo"><img src="${esc(r.logo)}" alt="${esc(r.company)}" loading="lazy" height="28"></div>` : "";
+    const logo = `<div class="ref-logo">${r.logo ? `<img src="${esc(r.logo)}" alt="${esc(r.company)}" loading="lazy">` : `<span class="ref-logo-name">${esc(r.company)}</span>`}</div>`;
     return `<article class="ref-card rv" data-id="${esc(r.id)}" role="button" tabindex="0" aria-label="Reference: ${esc(r.company)}">` +
       logo +
       `<blockquote>„${esc(r.quote)}“</blockquote>` +
