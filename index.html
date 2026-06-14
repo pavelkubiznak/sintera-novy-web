@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" data-theme="dark" data-motion="plne" data-reading="pasy">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +9,11 @@
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0e1230">
 
-<!-- Open Graph / Twitter -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:site_name" content="Sintera Czech">
 <meta property="og:title" content="Sintera Czech · direct search ve výrobě, technice a managementu">
-<meta property="og:description" content="Najdeme lidi, kteří práci mají a sami se nehlásí. Do 30 dnů nejméně dva kandidáti na míru zadání. Přesnost místo objemu.">
+<meta property="og:description" content="Najdeme lidi, kteří práci mají a sami se nehlásí. Do 30 dnů nejméně dva kandidáti na míru zadání.">
 <meta property="og:url" content="https://pavelkubiznak.github.io/sintera-novy-web/">
 <meta property="og:image" content="https://pavelkubiznak.github.io/sintera-novy-web/assets/img/og-cover.png">
 <meta property="og:image:width" content="1200">
@@ -25,12 +24,9 @@
 <meta name="twitter:image" content="https://pavelkubiznak.github.io/sintera-novy-web/assets/img/og-cover.png">
 
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
-<link rel="preload" as="font" type="font/woff2" href="assets/fonts/librecaslon-13.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo-1.woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/styles.css">
 
-<!-- JSON-LD: Organization + WebSite -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -39,12 +35,7 @@
   "url": "https://pavelkubiznak.github.io/sintera-novy-web/",
   "logo": "https://pavelkubiznak.github.io/sintera-novy-web/assets/img/logo-color.png",
   "description": "Personální agentura zaměřená na přímé vyhledávání (direct search) kandidátů ve výrobě, technice, obchodu a managementu.",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Uhelná 160/24",
-    "addressLocality": "Hradec Králové",
-    "addressCountry": "CZ"
-  },
+  "address": {"@type": "PostalAddress", "streetAddress": "Uhelná 160/24", "addressLocality": "Hradec Králové", "addressCountry": "CZ"},
   "telephone": "+420499599861",
   "email": "info@sintera.cz",
   "sameAs": ["https://www.linkedin.com/company/sintera-czech-s-r-o-"]
@@ -58,242 +49,241 @@
 </script>
 </head>
 <body>
+
 <a class="skip-link" href="#top">Přeskočit na obsah</a>
+<div class="grain" aria-hidden="true"></div>
 
-<header class="nav" id="nav">
-  <div class="wrap nav-in">
-    <a class="brand" href="#top" aria-label="Sintera Czech, úvod">
-      <img src="assets/img/logo-white-mark.png" alt="Sintera Czech">
-    </a>
-    <nav class="nav-links" aria-label="Hlavní navigace">
-      <a href="#problem">Jak hledáme</a>
-      <a href="#cases">Příběhy</a>
-      <a href="#reference">Reference</a>
-      <a href="#pozice">Pozice</a>
-      <a href="#kontakt">Kontakt</a>
-    </nav>
-    <a class="btn btn-acc btn-nav-cta" href="mailto:info@sintera.cz?subject=Pozice%20k%20obsazen%C3%AD">Poslat pozici</a>
-    <button class="burger" id="burger" aria-label="Otevřít menu" aria-expanded="false"><span></span><span></span><span></span></button>
+<nav id="nav">
+  <a class="nav-logo nav-wordmark" href="#top">Sintera<span>.</span></a>
+  <div class="nav-links">
+    <a href="#trh">Jak pracujeme</a>
+    <a href="#cases">Case studies</a>
+    <a href="#reference">Reference</a>
+    <a href="#pozice">Pozice</a>
+    <a href="#kontakt">Kontakt</a>
   </div>
+  <a class="nav-cta" href="mailto:info@sintera.cz?subject=Poslat%20pozici">Poslat pozici</a>
+  <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+    <i></i><i></i><i></i>
+  </button>
+</nav>
+
+<main>
+<!-- ============================ HERO ============================ -->
+<header class="hero" id="top">
+  <div class="hero-net" aria-hidden="true">
+    <div class="search-field">
+      <div class="searchlight"></div>
+    </div>
+  </div>
+  <div class="hero-inner">
+    <h1>
+      <span class="hl" style="--d:1"><span class="hl-in">Aktivní kandidáty</span></span>
+      <span class="hl" style="--d:2"><span class="hl-in">už jste viděli.</span></span>
+      <span class="hl" style="--d:3"><span class="hl-in">My najdeme</span></span>
+      <span class="hl" style="--d:4"><span class="hl-in"><em>ty ostatní.</em></span></span>
+    </h1>
+    <p class="hero-sub rv-load" style="--d:5">Hledáme lidi, kteří práci mají, sami se nehlásí a na inzerát by pravděpodobně nereagovali. Do 30 dnů vám představíme nejméně dva kandidáty podle zadání, které si společně odsouhlasíme.</p>
+    <div class="hero-ctas rv-load" style="--d:6">
+      <a class="btn btn-primary" id="hero-cta" href="mailto:info@sintera.cz?subject=Poslat%20pozici">Poslat pozici<span class="cta-spark" aria-hidden="true"></span></a>
+      <a class="btn btn-line" href="tel:+420499599861">Zavolejte nám</a>
+    </div>
+  </div>
+  <div class="hero-scroll rv-load" style="--d:7" aria-hidden="true"><span></span>scroll</div>
 </header>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#problem">Jak hledáme</a>
-  <a href="#cases">Příběhy</a>
-  <a href="#reference">Reference</a>
-  <a href="#pozice">Pozice</a>
-  <a href="#kontakt">Kontakt</a>
-  <a class="btn btn-acc" href="mailto:info@sintera.cz?subject=Pozice%20k%20obsazen%C3%AD">Poslat pozici</a>
-</div>
 
-<main id="top">
-<svg class="thread" id="thread" aria-hidden="true" preserveAspectRatio="none"></svg>
-
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="wrap">
-    <div class="hero-copy">
-      <h1 class="h-display">Aktivní kandidáty už jste viděli. <em class="ac">My najdeme ty ostatní.</em></h1>
-      <p class="lead">Hledáme lidi, kteří práci mají, sami se nehlásí a na inzerát by pravděpodobně nereagovali. Do 30 dnů vám představíme nejméně dva kandidáty podle zadání, které si společně odsouhlasíme.</p>
-      <div class="hero-cta">
-        <a class="btn btn-acc" id="heroCta" href="mailto:info@sintera.cz?subject=Pozice%20k%20obsazen%C3%AD&body=Popis%20role%2C%20region%20a%20cokoli%2C%20co%20o%20pozici%20v%C3%ADte%3A">Poslat pozici <span class="dot"></span></a>
-        <a class="btn btn-ghost" href="tel:+420499599861">Zavolat Šárce <span class="arr">→</span></a>
-      </div>
-    </div>
-    <div class="hero-net" aria-hidden="true">
-      <canvas id="heroNet"></canvas>
-    </div>
-  </div>
-  <div class="scroll-hint" aria-hidden="true"><span>Proč jinak</span><span class="ln"></span></div>
-</section>
-
-<!-- ============ DŮKAZNÍ PÁS ============ -->
-<section class="proof" id="proof">
-  <div class="wrap">
-    <p class="proof-claim rv">Klienti nás neoceňují za množství CV. <em class="ac">Oceňují přesnost profilů, použitelné podklady a přehled o tom, co se na trhu skutečně děje.</em></p>
+<!-- ===================== DŮKAZNÍ PÁS ===================== -->
+<section id="proof" class="block proof">
+  <div class="block-inner">
+    <p class="proof-intro rv">Klienti nás neoceňují za množství CV. Oceňují <b>přesnost profilů</b>, <b>použitelné podklady</b> a <b>přehled o tom, co se na trhu skutečně děje.</b></p>
     <div class="proof-grid">
-      <article class="proof-card rv">
-        <div class="p-pillar">Přesnost</div>
-        <blockquote>Ani jeden představený kandidát nemířil mimo rozsah hledané role.</blockquote>
-        <cite>ALSTOM</cite>
-      </article>
-      <article class="proof-card rv d1">
-        <div class="p-pillar">Kontext</div>
-        <blockquote>Poznámky ke kandidátům se využily přímo při pohovorech.</blockquote>
-        <cite>Siemens Energy</cite>
-      </article>
-      <article class="proof-card rv d2">
-        <div class="p-pillar">Kandidáti mimo trh</div>
-        <blockquote>Přišli i uchazeči, kteří na trhu působili jako nedostupní.</blockquote>
-        <cite>SITEL</cite>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 1 · PROBLÉM ============ -->
-<section class="sec" id="problem">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Problém</div>
-      <h2 class="h-claim rv">Když inzerce nestačí, <em class="ac">nepotřebujete další inzerát.</em></h2>
-    </div>
-    <p class="lead rv">Většina klientů se nám ozve ve chvíli, kdy už vyzkoušeli běžné cesty a aktivní kandidáty viděli. Ti nejlepší většinou práci mají. Nikam se nehlásí. První zprávu berou jako spam. Dostat je do jednání chce vědět, kde je hledat, a jak s nimi mluvit, aby vůbec poslouchali.</p>
-    <p class="pullquote rv">Nejtěžší nebývá najít ředitele, ten je vidět. Těžší je technolog nebo vedoucí výroby: má práci, není vidět a na inzerát neodpoví.</p>
-  </div>
-</section>
-
-<!-- ============ 2 · ZADÁNÍ DO ŘEČI TRHU ============ -->
-<section class="sec panel-light" id="zadani">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Zadání do řeči trhu</div>
-      <h2 class="h-claim rv">Většinou víte, koho chcete. <em class="ac">Hůř se to překládá do řeči trhu.</em></h2>
-    </div>
-    <p class="lead rv">Stejnou roli může trh pojmenovávat jinak, než ji máte v hlavě. Stačí jeden špatně napsaný požadavek a kandidát, který umí čtyři z pěti věcí, vám vypadne, místo aby chyběla jen ta pátá. Naše práce začíná tím, že zadání přeložíme tak, aby správní lidé nepropadli sítem.</p>
-    <div class="micro-cite rv">
-      <q>Stačil krátký hovor, aby byla pozice řádně popsána. Sintera má schopnost pochopit osobnostní profil kandidáta.</q>
-      <cite>Sécheron Hasler</cite>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 3 · NÁSTROJ A ŘIDIČ ============ -->
-<section class="sec" id="nastroj">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Nástroj a řidič</div>
-      <h2 class="h-claim rv">Nástroj otevře trh. <em class="ac">Zkušenost v něm najde člověka.</em></h2>
-    </div>
-    <p class="lead rv">Hledáme přes nejdražší recruitmentové nástroje na trhu, ke kterým se běžná inzerce ani agentura nedostane. Jenže nástroj sám nikoho nenajde. Rozdíl dělá ten, kdo ho umí řídit: ví, kde hledat, pod jakými názvy a jak člověka oslovit, aby začal mluvit.</p>
-  </div>
-</section>
-
-<!-- ============ 4 · PŘESNOST MÍSTO OBJEMU ============ -->
-<section class="sec panel-light" id="presnost">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Přesnost místo objemu</div>
-      <h2 class="h-claim rv">Nejde o počet CV. <em class="ac">Jde o to, kolik z nich stojí za rozhovor.</em></h2>
-    </div>
-    <p class="lead rv">Neposíláme desítky profilů, aby si klient sám domýšlel, proč je dostal. Kandidáta představujeme s kontextem: proč odpovídá zadání, co u něj dává smysl ověřit a proč má cenu vést rozhovor.</p>
-    <div class="rotor" id="rotor"><figure class="rotor-item active"><blockquote>Reference opakovaně potvrzují kandidáty, kteří splňují požadavky role. Neřeší se objem CV, ale relevantní výběr.</blockquote><figcaption>Přesnost</figcaption></figure>
-<figure class="rotor-item"><blockquote>V referencích se vrací stejný motiv: kandidáti odpovídají zadání a odpadá třídění profilů mimo rozsah.</blockquote><figcaption>Přesnost</figcaption></figure>
-<figure class="rotor-item"><blockquote>Některé reference popisují uchazeče, kteří původně působili jako nedostupní. Právě tam začíná smysl cíleného search procesu.</blockquote><figcaption>Kandidáti mimo aktivní trh</figcaption></figure>
-<figure class="rotor-item"><blockquote>Podklady nejsou jen CV. Obsahují komentář, mzdová očekávání, motivaci ke změně i dostupnost k pohovoru.</blockquote><figcaption>Kontext</figcaption></figure>
-<figure class="rotor-item"><blockquote>Dobře vedený search začíná otázkami. Konzultanti se doptávají do detailů ještě před tím, než začnou hledat.</blockquote><figcaption>Zadání</figcaption></figure>
-<figure class="rotor-item"><blockquote>U úzkých technických rolí reference ukazují vysokou úspěšnost trefení profilu a rychlejší posun k rozhovorům.</blockquote><figcaption>Specifické role</figcaption></figure>
-<figure class="rotor-item"><blockquote>Search nemusí fungovat jako černá skříňka. Pravidelný reporting ukazuje aktivity, trh i směr hledání.</blockquote><figcaption>Reporting</figcaption></figure>
-<figure class="rotor-item"><blockquote>Část spoluprací trvá roky. Důvodem není zvyk, ale znalost firmy, pozic a trhu kandidátů.</blockquote><figcaption>Dlouhodobá spolupráce</figcaption></figure>
-<figure class="rotor-item"><blockquote>Rychlost tady neznamená poslat první dostupné CV. Znamená rychle najít správný směr a držet ho bez zbytečných koleček.</blockquote><figcaption>Rychlost</figcaption></figure>
-<figure class="rotor-item"><blockquote>Stabilní tým konzultantů drží znalost firmy i oboru. Zadání se proto nemusí pokaždé stavět od nuly.</blockquote><figcaption>Stabilní tým</figcaption></figure>
-<figure class="rotor-item"><blockquote>Kvalitu spolupráce potvrzuje i druhá strana trhu. Některé reference zmiňují pozitivní zpětnou vazbu samotných kandidátů.</blockquote><figcaption>Candidate experience</figcaption></figure>
-<figure class="rotor-item"><blockquote>Některé reference potvrzují konkrétní konec procesu: nabídku, podpis smlouvy a nástup v dohodnutém termínu.</blockquote><figcaption>Výsledek</figcaption></figure></div>
-    <div class="rotor-dots" id="rotorDots" role="group" aria-label="Vybrat citaci"></div>
-    <div class="micro-cite rv">
-      <q>Posíláme jen kandidáty, kteří splňují všechny požadavky, a naprostá většina z nich míří rovnou na pohovor.</q>
-      <cite>ZF Passive Safety</cite>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 5 · CASE STUDIES ============ -->
-<section class="sec" id="cases">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Jak to dopadlo</div>
-      <h2 class="h-sec rv">Když běžné cesty nestačily</h2>
-      <p class="lead rv" style="margin-top:14px">Konkrétní situace, kde standardní nábor nestačil. Příběhy jsou řízeně anonymizované. Detail po kliknutí.</p>
-    </div>
-    <div class="grid-cards" id="casesGrid"><article class="case-card rv" data-id="case_sitel_market" role="button" tabindex="0" aria-label="Příběh: Uchazeči, kteří na trhu působili jako nedostupní"><div class="case-meta">Technické role pro datové centrum a havarijní zásahy · Systémový integrátor · Praha</div><p class="case-hook">Specializované technické role v úzkém oboru, kde běžné cesty nepřinášejí dost relevantních uchazečů.</p><span class="case-more">Číst příběh →</span></article>
-<article class="case-card rv d1" data-id="case_zf_99" role="button" tabindex="0" aria-label="Příběh: Přesnost místo objemu"><div class="case-meta">Manažeři a inženýři kvality · Výrobce bezpečnostních systémů pro automobily · Česká republika</div><p class="case-hook">U kvalitářských rolí nedává smysl ztrácet čas tříděním nerelevantních životopisů.</p><span class="case-more">Číst příběh →</span></article>
-<article class="case-card rv d2" data-id="case_safran_specific" role="button" tabindex="0" aria-label="Příběh: Specifické pozice za krátkou dobu"><div class="case-meta">Manažerské a specializované pozice · Letecký, obranný a kosmický průmysl · Česká republika</div><p class="case-hook">Náročné a specifické role v úzce regulovaném oboru.</p><span class="case-more">Číst příběh →</span></article>
-<article class="case-card rv" data-id="case_linet_international" role="button" tabindex="0" aria-label="Příběh: Mezinárodní manažer před plánovaným termínem"><div class="case-meta">Country Manager India a strategické manažerské role · Výrobce zdravotnických pomůcek · Středočeský kraj</div><p class="case-hook">Náročné mezinárodní role, u kterých dříve vznikaly potíže s obsazením.</p><span class="case-more">Číst příběh →</span></article></div>
-  </div>
-</section>
-
-<!-- ============ 6 · REFERENCE ============ -->
-<section class="sec" id="reference">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Reference</div>
-      <h2 class="h-sec rv">Slova klientů říkají víc <em class="ac">než naše sliby.</em></h2>
-    </div>
-    <div class="ref-feature rv">
-      <p class="pullquote" style="margin-top:0;max-width:30ch">Nabídnuté kandidáty zveme rovnou na pohovor a většinu pozic obsazujeme přes Sinteru.</p>
-      <div class="micro-cite" style="margin-top:18px"><cite>ZF Passive Safety Czech · Human Resources Department</cite></div>
-    </div>
-    <div class="grid-cards" id="refsGrid" style="margin-top:48px"><article class="ref-card rv" data-id="ref_zf_passive" role="button" tabindex="0" aria-label="Reference: ZF Passive Safety"><div class="ref-logo"><img src="assets/logos/processed/mono-light/zf-mono-light.svg" alt="ZF Passive Safety" loading="lazy" height="34"></div><blockquote>Nabídnutí kandidáti míří rovnou na pohovor.</blockquote><div class="who"><strong>ZF Passive Safety</strong><span>Manažeři a inženýři kvality</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv d1" data-id="ref_sitel" role="button" tabindex="0" aria-label="Reference: SITEL"><div class="ref-logo"><img src="assets/logos/processed/png/sitel-400x160.png" alt="SITEL" loading="lazy" height="34"></div><blockquote>Přišli i uchazeči, kteří na trhu působili jako nedostupní.</blockquote><div class="who"><strong>SITEL</strong><span>Technik datového centra, technik zásahů, stavbyvedoucí</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv d2" data-id="ref_alstom" role="button" tabindex="0" aria-label="Reference: ALSTOM"><div class="ref-logo"><img src="assets/logos/processed/mono-light/alstom-mono-light.svg" alt="ALSTOM" loading="lazy" height="34"></div><blockquote>Ani jeden představený kandidát nemířil mimo rozsah hledané role.</blockquote><div class="who"><strong>ALSTOM</strong><span>Odborné pozice v nákupu</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv" data-id="ref_windmoller" role="button" tabindex="0" aria-label="Reference: Windmöller &amp; Hölscher"><div class="ref-name">Windmöller &amp; Hölscher</div><blockquote>Podklady obsahují komentář Sintery i mzdová očekávání kandidáta.</blockquote><div class="who"><strong>Windmöller &amp; Hölscher</strong><span>Manažerské a odborné technické pozice</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv d1" data-id="ref_jtekt_czech" role="button" tabindex="0" aria-label="Reference: JTEKT Czech Republic"><div class="ref-logo"><img src="assets/logos/processed/mono-light/jtekt-mono-light.png" alt="JTEKT Czech Republic" loading="lazy" height="34"></div><blockquote>Do dalších kol se často posune několik kandidátů.</blockquote><div class="who"><strong>JTEKT Czech Republic</strong><span>Odborné a technické pozice</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv d2" data-id="ref_nestle" role="button" tabindex="0" aria-label="Reference: Nestlé Česko"><div class="ref-logo"><img src="assets/logos/processed/mono-light/nestle-mono-light.svg" alt="Nestlé Česko" loading="lazy" height="34"></div><blockquote>Profily odpovídaly velmi přesně odsouhlasenému zadání.</blockquote><div class="who"><strong>Nestlé Česko</strong><span>Produktový a procesní specialista, bezpečnostní technik</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv" data-id="ref_aisan" role="button" tabindex="0" aria-label="Reference: Aisan Industry"><div class="ref-logo"><img src="assets/logos/processed/mono-light/aisan-mono-light.svg" alt="Aisan Industry" loading="lazy" height="34"></div><blockquote>Výběrové řízení skončilo dřív, než se původně čekalo.</blockquote><div class="who"><strong>Aisan Industry</strong><span>Specialista údržby forem</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv d1" data-id="ref_siemens_energy" role="button" tabindex="0" aria-label="Reference: Siemens Energy"><div class="ref-logo"><img src="assets/logos/processed/mono-light/siemens-energy-mono-light.svg" alt="Siemens Energy" loading="lazy" height="34"></div><blockquote>Poznámky ke kandidátům se využily přímo při pohovorech.</blockquote><div class="who"><strong>Siemens Energy</strong><span>Tax Specialist</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv d2" data-id="ref_trw_carr" role="button" tabindex="0" aria-label="Reference: TRW Carr"><div class="ref-logo"><img src="assets/logos/processed/mono-light/trw-mono-light.png" alt="TRW Carr" loading="lazy" height="34"></div><blockquote>Konzultanti se doptávají do detailů skutečného obsahu role.</blockquote><div class="who"><strong>TRW Carr</strong><span>Inženýři kvality a elektro role</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv" data-id="ref_zf_electronics" role="button" tabindex="0" aria-label="Reference: ZF Electronics Klášterec"><div class="ref-logo"><img src="assets/logos/processed/mono-light/zf-mono-light.svg" alt="ZF Electronics Klášterec" loading="lazy" height="34"></div><blockquote>Stabilní tým konzultantů drží znalost firmy i oboru.</blockquote><div class="who"><strong>ZF Electronics Klášterec</strong><span>SMT, engineering, HR a technické pozice</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv d1" data-id="ref_rs_automotive" role="button" tabindex="0" aria-label="Reference: R+S Automotive"><div class="ref-logo"><img src="assets/logos/processed/mono-light/rs-automotive-mono-light.png" alt="R+S Automotive" loading="lazy" height="34"></div><blockquote>Resumé obsahuje vše podstatné pro rozhodnutí.</blockquote><div class="who"><strong>R+S Automotive</strong><span>Lean specialista</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv d2" data-id="ref_sanborn" role="button" tabindex="0" aria-label="Reference: SANBORN"><div class="ref-logo"><img src="assets/logos/processed/mono-light/sanborn-mono-light.png" alt="SANBORN" loading="lazy" height="34"></div><blockquote>Komentář shrnuje motivaci, dostupnost i platové očekávání kandidáta.</blockquote><div class="who"><strong>SANBORN</strong><span>Technické a výrobní pozice</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv" data-id="ref_spofadental" role="button" tabindex="0" aria-label="Reference: SpofaDental"><div class="ref-logo"><img src="assets/logos/processed/mono-light/spofadental-mono-light.png" alt="SpofaDental" loading="lazy" height="34"></div><blockquote>Týdenní report přináší průběžný přehled o searchi.</blockquote><div class="who"><strong>SpofaDental</strong><span>Odborné a technické pozice</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv d1" data-id="ref_mas" role="button" tabindex="0" aria-label="Reference: M.A.S. Automation"><div class="ref-logo"><img src="assets/logos/processed/mono-light/mas-mono-light.png" alt="M.A.S. Automation" loading="lazy" height="34"></div><blockquote>Profil hledané pozice prošel přesným pochopením.</blockquote><div class="who"><strong>M.A.S. Automation</strong><span>Vývojový konstruktér, projektový manažer</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv d2" data-id="ref_konplan" role="button" tabindex="0" aria-label="Reference: Konplan"><div class="ref-logo"><img src="assets/logos/processed/mono-light/konplan-mono-light.png" alt="Konplan" loading="lazy" height="34"></div><blockquote>Jednání Sintery si pochvalují i kandidáti doporučení k pohovoru.</blockquote><div class="who"><strong>Konplan</strong><span>SW Developer, konstruktér, PLC programátor, vedoucí projektu</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv" data-id="ref_vitesco" role="button" tabindex="0" aria-label="Reference: Vitesco Technologies"><div class="ref-logo"><img src="assets/logos/processed/mono-light/vitesco-mono-light.svg" alt="Vitesco Technologies" loading="lazy" height="34"></div><blockquote>Vybraný kandidát nastoupil v dohodnutém termínu.</blockquote><div class="who"><strong>Vitesco Technologies</strong><span>Category Manager Facility Management</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv d1" data-id="ref_linet" role="button" tabindex="0" aria-label="Reference: LINET"><div class="ref-logo"><img src="assets/logos/processed/mono-light/linet-mono-light.png" alt="LINET" loading="lazy" height="34"></div><blockquote>Pozici se podařilo obsadit před plánovaným termínem.</blockquote><div class="who"><strong>LINET</strong><span>Country Manager India a strategické manažerské role</span></div><span class="ref-more">Číst celé →</span></article>
-<article class="ref-card rv d2" data-id="ref_vuz" role="button" tabindex="0" aria-label="Reference: Výzkumný ústav železniční"><div class="ref-logo"><img src="assets/logos/processed/mono-light/vuz-mono-light.png" alt="Výzkumný ústav železniční" loading="lazy" height="34"></div><blockquote>Profily s velkou přesností ladí se zadáním pozic.</blockquote><div class="who"><strong>Výzkumný ústav železniční</strong><span>Manažerské pozice a odborní specialisté</span></div><span class="ref-more">Číst celé →</span></article></div>
-    <div style="text-align:center;margin-top:40px">
-      <button class="btn btn-ghost" id="refsToggle" type="button" hidden>Zobrazit všechny reference <span class="arr">→</span></button>
-      <p class="lead" style="margin:22px auto 0;text-align:center;font-size:14.5px;color:var(--soft)">Výběr z referencí. Kompletní přehled rádi doložíme na vyžádání.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ DŮVĚŘUJÍ NÁM (marquee) ============ -->
-<div class="marquee-wrap" aria-label="Klienti, se kterými spolupracujeme">
-  <div class="wrap"><div class="marquee-lbl">Důvěřují nám</div></div>
-  <div class="marquee" id="marquee"><span class="slot"><img src="assets/logos/processed/mono-light/nestle-mono-light.svg" alt="Nestlé" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/siemens-energy-mono-light.svg" alt="Siemens Energy" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/panasonic-mono-light.svg" alt="Panasonic" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/zf-mono-light.svg" alt="ZF" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/safran-cabin-mono-light.svg" alt="Safran" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/alstom-mono-light.svg" alt="Alstom" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/vitesco-mono-light.svg" alt="Vitesco" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/edwards-mono-light.svg" alt="Edwards" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/aisan-mono-light.svg" alt="Aisan Industry" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/linet-mono-light.png" alt="LINET" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/secheron-hasler-mono-light.png" alt="Sécheron Hasler" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/winning-group-mono-light.svg" alt="Winning Group" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/nestle-mono-light.svg" alt="Nestlé" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/siemens-energy-mono-light.svg" alt="Siemens Energy" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/panasonic-mono-light.svg" alt="Panasonic" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/zf-mono-light.svg" alt="ZF" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/safran-cabin-mono-light.svg" alt="Safran" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/alstom-mono-light.svg" alt="Alstom" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/vitesco-mono-light.svg" alt="Vitesco" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/edwards-mono-light.svg" alt="Edwards" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/aisan-mono-light.svg" alt="Aisan Industry" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/linet-mono-light.png" alt="LINET" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/secheron-hasler-mono-light.png" alt="Sécheron Hasler" loading="lazy" height="42"></span><span class="slot"><img src="assets/logos/processed/mono-light/winning-group-mono-light.svg" alt="Winning Group" loading="lazy" height="42"></span></div>
-</div>
-
-<!-- ============ 7 · SEARCH VEDE ČLOVĚK ============ -->
-<section class="sec panel-light" id="clovek">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Lidé, ne formulář</div>
-      <h2 class="h-claim rv">Search vede člověk, <em class="ac">ne formulář.</em></h2>
-    </div>
-    <p class="lead rv">Za search odpovídá člověk, který ví, proč vám kandidáta posílá. Nečekáte na anonymní proces. U každého zadání víte, kdo ho vede, proč se hledá právě tímto směrem a co se na trhu děje.</p>
-    <div class="video-slot rv" aria-hidden="true">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z" fill="currentColor" stroke="none"/></svg>
-      Místo pro krátké video. Doplníme.
-    </div>
-  </div>
-</section>
-
-<!-- ============ 8 · AKTUÁLNÍ POZICE ============ -->
-<section class="sec" id="pozice">
-  <div class="wrap">
-    <div class="pos-intro">
-      <div class="sec-head" style="margin-bottom:0">
-        <div class="kicker">Aktuální pozice</div>
-        <h2 class="h-sec rv">Koho právě hledáme</h2>
-        <p class="lead rv" style="margin-top:14px">Výběr rolí, na kterých právě pracujeme. Ne všechny search projekty zveřejňujeme.</p>
+      <div class="proof-item rv">
+        <div class="proof-pill">Přesnost</div>
+        <blockquote class="proof-quote">„Ani jeden kandidát nebyl zcela mimo rozsah.“</blockquote>
+        <div class="proof-who">ALSTOM</div>
+      </div>
+      <div class="proof-item rv">
+        <div class="proof-pill">Kontext</div>
+        <blockquote class="proof-quote">„Poznámky ke kandidátům jsme následně využívali na pohovorech.“</blockquote>
+        <div class="proof-who">Siemens Energy</div>
+      </div>
+      <div class="proof-item rv">
+        <div class="proof-pill">Mimo trh</div>
+        <blockquote class="proof-quote">„Uchazeči, o kterých jsme si mysleli, že na trhu vůbec neexistují.“</blockquote>
+        <div class="proof-who">SITEL</div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="filterbar">
-      <div class="f-row">
-        <label class="f-search">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-          <input id="fQ" type="search" placeholder="Hledat pozici, např. CNC nebo controller…" aria-label="Hledat pozici">
-        </label>
-        <select id="fKraj" class="f-select" aria-label="Kraj"><option value="">Celá ČR i zahraničí</option></select>
-        <button class="f-reset" id="fReset" type="button">Zrušit filtry ✕</button>
-      </div>
-      <div class="chips" id="fChips" role="group" aria-label="Obor"></div>
-      <div class="seg" id="fSeg" role="group" aria-label="Seniorita"></div>
+<!-- ===================== KLIENTI ===================== -->
+<section class="marquee-wrap" aria-label="Klienti, se kterými spolupracujeme">
+  <div class="marquee-label">Důvěřují nám</div>
+  <div class="marquee">
+    <div class="marquee-track" id="marquee-track"><span class="logo-slot"><img src="assets/logos/processed/mono-light/nestle-mono-light.svg" alt="Nestlé" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/siemens-energy-mono-light.svg" alt="Siemens Energy" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/panasonic-mono-light.svg" alt="Panasonic" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/zf-mono-light.svg" alt="ZF" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/safran-cabin-mono-light.svg" alt="Safran" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/alstom-mono-light.svg" alt="Alstom" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/vitesco-mono-light.svg" alt="Vitesco" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/edwards-mono-light.svg" alt="Edwards" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/aisan-mono-light.svg" alt="Aisan Industry" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/linet-mono-light.png" alt="LINET" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/secheron-hasler-mono-light.png" alt="Sécheron Hasler" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/winning-group-mono-light.svg" alt="Winning Group" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/nestle-mono-light.svg" alt="Nestlé" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/siemens-energy-mono-light.svg" alt="Siemens Energy" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/panasonic-mono-light.svg" alt="Panasonic" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/zf-mono-light.svg" alt="ZF" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/safran-cabin-mono-light.svg" alt="Safran" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/alstom-mono-light.svg" alt="Alstom" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/vitesco-mono-light.svg" alt="Vitesco" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/edwards-mono-light.svg" alt="Edwards" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/aisan-mono-light.svg" alt="Aisan Industry" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/linet-mono-light.png" alt="LINET" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/secheron-hasler-mono-light.png" alt="Sécheron Hasler" loading="lazy" /></span><span class="logo-slot"><img src="assets/logos/processed/mono-light/winning-group-mono-light.svg" alt="Winning Group" loading="lazy" /></span></div>
+  </div>
+</section>
+
+<!-- ===================== 1 · PROBLÉM ===================== -->
+<section id="problem" class="block">
+  <div class="block-inner narrow">
+    <div class="kicker rv">Problém</div>
+    <h2 class="lead rv">Když inzerce nestačí, <em>další inzerát nepomůže.</em></h2>
+    <p class="body rv">Většina klientů se nám ozve ve chvíli, kdy už vyzkoušeli běžné cesty a aktivní kandidáty viděli. My v tu chvíli neotevřeme další inzerát. Ti, které potřebujete, většinou práci mají, nejsou aktivní a stojí mimo trh. Pro správnou nabídku jsou ale ochotní mluvit.</p>
+  </div>
+  <div class="block-inner pull" style="margin-top:clamp(64px,8vw,110px)">
+    <p class="rv">Nejtěžší nebývá najít ředitele, ti bývají vidět. Nejtěžší je odborník, který má práci, není aktivní a stojí <em>mimo trh.</em> Proto na inzerát nikdy neodpoví.</p>
+  </div>
+</section>
+
+<!-- ===================== 2 · JINÝ DRUH PRÁCE ===================== -->
+<section id="trh" class="block panel-light">
+  <div class="block-inner tell">
+    <div>
+      <div class="kicker rv">Jiný druh práce</div>
+      <h2 class="lead rv">Běžná agentura pracuje s tím, co přijde. <em>My s tím, co samo nepřijde.</em></h2>
     </div>
+    <div class="tell-body">
+      <p class="body rv" style="margin-top:0">Trh jsou lidé, kteří hledají: v databázích portálů, ve složce „otevřen nabídkám“. My jdeme za těmi mimo něj. Mají profil ne proto, že hledají práci, ale protože svou práci dělají dobře. Za nimi jdeme napřímo.</p>
+    </div>
+  </div>
+</section>
 
-    <div class="result-line"><span class="cnt" id="posCnt"></span></div>
-    <div class="pos-list" id="posList"><div class="pos-item"><a class="pos-row" href="pozice/863.html"><span class="t">Procesní manažer</span><span class="m field">Výroba a strojírenství</span><span class="m level">Management</span><span class="m loc">Vysočina / Jihomoravský kraj</span><span class="arr">→</span></a></div>
+<!-- ===================== 3 · ZADÁNÍ DO ŘEČI TRHU ===================== -->
+<section id="zadani" class="block panel-light">
+  <div class="block-inner tell">
+    <div>
+      <div class="kicker rv">Zadání do řeči trhu</div>
+      <h2 class="lead rv">Většinou víte, koho chcete. <em>Jen je těžší přeložit to do řeči trhu.</em></h2>
+    </div>
+    <div class="tell-body">
+      <p class="body rv" style="margin-top:0">Stejnou roli může trh pojmenovávat jinak, než ji máte v hlavě. Stačí jeden špatně napsaný požadavek a kandidát, který umí čtyři z pěti věcí, vám vypadne, místo aby chyběla jen ta pátá. Začínáme tím, že zadání přeložíme tak, aby správní lidé nepropadli sítem.</p>
+      <div class="mcite rv">
+        <blockquote>„Stačil krátký hovor, aby byla pozice řádně popsána. Sintera má schopnost pochopit osobnostní profil kandidáta.“</blockquote>
+        <div class="who"><strong>Sécheron Hasler</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 4 · SEARCHOVÁ INFRASTRUKTURA ===================== -->
+<section id="infra" class="block">
+  <div class="block-inner">
+    <div class="kicker rv">Searchová infrastruktura</div>
+    <h2 class="lead rv" style="max-width:13ch">Nástroj otevře dveře. <em>Zkušenost rozhodne, na které zaklepat.</em></h2>
+    <p class="body rv">Máme vlastní searchovou infrastrukturu: nástroje, které si z velké části sami stavíme, vlastní postupy a know-how budované roky. Není to raketová věda. Ale ne každý ji umí postavit a používat den za dnem správně. Stejně jako vy máte výrobní linku na svůj produkt, my máme linku na to, jak najít vašeho člověka.</p>
+    <div class="infra-figure rv">
+      <div class="infra-cell"><span class="n">01</span><div><div class="lbl">Mapování trhu</div><div class="sub">Kdo roli reálně umí, i mimo portály a databáze.</div></div></div>
+      <div class="infra-cell"><span class="n">02</span><div><div class="lbl">Přímé oslovení</div><div class="sub">Konkrétní lidé, napřímo, s nabídkou na míru.</div></div></div>
+      <div class="infra-cell"><span class="n">03</span><div><div class="lbl">Posouzení a kontext</div><div class="sub">Proč ten člověk odpovídá zadání, ne jen jeho životopis.</div></div></div>
+      <div class="infra-cell"><span class="n">04</span><div><div class="lbl">Představení</div><div class="sub">Jen kandidáti, se kterými má smysl mluvit.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 5 · PŘESNOST MÍSTO OBJEMU ===================== -->
+<section id="presnost" class="block panel-light">
+  <div class="block-inner tell">
+    <div>
+      <div class="kicker rv">Přesnost místo objemu</div>
+      <h2 class="lead rv">Nejde o počet CV. <em>Jde o to, kolik z nich stojí za rozhovor.</em></h2>
+    </div>
+    <div class="tell-body">
+      <p class="body rv" style="margin-top:0">Neposíláme desítky profilů, aby si klient sám domýšlel, proč je dostal. Kandidáta představujeme s kontextem: proč odpovídá zadání, co u něj dává smysl ověřit a proč má cenu vést rozhovor.</p>
+      <div class="rotor rv" id="presnost-rotor"><figure class="rotor-item active"><blockquote>„Reference opakovaně potvrzují kandidáty, kteří splňují požadavky role. Neřeší se objem CV, ale relevantní výběr.“</blockquote><figcaption>Přesnost</figcaption></figure>
+<figure class="rotor-item"><blockquote>„V referencích se vrací stejný motiv: kandidáti odpovídají zadání a odpadá třídění profilů mimo rozsah.“</blockquote><figcaption>Přesnost</figcaption></figure>
+<figure class="rotor-item"><blockquote>„Některé reference popisují uchazeče, kteří původně působili jako nedostupní. Právě tam začíná smysl cíleného search procesu.“</blockquote><figcaption>Kandidáti mimo aktivní trh</figcaption></figure>
+<figure class="rotor-item"><blockquote>„Podklady nejsou jen CV. Obsahují komentář, mzdová očekávání, motivaci ke změně i dostupnost k pohovoru.“</blockquote><figcaption>Kontext</figcaption></figure>
+<figure class="rotor-item"><blockquote>„Dobře vedený search začíná otázkami. Konzultanti se doptávají do detailů ještě před tím, než začnou hledat.“</blockquote><figcaption>Zadání</figcaption></figure>
+<figure class="rotor-item"><blockquote>„U úzkých technických rolí reference ukazují vysokou úspěšnost trefení profilu a rychlejší posun k rozhovorům.“</blockquote><figcaption>Specifické role</figcaption></figure>
+<figure class="rotor-item"><blockquote>„Search nemusí fungovat jako černá skříňka. Pravidelný reporting ukazuje aktivity, trh i směr hledání.“</blockquote><figcaption>Reporting</figcaption></figure>
+<figure class="rotor-item"><blockquote>„Část spoluprací trvá roky. Důvodem není zvyk, ale znalost firmy, pozic a trhu kandidátů.“</blockquote><figcaption>Dlouhodobá spolupráce</figcaption></figure>
+<figure class="rotor-item"><blockquote>„Rychlost tady neznamená poslat první dostupné CV. Znamená rychle najít správný směr a držet ho bez zbytečných koleček.“</blockquote><figcaption>Rychlost</figcaption></figure>
+<figure class="rotor-item"><blockquote>„Stabilní tým konzultantů drží znalost firmy i oboru. Zadání se proto nemusí pokaždé stavět od nuly.“</blockquote><figcaption>Stabilní tým</figcaption></figure>
+<figure class="rotor-item"><blockquote>„Kvalitu spolupráce potvrzuje i druhá strana trhu. Některé reference zmiňují pozitivní zpětnou vazbu samotných kandidátů.“</blockquote><figcaption>Candidate experience</figcaption></figure>
+<figure class="rotor-item"><blockquote>„Některé reference potvrzují konkrétní konec procesu: nabídku, podpis smlouvy a nástup v dohodnutém termínu.“</blockquote><figcaption>Výsledek</figcaption></figure></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 6 · CASE STUDIES ===================== -->
+<section id="cases" class="block">
+  <div class="block-inner">
+    <div class="sect-head" style="padding-bottom:clamp(40px,5vw,56px)">
+      <div class="kicker rv">Case studies</div>
+      <h2 class="rv">Když běžné cesty nestačily</h2>
+    </div>
+    <div class="cases-grid" id="cases-grid"><article class="case-card rv" data-id="case_sitel_market" role="button" tabindex="0" aria-label="Příběh: Uchazeči, kteří na trhu působili jako nedostupní"><div class="case-meta">Technické role pro datové centrum a havarijní zásahy · Systémový integrátor · Praha</div><p class="case-hook">Specializované technické role v úzkém oboru, kde běžné cesty nepřinášejí dost relevantních uchazečů.</p><span class="case-more">Číst příběh →</span></article>
+<article class="case-card rv" data-id="case_zf_99" role="button" tabindex="0" aria-label="Příběh: Přesnost místo objemu"><div class="case-meta">Manažeři a inženýři kvality · Výrobce bezpečnostních systémů pro automobily · Česká republika</div><p class="case-hook">U kvalitářských rolí nedává smysl ztrácet čas tříděním nerelevantních životopisů.</p><span class="case-more">Číst příběh →</span></article>
+<article class="case-card rv" data-id="case_safran_specific" role="button" tabindex="0" aria-label="Příběh: Specifické pozice za krátkou dobu"><div class="case-meta">Manažerské a specializované pozice · Letecký, obranný a kosmický průmysl · Česká republika</div><p class="case-hook">Náročné a specifické role v úzce regulovaném oboru.</p><span class="case-more">Číst příběh →</span></article>
+<article class="case-card rv" data-id="case_linet_international" role="button" tabindex="0" aria-label="Příběh: Mezinárodní manažer před plánovaným termínem"><div class="case-meta">Country Manager India a strategické manažerské role · Výrobce zdravotnických pomůcek · Středočeský kraj</div><p class="case-hook">Náročné mezinárodní role, u kterých dříve vznikaly potíže s obsazením.</p><span class="case-more">Číst příběh →</span></article>
+<article class="case-card rv" data-id="case_aisan_mas_brief" role="button" tabindex="0" aria-label="Příběh: Role, kde rozhodlo správně přeložené zadání"><div class="case-meta">Specialista údržby forem, vývojový konstruktér · Automotive a automatizace · Česká republika</div><p class="case-hook">Velmi specifické technické pozice mohou brzdit nejasnosti v zadání.</p><span class="case-more">Číst příběh →</span></article>
+<article class="case-card rv" data-id="case_glanzstoff_long_search" role="button" tabindex="0" aria-label="Příběh: Pozice, kterou trh dlouho nenabídl"><div class="case-meta">Textilní specialista · Výrobce viskózových a technických vláken · Lovosicko</div><p class="case-hook">Pozice se hledala delší dobu a nedařilo se ji obsadit.</p><span class="case-more">Číst příběh →</span></article></div>
+  </div>
+</section>
+
+<!-- ===================== 7 · REFERENCE ===================== -->
+<section id="reference" class="block panel-light">
+  <div class="block-inner">
+    <div class="sect-head" style="padding-bottom:clamp(40px,5vw,56px)">
+      <div class="kicker rv">Reference</div>
+      <h2 class="rv">Slova klientů říkají víc než naše sliby</h2>
+    </div>
+    <div class="refs-grid" id="refs-grid"><article class="ref-card rv" data-id="ref_zf_passive" role="button" tabindex="0" aria-label="Reference: ZF Passive Safety"><div class="ref-logo"><img src="assets/logos/processed/mono-light/zf-mono-light.svg" alt="ZF Passive Safety" loading="lazy" height="28"></div><blockquote>„Nabídnutí kandidáti míří rovnou na pohovor.“</blockquote><div class="who"><strong>ZF Passive Safety</strong><span>Manažeři a inženýři kvality</span></div><span class="ref-more">Číst celé →</span></article>
+<article class="ref-card rv" data-id="ref_sitel" role="button" tabindex="0" aria-label="Reference: SITEL"><div class="ref-logo"><img src="assets/logos/processed/png/sitel-400x160.png" alt="SITEL" loading="lazy" height="28"></div><blockquote>„Přišli i uchazeči, kteří na trhu působili jako nedostupní.“</blockquote><div class="who"><strong>SITEL</strong><span>Technik datového centra, technik zásahů, stavbyvedoucí</span></div><span class="ref-more">Číst celé →</span></article>
+<article class="ref-card rv" data-id="ref_alstom" role="button" tabindex="0" aria-label="Reference: ALSTOM"><div class="ref-logo"><img src="assets/logos/processed/mono-light/alstom-mono-light.svg" alt="ALSTOM" loading="lazy" height="28"></div><blockquote>„Ani jeden představený kandidát nemířil mimo rozsah hledané role.“</blockquote><div class="who"><strong>ALSTOM</strong><span>Odborné pozice v nákupu</span></div><span class="ref-more">Číst celé →</span></article>
+<article class="ref-card rv" data-id="ref_windmoller" role="button" tabindex="0" aria-label="Reference: Windmöller &amp; Hölscher"><blockquote>„Podklady obsahují komentář Sintery i mzdová očekávání kandidáta.“</blockquote><div class="who"><strong>Windmöller &amp; Hölscher</strong><span>Manažerské a odborné technické pozice</span></div><span class="ref-more">Číst celé →</span></article>
+<article class="ref-card rv" data-id="ref_jtekt_czech" role="button" tabindex="0" aria-label="Reference: JTEKT Czech Republic"><div class="ref-logo"><img src="assets/logos/processed/mono-light/jtekt-mono-light.png" alt="JTEKT Czech Republic" loading="lazy" height="28"></div><blockquote>„Do dalších kol se často posune několik kandidátů.“</blockquote><div class="who"><strong>JTEKT Czech Republic</strong><span>Odborné a technické pozice</span></div><span class="ref-more">Číst celé →</span></article>
+<article class="ref-card rv" data-id="ref_nestle" role="button" tabindex="0" aria-label="Reference: Nestlé Česko"><div class="ref-logo"><img src="assets/logos/processed/mono-light/nestle-mono-light.svg" alt="Nestlé Česko" loading="lazy" height="28"></div><blockquote>„Profily odpovídaly velmi přesně odsouhlasenému zadání.“</blockquote><div class="who"><strong>Nestlé Česko</strong><span>Produktový a procesní specialista, bezpečnostní technik</span></div><span class="ref-more">Číst celé →</span></article>
+<article class="ref-card rv" data-id="ref_aisan" role="button" tabindex="0" aria-label="Reference: Aisan Industry"><div class="ref-logo"><img src="assets/logos/processed/mono-light/aisan-mono-light.svg" alt="Aisan Industry" loading="lazy" height="28"></div><blockquote>„Výběrové řízení skončilo dřív, než se původně čekalo.“</blockquote><div class="who"><strong>Aisan Industry</strong><span>Specialista údržby forem</span></div><span class="ref-more">Číst celé →</span></article>
+<article class="ref-card rv" data-id="ref_siemens_energy" role="button" tabindex="0" aria-label="Reference: Siemens Energy"><div class="ref-logo"><img src="assets/logos/processed/mono-light/siemens-energy-mono-light.svg" alt="Siemens Energy" loading="lazy" height="28"></div><blockquote>„Poznámky ke kandidátům se využily přímo při pohovorech.“</blockquote><div class="who"><strong>Siemens Energy</strong><span>Tax Specialist</span></div><span class="ref-more">Číst celé →</span></article>
+<article class="ref-card rv" data-id="ref_trw_carr" role="button" tabindex="0" aria-label="Reference: TRW Carr"><div class="ref-logo"><img src="assets/logos/processed/mono-light/trw-mono-light.png" alt="TRW Carr" loading="lazy" height="28"></div><blockquote>„Konzultanti se doptávají do detailů skutečného obsahu role.“</blockquote><div class="who"><strong>TRW Carr</strong><span>Inženýři kvality a elektro role</span></div><span class="ref-more">Číst celé →</span></article></div>
+    <p class="body rv" style="margin-top:40px;max-width:none;font-size:15px">Archiv více než 100 referencí poskytujeme na vyžádání.</p>
+  </div>
+</section>
+
+<!-- ===================== 8 · SEARCH VEDE ČLOVĚK ===================== -->
+<section id="clovek" class="block">
+  <div class="block-inner">
+    <div class="person-grid">
+      <div class="person-copy">
+        <div class="kicker rv">Search vede člověk</div>
+        <h2 class="lead rv">Search nevede formulář. <em>Vede ho člověk, který rozumí trhu.</em></h2>
+        <p class="body rv">Za search odpovídá člověk, který ví, proč vám kandidáta posílá. Nečekáte na anonymní proces. U každého zadání víte, kdo ho vede, proč se hledá právě tímto směrem a co se na trhu děje.</p>
+      </div>
+      <div class="video-slot rv" role="img" aria-label="Video se připravuje">
+        <div class="video-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3.5v17l15-8.5z"></path></svg></div>
+        <span class="video-cap">Video se připravuje</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 9 · AKTUÁLNÍ POZICE ===================== -->
+<section id="pozice" class="block panel-light">
+  <div class="block-inner">
+    <div class="sect-head" style="padding-bottom:36px">
+      <div class="kicker rv">Volné pozice</div>
+      <h2 class="rv">Aktuální pozice</h2>
+    </div>
+    <p class="positions-lead rv">Výběr rolí, na kterých právě pracujeme. Ne všechny search projekty zveřejňujeme.</p>
+    <div class="filters rv" id="filters">
+      <details class="f-chip" data-key="loc">
+        <summary>Lokalita: <b>vše</b></summary>
+        <div class="f-menu"></div>
+      </details>
+      <details class="f-chip" data-key="field">
+        <summary>Obor: <b>vše</b></summary>
+        <div class="f-menu"></div>
+      </details>
+      <details class="f-chip" data-key="level">
+        <summary>Seniorita: <b>vše</b></summary>
+        <div class="f-menu"></div>
+      </details>
+      <button class="f-reset" id="f-reset" type="button">Zrušit filtry ✕</button>
+      <span class="f-count" id="f-count"></span>
+    </div>
+    <div class="pos-list" id="pos-list"><div class="pos-item"><a class="pos-row" href="pozice/863.html"><span class="t">Procesní manažer</span><span class="m field">Výroba a strojírenství</span><span class="m level">Management</span><span class="m loc">Vysočina / Jihomoravský kraj</span><span class="arr">→</span></a></div>
 <div class="pos-item"><a class="pos-row" href="pozice/862.html"><span class="t">Obchodně-technický ředitel</span><span class="m field">Obchod</span><span class="m level">Top management</span><span class="m loc">Jihomoravský kraj / Vysočina</span><span class="arr">→</span></a></div>
 <div class="pos-item"><a class="pos-row" href="pozice/861.html"><span class="t">People &amp; HR Specialist</span><span class="m field">HR</span><span class="m level">Specialisté a technici</span><span class="m loc">Vysočina / Jihomoravský kraj</span><span class="arr">→</span></a></div>
 <div class="pos-item"><a class="pos-row" href="pozice/859.html"><span class="t">Specialista výrobních technologií</span><span class="m field">Technologie a konstrukce</span><span class="m level">Specialisté a technici</span><span class="m loc">Vysočina / Jihomoravský kraj</span><span class="arr">→</span></a></div>
@@ -369,58 +359,47 @@
 <div class="pos-item"><a class="pos-row" href="pozice/539.html"><span class="t">Frézař – CNC</span><span class="m field">Výroba a strojírenství</span><span class="m level">Specialisté a technici</span><span class="m loc">Plzeňský kraj</span><span class="arr">→</span></a></div>
 <div class="pos-item"><a class="pos-row" href="pozice/521.html"><span class="t">Servisní technik</span><span class="m field">Servis a údržba</span><span class="m level">Specialisté a technici</span><span class="m loc">Praha / Středočeský kraj</span><span class="arr">→</span></a></div>
 <div class="pos-item"><a class="pos-row" href="pozice/465.html"><span class="t">Zkušební technik</span><span class="m field">Kvalita a zkušebnictví</span><span class="m level">Specialisté a technici</span><span class="m loc">Praha</span><span class="arr">→</span></a></div></div>
-    <div class="pos-empty" id="posEmpty"><p>Tomuhle zadání teď nic neodpovídá. Většinu rolí ale hledáme i mimo tento seznam. <a href="mailto:info@sintera.cz" style="color:var(--acc-2);font-weight:700">Napište nám, koho hledáte.</a></p></div>
+    <div class="pos-empty" id="pos-empty" hidden>Tomuhle zadání teď nic neodpovídá. Většinu rolí hledáme i mimo tento seznam. Napište nám, koho potřebujete.</div>
   </div>
 </section>
 
-<!-- ============ 9 · ZÁVĚREČNÉ CTA ============ -->
-<section class="cta" id="kontakt">
-  <div class="wrap">
-    <div class="cta-box rv">
-      <h2>Máte pozici, kterou <span class="ac">nemůžete obsadit?</span></h2>
-      <p>Pošlete nám job description, nebo prostě cokoli, co o roli víte. Ozveme se a domluvíme další krok.</p>
-      <div class="hero-cta">
-        <a class="btn btn-acc" href="mailto:info@sintera.cz?subject=Pozice%20k%20obsazen%C3%AD&body=Popis%20role%2C%20region%20a%20cokoli%2C%20co%20o%20pozici%20v%C3%ADte%3A">Poslat pozici e-mailem</a>
-        <a class="btn btn-ghost" href="tel:+420499599861">Zavolat Šárce · +420 499 599 861</a>
-      </div>
-    </div>
+<!-- ===================== 10 · ZÁVĚREČNÉ CTA ===================== -->
+<section id="kontakt" class="cta">
+  <h2 class="rv">Máte pozici, kterou <em>nemůžete obsadit?</em></h2>
+  <p class="rv">Pošlete nám job description, nebo pár vět k roli. Ozveme se a řekneme, jak konkrétně ji uchopíme.</p>
+  <div class="hero-ctas rv" style="justify-content:center;flex-wrap:wrap">
+    <a class="btn btn-primary btn-big" href="mailto:info@sintera.cz?subject=Poslat%20pozici">Poslat pozici e-mailem</a>
+    <a class="btn btn-line" href="tel:+420499599861">Zavolejte nám</a>
   </div>
 </section>
 </main>
 
+<!-- ===================== PATIČKA ===================== -->
 <footer>
-  <div class="wrap">
-    <div class="foot-top">
-      <div class="foot-col">
-        <div class="foot-brand"><img src="assets/img/logo-white-mark.png" alt="Sintera Czech"></div>
-        <p>Přímé vyhledávání kandidátů pro výrobu, techniku, obchod a management. Hledáme lidi, kteří sami nepřijdou.</p>
-      </div>
-      <div class="foot-col">
-        <h3>Web</h3>
-        <a href="#problem">Jak hledáme</a>
-        <a href="#cases">Příběhy z praxe</a>
-        <a href="#reference">Reference</a>
-        <a href="#pozice">Volné pozice</a>
-      </div>
-      <div class="foot-col">
-        <h3>Kontakt</h3>
-        <p>Sintera Czech s.r.o.<br>Uhelná 160/24, Hradec Králové</p>
-        <a href="tel:+420499599861">+420 499 599 861</a>
-        <a href="mailto:info@sintera.cz">info@sintera.cz</a>
-        <a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
-    </div>
-    <div class="foot-base">
-      <span>© <span id="yr">2026</span> Sintera Czech s.r.o. · IČ 29130336 · Praha &amp; Hradec Králové</span>
-      <span><a href="mailto:info@sintera.cz">info@sintera.cz</a></span>
-    </div>
+  <a class="nav-logo nav-wordmark" href="#top">Sintera<span>.</span></a>
+  <div class="foot-col">
+    <strong>Kontakt</strong>
+    Uhelná 160/24, Hradec Králové<br>
+    <a href="tel:+420499599861">+420 499 599 861</a><br>
+    <a href="mailto:info@sintera.cz">info@sintera.cz</a>
+  </div>
+  <div class="foot-col">
+    <strong>Sledujte nás</strong>
+    <a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+  <span class="copy">© <span id="yr">2026</span> Sintera Czech s.r.o.</span>
+  <div class="foot-legal">
+    <span>Sintera Czech s.r.o.</span><span>IČ 29130336</span><span>Uhelná 160/24, Hradec Králové</span><span>+420 499 599 861</span><span>info@sintera.cz</span>
   </div>
 </footer>
 
-<button class="motion-toggle" id="motionToggle" type="button" aria-pressed="false">
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
-  <span id="motionLabel">Klid</span>
-</button>
+<div class="case-modal" id="case-modal" hidden>
+  <div class="case-modal-backdrop" data-close></div>
+  <div class="case-modal-card" role="dialog" aria-modal="true" aria-label="Detail">
+    <button class="case-modal-x" type="button" data-close aria-label="Zavřít">✕</button>
+    <div class="case-modal-body" id="case-modal-body"></div>
+  </div>
+</div>
 
 <script src="assets/data/reference-data.js"></script>
 <script src="assets/js/pozice-data.js"></script>

@@ -106,34 +106,32 @@ function mapPositions(rows) {
 /* ---------- generátory HTML sekcí (prerender) ---------- */
 function rotorHTML(rotor) {
   return rotor.map((r, i) =>
-    `<figure class="rotor-item${i === 0 ? " active" : ""}"><blockquote>${esc(r.q)}</blockquote><figcaption>${esc(r.c)}</figcaption></figure>`
+    `<figure class="rotor-item${i === 0 ? " active" : ""}"><blockquote>„${esc(r.q)}“</blockquote><figcaption>${esc(r.c)}</figcaption></figure>`
   ).join("\n");
 }
-function casesHTML(cases, n = 4) {
-  return cases.slice(0, n).map((c, i) =>
-    `<article class="case-card rv${i % 3 ? " d" + (i % 3) : ""}" data-id="${esc(c.id)}" role="button" tabindex="0" aria-label="Příběh: ${esc(c.name)}">` +
+function casesHTML(cases, n = 6) {
+  return cases.slice(0, n).map(c =>
+    `<article class="case-card rv" data-id="${esc(c.id)}" role="button" tabindex="0" aria-label="Příběh: ${esc(c.name)}">` +
     `<div class="case-meta">${esc(c.meta)}</div>` +
     `<p class="case-hook">${esc(c.situ)}</p>` +
     `<span class="case-more">Číst příběh →</span></article>`
   ).join("\n");
 }
-function refsHTML(refs) {
-  return refs.map((r, i) => {
-    const head = r.logo
-      ? `<div class="ref-logo"><img src="${esc(r.logo)}" alt="${esc(r.company)}" loading="lazy" height="34"></div>`
-      : `<div class="ref-name">${esc(r.company)}</div>`;
-    return `<article class="ref-card rv${i % 3 ? " d" + (i % 3) : ""}" data-id="${esc(r.id)}" role="button" tabindex="0" aria-label="Reference: ${esc(r.company)}">` +
-      head +
-      `<blockquote>${esc(r.quote)}</blockquote>` +
+function refsHTML(refs, n = 9) {
+  return refs.slice(0, n).map(r => {
+    const logo = r.logo ? `<div class="ref-logo"><img src="${esc(r.logo)}" alt="${esc(r.company)}" loading="lazy" height="28"></div>` : "";
+    return `<article class="ref-card rv" data-id="${esc(r.id)}" role="button" tabindex="0" aria-label="Reference: ${esc(r.company)}">` +
+      logo +
+      `<blockquote>„${esc(r.quote)}“</blockquote>` +
       `<div class="who"><strong>${esc(r.company)}</strong>${r.role ? `<span>${esc(r.role)}</span>` : ""}</div>` +
       `<span class="ref-more">Číst celé →</span></article>`;
   }).join("\n");
 }
 function marqueeHTML(clients) {
-  const slot = c => c.logo
-    ? `<span class="slot"><img src="${esc(c.logo)}" alt="${esc(c.name)}" loading="lazy" height="42"></span>`
-    : `<span class="slot"><span class="txt">${esc(c.name)}</span></span>`;
-  const one = clients.map(slot).join("");
+  const node = c => c.logo
+    ? `<span class="logo-slot"><img src="${esc(c.logo)}" alt="${esc(c.name)}" loading="lazy" /></span>`
+    : `<span class="client-name">${esc(c.name)}</span>`;
+  const one = clients.map(node).join("");
   return one + one; // zdvojeno pro plynulou smyčku
 }
 function positionsHTML(positions, labels) {
@@ -198,7 +196,7 @@ function itemListLD(positions) {
 /* ---------- samostatná stránka pozice ---------- */
 function detailPage(p, labels) {
   const obor = labels.OBORY[p.o] || p.o, sen = labels.SENIORITY[p.s] || p.s, loc = (p.k || []).join(" / ");
-  const bonus = p.bonus ? `<span class="bonus">Náborový příspěvek ${esc(p.bonus)}</span>` : "";
+  const bonus = p.bonus ? `<span>Příspěvek ${esc(p.bonus)}</span>` : "";
   const title = `${esc(p.t)} · ${esc(loc)} · Sintera Czech`;
   const desc = `${esc(p.t)} (${esc(obor)}, ${esc(sen)}), lokalita ${esc(loc)}. Obsazujeme přímým vyhledáváním. Reagujte e-mailem na info@sintera.cz.`;
   const subj = encodeURIComponent(`Reakce na pozici: ${p.t} (${loc})`);
@@ -233,39 +231,36 @@ ${JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", 
 </script>
 </head>
 <body>
-<header class="nav scrolled" id="nav">
-  <div class="wrap nav-in">
-    <a class="brand" href="../index.html" aria-label="Sintera Czech, úvod"><img src="../assets/img/logo-white-mark.png" alt="Sintera Czech"></a>
-    <nav class="nav-links" aria-label="Hlavní navigace">
-      <a href="../index.html#problem">Jak hledáme</a>
-      <a href="../index.html#reference">Reference</a>
-      <a href="../index.html#pozice">Pozice</a>
-      <a href="../index.html#kontakt">Kontakt</a>
-    </nav>
-    <a class="btn btn-acc btn-nav-cta" href="mailto:info@sintera.cz?subject=${subj}">Reagovat</a>
+<div class="grain" aria-hidden="true"></div>
+<nav id="nav" class="scrolled">
+  <a class="nav-logo nav-wordmark" href="../index.html">Sintera<span>.</span></a>
+  <div class="nav-links">
+    <a href="../index.html#trh">Jak pracujeme</a>
+    <a href="../index.html#reference">Reference</a>
+    <a href="../index.html#pozice">Pozice</a>
+    <a href="../index.html#kontakt">Kontakt</a>
   </div>
-</header>
-<main id="top">
-<section class="sec" style="padding-top:140px">
-  <div class="wrap" style="max-width:840px">
-    <a class="ref-more" href="../index.html#pozice" style="display:inline-flex;margin-bottom:24px">← Zpět na pozice</a>
+  <a class="nav-cta" href="mailto:info@sintera.cz?subject=${subj}">Reagovat</a>
+</nav>
+<main>
+<section class="block" style="padding-top:clamp(140px,16vw,180px)">
+  <div class="block-inner narrow">
+    <a class="ref-more" href="../index.html#pozice" style="display:inline-flex;margin-bottom:28px">← Zpět na pozice</a>
     <div class="kicker">${esc(obor)} · ${esc(sen)}</div>
-    <h1 class="h-claim">${esc(p.t)}</h1>
-    <div class="pos-tags" style="margin-top:18px"><span>${esc(loc)}</span><span>${esc(obor)}</span><span>${esc(sen)}</span></div>
-    ${bonus ? `<p style="margin-top:14px">${bonus}</p>` : ""}
-    <div class="lead" style="margin-top:28px">${jobDescription(p, labels)}</div>
-    <div class="hero-cta" style="margin-top:36px">
-      <a class="btn btn-acc" href="mailto:info@sintera.cz?subject=${subj}&body=${encodeURIComponent("Jméno:\nKontakt:\n\nPár vět o vás nebo odkaz na profil:")}">Reagovat na pozici</a>
-      <a class="btn btn-ghost" href="tel:+420499599861">Zavolat Šárce · +420 499 599 861</a>
+    <h1 class="lead">${esc(p.t)}</h1>
+    <div class="pos-tags" style="margin-top:22px"><span>${esc(loc)}</span><span>${esc(obor)}</span><span>${esc(sen)}</span>${bonus}</div>
+    <div class="body" style="margin-top:28px">${jobDescription(p, labels)}</div>
+    <div class="hero-ctas" style="margin-top:40px;flex-wrap:wrap">
+      <a class="btn btn-primary" href="mailto:info@sintera.cz?subject=${subj}&body=${encodeURIComponent("Jméno:\nKontakt:\n\nPár vět o vás nebo odkaz na profil:")}">Reagovat na pozici</a>
+      <a class="btn btn-line" href="tel:+420499599861">Zavolejte nám · +420 499 599 861</a>
     </div>
   </div>
 </section>
 </main>
 <footer>
-  <div class="wrap"><div class="foot-base">
-    <span>© ${new Date().getFullYear()} Sintera Czech s.r.o. · IČ 29130336 · Praha &amp; Hradec Králové</span>
-    <span><a href="mailto:info@sintera.cz">info@sintera.cz</a></span>
-  </div></div>
+  <a class="nav-logo nav-wordmark" href="../index.html">Sintera<span>.</span></a>
+  <div class="foot-col"><strong>Kontakt</strong>Uhelná 160/24, Hradec Králové<br><a href="tel:+420499599861">+420 499 599 861</a><br><a href="mailto:info@sintera.cz">info@sintera.cz</a></div>
+  <span class="copy">© ${new Date().getFullYear()} Sintera Czech s.r.o. · IČ 29130336</span>
 </footer>
 </body>
 </html>

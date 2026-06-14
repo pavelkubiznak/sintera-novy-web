@@ -1,274 +1,115 @@
 /* ============================================================
-   SINTERA · web v5.3 · chování (vanilla JS, bez závislostí)
+   SINTERA web · chování, portováno z Claude Design prototypu v5.
+   3 moduly: (A) chování + render, (B) hero searchlight, (C) nit.
    Data: window.SINTERA_DATA (reference-data.js) + POZICE (pozice-data.js).
-   Obsah je v HTML (prerender). JS jen vylepšuje: nit, hero síť,
-   rotor, modaly referencí/case studies, filtr pozic.
+   ============================================================ */
+
+/* ============================================================
+   A) NAV + RENDER (reference / klienti / rotor / case / pozice)
    ============================================================ */
 (function () {
   "use strict";
   var docEl = document.documentElement;
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function jemne() { return docEl.dataset.motion === "jemne"; }
   function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
   var DATA = window.SINTERA_DATA || { references: [], cases: [], rotor: [], clients: [] };
 
-  /* ---------- nav: scrolled + mobilní menu ---------- */
+  /* ---------- nav scrolled + mobilní menu ---------- */
   var nav = document.getElementById("nav");
-  function onScroll() { if (nav) nav.classList.toggle("scrolled", window.scrollY > 28); }
+  function onScroll() { if (nav) nav.classList.toggle("scrolled", window.scrollY > 24); }
   window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
-  var burger = document.getElementById("burger");
-  if (burger) {
-    burger.addEventListener("click", function () {
-      var open = document.body.classList.toggle("nav-open");
-      burger.setAttribute("aria-expanded", open ? "true" : "false");
+  var navToggle = document.getElementById("nav-toggle");
+  if (navToggle && nav) {
+    navToggle.addEventListener("click", function () {
+      var open = nav.classList.toggle("nav-open");
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
     });
-    document.querySelectorAll("#mobileMenu a").forEach(function (a) {
-      a.addEventListener("click", function () { document.body.classList.remove("nav-open"); burger.setAttribute("aria-expanded", "false"); });
+    nav.querySelectorAll(".nav-links a").forEach(function (a) {
+      a.addEventListener("click", function () { nav.classList.remove("nav-open"); navToggle.setAttribute("aria-expanded", "false"); });
     });
   }
 
   /* ---------- scroll-spy ---------- */
-  var spy = [["problem", "#problem"], ["zadani", "#problem"], ["nastroj", "#problem"], ["presnost", "#problem"],
-            ["cases", "#cases"], ["reference", "#reference"], ["clovek", "#reference"],
-            ["pozice", "#pozice"], ["kontakt", "#kontakt"]]
-    .map(function (m) { return { el: document.getElementById(m[0]), href: m[1] }; })
-    .filter(function (s) { return s.el; });
+  var spyMap = [
+    ["problem", "#trh"], ["trh", "#trh"], ["zadani", "#trh"], ["infra", "#trh"], ["presnost", "#trh"],
+    ["cases", "#cases"], ["reference", "#reference"], ["clovek", "#reference"],
+    ["pozice", "#pozice"], ["kontakt", "#kontakt"]
+  ];
+  var spySections = spyMap.map(function (m) { return { el: document.getElementById(m[0]), href: m[1] }; }).filter(function (s) { return s.el; });
   var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-links a"));
-  function runSpy() {
-    var y = window.scrollY + window.innerHeight * 0.34, cur = null;
-    spy.forEach(function (s) { if (s.el.offsetTop <= y) cur = s.href; });
-    navLinks.forEach(function (a) { a.classList.toggle("active", !!cur && a.getAttribute("href") === cur); });
+  function spy() {
+    var y = window.scrollY + window.innerHeight * 0.32, current = null;
+    spySections.forEach(function (s) { if (s.el.offsetTop <= y) current = s.href; });
+    navLinks.forEach(function (a) { a.classList.toggle("active", !!current && a.getAttribute("href") === current); });
   }
-  window.addEventListener("scroll", runSpy, { passive: true }); runSpy();
+  window.addEventListener("scroll", spy, { passive: true }); spy();
 
-  /* ---------- reveal ---------- */
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-  }, { threshold: 0.14, rootMargin: "0px 0px -40px 0px" });
-  function observeReveals(scope) { (scope || document).querySelectorAll(".rv:not(.in)").forEach(function (el) { io.observe(el); }); }
+  /* ---------- scroll reveals ---------- */
+  function observeReveals(scope) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.16 });
+    (scope || document).querySelectorAll(".rv:not(.in)").forEach(function (el) { io.observe(el); });
+  }
   observeReveals();
 
-  /* ---------- nit (scroll thread) ---------- */
-  var thread = document.getElementById("thread");
-  var threadPath, threadTip, threadLen = 0, mainEl = document.getElementById("top");
-  function buildThread() {
-    if (!thread || !mainEl) return;
-    var H = mainEl.offsetHeight;
-    thread.setAttribute("viewBox", "0 0 100 " + H);
-    thread.style.height = H + "px";
-    // jemně meandrující svislá nit kolem středu
-    var pts = [], n = Math.max(6, Math.round(H / 520));
-    for (var i = 0; i <= n; i++) {
-      var t = i / n;
-      var x = 50 + Math.sin(t * Math.PI * 2.4) * 26 + (i % 2 ? 6 : -6);
-      pts.push([Math.max(8, Math.min(92, x)), t * H]);
-    }
-    var d = "M" + pts[0][0] + " " + pts[0][1];
-    for (var j = 1; j < pts.length; j++) {
-      var p0 = pts[j - 1], p1 = pts[j], my = (p0[1] + p1[1]) / 2;
-      d += " C" + p0[0] + " " + my + " " + p1[0] + " " + my + " " + p1[0] + " " + p1[1];
-    }
-    thread.innerHTML = '<path d="' + d + '"/><circle class="node on" r="3.2"/>';
-    threadPath = thread.querySelector("path");
-    threadTip = thread.querySelector("circle");
-    threadLen = threadPath.getTotalLength();
-    threadPath.style.setProperty("--len", threadLen);
-    drawThread();
+  /* ---------- reference ---------- */
+  function renderReferences(data) {
+    var grid = document.getElementById("refs-grid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    data.forEach(function (r) {
+      var art = document.createElement("article");
+      art.className = "ref-card rv";
+      art.setAttribute("role", "button");
+      art.setAttribute("tabindex", "0");
+      art.setAttribute("aria-label", "Reference: " + r.company);
+      var logo = r.logo ? '<div class="ref-logo"><img src="' + esc(r.logo) + '" alt="' + esc(r.company) + '" loading="lazy" /></div>' : "";
+      art.innerHTML = logo +
+        "<blockquote>„" + esc(r.quote) + "“</blockquote>" +
+        '<div class="who"><strong>' + esc(r.company) + "</strong>" + (r.role ? "<span>" + esc(r.role) + "</span>" : "") + "</div>" +
+        '<span class="ref-more">Číst celé →</span>';
+      function open() { openModalHTML(refDetailHTML(r), art); }
+      art.addEventListener("click", open);
+      art.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+      grid.appendChild(art);
+    });
+    observeReveals(grid);
   }
-  function drawThread() {
-    if (!threadPath) return;
-    var top = mainEl.getBoundingClientRect().top + window.scrollY;
-    var p = (window.scrollY + window.innerHeight * 0.62 - top) / mainEl.offsetHeight;
-    p = Math.max(0, Math.min(1, p));
-    if (reduced) p = 1;
-    threadPath.style.strokeDashoffset = threadLen * (1 - p);
-    if (threadTip) {
-      var pt = threadPath.getPointAtLength(threadLen * p);
-      threadTip.setAttribute("cx", pt.x); threadTip.setAttribute("cy", pt.y);
-      threadTip.style.opacity = p > 0.005 && p < 0.995 ? ".9" : "0";
-    }
+
+  /* ---------- klienti: pohyblivý pás ---------- */
+  function clientNode(c) {
+    return c.logo
+      ? '<span class="logo-slot"><img src="' + esc(c.logo) + '" alt="' + esc(c.name) + '" loading="lazy" /></span>'
+      : '<span class="client-name">' + esc(c.name) + "</span>";
   }
-  window.addEventListener("scroll", drawThread, { passive: true });
-
-  /* ---------- hero síť (organická) + paprsek ---------- */
-  (function heroNet() {
-    var canvas = document.getElementById("heroNet");
-    if (!canvas) return;
-    var ctx = canvas.getContext("2d"), W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var nodes = [], links = [], target = null, beam = { t: 0, paused: 0 }, ctaLit = false;
-    var cta = document.getElementById("heroCta");
-
-    function size() {
-      var r = canvas.getBoundingClientRect();
-      W = r.width; H = r.height;
-      canvas.width = W * dpr; canvas.height = H * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      build();
-    }
-    function build() {
-      nodes = []; links = [];
-      var clusters = 5, per = 14;
-      for (var c = 0; c < clusters; c++) {
-        var cx = (0.18 + 0.64 * pseudo(c * 7)) * W;
-        var cy = (0.16 + 0.66 * pseudo(c * 13)) * H;
-        for (var i = 0; i < per; i++) {
-          var a = pseudo(c * 100 + i) * Math.PI * 2, rr = pseudo(c * 31 + i * 3) * 0.16 * Math.min(W, H);
-          nodes.push({ x: cx + Math.cos(a) * rr, y: cy + Math.sin(a) * rr, b: 0.18 + pseudo(i * c + 5) * 0.5 });
-        }
-      }
-      // pár osamělých teček na krajích
-      for (var k = 0; k < 8; k++) nodes.push({ x: pseudo(k * 9 + 1) * W, y: pseudo(k * 17 + 2) * H, b: 0.12 });
-      // cílový uzel: mimo střed, vpravo dole
-      target = { x: W * (0.74 + pseudo(99) * 0.12), y: H * (0.62 + pseudo(77) * 0.18), b: 1 };
-      nodes.push(target);
-      // linky k nejbližším sousedům (řídce)
-      nodes.forEach(function (nd, i) {
-        var ds = nodes.map(function (o, j) { return { j: j, d: dist(nd, o) }; }).filter(function (o) { return o.j !== i; }).sort(function (a, b) { return a.d - b.d; });
-        for (var m = 0; m < 2; m++) if (ds[m] && ds[m].d < Math.min(W, H) * 0.34) links.push([i, ds[m].j, ds[m].d]);
-      });
-    }
-    function pseudo(n) { var x = Math.sin(n * 12.9898 + 4.1414) * 43758.5453; return x - Math.floor(x); }
-    function dist(a, b) { var dx = a.x - b.x, dy = a.y - b.y; return Math.sqrt(dx * dx + dy * dy); }
-    function edgeAlpha(x, y) { // vyblednutí na krajích
-      var dx = (x / W - 0.5) * 2, dy = (y / H - 0.5) * 2; var r = Math.sqrt(dx * dx + dy * dy);
-      return Math.max(0, 1 - Math.pow(r, 2.2));
-    }
-    function frame(now) {
-      ctx.clearRect(0, 0, W, H);
-      // beam point podél jemné dráhy
-      if (!reduced && !jemne()) beam.t += 0.0016;
-      var bt = beam.t % 1;
-      var bx = W * (0.3 + 0.4 * (0.5 + 0.5 * Math.sin(bt * Math.PI * 2)));
-      var by = H * (0.3 + 0.4 * (0.5 + 0.5 * Math.sin(bt * Math.PI * 2 * 1.3 + 1)));
-      // dotažení k cíli ke konci cyklu
-      var near = bt > 0.86;
-      if (near) { bx = bx + (target.x - bx) * (bt - 0.86) / 0.14; by = by + (target.y - by) * (bt - 0.86) / 0.14; }
-      // linky
-      links.forEach(function (l) {
-        var a = nodes[l[0]], b = nodes[l[1]];
-        var al = 0.07 * edgeAlpha((a.x + b.x) / 2, (a.y + b.y) / 2);
-        ctx.strokeStyle = "rgba(174,180,210," + al.toFixed(3) + ")";
-        ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-      });
-      // uzly
-      nodes.forEach(function (nd) {
-        if (nd === target) return;
-        var lit = dist(nd, { x: bx, y: by }) < Math.min(W, H) * 0.12;
-        var al = (nd.b * 0.5 + (lit ? 0.4 : 0)) * edgeAlpha(nd.x, nd.y);
-        ctx.fillStyle = lit ? "rgba(230,145,105," + Math.min(0.9, al + 0.2).toFixed(3) + ")" : "rgba(200,206,235," + al.toFixed(3) + ")";
-        ctx.beginPath(); ctx.arc(nd.x, nd.y, lit ? 2.4 : 1.6, 0, 6.2832); ctx.fill();
-      });
-      // cesta k cíli (skoro neviditelná)
-      ctx.strokeStyle = "rgba(210,122,81,.16)"; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(target.x, target.y); ctx.stroke();
-      // beam
-      var bg = ctx.createRadialGradient(bx, by, 0, bx, by, 60);
-      bg.addColorStop(0, "rgba(230,145,105,.16)"); bg.addColorStop(1, "rgba(230,145,105,0)");
-      ctx.fillStyle = bg; ctx.beginPath(); ctx.arc(bx, by, 60, 0, 6.2832); ctx.fill();
-      // cílový uzel (pulz)
-      var pulse = near ? 1 : 0.55 + 0.25 * Math.sin(now / 700);
-      ctx.fillStyle = "rgba(210,122,81," + pulse.toFixed(3) + ")";
-      ctx.beginPath(); ctx.arc(target.x, target.y, 4.2, 0, 6.2832); ctx.fill();
-      ctx.strokeStyle = "rgba(230,145,105,.5)"; ctx.lineWidth = 1.4;
-      ctx.beginPath(); ctx.arc(target.x, target.y, 9 + (near ? 4 : 0), 0, 6.2832); ctx.stroke();
-      if (near && !ctaLit && cta) { ctaLit = true; cta.classList.add("lit"); }
-      if (bt < 0.1) ctaLit = false;
-      if (!reduced && !jemne()) raf = requestAnimationFrame(frame);
-    }
-    var raf;
-    size();
-    if (reduced || jemne()) { frame(0); if (cta) cta.classList.add("lit"); }
-    else raf = requestAnimationFrame(frame);
-    var rt;
-    window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(size, 200); });
-  })();
-
-  /* ---------- rotor (přesnost) ---------- */
-  (function rotor() {
-    var el = document.getElementById("rotor");
+  function renderMarquee(data) {
+    var el = document.getElementById("marquee-track");
     if (!el) return;
-    var items = Array.prototype.slice.call(el.querySelectorAll(".rotor-item"));
-    if (!items.length) return;
-    var dotsWrap = document.getElementById("rotorDots"), idx = 0, timer;
-    if (dotsWrap) {
-      dotsWrap.innerHTML = items.map(function (_, i) { return '<button type="button" aria-label="Citace ' + (i + 1) + '"' + (i === 0 ? ' class="on"' : '') + '></button>'; }).join("");
-      dotsWrap.querySelectorAll("button").forEach(function (b, i) { b.addEventListener("click", function () { go(i); restart(); }); });
-    }
-    function go(n) {
-      items[idx].classList.remove("active");
-      idx = (n + items.length) % items.length;
-      items[idx].classList.add("active");
-      if (dotsWrap) dotsWrap.querySelectorAll("button").forEach(function (b, i) { b.classList.toggle("on", i === idx); });
-    }
-    function tick() { if (!jemne()) go(idx + 1); }
-    function pause() { clearInterval(timer); }
-    function restart() { clearInterval(timer); if (!reduced) timer = setInterval(tick, 4600); }
-    el.addEventListener("mouseenter", pause); el.addEventListener("mouseleave", restart);
-    if (dotsWrap) {
-      dotsWrap.addEventListener("mouseenter", pause); dotsWrap.addEventListener("mouseleave", restart);
-      dotsWrap.addEventListener("focusin", pause); dotsWrap.addEventListener("focusout", restart);
-    }
-    restart();
-  })();
+    var html = data.map(clientNode).join("");
+    el.innerHTML = html + html;
+  }
 
-  /* ---------- modal (reference + case studies) ---------- */
-  var modal, modalBody, lastFocus;
-  function bgInert(on) {
-    document.querySelectorAll("header.nav, main, footer, .motion-toggle").forEach(function (el) {
-      if (on) el.setAttribute("inert", ""); else el.removeAttribute("inert");
-    });
+  /* ---------- rotující výroky o přesnosti ---------- */
+  function renderRotor(data) {
+    var el = document.getElementById("presnost-rotor");
+    if (!el || !data.length) return;
+    el.innerHTML = data.map(function (r, i) {
+      return '<figure class="rotor-item' + (i === 0 ? " active" : "") + '"><blockquote>„' + esc(r.q) + "“</blockquote><figcaption>" + esc(r.c) + "</figcaption></figure>";
+    }).join("");
+    var items = el.querySelectorAll(".rotor-item");
+    if (items.length < 2 || reduced) return;
+    var idx = 0, timer;
+    function tick() { if (docEl.dataset.motion === "jemne") return; items[idx].classList.remove("active"); idx = (idx + 1) % items.length; items[idx].classList.add("active"); }
+    function start() { clearInterval(timer); timer = setInterval(tick, 4200); }
+    el.addEventListener("mouseenter", function () { clearInterval(timer); });
+    el.addEventListener("mouseleave", start);
+    start();
   }
-  function ensureModal() {
-    if (modal) return;
-    modal = document.createElement("div");
-    modal.className = "modal"; modal.id = "modal"; modal.hidden = true;
-    modal.setAttribute("role", "dialog"); modal.setAttribute("aria-modal", "true");
-    modal.innerHTML = '<div class="modal-back" data-close></div><div class="modal-box"><button class="modal-x" data-close aria-label="Zavřít">✕</button><div id="modalBody"></div></div>';
-    document.body.appendChild(modal);
-    modalBody = modal.querySelector("#modalBody");
-    modal.querySelectorAll("[data-close]").forEach(function (e) { e.addEventListener("click", closeModal); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !modal.hidden) closeModal(); });
-    modal.addEventListener("keydown", function (e) {
-      if (e.key !== "Tab" || modal.hidden) return;
-      var f = modal.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])');
-      if (!f.length) return;
-      var first = f[0], last = f[f.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    });
-  }
-  function openModal(html, trigger) {
-    ensureModal();
-    lastFocus = trigger || null;
-    modalBody.innerHTML = html;
-    modal.hidden = false;
-    bgInert(true);
-    docEl.style.overflow = "hidden";
-    requestAnimationFrame(function () { modal.classList.add("open"); });
-    modal.querySelector(".modal-x").focus();
-  }
-  function closeModal() {
-    if (!modal) return;
-    modal.classList.remove("open");
-    docEl.style.overflow = "";
-    bgInert(false);
-    setTimeout(function () { modal.hidden = true; }, 320);
-    if (lastFocus) lastFocus.focus();
-  }
-  function refById(id) { return DATA.references.filter(function (r) { return r.id === id; })[0]; }
-  function caseById(id) { return DATA.cases.filter(function (c) { return c.id === id; })[0]; }
-  function refModalHTML(r) {
-    var logo = r.logo ? '<div class="ref-modal-logo"><img src="' + esc(r.logo) + '" alt="' + esc(r.company) + '"></div>' : "";
-    var tags = (r.tags || "").split(";").map(function (t) { return t.trim(); }).filter(Boolean)
-      .map(function (t) { return "<span>" + esc(t) + "</span>"; }).join("");
-    return logo +
-      '<div class="ref-modal-quote">„' + esc(r.long || r.quote) + "“</div>" +
-      '<div class="ref-modal-who"><strong>' + esc(r.company) + "</strong>" + (r.role ? "<span>" + esc(r.role) + "</span>" : "") + "</div>" +
-      (tags ? '<div class="ref-modal-tags">' + tags + "</div>" : "");
-  }
-  function caseModalHTML(c) {
+
+  /* ---------- case studies ---------- */
+  function caseDetailHTML(c) {
     return '<div class="case-modal-meta">' + esc(c.meta) + "</div>" +
       '<dl class="case-dl">' +
       "<div><dt>Situace</dt><dd>" + esc(c.situ) + "</dd></div>" +
@@ -276,157 +117,391 @@
       "<div><dt>Co jsme změnili</dt><dd>" + esc(c.change) + "</dd></div>" +
       '<div><dt>Výsledek</dt><dd class="win">' + esc(c.win) + "</dd></div></dl>";
   }
-  function bindCards() {
-    document.querySelectorAll(".ref-card[data-id]").forEach(function (card) {
-      function open() { var r = refById(card.dataset.id); if (r) openModal(refModalHTML(r), card); }
-      card.addEventListener("click", open);
-      card.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
-    });
-    document.querySelectorAll(".case-card[data-id]").forEach(function (card) {
-      function open() { var c = caseById(card.dataset.id); if (c) openModal(caseModalHTML(c), card); }
-      card.addEventListener("click", open);
-      card.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+  function refDetailHTML(r) {
+    var tags = (r.tags || "").split(";").map(function (t) { return t.trim(); }).filter(Boolean);
+    var logo = r.logo ? '<div class="ref-logo" style="margin-bottom:22px"><img src="' + esc(r.logo) + '" alt="' + esc(r.company) + '" style="height:30px"></div>' : "";
+    return logo +
+      '<div class="ref-modal-quote">„' + esc(r.long || r.quote) + "“</div>" +
+      '<div class="ref-modal-who"><strong>' + esc(r.company) + "</strong>" + (r.role ? "<span>" + esc(r.role) + "</span>" : "") + "</div>" +
+      (tags.length ? '<p class="ref-modal-ctx">' + tags.map(esc).join(" · ") + "</p>" : "");
+  }
+
+  var caseModal = document.getElementById("case-modal");
+  var caseModalBody = document.getElementById("case-modal-body");
+  var modalLastFocus = null;
+  function bgInert(on) {
+    document.querySelectorAll("#nav, main, footer").forEach(function (el) { if (on) el.setAttribute("inert", ""); else el.removeAttribute("inert"); });
+  }
+  function openModalHTML(html, trigger) {
+    if (!caseModal) return;
+    modalLastFocus = trigger || null;
+    caseModalBody.innerHTML = html;
+    caseModal.hidden = false;
+    bgInert(true);
+    docEl.style.overflow = "hidden";
+    requestAnimationFrame(function () { caseModal.classList.add("open"); });
+    var x = caseModal.querySelector(".case-modal-x");
+    if (x) x.focus();
+  }
+  function closeModal() {
+    if (!caseModal) return;
+    caseModal.classList.remove("open");
+    docEl.style.overflow = "";
+    bgInert(false);
+    setTimeout(function () { caseModal.hidden = true; }, 320);
+    if (modalLastFocus) modalLastFocus.focus();
+  }
+  if (caseModal) {
+    caseModal.querySelectorAll("[data-close]").forEach(function (el) { el.addEventListener("click", closeModal); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !caseModal.hidden) closeModal(); });
+    caseModal.addEventListener("keydown", function (e) {
+      if (e.key !== "Tab" || caseModal.hidden) return;
+      var f = caseModal.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])');
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
   }
-  bindCards();
 
-  /* ---------- reference: zobrazit všechny ---------- */
-  (function refsToggle() {
-    var btn = document.getElementById("refsToggle");
-    var cards = Array.prototype.slice.call(document.querySelectorAll("#refsGrid .ref-card"));
-    var SHOW = 9;
-    if (!btn || cards.length <= SHOW) return;
-    cards.forEach(function (c, i) { if (i >= SHOW) c.hidden = true; });
-    btn.hidden = false;
-    btn.addEventListener("click", function () {
-      var expand = cards.some(function (c) { return c.hidden; });
-      cards.forEach(function (c, i) { if (i >= SHOW) c.hidden = !expand ? true : false; });
-      btn.innerHTML = expand ? 'Zobrazit méně' : 'Zobrazit všechny reference <span class="arr">→</span>';
-      if (!expand) document.getElementById("reference").scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+  function renderCases(data) {
+    var grid = document.getElementById("cases-grid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    data.forEach(function (c) {
+      var art = document.createElement("article");
+      art.className = "case-card rv";
+      art.setAttribute("role", "button");
+      art.setAttribute("tabindex", "0");
+      art.setAttribute("aria-label", "Příběh: " + (c.name || c.meta));
+      art.innerHTML = '<div class="case-meta">' + esc(c.meta) + "</div>" +
+        '<p class="case-hook">' + esc(c.situ) + "</p>" +
+        '<span class="case-more">Číst příběh →</span>';
+      function open() { openModalHTML(caseDetailHTML(c), art); }
+      art.addEventListener("click", open);
+      art.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+      grid.appendChild(art);
     });
-  })();
+    observeReveals(grid);
+  }
 
-  /* ---------- pozice: filtr + rozbalovací detail ---------- */
-  (function positions() {
-    if (typeof POZICE === "undefined") return;
-    var state = { q: "", obory: new Set(), kraj: "", sen: "" };
-    var elQ = document.getElementById("fQ"), elKraj = document.getElementById("fKraj"),
-        elChips = document.getElementById("fChips"), elSeg = document.getElementById("fSeg"),
-        elList = document.getElementById("posList"), elCnt = document.getElementById("posCnt"),
-        elEmpty = document.getElementById("posEmpty"), elReset = document.getElementById("fReset");
-    if (!elList) return;
-    var sorted = POZICE.slice().sort(function (a, b) { return b.id - a.id; });
+  /* ---------- pozice: filtr + detail + formulář ---------- */
+  var OB = window.OBORY || {}, SEN = window.SENIORITY || {}, KR = window.KRAJE || [];
+  var POS = (window.POZICE || []).slice().sort(function (a, b) { return b.id - a.id; }).map(function (p) {
+    return { id: p.id, title: p.t, field: OB[p.o] || p.o, level: SEN[p.s] || p.s, locs: p.k || [], loc: (p.k || []).join(" / "), bonus: p.bonus || "" };
+  });
+  var state = { loc: null, field: null, level: null };
+  var list = document.getElementById("pos-list");
+  var empty = document.getElementById("pos-empty");
+  var count = document.getElementById("f-count");
 
-    var params = new URLSearchParams(window.location.search);
-    if (params.get("q")) { state.q = params.get("q"); if (elQ) elQ.value = state.q; }
-    if (params.get("obor") && OBORY[params.get("obor")]) state.obory.add(params.get("obor"));
-    if (params.get("kraj") && KRAJE.indexOf(params.get("kraj")) > -1) state.kraj = params.get("kraj");
-    if (params.get("sen") && SENIORITY[params.get("sen")]) state.sen = params.get("sen");
-
-    function norm(s) { return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""); }
-    function matches(p) {
-      if (state.q && norm(p.t + " " + p.k.join(" ") + " " + OBORY[p.o]).indexOf(norm(state.q)) === -1) return false;
-      if (state.obory.size && !state.obory.has(p.o)) return false;
-      if (state.kraj && p.k.indexOf(state.kraj) === -1) return false;
-      if (state.sen && p.s !== state.sen) return false;
-      return true;
+  function uniq(key) {
+    if (key === "loc") {
+      var seen = {}, out = [];
+      POS.forEach(function (p) { p.locs.forEach(function (k) { if (!seen[k]) { seen[k] = 1; out.push(k); } }); });
+      return out.sort(function (a, b) { var ia = KR.indexOf(a), ib = KR.indexOf(b); if (ia < 0) ia = 99; if (ib < 0) ib = 99; return ia - ib || a.localeCompare(b, "cs"); });
     }
-    function active() { return !!(state.q || state.obory.size || state.kraj || state.sen); }
+    var s = {};
+    return POS.map(function (p) { return p[key]; }).filter(function (v) { if (!v || s[v]) return false; s[v] = 1; return true; })
+      .sort(function (a, b) { return a.localeCompare(b, "cs"); });
+  }
+  function matches(p) {
+    return (!state.loc || p.locs.indexOf(state.loc) > -1) &&
+      (!state.field || p.field === state.field) &&
+      (!state.level || p.level === state.level);
+  }
 
-    function row(p) {
-      var subj = "Reakce na pozici: " + p.t + " (" + p.k.join(" / ") + ")";
-      var bonus = p.bonus ? '<span class="bonus">Příspěvek ' + esc(p.bonus) + "</span>" : "";
-      return '<div class="pos-item">' +
-        '<button class="pos-row" type="button" aria-expanded="false">' +
-          '<span class="t">' + esc(p.t) + bonus + "</span>" +
-          '<span class="m field">' + esc(OBORY[p.o]) + "</span>" +
-          '<span class="m level">' + esc(SENIORITY[p.s]) + "</span>" +
-          '<span class="m loc">' + esc(p.k.join(" / ")) + "</span>" +
-          '<span class="arr">→</span>' +
-        "</button>" +
-        '<div class="pos-detail"><div class="pos-detail-inner"><div class="pos-detail-pad">' +
-          '<div class="pos-desc"><h3>' + esc(p.t) + "</h3>" +
-            "<p>Roli upřesníme při prvním hovoru. Napište nám pár vět o sobě nebo odkaz na profil, ozveme se s detaily.</p>" +
-            '<div class="pos-tags"><span>' + esc(OBORY[p.o]) + "</span><span>" + esc(SENIORITY[p.s]) + "</span><span>" + esc(p.k.join(" / ")) + "</span></div>" +
+  function renderPositions() {
+    if (!list) return;
+    var rows = POS.filter(matches);
+    list.innerHTML = "";
+    rows.forEach(function (p, i) {
+      var wrap = document.createElement("div");
+      wrap.className = "pos-item";
+      var row = document.createElement("div");
+      row.className = "pos-row";
+      row.setAttribute("role", "button");
+      row.setAttribute("tabindex", "0");
+      row.setAttribute("aria-expanded", "false");
+      row.style.animationDelay = Math.min(i * 40, 320) + "ms";
+      var bonus = p.bonus ? ' <span class="pos-bonus">+ příspěvek ' + esc(p.bonus) + "</span>" : "";
+      row.innerHTML =
+        '<span class="t">' + esc(p.title) + bonus + "</span>" +
+        '<span class="m field">' + esc(p.field) + "</span>" +
+        '<span class="m level">' + esc(p.level) + "</span>" +
+        '<span class="m loc">' + esc(p.loc) + "</span>" +
+        '<span class="arr">→</span>';
+      var detail = document.createElement("div");
+      detail.className = "pos-detail";
+      var subj = "Reakce na pozici: " + p.title + " (" + p.loc + ")";
+      detail.innerHTML =
+        '<div class="pos-detail-inner"><div class="pos-detail-pad">' +
+          '<div class="pos-desc">' +
+            "<h3>" + esc(p.title) + "</h3>" +
+            "<p>Roli upřesníme při prvním hovoru, řekněte nám, co od ní čekáte. Detaily a požadavky pošleme obratem.</p>" +
+            '<div class="pos-tags"><span>' + esc(p.field) + "</span><span>" + esc(p.level) + "</span><span>" + esc(p.loc) + "</span></div>" +
+            '<p style="margin-top:16px"><a class="ref-more" href="pozice/' + p.id + '.html">Otevřít stránku pozice →</a></p>' +
           "</div>" +
           '<form class="apply-form" data-subject="' + esc(subj) + '">' +
             '<span class="af-title">Reagovat na pozici</span>' +
-            '<input type="text" name="name" placeholder="Jméno a příjmení" autocomplete="name">' +
-            '<input type="text" name="contact" placeholder="E-mail nebo telefon" autocomplete="email">' +
-            '<textarea name="note" placeholder="Pár vět o vás, nebo odkaz na profil. CV doplníme později."></textarea>' +
-            '<button type="submit" class="btn btn-acc btn-sm">Odeslat reakci</button>' +
+            '<input type="text" name="name" placeholder="Jméno a příjmení" autocomplete="name" aria-label="Jméno a příjmení" />' +
+            '<input type="text" name="contact" placeholder="E-mail nebo telefon" autocomplete="email" aria-label="E-mail nebo telefon" />' +
+            '<textarea name="note" placeholder="Pár vět o vás, nebo odkaz na profil. CV doplníme později." aria-label="Zpráva"></textarea>' +
+            '<button type="submit" class="btn btn-primary">Odeslat reakci</button>' +
             '<span class="af-note">Odesláním se otevře e-mail na info@sintera.cz s předvyplněnou pozicí.</span>' +
           "</form>" +
-        "</div></div></div></div>";
-    }
-
-    function render() {
-      var res = sorted.filter(matches);
-      elList.innerHTML = res.map(row).join("");
-      elCnt.innerHTML = res.length === POZICE.length
-        ? 'Aktuálně obsazujeme <em>' + POZICE.length + "</em> pozic"
-        : "Nalezeno <em>" + res.length + "</em> z " + POZICE.length + " pozic";
-      elEmpty.style.display = res.length ? "none" : "block";
-      elList.style.display = res.length ? "" : "none";
-      if (elReset) elReset.classList.toggle("show", active());
-      bindRows();
-      renderChips(); renderSeg();
-    }
-    function bindRows() {
-      elList.querySelectorAll(".pos-item").forEach(function (item) {
-        var btn = item.querySelector(".pos-row"), det = item.querySelector(".pos-detail");
-        btn.addEventListener("click", function () {
-          var open = det.classList.toggle("open");
-          btn.setAttribute("aria-expanded", open ? "true" : "false");
-        });
-        var form = item.querySelector(".apply-form");
-        form.addEventListener("submit", function (ev) {
-          ev.preventDefault();
-          var fd = new FormData(form);
-          var body = "Jméno: " + (fd.get("name") || "") + "\nKontakt: " + (fd.get("contact") || "") + "\n\n" + (fd.get("note") || "");
-          window.location.href = "mailto:info@sintera.cz?subject=" + encodeURIComponent(form.dataset.subject) + "&body=" + encodeURIComponent(body);
-        });
+        "</div></div>";
+      wrap.appendChild(row); wrap.appendChild(detail); list.appendChild(wrap);
+      function toggle() { var open = detail.classList.toggle("open"); row.setAttribute("aria-expanded", open ? "true" : "false"); }
+      row.addEventListener("click", toggle);
+      row.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); toggle(); } });
+      var form = detail.querySelector(".apply-form");
+      form.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        var fd = new FormData(form);
+        var body = "Pozice: " + p.title + ", " + p.loc + "\nJméno: " + (fd.get("name") || "") + "\nKontakt: " + (fd.get("contact") || "") + "\n\n" + (fd.get("note") || "");
+        window.location.href = "mailto:info@sintera.cz?subject=" + encodeURIComponent(form.dataset.subject) + "&body=" + encodeURIComponent(body);
       });
-    }
-    function countObor(k) { return POZICE.filter(function (p) { return p.o === k; }).length; }
-    function renderChips() {
-      elChips.innerHTML = Object.keys(OBORY).map(function (k) {
-        return '<button class="chip' + (state.obory.has(k) ? " on" : "") + '" data-obor="' + k + '" type="button">' + esc(OBORY[k]) + ' <span class="c">' + countObor(k) + "</span></button>";
-      }).join("");
-    }
-    function renderSeg() {
-      var h = '<button data-sen="" type="button" class="' + (state.sen === "" ? "on" : "") + '">Vše</button>';
-      Object.keys(SENIORITY).forEach(function (k) { h += '<button data-sen="' + k + '" type="button" class="' + (state.sen === k ? "on" : "") + '">' + esc(SENIORITY[k]) + "</button>"; });
-      elSeg.innerHTML = h;
-    }
-    elChips.addEventListener("click", function (ev) { var b = ev.target.closest("[data-obor]"); if (!b) return; var k = b.dataset.obor; state.obory.has(k) ? state.obory.delete(k) : state.obory.add(k); render(); });
-    elSeg.addEventListener("click", function (ev) { var b = ev.target.closest("[data-sen]"); if (!b) return; state.sen = b.dataset.sen; render(); });
-    KRAJE.forEach(function (k) { var o = document.createElement("option"); o.value = k; o.textContent = k; if (k === state.kraj) o.selected = true; elKraj.appendChild(o); });
-    elKraj.addEventListener("change", function () { state.kraj = elKraj.value; render(); });
-    var deb; if (elQ) elQ.addEventListener("input", function () { clearTimeout(deb); deb = setTimeout(function () { state.q = elQ.value.trim(); render(); }, 160); });
-    if (elReset) elReset.addEventListener("click", function () { state = { q: "", obory: new Set(), kraj: "", sen: "" }; if (elQ) elQ.value = ""; elKraj.value = ""; render(); });
-    render();
-  })();
-
-  /* ---------- motion toggle ---------- */
-  (function motion() {
-    var btn = document.getElementById("motionToggle"), label = document.getElementById("motionLabel");
-    if (!btn) return;
-    try { if (localStorage.getItem("sintera-motion") === "jemne") docEl.dataset.motion = "jemne"; } catch (e) {}
-    function sync() { var on = docEl.dataset.motion === "jemne"; btn.setAttribute("aria-pressed", on ? "true" : "false"); if (label) label.textContent = on ? "Pohyb" : "Klid"; }
-    sync();
-    btn.addEventListener("click", function () {
-      if (docEl.dataset.motion === "jemne") delete docEl.dataset.motion; else docEl.dataset.motion = "jemne";
-      try { localStorage.setItem("sintera-motion", docEl.dataset.motion || ""); } catch (e) {}
-      sync();
     });
-  })();
+    if (empty) empty.hidden = rows.length !== 0;
+    if (count) {
+      var has = state.loc || state.field || state.level;
+      count.textContent = has ? "Zobrazeno " + rows.length + " z " + POS.length + " pozic" : POS.length + " otevřených pozic";
+    }
+  }
 
-  /* ---------- rok + nit po načtení ---------- */
+  function buildFilters() {
+    document.querySelectorAll(".f-chip").forEach(function (chip) {
+      var key = chip.dataset.key, menu = chip.querySelector(".f-menu"), label = chip.querySelector("summary b");
+      function buildMenu() {
+        menu.innerHTML = "";
+        ["vše"].concat(uniq(key)).forEach(function (opt) {
+          var b = document.createElement("button"); b.type = "button"; b.textContent = opt;
+          var val = opt === "vše" ? null : opt;
+          if (state[key] === val) b.classList.add("sel");
+          b.addEventListener("click", function () {
+            state[key] = val; label.textContent = opt; chip.dataset.active = val ? "true" : "false";
+            chip.removeAttribute("open"); buildMenu(); renderPositions();
+          });
+          menu.appendChild(b);
+        });
+      }
+      buildMenu();
+      chip.addEventListener("toggle", function () {
+        if (chip.open) document.querySelectorAll(".f-chip[open]").forEach(function (o) { if (o !== chip) o.removeAttribute("open"); });
+      });
+    });
+    document.addEventListener("click", function (ev) {
+      if (!ev.target.closest(".f-chip")) document.querySelectorAll(".f-chip[open]").forEach(function (c) { c.removeAttribute("open"); });
+    });
+    var reset = document.getElementById("f-reset");
+    if (reset) reset.addEventListener("click", function () {
+      state = { loc: null, field: null, level: null };
+      document.querySelectorAll(".f-chip").forEach(function (chip) {
+        chip.querySelector("summary b").textContent = "vše"; chip.dataset.active = "false";
+        chip.querySelectorAll(".f-menu button").forEach(function (b, i) { b.classList.toggle("sel", i === 0); });
+      });
+      renderPositions();
+    });
+  }
+
+  /* ---------- render vše ---------- */
+  renderMarquee(DATA.clients || []);
+  renderRotor(DATA.rotor || []);
+  renderReferences((DATA.references || []).slice(0, 9));
+  renderCases((DATA.cases || []).slice(0, 6));
+  buildFilters();
+  renderPositions();
   var yr = document.getElementById("yr"); if (yr) yr.textContent = new Date().getFullYear();
-  function relayout() { buildThread(); }
-  window.addEventListener("load", relayout);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
-  setTimeout(relayout, 300);
-  var rzt; window.addEventListener("resize", function () { clearTimeout(rzt); rzt = setTimeout(buildThread, 250); });
+  window.dispatchEvent(new Event("sintera:rendered"));
+})();
+
+/* ============================================================
+   B) HERO · searchlight přes anonymní profilové karty (skrytý trh)
+   ============================================================ */
+(function () {
+  "use strict";
+  var docEl = document.documentElement;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var field = document.querySelector(".hero-net .search-field");
+  if (!field) return;
+  var light = field.querySelector(".searchlight");
+
+  var heroProfiles = [
+    { name: "Tomáš V.", loc: "Hradec Králové", role: "Vedoucí údržby", proof: "Snížil neplánované odstávky. Vede tým 28 techniků.", status: "práci má" },
+    { name: "Jana M.", loc: "Brno", role: "Quality Manager", proof: "Připravila zákaznický audit. Stabilizovala reklamace.", status: "aktivně nehledá" },
+    { name: "Petr K.", loc: "Plzeň", role: "Vedoucí výroby", proof: "Rozjel novou linku. Stabilizoval třísměnný provoz.", status: "na inzerát by nereagoval" },
+    { name: "Martin S.", loc: "Liberec", role: "Technolog", proof: "Zkrátil náběh nových projektů. Zná automotive i kusovou výrobu.", status: "dává smysl oslovit" },
+    { name: "Eva R.", loc: "Pardubice", role: "Nákup pro výrobu", proof: "Vyjednala nové dodavatele. Drží termíny i při výpadcích.", status: "práci má" },
+    { name: "Michal D.", loc: "Ostrava", role: "Svařovací inženýr", proof: "Zavedl nové postupy. Pomohl projít zákaznickým auditem.", status: "aktivně nehledá" },
+    { name: "Lucie B.", loc: "Olomouc", role: "HR Business Partner", proof: "Zrychlila nábor technických rolí. Nastavila spolupráci s manažery.", status: "práci má" },
+    { name: "Radek P.", loc: "Kolín", role: "CNC specialista", proof: "Zkrátil seřizovací časy. Školí mladší operátory.", status: "na trhu není vidět" },
+    { name: "Kateřina H.", loc: "Praha", role: "B2B obchod", proof: "Otevřela nové zákaznické účty. Zná technický prodej.", status: "aktivně nehledá" },
+    { name: "David N.", loc: "Jihlava", role: "Operations Manager", proof: "Sjednotil plánování výroby. Zlepšil dostupnost kapacit.", status: "dává smysl oslovit" },
+    { name: "Ondřej T.", loc: "Zlín", role: "Údržbář automatizace", proof: "Zkrátil prostoje linky. Zná PLC i mechaniku.", status: "práci má" },
+    { name: "Veronika S.", loc: "České Budějovice", role: "Plánování výroby", proof: "Sladila kapacity s odbytem. Snížila zpoždění zakázek.", status: "aktivně nehledá" },
+    { name: "Filip H.", loc: "Mladá Boleslav", role: "Kvalitář", proof: "Vedl 8D reklamace. Zlepšil first pass yield.", status: "dává smysl oslovit" },
+    { name: "Marek L.", loc: "Ústí nad Labem", role: "Mistr výroby", proof: "Vede dvě směny. Zaškolil nové operátory.", status: "na inzerát by nereagoval" },
+    { name: "Hana P.", loc: "Zlín", role: "Procesní inženýr", proof: "Zavedla měření taktů. Odstranila úzká místa.", status: "práci má" },
+    { name: "Jakub N.", loc: "Třinec", role: "Konstruktér", proof: "Navrhl přípravky pro montáž. Zkrátil čas sestavení.", status: "na trhu není vidět" }
+  ];
+  var LAYOUT = [
+    { p: 0, left: "28%", top: "29%", d: 1 }, { p: 4, left: "6%", top: "57%", d: 1 },
+    { p: 9, right: "6%", top: "8%", d: 2 }, { p: 3, right: "3%", top: "38%", d: 2 },
+    { p: 6, left: "20%", top: "78%", d: 2 }, { p: 8, left: "42%", top: "62%", d: 3 },
+    { p: 2, right: "6%", top: "78%", d: 3 }, { p: 1, left: "3%", top: "9%", d: 3 },
+    { p: 7, left: "45%", top: "44%", d: 2 }
+  ];
+  var DEPTH = { 1: { o: 0.92, s: 1.0, b: 0, z: 7, amp: 3.5 }, 2: { o: 0.56, s: 0.92, b: 0.6, z: 4, amp: 5 }, 3: { o: 0.32, s: 0.82, b: 1.6, z: 2, amp: 7 } };
+
+  var shown = {};
+  function fill(el, idx) {
+    var pr = heroProfiles[idx];
+    el.innerHTML = '<span class="pc-dot"></span><span class="pc-name">' + pr.name + '</span><span class="pc-loc">' + pr.loc + '</span><span class="pc-role">' + pr.role + '</span><span class="pc-proof">' + pr.proof + '</span><span class="pc-status">' + pr.status + '</span>';
+  }
+  function rnd(seed) { var x = Math.sin((seed + 1) * 99.7) * 43758.5; return x - Math.floor(x); }
+  var cards = [];
+  LAYOUT.forEach(function (it, i) {
+    var dp = DEPTH[it.d];
+    var el = document.createElement("article");
+    el.className = "pcard";
+    if (it.left) el.style.left = it.left;
+    if (it.right) el.style.right = it.right;
+    el.style.top = it.top;
+    el.style.setProperty("--o", dp.o); el.style.setProperty("--s", dp.s); el.style.setProperty("--b", dp.b + "px");
+    el.style.zIndex = dp.z;
+    fill(el, it.p); shown[it.p] = true; field.appendChild(el);
+    cards.push({ el: el, depth: it.d, scale: dp.s, amp: dp.amp, sp: 0.16 + rnd(i) * 0.14, ph: rnd(i + 3) * 6.28, profile: it.p });
+  });
+
+  var centers = [];
+  function refresh() { centers = cards.map(function (c) { return { x: c.el.offsetLeft + c.el.offsetWidth / 2, y: c.el.offsetTop + c.el.offsetHeight / 2, el: c.el }; }); }
+  refresh(); window.addEventListener("resize", refresh);
+  function ctaSpark() { var s = document.querySelector("#hero-cta .cta-spark"); if (s) { s.classList.remove("spark"); void s.offsetWidth; s.classList.add("spark"); } }
+  function place(x, y) { if (light) light.style.transform = "translate(" + x + "px," + y + "px) translate(-50%,-50%)"; }
+
+  var MATCHABLE = cards.map(function (c, i) { return i; });
+  var FOCUS_R = 150;
+  if (reduced) { var m0 = centers[MATCHABLE[0]]; if (m0) { m0.el.classList.add("match"); place(m0.x, m0.y); } return; }
+
+  var rc = 0;
+  function recycle() {
+    if (docEl.dataset.motion === "jemne") return;
+    var cand = [];
+    cards.forEach(function (c, i) { if (!c.el.classList.contains("match") && !c.el.classList.contains("focus")) cand.push(i); });
+    if (!cand.length) return;
+    var ci = cand[(rnd(rc++) * cand.length) | 0];
+    var card = cards[ci], next = -1;
+    for (var k = 1; k <= heroProfiles.length; k++) { var idx = (card.profile + k) % heroProfiles.length; if (!shown[idx]) { next = idx; break; } }
+    if (next < 0) return;
+    card.el.style.opacity = "0";
+    setTimeout(function () {
+      delete shown[card.profile]; fill(card.el, next); card.profile = next; shown[next] = true;
+      var fw = field.clientWidth, fh = field.clientHeight, cw = card.el.offsetWidth, chh = card.el.offsetHeight;
+      var maxL = Math.max(14, fw - cw - 14), maxT = Math.max(14, fh - chh - 14);
+      card.el.style.right = "";
+      card.el.style.left = ((14 + rnd(rc + 7) * (maxL - 14)) / fw * 100).toFixed(1) + "%";
+      card.el.style.top = ((14 + rnd(rc + 11) * (maxT - 14)) / fh * 100).toFixed(1) + "%";
+      card.el.style.opacity = ""; refresh();
+    }, 560);
+  }
+  setInterval(recycle, 3000);
+
+  var lastIdx = -1, lx = field.clientWidth * 0.5, ly = field.clientHeight * 0.42;
+  var tx = lx, ty = ly, phase = "move", dwellUntil = 0, matchEl = null, cur = null, ti = 0;
+  function nextTarget() { var idx; do { idx = (rnd(ti++) * cards.length) | 0; } while (cards.length > 1 && idx === lastIdx); lastIdx = idx; cur = centers[idx]; if (cur) { tx = cur.x; ty = cur.y; } phase = "move"; }
+  nextTarget();
+  function loop(now) {
+    var jemne = docEl.dataset.motion === "jemne", T = now / 1000;
+    if (!jemne) cards.forEach(function (c) {
+      if (c.el.classList.contains("match")) return;
+      var dx = Math.sin(T * c.sp + c.ph) * c.amp, dy = Math.cos(T * c.sp * 0.82 + c.ph) * c.amp * 0.7;
+      c.el.style.transform = "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px) scale(" + c.scale + ")";
+    });
+    if (jemne) { if (!matchEl) { var mm = centers[MATCHABLE[0]]; if (mm) { matchEl = mm.el; matchEl.classList.add("match"); place(mm.x, mm.y); } } requestAnimationFrame(loop); return; }
+    lx += (tx - lx) * 0.055; ly += (ty - ly) * 0.055; place(lx, ly);
+    centers.forEach(function (c) { var d = Math.hypot(c.x - lx, c.y - ly); c.el.classList.toggle("focus", d < FOCUS_R && c.el !== matchEl); });
+    if (phase === "move") {
+      if (cur && Math.hypot(tx - lx, ty - ly) < 5) { phase = "dwell"; dwellUntil = now + 2900; matchEl = cur.el; matchEl.classList.add("match"); matchEl.classList.remove("focus"); ctaSpark(); }
+    } else if (now >= dwellUntil) { if (matchEl) { matchEl.classList.remove("match"); matchEl = null; } nextTarget(); }
+    requestAnimationFrame(loop);
+  }
+  if (document.readyState === "complete") requestAnimationFrame(loop);
+  else window.addEventListener("load", function () { requestAnimationFrame(loop); });
+})();
+
+/* ============================================================
+   C) NIT · linka kreslená scrollem + body u zastávek
+   ============================================================ */
+(function () {
+  "use strict";
+  var NODE_SPEC = [
+    { sel: ".hero-sub", x: "left", dx: -30 }, { sel: "#proof .proof-pill", x: "gutter" },
+    { sel: ".marquee-label", x: "gutter" }, { sel: "#problem .kicker", x: "gutter" },
+    { sel: "#problem .pull p", x: "center", dy: -40 }, { sel: "#trh .kicker", x: "gutter" },
+    { sel: "#zadani .kicker", x: "gutter" }, { sel: "#infra .kicker", x: "gutter" },
+    { sel: "#presnost .kicker", x: "gutter" }, { sel: "#cases .kicker", x: "gutter" },
+    { sel: "#reference .kicker", x: "gutter" }, { sel: "#clovek .kicker", x: "gutter" },
+    { sel: "#pozice .kicker", x: "gutter" }, { sel: "#kontakt h2", x: "gutter" },
+    { sel: ".cta .btn-big", x: "center", dy: 64 }
+  ];
+  var svg = null, line = null, base = null, nodeEls = [], samples = [], totalLen = 0;
+  var NS = "http://www.w3.org/2000/svg";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function anchorPoint(spec) {
+    var el = document.querySelector(spec.sel); if (!el) return null;
+    var r = el.getBoundingClientRect(), top = r.top + window.scrollY, y = top + r.height / 2 + (spec.dy || 0), x;
+    if (spec.x === "gutter") x = 30; else if (spec.x === "center") x = docEl().clientWidth / 2; else x = r.left + (spec.dx || 0);
+    return { x: x, y: y };
+  }
+  function docEl() { return document.documentElement; }
+  function smoothPath(pts) {
+    if (pts.length < 2) return "";
+    var d = "M " + pts[0].x + " " + pts[0].y;
+    for (var i = 0; i < pts.length - 1; i++) {
+      var p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)];
+      var c1x = p1.x + (p2.x - p0.x) / 6, c1y = p1.y + (p2.y - p0.y) / 6, c2x = p2.x - (p3.x - p1.x) / 6, c2y = p2.y - (p3.y - p1.y) / 6;
+      d += " C " + c1x + " " + c1y + ", " + c2x + " " + c2y + ", " + p2.x + " " + p2.y;
+    }
+    return d;
+  }
+  function build() {
+    var pts = NODE_SPEC.map(anchorPoint).filter(Boolean);
+    if (pts.length < 2) return;
+    if (svg) svg.remove();
+    svg = document.createElementNS(NS, "svg"); svg.id = "thread-svg";
+    var w = document.documentElement.clientWidth, h = document.documentElement.scrollHeight;
+    svg.setAttribute("width", w); svg.setAttribute("height", h); svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+    svg.setAttribute("aria-hidden", "true");
+    var d = smoothPath(pts);
+    base = document.createElementNS(NS, "path"); base.setAttribute("class", "thread-base"); base.setAttribute("d", d); svg.appendChild(base);
+    line = document.createElementNS(NS, "path"); line.setAttribute("class", "thread-line"); line.setAttribute("d", d); svg.appendChild(line);
+    nodeEls = [];
+    pts.forEach(function (p) {
+      var g = document.createElementNS(NS, "g"); g.setAttribute("class", "thread-node");
+      var ring = document.createElementNS(NS, "circle"); ring.setAttribute("class", "ring"); ring.setAttribute("cx", p.x); ring.setAttribute("cy", p.y); ring.setAttribute("r", 11);
+      var dot = document.createElementNS(NS, "circle"); dot.setAttribute("class", "dot"); dot.setAttribute("cx", p.x); dot.setAttribute("cy", p.y); dot.setAttribute("r", 5);
+      g.appendChild(ring); g.appendChild(dot); svg.appendChild(g); nodeEls.push({ g: g, y: p.y });
+    });
+    document.body.appendChild(svg);
+    totalLen = line.getTotalLength(); line.style.strokeDasharray = totalLen + " " + totalLen;
+    samples = []; var N = 360;
+    for (var i = 0; i <= N; i++) { var pp = line.getPointAtLength((totalLen * i) / N); samples.push({ len: (totalLen * i) / N, y: pp.y }); }
+    update(true);
+  }
+  function lenAtY(targetY) { var best = 0; for (var i = 0; i < samples.length; i++) if (samples[i].y <= targetY) best = Math.max(best, samples[i].len); return best; }
+  function update() {
+    if (!line) return;
+    var jemne = document.documentElement.dataset.motion === "jemne";
+    if (reduced || jemne) { line.style.strokeDashoffset = 0; nodeEls.forEach(function (n) { n.g.classList.add("on"); }); return; }
+    var targetY = window.scrollY + window.innerHeight * 0.62, len = lenAtY(targetY);
+    line.style.strokeDashoffset = totalLen - len;
+    nodeEls.forEach(function (n) { n.g.classList.toggle("on", n.y <= targetY); });
+  }
+  var ticking = false;
+  window.addEventListener("scroll", function () { if (ticking) return; ticking = true; requestAnimationFrame(function () { update(); ticking = false; }); }, { passive: true });
+  var resizeT; window.addEventListener("resize", function () { clearTimeout(resizeT); resizeT = setTimeout(build, 250); });
+  window.addEventListener("sintera:rendered", function () { setTimeout(build, 120); });
+  if (document.readyState === "complete") setTimeout(build, 80);
+  else window.addEventListener("load", function () { setTimeout(build, 80); });
 })();
