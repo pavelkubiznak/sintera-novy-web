@@ -1,0 +1,64 @@
+openapi: 3.1.0
+info:
+  title: Sintera pozice
+  description: Zápis nové pracovní pozice do Google Sheetu (list "pozice").
+  version: 1.0.0
+servers:
+  - url: https://script.google.com/macros/s/NASAD_ID/exec
+    description: Apps Script web app (nahraď NASAD_ID svým deployment ID)
+paths:
+  /:
+    post:
+      operationId: createPosition
+      summary: Uloží novou pozici jako koncept do Sheetu.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token, position]
+              properties:
+                token:
+                  type: string
+                  description: Sdílený tajný token (stejný jako v Code.gs).
+                position:
+                  $ref: '#/components/schemas/Position'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  row: { type: integer }
+                  nazev: { type: string }
+components:
+  schemas:
+    Position:
+      type: object
+      required: [title, category, seniority, region]
+      properties:
+        title: { type: string, description: "Jen název role, bez CAPS/bonusu." }
+        category:
+          type: string
+          enum: [vyroba, auto, tech, kvalita, logistika, servis, projekty, finance, hr, obchod]
+        seniority: { type: string, enum: [spec, man, top] }
+        region: { type: string }
+        employmentType: { type: string, enum: [FULL_TIME, PART_TIME] }
+        workMode: { type: string, enum: [onsite, hybrid, remote] }
+        bonus: { type: string }
+        salaryRange: { type: string, description: "Např. 42 000 – 52 000 Kč." }
+        salaryNote: { type: string }
+        intro: { type: string }
+        whyTalk: { type: array, items: { type: string } }
+        responsibilities: { type: array, items: { type: string } }
+        mustHave: { type: array, items: { type: string } }
+        niceToHave: { type: array, items: { type: string } }
+        offer: { type: array, items: { type: string } }
+        cta: { type: string }
+        featured: { type: boolean }
+        datePosted: { type: string }
+        validThrough: { type: string }
