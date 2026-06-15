@@ -195,9 +195,12 @@
   /* ---------- pozice: filtr + detail + formulář ---------- */
   var OB = window.OBORY || {}, SEN = window.SENIORITY || {}, KR = window.KRAJE || [];
   // kurátorský výběr rolí pro homepage (max 9). Všechny pozice zůstávají v datech i na vlastních stránkách pozice/<id>.html.
-  var HOMEPAGE_POS = [830, 856, 862, 853, 805, 833, 795, 827, 832];
-  var byId = {}; (window.POZICE || []).forEach(function (p) { byId[p.id] = p; });
-  var POS = HOMEPAGE_POS.map(function (id) { return byId[id]; }).filter(Boolean).slice(0, 9).map(function (p) {
+  var HOMEPAGE_POS = [830, 856, 862, 853, 805, 833, 795, 827, 832]; // záloha, když data nemají featured
+  var allPos = window.POZICE || [];
+  var byId = {}; allPos.forEach(function (p) { byId[p.id] = p; });
+  var picked = allPos.filter(function (p) { return p.featured; });          // homepage řídí sloupec featured ze Sheetu
+  if (!picked.length) picked = HOMEPAGE_POS.map(function (id) { return byId[id]; }).filter(Boolean);
+  var POS = picked.slice(0, 9).map(function (p) {
     return { id: p.id, title: p.t, field: OB[p.o] || p.o, level: SEN[p.s] || p.s, loc: (p.k || []).join(" / "), bonus: p.bonus || "" };
   });
   var list = document.getElementById("pos-list");

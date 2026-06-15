@@ -64,6 +64,17 @@ function loadPozice() {
 }
 const PZ = loadPozice();
 
+/* ---------- registr stabilních ID: název pozice → existující id (zachová URL pozice/<id>.html) ----------
+   Sheet nemá sloupec id, ale názvy 1:1 odpovídají dosavadnímu pozice-data.js. Díky tomu se ze Sheetu
+   bere obsah, ale URL detailů zůstávají stabilní. Nový/přejmenovaný název dostane slug-id. */
+const norm = s => String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+// title → seznam id v původním pořadí. STABILNÍ registr v build/pozice-id-registry.json (build ho NIKDY nepřepisuje),
+// aby přegenerování pozice-data.js ze Sheetu nemohlo poškodit přiřazení id. Názvy nejsou unikátní (8 skupin se opakuje).
+const ID_REG = (() => {
+  try { return new Map(Object.entries(JSON.parse(fs.readFileSync(path.join(__dirname, "pozice-id-registry.json"), "utf8")))); }
+  catch { const m = new Map(); for (const p of PZ.POZICE) { const k = norm(p.t); if (!m.has(k)) m.set(k, []); m.get(k).push(p.id); } return m; }
+})();
+
 /* ---------- popisy pozic (descHtml překlopené ze sintera.cz) ---------- */
 const POPISY = (() => { try { return JSON.parse(fs.readFileSync(path.join(DATA, "pozice-popisy.json"), "utf8")); } catch { return {}; } })();
 
@@ -88,7 +99,8 @@ function structuredBody(p) {
 function positionBodyHTML(p, labels) {
   const structured = structuredBody(p);
   if (structured) return structured;
-  if (POPISY[p.id] && POPISY[p.id].descHtml) return POPISY[p.id].descHtml;
+  if (p.descHtml) return p.descHtml;                                      // popis (HTML) ze Sheetu
+  if (POPISY[p.id] && POPISY[p.id].descHtml) return POPISY[p.id].descHtml; // záloha z pozice-popisy.json
   return jobDescription(p, labels);
 }
 function salaryLD(s) {
@@ -134,13 +146,23 @@ function mapClients(rows) {
     .map(r => ({ name: r.nazev, logo: logoPath(r.logo_slug), _logoSlug: r.logo_slug || "" }));
 }
 function mapPositions(rows) {
-  return rows.filter(r => yes(r.zverejnit)).map((r, i) => ({
-    id: 1000 + i, t: r.nazev, o: r.obor, s: r.seniorita, k: (r.kraj || "").split("/").map(s => s.trim()).filter(Boolean),
-    bonus: r.bonus || "", rezim: r.rezim || "", datePosted: r.datum_zverejneni || "", validThrough: r.platnost_do || "", employmentType: r.uvazek || "FULL_TIME",
-    intro: r.uvod || "", whyTalk: r.proc_mluvit || "",
-    responsibilities: splitList(r.naplne), mustHave: splitList(r.must), niceToHave: splitList(r.vyhoda), offer: splitList(r.nabizime),
-    salaryRange: r.mzda_rozsah || "", salaryNote: r.mzda_pozn || "", cta: r.cta || "",
-  }));
+  const seen = new Map();
+  return rows.filter(r => yes(r.zverejnit)).map((r, i) => {
+    let id = (r.id || "").trim();                               // budoucí stabilita: pokud Sheet má sloupec id, použij ho
+    if (!id) {
+      const k = norm(r.nazev), occ = seen.get(k) || 0; seen.set(k, occ + 1);
+      const ids = ID_REG.get(k) || [];
+      id = ids[occ] ?? ((slugify(r.nazev) || ("pos" + i)) + (occ ? "-" + (occ + 1) : "")); // nový/přejmenovaný název → slug
+    }
+    return {
+      id, t: r.nazev, o: r.obor, s: r.seniorita, k: (r.kraj || "").split("/").map(s => s.trim()).filter(Boolean),
+      bonus: r.bonus || "", rezim: r.rezim || "", datePosted: r.datum_zverejneni || "", validThrough: r.platnost_do || "", employmentType: r.uvazek || "FULL_TIME",
+      intro: r.uvod || "", whyTalk: r.proc_mluvit || "",
+      responsibilities: splitList(r.naplne), mustHave: splitList(r.must), niceToHave: splitList(r.vyhoda), offer: splitList(r.nabizime),
+      salaryRange: r.mzda_rozsah || "", salaryNote: r.mzda_pozn || "", cta: r.cta || "",
+      descHtml: (r.popis || "").trim(), featured: yes(r.featured),
+    };
+  });
 }
 
 /* ---------- generátory HTML sekcí (prerender) ---------- */
@@ -174,10 +196,11 @@ function marqueeHTML(clients) {
   const group = `<div class="mq-group">${clients.map(node).join("")}</div>`;
   return group + group; // dvě identické skupiny pro plynulou smyčku bez mezery
 }
-const HOMEPAGE_POS = [830, 856, 862, 853, 805, 833, 795, 827, 832]; // kurátorský výběr pro homepage (max 9); ostatní zůstávají na pozice/<id>.html + v sitemap
+const HOMEPAGE_POS = [830, 856, 862, 853, 805, 833, 795, 827, 832]; // záložní kurátorský výběr (když Sheet nemá featured); jinak řídí homepage sloupec featured
 function positionsHTML(positions, labels) {
   const byId = new Map(positions.map(p => [p.id, p]));
-  const curated = HOMEPAGE_POS.map(id => byId.get(id)).filter(Boolean).slice(0, 9);
+  const featured = positions.filter(p => p.featured);
+  const curated = (featured.length ? featured : HOMEPAGE_POS.map(id => byId.get(id)).filter(Boolean)).slice(0, 9);
   return curated.map(p => {
     const bonus = p.bonus ? `<span class="bonus">Příspěvek ${esc(p.bonus)}</span>` : "";
     return `<div class="pos-item"><a class="pos-row" href="pozice/${esc(p.id)}.html">` +
@@ -330,6 +353,10 @@ function prerender(site, labels) {
 
 function writeDetailPages(positions, labels) {
   fs.mkdirSync(POZICE_DIR, { recursive: true });
+  // úklid: smaž staré detailní stránky (kromě index.html), ať nezůstanou osiřelé po změně sady pozic
+  for (const f of fs.readdirSync(POZICE_DIR)) {
+    if (f.endsWith(".html") && f !== "index.html") fs.unlinkSync(path.join(POZICE_DIR, f));
+  }
   for (const p of positions) fs.writeFileSync(path.join(POZICE_DIR, `${p.id}.html`), detailPage(p, labels));
   console.log(`  ✓ ${positions.length} stránek pozic (pozice/<id>.html)`);
 }
@@ -368,6 +395,29 @@ async function main() {
   fs.writeFileSync(path.join(DATA, "reference-data.json"), JSON.stringify(refData, null, 2));
   fs.writeFileSync(path.join(DATA, "reference-data.js"),
     "/* AUTO-GENEROVÁNO buildem (build/build.mjs). Needituj ručně. Interní pole (_*) odstraněna. */\nwindow.SINTERA_DATA = " + JSON.stringify(stripInternal(refData), null, 2) + ";\n");
+
+  // Pozice ze Sheetu → přegeneruj klientská data, aby homepage seznam (/), stránka /pozice/ i popisy detailů jely ze Sheetu
+  if (pz) {
+    const posOut = site.positions.map(p => {
+      const o = { id: p.id, t: p.t, k: p.k, o: p.o, s: p.s };
+      if (p.bonus) o.bonus = p.bonus;
+      if (p.featured) o.featured = true;
+      return o;
+    });
+    fs.writeFileSync(path.join(ROOT, "assets", "js", "pozice-data.js"),
+      "/* AUTO-GENEROVÁNO buildem z Google Sheetu (build/build.mjs). Needituj ručně. */\n" +
+      "var OBORY = " + JSON.stringify(PZ.OBORY, null, 2) + ";\n" +
+      "var SENIORITY = " + JSON.stringify(PZ.SENIORITY, null, 2) + ";\n" +
+      "var KRAJE = " + JSON.stringify(PZ.KRAJE) + ";\n" +
+      "var POZICE = " + JSON.stringify(posOut) + ";\n");
+    const popisi = {};
+    for (const p of site.positions) if (p.descHtml) popisi[p.id] = { descHtml: p.descHtml };
+    const sortedKeys = Object.keys(popisi).sort((a, b) => (!isNaN(+a) && !isNaN(+b)) ? (+a - +b) : String(a).localeCompare(String(b)));
+    const sortedPopisi = {}; for (const k of sortedKeys) sortedPopisi[k] = popisi[k];
+    fs.writeFileSync(path.join(DATA, "pozice-popisy.json"), JSON.stringify(sortedPopisi, null, 2) + "\n");
+    fs.writeFileSync(path.join(DATA, "pozice-popisy.js"), "window.POZICE_POPISY = " + JSON.stringify(sortedPopisi) + ";\n");
+    console.log("  ✓ pozice-data.js + pozice-popisy.{json,js} přegenerováno ze Sheetu");
+  }
 
   prerender(site, labels);
   writeDetailPages(site.positions, labels);

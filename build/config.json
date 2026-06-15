@@ -3,9 +3,10 @@
     "baseUrl": "https://pavelkubiznak.github.io/sintera-novy-web"
   },
   "sheets": {
-    "pozice": "",
-    "reference": "",
-    "casestudies": "",
-    "klienti": ""
+    "_napoveda": "Veřejné CSV exporty Google Sheetu (Sdílet → Kdokoli s odkazem → Čtenář). Spreadsheet 14KteI4GZ58x5kj2MAWhSDb7gS5aLUhi9IEXRPH0cCHs. Endpoint gviz/tq?tqx=out:csv je robustní v CI (bez přesměrování). Alternativa: export?format=csv&gid=...",
+    "pozice": "https://docs.google.com/spreadsheets/d/14KteI4GZ58x5kj2MAWhSDb7gS5aLUhi9IEXRPH0cCHs/gviz/tq?tqx=out:csv&gid=1003913165",
+    "reference": "https://docs.google.com/spreadsheets/d/14KteI4GZ58x5kj2MAWhSDb7gS5aLUhi9IEXRPH0cCHs/gviz/tq?tqx=out:csv&gid=1908671428",
+    "casestudies": "https://docs.google.com/spreadsheets/d/14KteI4GZ58x5kj2MAWhSDb7gS5aLUhi9IEXRPH0cCHs/gviz/tq?tqx=out:csv&gid=277944144",
+    "klienti": "https://docs.google.com/spreadsheets/d/14KteI4GZ58x5kj2MAWhSDb7gS5aLUhi9IEXRPH0cCHs/gviz/tq?tqx=out:csv&gid=549882764"
   }
 }
