@@ -1121,3 +1121,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .pos-row:focus-vis
 .body li { position: relative; padding-left: 22px; margin: 9px 0; line-height: 1.55; color: var(--dim); }
 .body li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
 .af-gdpr { color: var(--dim); opacity: 0.82; }
+
+/* homepage: výrazný blok „Získat více referencí" na konci sekce Reference */
+.ref-archive { margin-top: 48px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 32px; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; }
+.ref-archive__text { display: flex; flex-direction: column; gap: 5px; max-width: 56ch; }
+.ref-archive__text strong { font-family: var(--serif); font-weight: 400; font-size: clamp(20px, 2.4vw, 26px); color: var(--ink); }
+.ref-archive__text span { color: var(--dim); font-size: 15px; line-height: 1.55; }
+.ref-archive .btn-primary { white-space: nowrap; }
+@media (max-width: 640px) { .ref-archive { padding: 22px; gap: 18px; } .ref-archive .btn-primary { width: 100%; text-align: center; } }

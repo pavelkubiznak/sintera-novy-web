@@ -1,15 +1,32 @@
 /**
- * Sintera · endpoint pro zápis obsahu do Google Sheetu (pozice / reference / case studies).
+ * Sintera · Apps Script endpoint.
+ *
+ * Dvě role v jednom web appu:
+ *  A) Zápis obsahu do Sheetu (pozice / reference / case) — CHRÁNĚNO tokenem, volá custom GPT.
+ *     Vstup: { "token": "...", "target": "pozice"|"reference"|"case", "record": { ... } }
+ *  B) Žádost o reference z webu — VEŘEJNÉ (bez tokenu), volá formulář na webu.
+ *     Vstup: { "action": "reference_request", "email": "...", "phone": "...",
+ *              "name": "...", "position": "...", "source": "...", "consent": true, "website": "" }
+ *     Ověří firemní doménu, zaloguje lead do listu "leady_reference",
+ *     pošle přes Resend e-mail s odkazem na neveřejnou landing page.
+ *
  * Nasazení: v Sheetu Rozšíření → Apps Script → vlož tento kód → Nasadit → Webová aplikace
  *   - "Spustit jako": já,  "Kdo má přístup": Kdokoli.
- * URL .../exec vlož do openapi.yaml (akce pro custom GPT).
  *
- * Vstup (POST JSON): { "token": "...", "target": "pozice"|"reference"|"case", "record": { ... } }
- *   (zpětně kompatibilní: { "token": "...", "position": { ... } } = target "pozice")
- * Bezpečnost: sdílený token + vše se ukládá jako KONCEPT (zverejnit = "ne").
+ * Tajemství NEDÁVEJ do kódu. Projektová nastavení → Vlastnosti skriptu (Script Properties):
+ *   TOKEN            = dlouhý náhodný řetězec (pro zápis obsahu z GPT)
+ *   RESEND_API_KEY   = re_... (druhý API klíč pro doménu sintera.cz)
+ *   FROM_EMAIL       = "Sintera <reference@sintera.cz>"
+ *   LANDING_URL      = https://www.sintera.cz/reference/<neuhodnutelny-slug>/
+ *   REPLY_TO         = (volitelné) kam mají chodit odpovědi, např. info@sintera.cz
  */
 
-var TOKEN = 'ZMENME_na_dlouhy_nahodny_retezec'; // <-- vlastní tajný token
+function prop_(key, fallback) {
+  var v = PropertiesService.getScriptProperties().getProperty(key);
+  return (v === null || v === undefined || v === '') ? (fallback || '') : v;
+}
+
+/* ====================== A) ZÁPIS OBSAHU (token) ====================== */
 
 var list = function (v) { return Array.isArray(v) ? v.join('\n') : (v || ''); };
 var consent = function (v) { return v === true || v === 'ano' ? 'ano' : 'ne'; };
@@ -58,29 +75,162 @@ var TARGETS = {
   }
 };
 
+function handleContentWrite_(body) {
+  if (body.token !== prop_('TOKEN', 'ZMENME_na_dlouhy_nahodny_retezec')) {
+    return json_({ ok: false, error: 'unauthorized' });
+  }
+  var target = body.target || (body.position ? 'pozice' : '');
+  var record = body.record || body.position || {};
+  var def = TARGETS[target];
+  if (!def) return json_({ ok: false, error: 'unknown target: ' + target });
+
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(def.sheet) || ss.insertSheet(def.sheet);
+  if (sh.getLastRow() === 0) sh.appendRow(def.headers);
+
+  var map = def.build(record);
+  sh.appendRow(def.headers.map(function (h) { return map[h]; }));
+  return json_({ ok: true, target: target, sheet: def.sheet, row: sh.getLastRow() });
+}
+
+/* ====================== B) ŽÁDOST O REFERENCE (veřejné) ====================== */
+
+// Zrcadlo seznamu z assets/data/reference-gate/free-domains.js — držet v souladu.
+var FREE_DOMAINS = [
+  'seznam.cz','email.cz','post.cz','centrum.cz','atlas.cz','volny.cz','tiscali.cz','quick.cz',
+  'chello.cz','iol.cz','sweb.cz','mybox.cz','raz-dva.cz','email.com',
+  'azet.sk','zoznam.sk','post.sk','centrum.sk','pobox.sk','inmail.sk',
+  'gmail.com','googlemail.com',
+  'outlook.com','outlook.cz','hotmail.com','hotmail.cz','live.com','live.cz','msn.com',
+  'yahoo.com','yahoo.co.uk','yahoo.cz','ymail.com','rocketmail.com',
+  'icloud.com','me.com','mac.com',
+  'proton.me','protonmail.com','pm.me',
+  'gmx.com','gmx.net','gmx.de','mail.com','aol.com','zoho.com',
+  'yandex.com','yandex.ru','web.de','freenet.de','fastmail.com','tutanota.com','tuta.io','hey.com'
+];
+
+function emailDomain_(email) {
+  if (typeof email !== 'string') return '';
+  var m = email.trim().toLowerCase().match(/^[^\s@]+@([^\s@]+\.[^\s@]+)$/);
+  return m ? m[1] : '';
+}
+
+function handleReferenceRequest_(body) {
+  // 1) Honeypot: roboti vyplní skryté pole "website". Tváříme se, že OK, ale nic neuděláme.
+  if (body.website) return json_({ ok: true });
+
+  var email = (body.email || '').trim();
+  var domain = emailDomain_(email);
+
+  // 2) Formát e-mailu
+  if (!domain) return json_({ ok: false, error: 'invalid_email' });
+
+  // 3) Souhlas GDPR
+  if (!(body.consent === true || body.consent === 'ano')) {
+    return json_({ ok: false, error: 'consent_required' });
+  }
+
+  // 4) Firemní doména
+  if (FREE_DOMAINS.indexOf(domain) !== -1) {
+    return json_({ ok: false, error: 'free_domain' });
+  }
+
+  // 5) Cooldown proti opakovanému odesílání na stejný e-mail (120 s)
+  var cache = CacheService.getScriptCache();
+  var ck = 'ref:' + email.toLowerCase();
+  if (cache.get(ck)) return json_({ ok: true, note: 'already_sent' });
+  cache.put(ck, '1', 120);
+
+  // 6) Log leadu
+  logLead_({
+    email: email, domain: domain,
+    phone: (body.phone || '').trim(), name: (body.name || '').trim(),
+    position: (body.position || '').trim(), source: (body.source || '').trim(),
+    consent: 'ano'
+  });
+
+  // 7) Odeslání e-mailu přes Resend
+  var landing = prop_('LANDING_URL', '');
+  if (!landing) return json_({ ok: false, error: 'missing_landing_url' });
+  var send = sendReferenceEmail_(email, body.name || '', landing);
+  if (!send.ok) return json_({ ok: false, error: 'send_failed', detail: send.detail });
+
+  return json_({ ok: true });
+}
+
+function logLead_(d) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName('leady_reference') || ss.insertSheet('leady_reference');
+  var headers = ['cas','email','firma_domena','telefon','jmeno','pozice','zdroj','souhlas'];
+  if (sh.getLastRow() === 0) sh.appendRow(headers);
+  sh.appendRow([
+    new Date(), d.email, d.domain, d.phone, d.name, d.position, d.source, d.consent
+  ]);
+}
+
+function sendReferenceEmail_(to, name, landing) {
+  var apiKey = prop_('RESEND_API_KEY', '');
+  var from = prop_('FROM_EMAIL', 'Sintera <reference@sintera.cz>');
+  var replyTo = prop_('REPLY_TO', '');
+  if (!apiKey) return { ok: false, detail: 'missing RESEND_API_KEY' };
+
+  var hello = name ? ('Dobrý den, ' + name + ',') : 'Dobrý den,';
+  var html =
+    '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#1a1a1a">' +
+      '<p>' + escapeHtml_(hello) + '</p>' +
+      '<p>děkujeme za zájem o reference Sintery. Připravili jsme je pro vás na jedné stránce, ' +
+      'spolu s ukázkami konkrétních případů a čísly.</p>' +
+      '<p style="margin:28px 0">' +
+        '<a href="' + landing + '" ' +
+        'style="background:#1a1a1a;color:#fff;text-decoration:none;padding:12px 22px;border-radius:8px;display:inline-block">' +
+        'Zobrazit reference</a>' +
+      '</p>' +
+      '<p style="font-size:13px;color:#555">Kdyby odkaz nešel otevřít, zkopírujte si jej:<br>' +
+      '<span style="color:#1a1a1a">' + landing + '</span></p>' +
+      '<p style="font-size:13px;color:#555">Když budete chtít probrat konkrétní pozici, ' +
+      'stačí odpovědět na tento e-mail.</p>' +
+      '<p>Sintera Czech</p>' +
+    '</div>';
+
+  var payload = { from: from, to: [to], subject: 'Reference Sintery', html: html };
+  if (replyTo) payload.reply_to = replyTo;
+
+  try {
+    var res = UrlFetchApp.fetch('https://api.resend.com/emails', {
+      method: 'post',
+      contentType: 'application/json',
+      headers: { Authorization: 'Bearer ' + apiKey },
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true
+    });
+    var code = res.getResponseCode();
+    if (code >= 200 && code < 300) return { ok: true };
+    return { ok: false, detail: 'resend ' + code + ': ' + res.getContentText() };
+  } catch (err) {
+    return { ok: false, detail: String(err) };
+  }
+}
+
+function escapeHtml_(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+/* ====================== Router ====================== */
+
 function doPost(e) {
   try {
     var body = JSON.parse((e && e.postData && e.postData.contents) || '{}');
-    if (body.token !== TOKEN) return json_({ ok: false, error: 'unauthorized' });
-
-    var target = body.target || (body.position ? 'pozice' : '');
-    var record = body.record || body.position || {};
-    var def = TARGETS[target];
-    if (!def) return json_({ ok: false, error: 'unknown target: ' + target });
-
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sh = ss.getSheetByName(def.sheet) || ss.insertSheet(def.sheet);
-    if (sh.getLastRow() === 0) sh.appendRow(def.headers);
-
-    var map = def.build(record);
-    sh.appendRow(def.headers.map(function (h) { return map[h]; }));
-    return json_({ ok: true, target: target, sheet: def.sheet, row: sh.getLastRow() });
+    if (body.action === 'reference_request') return handleReferenceRequest_(body);
+    return handleContentWrite_(body);
   } catch (err) {
     return json_({ ok: false, error: String(err) });
   }
 }
 
-function doGet() { return json_({ ok: true, service: 'sintera-content', targets: Object.keys(TARGETS) }); }
+function doGet() {
+  return json_({ ok: true, service: 'sintera', targets: Object.keys(TARGETS), actions: ['reference_request'] });
+}
 
 function json_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);

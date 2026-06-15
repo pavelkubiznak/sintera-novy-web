@@ -1,0 +1,57 @@
+<!--
+  Sintera · formulář „Získat reference".
+  Vlož tento blok tam, kde má být na webu výzva k referencím (sekce na homepage
+  nebo samostatná stránka). Třídy s prefixem rg- jsou v reference-gate.css.
+  Chování zajišťuje reference-gate.js (nastav v něm ENDPOINT na Apps Script /exec).
+-->
+<section class="rg" id="reference-gate" aria-labelledby="rg-title">
+  <div class="rg__inner">
+    <h2 class="rg__title" id="rg-title">Chcete vidět naše reference?</h2>
+    <p class="rg__lead">
+      Reference posíláme na firemní e-mail. Zadejte ho a obratem vám přijde odkaz
+      se souhrnem referencí, ukázkami případů a čísly.
+    </p>
+
+    <form class="rg__form" id="rg-form" novalidate>
+      <div class="rg__row">
+        <label class="rg__field">
+          <span class="rg__label">Pracovní e-mail <span class="rg__req" aria-hidden="true">*</span></span>
+          <input class="rg__input" type="email" name="email" required autocomplete="email"
+                 placeholder="jmeno@firma.cz" inputmode="email">
+        </label>
+        <label class="rg__field">
+          <span class="rg__label">Telefon</span>
+          <input class="rg__input" type="tel" name="phone" autocomplete="tel" placeholder="nepovinné">
+        </label>
+      </div>
+
+      <div class="rg__row">
+        <label class="rg__field">
+          <span class="rg__label">Jméno</span>
+          <input class="rg__input" type="text" name="name" autocomplete="name" placeholder="nepovinné">
+        </label>
+        <label class="rg__field">
+          <span class="rg__label">Vaše pozice</span>
+          <input class="rg__input" type="text" name="position" placeholder="nepovinné">
+        </label>
+      </div>
+
+      <!-- Honeypot: skryté pole, lidé ho nevidí, roboti vyplní. Nevyplňovat. -->
+      <div class="rg__hp" aria-hidden="true">
+        <label>Web<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <label class="rg__consent">
+        <input class="rg__check" type="checkbox" name="consent" required>
+        <span>
+          Souhlasím se zpracováním kontaktních údajů za účelem zaslání referencí a navázání kontaktu.
+          Podrobnosti v <a href="/ochrana-osobnich-udaju/" target="_blank" rel="noopener">zásadách ochrany osobních údajů</a>.
+        </span>
+      </label>
+
+      <button class="rg__btn" type="submit" id="rg-submit">Poslat mi reference</button>
+
+      <p class="rg__msg" id="rg-msg" role="status" aria-live="polite" hidden></p>
+    </form>
+  </div>
+</section>

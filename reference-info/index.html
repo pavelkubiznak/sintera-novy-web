@@ -1,0 +1,146 @@
+<!doctype html>
+<!--
+  Sintera · VEŘEJNÁ stránka /reference-info/ (sem vede tlačítko „Získat více referencí"
+  z konce sekce Reference na homepage). Manifest + proužek čísel + formulář žádosti.
+  Po odeslání přijde e-mail s odkazem na neveřejnou /reference/<slug>/.
+  Tuhle stránku indexovat lze (je to vstup). Relativní cesty kvůli běhu na podadresáři GitHub Pages.
+-->
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reference Sintery · pošleme výběr na váš firemní e-mail</title>
+  <meta name="description" content="Dostáváme firmy k lidem, ke kterým se běžnou cestou nedostanou. Pošleme vám výběr referencí a případových situací na firemní e-mail.">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/reference-gate.css">
+  <style>
+    .ri { max-width: 1040px; margin: 0 auto; padding: 64px 24px 96px; }
+    .ri__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: start; }
+    .ri__kicker { color: var(--accent); font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 14px; }
+    .ri__title { font-family: var(--serif); color: var(--ink); font-size: clamp(30px, 4.5vw, 46px); line-height: 1.1; margin: 0 0 22px; }
+    .ri__title em { font-family: var(--serif-text); }
+    .ri__p { color: var(--ink); font-size: 17px; line-height: 1.7; margin: 0 0 16px; max-width: 56ch; }
+    .ri__p--dim { color: var(--dim); }
+    .ri__p--lead { font-family: var(--serif-text); font-size: 21px; line-height: 1.5; color: var(--ink); margin-bottom: 20px; }
+    .ri__h2 { font-family: var(--serif); color: var(--ink); font-size: 22px; margin: 40px 0 18px; }
+    .ri__sign { display: flex; align-items: center; gap: 12px; margin: 26px 0 0; }
+    .ri__sign-name { color: var(--ink); font-size: 15px; }
+    .ri__sign-name b { font-family: var(--serif); font-weight: 400; font-size: 17px; }
+    .ri__stats { display: flex; flex-wrap: wrap; gap: 14px; margin: 36px 0 0; }
+    .ri__stat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; flex: 1 1 150px; }
+    .ri__stat b { display: block; font-family: var(--serif); color: var(--accent); font-size: 26px; line-height: 1; margin-bottom: 6px; }
+    .ri__stat span { color: var(--dim); font-size: 13px; line-height: 1.4; }
+    .ri__formwrap { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 32px; position: sticky; top: 24px; }
+    .ri__formwrap h2 { font-family: var(--serif); color: var(--ink); font-size: 24px; margin: 0 0 8px; }
+    .ri__formwrap .ri__reassure { color: var(--dim); font-size: 14px; line-height: 1.55; margin: 0 0 22px; }
+    .ri__back { display: inline-block; margin: 0 0 26px; color: var(--dim); font-size: 14px; }
+    .ri__back:hover { color: var(--accent); }
+    @media (max-width: 880px) {
+      .ri__grid { grid-template-columns: 1fr; gap: 40px; }
+      .ri__formwrap { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <main class="ri">
+    <a class="ri__back" href="../">← Zpět na Sintera.cz</a>
+    <div class="ri__grid">
+
+      <section class="ri__intro">
+        <p class="ri__kicker">Reference</p>
+        <h1 class="ri__title">Dostáváme firmy k lidem, ke kterým se <em>běžnou cestou nedostanou.</em></h1>
+
+        <p class="ri__p ri__p--lead">Když běžné cesty nestačí, nestačí dělat totéž znovu.</p>
+        <p class="ri__p">
+          Nejsme další personální agentura v pořadí. Jsme služba pro chvíli, kdy už jste aktivní
+          kandidáty viděli, inzerce nepřinesla správné lidi a role je příliš důležitá na to,
+          aby se čekalo, kdo se ozve.
+        </p>
+        <p class="ri__p">
+          V tu chvíli nestačí jen najít jméno. Je potřeba vědět, koho má smysl oslovit, jak
+          s ním mluvit, co ho může zajímat a kde mohou vzniknout bariéry na straně kandidáta
+          i firmy.
+        </p>
+        <p class="ri__p ri__p--dim">
+          Často nejde jen o odbornost. Jde o očekávání, motivaci, peníze, načasování a důvěru.
+          A právě tam začíná práce, kterou běžný inzerát neudělá.
+        </p>
+
+        <!-- podpis: až budeš znát jméno/tvář, odkomentuj a doplň
+        <div class="ri__sign">
+          <img src="../assets/img/podpis-foto.jpg" alt="" width="48" height="48" style="border-radius:50%">
+          <span class="ri__sign-name"><b>Jméno Příjmení</b><br>vede search v Sinteře</span>
+        </div>
+        -->
+
+        <h2 class="ri__h2">Proč si říct o více referencí</h2>
+        <div class="ri__stats">
+          <div class="ri__stat"><b>130+</b><span>firem nám svěřilo hledání lidí, kteří se běžně nehlásí</span></div>
+          <div class="ri__stat"><b>100+</b><span>referencí ukazuje konkrétní situace, role a výsledky</span></div>
+          <div class="ri__stat"><b>99 %</b><span>kandidátů u ZF Passive Safety mířilo rovnou na pohovor</span></div>
+        </div>
+        <p class="ri__p ri__p--dim" style="margin-top:18px">
+          Tohle nejsou naše sliby. Jsou to zkušenosti firem, které řešily těžko obsaditelné
+          role a potřebovaly se dostat k lidem, kteří sami nepřijdou.
+        </p>
+      </section>
+
+      <aside class="ri__formwrap">
+        <h2>Pošleme vám výběr referencí</h2>
+        <p class="ri__reassure">
+          Vyplňte firemní e-mail. Pošleme vám odkaz na rozšířený výběr referencí a případových
+          situací. Ne jako katalog pochval, ale jako důkaz, jak vypadá search v praxi.
+        </p>
+
+        <form class="rg__form" id="rg-form" novalidate>
+          <div class="rg__row">
+            <label class="rg__field">
+              <span class="rg__label">Pracovní e-mail <span class="rg__req" aria-hidden="true">*</span></span>
+              <input class="rg__input" type="email" name="email" required autocomplete="email"
+                     placeholder="jmeno@firma.cz" inputmode="email">
+            </label>
+          </div>
+          <div class="rg__row">
+            <label class="rg__field">
+              <span class="rg__label">Jméno</span>
+              <input class="rg__input" type="text" name="name" autocomplete="name" placeholder="nepovinné">
+            </label>
+            <label class="rg__field">
+              <span class="rg__label">Telefon</span>
+              <input class="rg__input" type="tel" name="phone" autocomplete="tel" placeholder="nepovinné">
+            </label>
+          </div>
+          <div class="rg__row">
+            <label class="rg__field">
+              <span class="rg__label">Vaše pozice</span>
+              <input class="rg__input" type="text" name="position" placeholder="nepovinné">
+            </label>
+          </div>
+
+          <div class="rg__hp" aria-hidden="true">
+            <label>Web<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          </div>
+
+          <label class="rg__consent">
+            <input class="rg__check" type="checkbox" name="consent" required>
+            <span>
+              Souhlasím se zpracováním kontaktních údajů za účelem zaslání referencí a navázání kontaktu.
+              Podrobnosti v <a href="../ochrana-osobnich-udaju/" target="_blank" rel="noopener">zásadách ochrany osobních údajů</a>.
+            </span>
+          </label>
+
+          <button class="rg__btn" type="submit" id="rg-submit">Získat více referencí</button>
+          <p class="rg__note">
+            Pošleme odkaz na firemní e-mail. Osobní e-maily kvůli ochraně dat nepouštíme
+            automaticky, ale můžete nám <a href="mailto:info@sintera.cz?subject=Reference">napsat přímo</a>.
+          </p>
+          <p class="rg__msg" id="rg-msg" role="status" aria-live="polite" hidden></p>
+        </form>
+      </aside>
+
+    </div>
+  </main>
+
+  <script src="../assets/js/reference-gate.js"></script>
+</body>
+</html>

@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Disallow: /reference/
 Sitemap: https://pavelkubiznak.github.io/sintera-novy-web/sitemap.xml

@@ -363,12 +363,12 @@ function writeDetailPages(positions, labels) {
 
 /* ---------- SEO výstupy ---------- */
 function writeSitemap(positions) {
-  const sections = ["/", "/#problem", "/#cases", "/#reference", "/#pozice", "/#kontakt", "/pozice/"];
+  const sections = ["/", "/#problem", "/#cases", "/#reference", "/#pozice", "/#kontakt", "/pozice/", "/reference-info/"];
   const jobs = positions.map(p => `/pozice/${p.id}.html`);
   const urls = sections.concat(jobs).map(u => `  <url><loc>${BASE}${u}</loc><changefreq>weekly</changefreq></url>`).join("\n");
   fs.writeFileSync(path.join(ROOT, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
-  fs.writeFileSync(path.join(ROOT, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${BASE}/sitemap.xml\n`);
+  fs.writeFileSync(path.join(ROOT, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /reference/\nSitemap: ${BASE}/sitemap.xml\n`);
   fs.writeFileSync(path.join(ROOT, ".nojekyll"), "");
   console.log("  ✓ sitemap.xml, robots.txt, .nojekyll");
 }

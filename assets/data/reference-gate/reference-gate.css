@@ -1,0 +1,72 @@
+/* Sintera · styl formuláře „Získat reference". Používá proměnné z styles.css. */
+
+.rg { padding: 72px 24px; }
+.rg__inner { max-width: 720px; margin: 0 auto; }
+
+.rg__title {
+  font-family: var(--serif);
+  color: var(--ink);
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.1;
+  margin: 0 0 12px;
+}
+.rg__lead { color: var(--dim); font-size: 17px; line-height: 1.6; margin: 0 0 28px; max-width: 56ch; }
+
+.rg__form { display: block; }
+.rg__row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+
+.rg__field { display: flex; flex-direction: column; gap: 6px; }
+.rg__label { font-size: 13px; color: var(--dim); letter-spacing: 0.01em; }
+.rg__req { color: var(--accent); }
+
+.rg__input {
+  font-family: var(--sans);
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.rg__input::placeholder { color: var(--dim); opacity: 0.7; }
+.rg__input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(200, 112, 79, 0.18); }
+
+.rg__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.rg__consent {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: var(--dim); line-height: 1.5;
+  margin: 4px 0 22px;
+}
+.rg__consent a { color: var(--accent); }
+.rg__check { margin-top: 3px; flex: 0 0 auto; width: 16px; height: 16px; accent-color: var(--accent); }
+
+.rg__btn {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 10px;
+  padding: 14px 26px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.rg__btn:hover { opacity: 0.9; }
+.rg__btn:disabled { opacity: 0.6; cursor: default; }
+
+.rg__note { margin: 14px 0 0; font-size: 13px; line-height: 1.55; color: var(--dim); }
+.rg__note a { color: var(--accent); }
+
+.rg__msg { margin: 16px 0 0; font-size: 15px; line-height: 1.5; }
+.rg__msg--ok { color: #2e7d52; }
+.rg__msg--err { color: var(--accent); }
+.rg__msg--info { color: var(--dim); }
+
+@media (max-width: 600px) {
+  .rg { padding: 48px 20px; }
+  .rg__row { grid-template-columns: 1fr; gap: 14px; }
+}

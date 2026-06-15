@@ -1,0 +1,109 @@
+<!doctype html>
+<!--
+  Sintera · neveřejná landing page s referencemi.
+  Umístění: /reference/<neuhodnutelny-slug>/index.html  (stejný slug dej do Apps Scriptu jako LANDING_URL).
+  - NEVKLÁDAT do sitemap.xml a do robots.txt přidat: Disallow: /reference/
+  - noindex je i v <meta> níže.
+  - <base href="/"> zajistí, že relativní cesty k CSS/logům fungují i z podsložky.
+  Data se berou z reference-data.js (window.SINTERA_DATA), stejně jako na webu.
+-->
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <base href="/">
+  <title>Reference · Sintera</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .lp { max-width: 1040px; margin: 0 auto; padding: 64px 24px 96px; }
+    .lp__kicker { color: var(--accent); font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 14px; }
+    .lp__title { font-family: var(--serif); color: var(--ink); font-size: clamp(32px, 5vw, 52px); line-height: 1.08; margin: 0 0 18px; }
+    .lp__title em { font-family: var(--serif-text); }
+    .lp__lead { color: var(--dim); font-size: 18px; line-height: 1.65; max-width: 62ch; margin: 0 0 16px; }
+    .lp__section-title { font-family: var(--serif); color: var(--ink); font-size: clamp(24px, 3.5vw, 34px); margin: 64px 0 24px; }
+    .lp__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .lp__card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 26px; }
+    .lp__card .co { font-family: var(--serif); color: var(--ink); font-size: 20px; margin: 0 0 2px; }
+    .lp__card .ro { color: var(--dim); font-size: 13px; margin: 0 0 14px; }
+    .lp__card .qu { color: var(--ink); font-size: 17px; line-height: 1.5; margin: 0 0 12px; }
+    .lp__card .qu::before { content: "\201E"; color: var(--accent); }
+    .lp__card .qu::after { content: "\201C"; color: var(--accent); }
+    .lp__card .lo { color: var(--dim); font-size: 14px; line-height: 1.55; margin: 0; }
+    .lp__tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+    .lp__tag { font-size: 12px; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; }
+    .lp__case { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 18px; }
+    .lp__case h3 { font-family: var(--serif); color: var(--ink); font-size: 22px; margin: 0 0 14px; }
+    .lp__case dl { margin: 0; display: grid; gap: 10px; }
+    .lp__case dt { color: var(--accent); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+    .lp__case dd { margin: 0; color: var(--ink); font-size: 15px; line-height: 1.55; }
+    .lp__cta { text-align: center; margin: 80px auto 0; max-width: 640px; }
+    .lp__cta h2 { font-family: var(--serif); color: var(--ink); font-size: clamp(26px, 4vw, 38px); margin: 0 0 14px; }
+    .lp__cta p { color: var(--dim); font-size: 17px; line-height: 1.6; margin: 0 0 26px; }
+    .lp__btn { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; font-weight: 600; padding: 15px 30px; border-radius: 10px; }
+    @media (max-width: 720px) { .lp__grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="lp">
+    <p class="lp__kicker">Reference</p>
+    <h1 class="lp__title">Tady je to, co o nás říkají <em>firmy</em>, které běžné cesty vyčerpaly</h1>
+    <p class="lp__lead">
+      Slíbili jsme vám je, tak ať je máte na jednom místě. Konkrétní zkušenosti klientů,
+      ukázky obsazených případů a čísla. Čteme to s vámi tak, jak to je: bez příkras, bez slibů.
+      Když vás něco zaujme, ozvěte se. Vše probereme diskrétně a bez závazku.
+    </p>
+
+    <h2 class="lp__section-title">Reference klientů</h2>
+    <div class="lp__grid" id="lp-refs"></div>
+
+    <h2 class="lp__section-title">Ukázky případů</h2>
+    <div id="lp-cases"></div>
+
+    <section class="lp__cta">
+      <h2>Máte roli, kterou se nedaří obsadit?</h2>
+      <p>Stačí krátký hovor. Řekneme si, koho hledáte, kde bývá problém a jak bychom postupovali. Bez závazku, diskrétně.</p>
+      <!-- Až budeš mít rezervační odkaz (Calendly apod.), nahraď za něj href níže. -->
+      <a class="lp__btn" href="/#kontakt">Domluvit hovor</a>
+    </section>
+  </main>
+
+  <script src="assets/data/reference-data.js"></script>
+  <script>
+    (function () {
+      var d = (window.SINTERA_DATA) || { references: [], cases: [] };
+      function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+      var refs = (d.references || []).map(function (r) {
+        var tags = (r.tags || '').split(';').map(function (t) { return t.trim(); }).filter(Boolean);
+        var tagHtml = tags.length
+          ? '<div class="lp__tags">' + tags.map(function (t) { return '<span class="lp__tag">' + esc(t) + '</span>'; }).join('') + '</div>'
+          : '';
+        return '<article class="lp__card">' +
+          '<p class="co">' + esc(r.company) + '</p>' +
+          '<p class="ro">' + esc(r.role) + '</p>' +
+          (r.quote ? '<p class="qu">' + esc(r.quote) + '</p>' : '') +
+          (r.long ? '<p class="lo">' + esc(r.long) + '</p>' : '') +
+          tagHtml +
+        '</article>';
+      }).join('');
+      document.getElementById('lp-refs').innerHTML = refs;
+
+      var cases = (d.cases || []).map(function (c) {
+        function row(label, val) { return val ? '<dt>' + label + '</dt><dd>' + esc(val) + '</dd>' : ''; }
+        return '<article class="lp__case">' +
+          '<h3>' + esc(c.name) + '</h3>' +
+          '<dl>' +
+            row('Situace', c.situ || c.situace) +
+            row('Proč nestačil běžný nábor', c.why) +
+            row('Co Sintera udělala', c.change) +
+            row('Výsledek', c.win) +
+          '</dl>' +
+        '</article>';
+      }).join('');
+      document.getElementById('lp-cases').innerHTML = cases;
+    })();
+  </script>
+</body>
+</html>
