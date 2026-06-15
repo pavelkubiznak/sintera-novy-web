@@ -44,8 +44,20 @@ do listu `pozice` jako **koncept** → člověk řádek zkontroluje, přepne `zv
 - `doGet` (otevři URL `.../exec` v prohlížeči) vrátí `{"ok":true,...}` = web app běží.
 - V GPT řekni „ulož tuhle pozici" po vytvoření; v Sheetu přibude řádek se `zverejnit = ne`.
 
+## Jeden endpoint, tři cíle
+
+Endpoint i akce `createRecord` obsluhují tři cíle přes pole `target`:
+- `pozice` → list `pozice`
+- `reference` → list `reference`
+- `case` → list `case_studies`
+
+Tělo: `{ "token": "...", "target": "reference", "record": { ... } }`. Vše se ukládá jako
+koncept (`zverejnit = ne`). Listy `reference` a `case_studies` si skript při prvním zápisu
+založí s hlavičkou sám.
+
 ## Soubory
 
-- `Code.gs` — endpoint (doPost zapíše řádek, doGet health-check).
-- `openapi.yaml` — schéma akce pro custom GPT.
-- `../ai-pozice-writer.md` — systémový prompt skillu (raw → strukturovaná pozice).
+- `Code.gs` — endpoint (doPost zapíše řádek do správného listu, doGet health-check).
+- `openapi.yaml` — schéma akce `createRecord` pro custom GPT (Position / Reference / Case).
+- `../ai-pozice-writer.md` — skill pro pozice (raw → strukturovaná pozice).
+- `../ai-reference-casestudy-writer.md` — skill pro reference a case studies.

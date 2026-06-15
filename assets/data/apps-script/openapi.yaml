@@ -1,29 +1,37 @@
 openapi: 3.1.0
 info:
-  title: Sintera pozice
-  description: Zápis nové pracovní pozice do Google Sheetu (list "pozice").
-  version: 1.0.0
+  title: Sintera obsah
+  description: Zápis pozice, reference nebo case study do Google Sheetu (jako koncept).
+  version: 2.0.0
 servers:
   - url: https://script.google.com/macros/s/NASAD_ID/exec
     description: Apps Script web app (nahraď NASAD_ID svým deployment ID)
 paths:
   /:
     post:
-      operationId: createPosition
-      summary: Uloží novou pozici jako koncept do Sheetu.
+      operationId: createRecord
+      summary: Uloží pozici, referenci nebo case study jako koncept.
+      description: >
+        target určuje cíl a tvar record. Pro "pozice" použij pole Position,
+        pro "reference" pole Reference, pro "case" pole Case (viz schémata).
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              required: [token, position]
+              required: [token, target, record]
               properties:
                 token:
                   type: string
                   description: Sdílený tajný token (stejný jako v Code.gs).
-                position:
-                  $ref: '#/components/schemas/Position'
+                target:
+                  type: string
+                  enum: [pozice, reference, case]
+                record:
+                  type: object
+                  description: >
+                    Obsah podle target. pozice → Position; reference → Reference; case → Case.
       responses:
         '200':
           description: OK
@@ -33,8 +41,9 @@ paths:
                 type: object
                 properties:
                   ok: { type: boolean }
+                  target: { type: string }
+                  sheet: { type: string }
                   row: { type: integer }
-                  nazev: { type: string }
 components:
   schemas:
     Position:
@@ -42,15 +51,13 @@ components:
       required: [title, category, seniority, region]
       properties:
         title: { type: string, description: "Jen název role, bez CAPS/bonusu." }
-        category:
-          type: string
-          enum: [vyroba, auto, tech, kvalita, logistika, servis, projekty, finance, hr, obchod]
+        category: { type: string, enum: [vyroba, auto, tech, kvalita, logistika, servis, projekty, finance, hr, obchod] }
         seniority: { type: string, enum: [spec, man, top] }
         region: { type: string }
         employmentType: { type: string, enum: [FULL_TIME, PART_TIME] }
         workMode: { type: string, enum: [onsite, hybrid, remote] }
         bonus: { type: string }
-        salaryRange: { type: string, description: "Např. 42 000 – 52 000 Kč." }
+        salaryRange: { type: string }
         salaryNote: { type: string }
         intro: { type: string }
         whyTalk: { type: array, items: { type: string } }
@@ -62,3 +69,26 @@ components:
         featured: { type: boolean }
         datePosted: { type: string }
         validThrough: { type: string }
+    Reference:
+      type: object
+      required: [company, quote, long]
+      properties:
+        company: { type: string, description: "Zobrazený název firmy." }
+        role: { type: string, description: "Pozice / typ spolupráce." }
+        quote: { type: string, description: "Krátká citace (na kartu)." }
+        long: { type: string, description: "2 až 4 věty, redakční web text." }
+        tags: { type: array, items: { type: string }, description: "Důkazní štítky." }
+        logo_slug: { type: string }
+        consent: { type: boolean, description: "Souhlas se zveřejněním." }
+    Case:
+      type: object
+      required: [name, situ, why, change, win]
+      properties:
+        name: { type: string, description: "Pracovní název case study." }
+        role: { type: string }
+        companyType: { type: string }
+        region: { type: string }
+        situ: { type: string, description: "Výchozí problém." }
+        why: { type: string, description: "Proč běžný nábor nestačil." }
+        change: { type: string, description: "Co Sintera udělala jinak." }
+        win: { type: string, description: "Výsledek." }

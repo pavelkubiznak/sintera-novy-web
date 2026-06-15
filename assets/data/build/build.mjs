@@ -88,14 +88,45 @@ function mapClients(rows) {
   return rows.filter(r => yes(r.ve_stripu)).sort((a,b)=>(+a.poradi||0)-(+b.poradi||0))
     .map(r => ({ name: r.nazev, logo: logoPath(r.logo_slug), _logoSlug: r.logo_slug || "" }));
 }
+function splitList(v) {
+  return String(v || "").split(/\r?\n|;/).map(s => s.replace(/^[-•\s]+/, "").trim()).filter(Boolean);
+}
+function escHtml(s) {
+  return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+function descHtmlFromStructured(r) {
+  const sec = (title, items) => items.length
+    ? `<h4>${escHtml(title)}</h4><ul>${items.map(i => `<li>${escHtml(i)}</li>`).join("")}</ul>` : "";
+  let h = "";
+  if (r.uvod) h += `<p>${escHtml(r.uvod)}</p>`;
+  h += sec("Proč o té roli mluvit", splitList(r.proc_mluvit));
+  h += sec("Co budete dělat", splitList(r.naplne));
+  h += sec("Co opravdu potřebujeme", splitList(r.must));
+  h += sec("Co je výhoda, ne podmínka", splitList(r.vyhoda));
+  h += sec("Co nabízíme", splitList(r.nabizime));
+  return h;
+}
 function mapPositions(rows) {
-  return rows.filter(r => yes(r.zverejnit)).map((r, i) => ({
-    id: i + 1, t: r.nazev, o: r.obor, s: r.seniorita,
-    k: (r.kraj || "").split("/").map(s => s.trim()).filter(Boolean),
-    desc: r.popis || "", bonus: r.bonus || "",
-    datePosted: r.datum_zverejneni || "", validThrough: r.platnost_do || "",
-    employmentType: r.uvazek || "FULL_TIME",
-  }));
+  return rows.filter(r => yes(r.zverejnit)).map((r, i) => {
+    const structured = !!(r.uvod || r.naplne || r.nabizime);
+    return {
+      id: i + 1, t: r.nazev, o: r.obor, s: r.seniorita,
+      k: (r.kraj || "").split("/").map(s => s.trim()).filter(Boolean),
+      bonus: r.bonus || "", workMode: r.rezim || "onsite",
+      salaryRange: r.mzda_rozsah || "", salaryNote: r.mzda_pozn || "",
+      intro: r.uvod || "",
+      whyTalk: splitList(r.proc_mluvit),
+      responsibilities: splitList(r.naplne),
+      mustHave: splitList(r.must),
+      niceToHave: splitList(r.vyhoda),
+      offer: splitList(r.nabizime),
+      cta: r.cta || "",
+      desc: structured ? descHtmlFromStructured(r) : (r.popis || ""),
+      datePosted: r.datum_zverejneni || "", validThrough: r.platnost_do || "",
+      employmentType: r.uvazek || "FULL_TIME",
+      featured: yes(r.featured),
+    };
+  });
 }
 
 /* ---------- fallback: commitnutý JSON ---------- */

@@ -98,9 +98,9 @@ aby tahle pole četl a vykreslil (dnes čte jen `popis`).
 >    mzda/rozpětí, přesná lokalita, úvazek, směny (u dělnických), a co je must-have vs. výhoda.
 >    Nikdy si mzdu ani fakta nevymýšlej.
 > 3. Vrať výstup ve dvou částech: (a) čitelný náhled pozice, (b) JSON přesně dle schématu.
-> 4. (Úroveň 2) Po odsouhlasení uživatelem zavolej akci `createPosition` s tělem
->    `{ "token": "...", "position": { ...JSON... } }`. Pozice se uloží jako koncept
->    (`zverejnit = ne`); ke zveřejnění ji člověk přepne a spustí build. Bez potvrzení nezapisuj.
+> 4. (Úroveň 2) Po odsouhlasení uživatelem zavolej akci `createRecord` s tělem
+>    `{ "token": "...", "target": "pozice", "record": { ...JSON... } }`. Pozice se uloží jako
+>    koncept (`zverejnit = ne`); ke zveřejnění ji člověk přepne a spustí build. Bez potvrzení nezapisuj.
 >
 > PRAVIDLA PSANÍ:
 > - Titulek = jen název role. Žádné CAPS, vykřičníky, bonusy ani angličtina navíc.

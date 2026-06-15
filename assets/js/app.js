@@ -13,6 +13,7 @@
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
   var DATA = window.SINTERA_DATA || { references: [], cases: [], rotor: [], clients: [] };
+  var GDPR_NOTE = "Odesláním reakce poskytujete své osobní údaje (jméno, kontaktní údaje a informace o sobě) správci Sintera Czech s.r.o., IČ 29130336, se sídlem Uhelná 160/24, Hradec Králové, za účelem vyřízení Vaší reakce a zprostředkování zaměstnání, včetně případného předání potenciálnímu zaměstnavateli v rámci náborového procesu. Zpracování probíhá v souladu se zákonem č. 110/2019 Sb. a nařízením (EU) 2016/679 (GDPR). Máte právo na přístup k údajům, jejich opravu nebo výmaz a kdykoli odvolat svůj souhlas; podrobnosti Vám poskytneme na vyžádání na info@sintera.cz.";
 
   /* ---------- nav scrolled + mobilní menu ---------- */
   var nav = document.getElementById("nav");
@@ -224,11 +225,18 @@
       var detail = document.createElement("div");
       detail.className = "pos-detail";
       var subj = "Reakce na pozici: " + p.title + " (" + p.loc + ")";
+      var popis = (window.POZICE_POPISY || {})[p.id];
+      var introHtml = "";
+      if (popis && popis.descHtml) {
+        var mIntro = popis.descHtml.match(/<p>([\s\S]*?)<\/p>/);
+        if (mIntro) introHtml = "<p>" + mIntro[1] + "</p>";
+      }
+      if (!introHtml) introHtml = "<p>Kompletní popis role, požadavky i co nabízíme najdete na stránce pozice.</p>";
       detail.innerHTML =
         '<div class="pos-detail-inner"><div class="pos-detail-pad">' +
           '<div class="pos-desc">' +
             "<h3>" + esc(p.title) + "</h3>" +
-            "<p>Roli upřesníme při prvním hovoru, řekněte nám, co od ní čekáte. Detaily a požadavky pošleme obratem.</p>" +
+            introHtml +
             '<div class="pos-tags"><span>' + esc(p.field) + "</span><span>" + esc(p.level) + "</span><span>" + esc(p.loc) + "</span></div>" +
             '<p style="margin-top:16px"><a class="ref-more" href="pozice/' + p.id + '.html">Otevřít stránku pozice →</a></p>' +
           "</div>" +
@@ -239,6 +247,7 @@
             '<textarea name="note" placeholder="Pár vět o vás, nebo odkaz na profil. CV doplníme později." aria-label="Zpráva"></textarea>' +
             '<button type="submit" class="btn btn-primary">Odeslat reakci</button>' +
             '<span class="af-note">Odesláním se otevře e-mail na info@sintera.cz s předvyplněnou pozicí.</span>' +
+            '<span class="af-note af-gdpr">' + GDPR_NOTE + "</span>" +
           "</form>" +
         "</div></div>";
       wrap.appendChild(row); wrap.appendChild(detail); list.appendChild(wrap);
@@ -400,8 +409,7 @@
   function anchorPoint(spec) {
     var el = document.querySelector(spec.sel); if (!el) return null;
     var r = el.getBoundingClientRect(), top = r.top + window.scrollY, y = top + r.height / 2 + (spec.dy || 0), x;
-    if (document.documentElement.clientWidth <= 640) x = 18; // mobil: nit rovně do levého gutteru
-    else if (spec.x === "gutter") x = 30; else if (spec.x === "center") x = docEl().clientWidth / 2; else x = r.left + (spec.dx || 0);
+    if (spec.x === "gutter") x = 30; else if (spec.x === "center") x = docEl().clientWidth / 2; else x = r.left + (spec.dx || 0);
     return { x: x, y: y };
   }
   function docEl() { return document.documentElement; }

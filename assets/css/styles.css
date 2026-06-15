@@ -1010,7 +1010,8 @@ html[data-motion="jemne"] .logo-band-track { animation: none; }
   .step { min-height: auto; padding: 36px 0; opacity: 1; transform: none; }
   .pos-detail-pad { grid-template-columns: 1fr; }
 
-  /* nit zůstává viditelná; na mobilu (≤640) ji JS posune do gutteru (x=18) a obsah sekcí se odsadí vlevo */
+  /* dekorativní nit se na úzkých displejích kříží s textem → na mobilu/tabletu skrýt */
+  #thread-svg { display: none; }
 
   /* pozice: blokové rozložení místo pevných sloupců (oprava přetékání doprava) */
   .pos-row {
@@ -1063,10 +1064,9 @@ html[data-motion="jemne"] .logo-band-track { animation: none; }
 }
 
 @media (max-width: 640px) {
-  /* nit je v gutteru (x=18 z JS) → obsah sekcí odsadit vlevo, ať ho nit nepřekrývá */
-  .block { padding: 72px 22px 72px 42px; }
+  .block { padding: 72px 22px; }
   section { padding: 76px 22px; }
-  .hero { padding: 118px 22px 64px 42px; min-height: 92vh; }
+  .hero { padding: 118px 22px 64px; min-height: 92vh; }
   #nav { padding: 16px 22px; }
   #nav.scrolled { padding: 12px 22px; }
   .hero-scroll { display: none; }
@@ -1113,3 +1113,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .pos-row:focus-vis
 .mcite-rotor .mcite.active { opacity: 1; transform: translateX(0); }
 .mcite-rotor .mcite.exit { opacity: 0; transform: translateX(-70px); }
 @media (prefers-reduced-motion: reduce) { .mcite-rotor .mcite { transition: none; } }
+
+/* obsah popisu pozice (descHtml / strukturovaná pole na detailu pozice) */
+.body h4 { font-family: var(--serif); font-weight: 400; font-size: clamp(20px, 2vw, 24px); line-height: 1.2; margin: 32px 0 12px; color: var(--ink); }
+.body p { margin: 0 0 14px; }
+.body ul { margin: 4px 0 18px; padding: 0; list-style: none; max-width: 720px; }
+.body li { position: relative; padding-left: 22px; margin: 9px 0; line-height: 1.55; color: var(--dim); }
+.body li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.af-gdpr { color: var(--dim); opacity: 0.82; }

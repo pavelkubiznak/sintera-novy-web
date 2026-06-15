@@ -64,6 +64,43 @@ function loadPozice() {
 }
 const PZ = loadPozice();
 
+/* ---------- popisy pozic (descHtml překlopené ze sintera.cz) ---------- */
+const POPISY = (() => { try { return JSON.parse(fs.readFileSync(path.join(DATA, "pozice-popisy.json"), "utf8")); } catch { return {}; } })();
+
+/* ---------- GDPR text k formuláři reakce (právně ověřeno; zákon 110/2019 Sb. + GDPR) ---------- */
+const GDPR_NOTE = "Odesláním reakce poskytujete své osobní údaje (jméno, kontaktní údaje a informace o sobě) správci Sintera Czech s.r.o., IČ 29130336, se sídlem Uhelná 160/24, Hradec Králové, za účelem vyřízení Vaší reakce a zprostředkování zaměstnání, včetně případného předání potenciálnímu zaměstnavateli v rámci náborového procesu. Zpracování probíhá v souladu se zákonem č. 110/2019 Sb. a nařízením (EU) 2016/679 (GDPR). Máte právo na přístup k údajům, jejich opravu nebo výmaz a kdykoli odvolat svůj souhlas; podrobnosti Vám poskytneme na vyžádání na info@sintera.cz.";
+
+/* ---------- popis pozice: strukturovaná pole (Sheet) → descHtml (popisy) → fallback ---------- */
+function splitList(s) { return String(s || "").split(/\r?\n|;|·/).map(x => x.trim()).filter(Boolean); }
+function listUL(arr) { return arr && arr.length ? `<ul>${arr.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""; }
+function structuredBody(p) {
+  let h = "";
+  if (p.intro) h += `<p>${esc(p.intro)}</p>`;
+  if (p.whyTalk) h += `<p>${esc(p.whyTalk)}</p>`;
+  if (p.responsibilities && p.responsibilities.length) h += `<h4>Co bude vaším úkolem</h4>${listUL(p.responsibilities)}`;
+  if (p.mustHave && p.mustHave.length) h += `<h4>Koho hledáme</h4>${listUL(p.mustHave)}`;
+  if (p.niceToHave && p.niceToHave.length) h += `<h4>Výhodou</h4>${listUL(p.niceToHave)}`;
+  if (p.offer && p.offer.length) h += `<h4>Co nabízíme</h4>${listUL(p.offer)}`;
+  if (p.salaryRange) h += `<p><strong>Mzdové rozpětí:</strong> ${esc(p.salaryRange)}${p.salaryNote ? " (" + esc(p.salaryNote) + ")" : ""}</p>`;
+  if (p.cta) h += `<p>${esc(p.cta)}</p>`;
+  return h;
+}
+function positionBodyHTML(p, labels) {
+  const structured = structuredBody(p);
+  if (structured) return structured;
+  if (POPISY[p.id] && POPISY[p.id].descHtml) return POPISY[p.id].descHtml;
+  return jobDescription(p, labels);
+}
+function salaryLD(s) {
+  if (!s) return null;
+  const nums = (String(s).replace(/ |\s/g, "").match(/\d{4,7}/g) || []).map(Number);
+  if (!nums.length) return null;
+  const value = nums.length >= 2
+    ? { "@type": "QuantitativeValue", minValue: Math.min(...nums), maxValue: Math.max(...nums), unitText: "MONTH" }
+    : { "@type": "QuantitativeValue", value: nums[0], unitText: "MONTH" };
+  return { "@type": "MonetaryAmount", currency: "CZK", value };
+}
+
 /* ---------- mapování loga ze slugu (tmavé pozadí = mono-light) ---------- */
 const ML_SVG = new Set(["aisan","alstom","edwards","nestle","panasonic","safran-cabin","siemens-energy","vitesco","winning-group","zf"]);
 function logoPath(slug) {
@@ -99,7 +136,10 @@ function mapClients(rows) {
 function mapPositions(rows) {
   return rows.filter(r => yes(r.zverejnit)).map((r, i) => ({
     id: 1000 + i, t: r.nazev, o: r.obor, s: r.seniorita, k: (r.kraj || "").split("/").map(s => s.trim()).filter(Boolean),
-    desc: r.popis || "", bonus: r.bonus || "", datePosted: r.datum_zverejneni || "", validThrough: r.platnost_do || "", employmentType: r.uvazek || "FULL_TIME",
+    bonus: r.bonus || "", rezim: r.rezim || "", datePosted: r.datum_zverejneni || "", validThrough: r.platnost_do || "", employmentType: r.uvazek || "FULL_TIME",
+    intro: r.uvod || "", whyTalk: r.proc_mluvit || "",
+    responsibilities: splitList(r.naplne), mustHave: splitList(r.must), niceToHave: splitList(r.vyhoda), offer: splitList(r.nabizime),
+    salaryRange: r.mzda_rozsah || "", salaryNote: r.mzda_pozn || "", cta: r.cta || "",
   }));
 }
 
@@ -173,15 +213,17 @@ function jobPosting(p, labels) {
   const now = new Date();
   const posted = now.toISOString().slice(0, 10);
   const through = new Date(now.getTime() + 90 * 864e5).toISOString().slice(0, 10);
+  const sal = salaryLD(p.salaryRange);
   return {
     "@context": "https://schema.org", "@type": "JobPosting",
     title: p.t, identifier: { "@type": "PropertyValue", name: "Sintera", value: String(p.id) },
     datePosted: p.datePosted || posted, validThrough: p.validThrough || through,
     employmentType: p.employmentType || "FULL_TIME",
-    description: jobDescription(p, labels),
+    description: positionBodyHTML(p, labels),
     hiringOrganization: { "@type": "Organization", name: "Sintera Czech s.r.o.", sameAs: BASE + "/", logo: BASE + "/assets/img/logo-color.png" },
     jobLocation: jobLocations(p.k),
     applicantLocationRequirements: applicantCountries(p.k),
+    ...(sal ? { baseSalary: sal } : {}),
     directApply: false, url: `${BASE}/pozice/${p.id}.html`,
   };
 }
@@ -251,11 +293,12 @@ ${JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", 
     <div class="kicker">${esc(obor)} · ${esc(sen)}</div>
     <h1 class="lead">${esc(p.t)}</h1>
     <div class="pos-tags" style="margin-top:22px"><span>${esc(loc)}</span><span>${esc(obor)}</span><span>${esc(sen)}</span>${bonus}</div>
-    <div class="body" style="margin-top:28px">${jobDescription(p, labels)}</div>
+    <div class="body" style="margin-top:28px">${positionBodyHTML(p, labels)}</div>
     <div class="hero-ctas" style="margin-top:40px;flex-wrap:wrap">
       <a class="btn btn-primary" href="mailto:info@sintera.cz?subject=${subj}&body=${encodeURIComponent("Jméno:\nKontakt:\n\nPár vět o vás nebo odkaz na profil:")}">Reagovat na pozici</a>
       <a class="btn btn-line" href="tel:+420499599861">Zavolejte nám · +420 499 599 861</a>
     </div>
+    <p style="margin-top:24px;max-width:680px;font-size:12.5px;line-height:1.6;color:var(--dim)">${GDPR_NOTE}</p>
   </div>
 </section>
 </main>
