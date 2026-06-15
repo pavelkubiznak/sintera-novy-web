@@ -1,0 +1,43 @@
+name: Build & publish (Google Sheet → Pages)
+
+# Přegeneruje web z Google Sheetu a commitne výstup zpět do main.
+# GitHub Pages (legacy, zdroj = větev main) pak automaticky publikuje.
+on:
+  push:
+    branches: [main]          # ruční změny (šablona, kód) → rebuild ze Sheetu
+  schedule:
+    - cron: "0 4 * * *"       # denně 04:00 UTC (~06:00 Praha) → promítne změny v Sheetu
+  workflow_dispatch:           # ruční spuštění z GitHubu
+
+permissions:
+  contents: write              # GITHUB_TOKEN smí commitnout výstup
+
+concurrency:
+  group: sheet-rebuild
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build ze Sheetu
+        run: node build/build.mjs
+
+      - name: Commit & push, jen když se výstup změnil
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Beze změn — Sheet i výstup se shodují, nic se necommituje."
+          else
+            git commit -m "chore: rebuild webu ze Sheetu [skip ci]"
+            git push
+            echo "Výstup aktualizován a publikován přes GitHub Pages."
+          fi
