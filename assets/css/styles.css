@@ -1137,3 +1137,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .pos-row:focus-vis
 .pos-tags .pos-tag-mzda { color: var(--accent); border-color: color-mix(in oklab, var(--accent) 45%, transparent); }
 .pos-detail-link { margin-top: 20px; }
 .pos-detail-link a { font-size: 14px; }
+
+/* rozbalený detail pozice = neprůhledná karta NAD dekorativní nití (#thread-svg má ve světlých sekcích z-index:0) */
+.pos-detail { position: relative; z-index: 1; background: var(--panel); }
+.panel-light .pos-detail .apply-form input,
+.panel-light .pos-detail .apply-form textarea { background: color-mix(in oklab, var(--panel) 90%, var(--ink)); }

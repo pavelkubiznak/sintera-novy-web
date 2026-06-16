@@ -292,6 +292,17 @@
       fillDetail();
       var open = detail.classList.toggle("open");
       row.setAttribute("aria-expanded", open ? "true" : "false");
+      // až po doběhnutí výškové animace přepočítej dekorativní nit (finální výška + geometrie)
+      var fired = false, fb;
+      function done(e) {
+        if (e && e.propertyName && e.propertyName !== "grid-template-rows") return;
+        if (fired) return; fired = true;
+        detail.removeEventListener("transitionend", done);
+        clearTimeout(fb);
+        window.dispatchEvent(new Event("sintera:rendered"));
+      }
+      detail.addEventListener("transitionend", done);
+      fb = setTimeout(done, 480);
     }
     row.addEventListener("click", toggle);
     row.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); toggle(); } });
