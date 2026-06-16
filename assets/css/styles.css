@@ -1130,10 +1130,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .pos-row:focus-vis
 .ref-archive .btn-primary { white-space: nowrap; }
 @media (max-width: 640px) { .ref-archive { padding: 22px; gap: 18px; } .ref-archive .btn-primary { width: 100%; text-align: center; } }
 
-/* homepage rozbalení pozice: celý popis (.body) + meta + odkaz na samostatnou stránku */
-.pos-desc .body { margin-bottom: 22px; }
+/* homepage rozbalení pozice: jemnější typografie popisu (scopováno pod .pos-desc .body; detailové stránky beze změny) */
+.pos-desc .body { max-width: 660px; margin-bottom: 28px; font-size: 16px; line-height: 1.7; }
 .pos-desc .body > :first-child { margin-top: 0; }
-.pos-desc .body p { max-width: none; }
+.pos-desc .body p { max-width: inherit; line-height: 1.7; }
+.pos-desc .body li { font-size: 16px; line-height: 1.7; margin: 11px 0; }
+.pos-desc .body h4 { font-size: 18px; margin: 30px 0 10px; }
 .pos-tags .pos-tag-mzda { color: var(--accent); border-color: color-mix(in oklab, var(--accent) 45%, transparent); }
 .pos-detail-link { margin-top: 20px; }
 .pos-detail-link a { font-size: 14px; }
