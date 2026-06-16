@@ -201,69 +201,97 @@
   var picked = allPos.filter(function (p) { return p.featured; });          // homepage řídí sloupec featured ze Sheetu
   if (!picked.length) picked = HOMEPAGE_POS.map(function (id) { return byId[id]; }).filter(Boolean);
   var POS = picked.slice(0, 9).map(function (p) {
-    return { id: p.id, title: p.t, field: OB[p.o] || p.o, level: SEN[p.s] || p.s, loc: (p.k || []).join(" / "), bonus: p.bonus || "" };
+    return { id: p.id, title: p.t, field: OB[p.o] || p.o, level: SEN[p.s] || p.s, loc: (p.k || []).join(" / "), bonus: p.bonus || "", salary: p.sal || "" };
   });
   var list = document.getElementById("pos-list");
   var empty = document.getElementById("pos-empty");
+
+  // celý popis pozice (stejný obsah jako detailová stránka) z pozice-popisy.js podle id; v .body kvůli stejnému stylu
+  function posBodyHTML(p) {
+    var popis = (window.POZICE_POPISY || {})[p.id];
+    if (popis && popis.descHtml) return '<div class="body">' + popis.descHtml + "</div>";
+    return '<div class="body"><p>Kompletní popis role, požadavky i co nabízíme najdete na samostatné stránce pozice.</p></div>';
+  }
+  // meta: mzda (když je vyplněná), kraj, štítky (obor, seniorita)
+  function metaTagsHTML(p) {
+    var t = [];
+    if (p.salary) t.push('<span class="pos-tag-mzda">' + esc(p.salary) + "</span>");
+    if (p.field) t.push("<span>" + esc(p.field) + "</span>");
+    if (p.level) t.push("<span>" + esc(p.level) + "</span>");
+    if (p.loc) t.push("<span>" + esc(p.loc) + "</span>");
+    return '<div class="pos-tags">' + t.join("") + "</div>";
+  }
+  // reakční formulář + GDPR poučení (jedna komponenta, GDPR_NOTE z jednoho zdroje)
+  function applyFormHTML(subj) {
+    return '<form class="apply-form" data-subject="' + esc(subj) + '">' +
+      '<span class="af-title">Reagovat na pozici</span>' +
+      '<input type="text" name="name" placeholder="Jméno a příjmení" autocomplete="name" aria-label="Jméno a příjmení" />' +
+      '<input type="text" name="contact" placeholder="E-mail nebo telefon" autocomplete="email" aria-label="E-mail nebo telefon" />' +
+      '<textarea name="note" placeholder="Pár vět o vás, nebo odkaz na profil. CV doplníme později." aria-label="Zpráva"></textarea>' +
+      '<button type="submit" class="btn btn-primary">Odeslat reakci</button>' +
+      '<span class="af-note">Odesláním se otevře e-mail na info@sintera.cz s předvyplněnou pozicí.</span>' +
+      '<span class="af-note af-gdpr">' + GDPR_NOTE + "</span>" +
+      "</form>";
+  }
+  function wireApplyForm(form, p) {
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var fd = new FormData(form);
+      var body = "Pozice: " + p.title + ", " + p.loc + "\nJméno: " + (fd.get("name") || "") + "\nKontakt: " + (fd.get("contact") || "") + "\n\n" + (fd.get("note") || "");
+      window.location.href = "mailto:info@sintera.cz?subject=" + encodeURIComponent(form.dataset.subject) + "&body=" + encodeURIComponent(body);
+    });
+  }
+
+  // rozbalovací položka pozice (accordion); sdíleno homepage seznamem i /pozice/
+  function buildPosItem(p) {
+    var wrap = document.createElement("div");
+    wrap.className = "pos-item";
+    var rowId = "pos-row-" + p.id, detailId = "pos-detail-" + p.id;
+    var row = document.createElement("div");
+    row.className = "pos-row";
+    row.id = rowId;
+    row.setAttribute("role", "button");
+    row.setAttribute("tabindex", "0");
+    row.setAttribute("aria-expanded", "false");
+    row.setAttribute("aria-controls", detailId);
+    var bonus = p.bonus ? ' <span class="pos-bonus">+ příspěvek ' + esc(p.bonus) + "</span>" : "";
+    row.innerHTML =
+      '<span class="t">' + esc(p.title) + bonus + "</span>" +
+      '<span class="m field">' + esc(p.field) + "</span>" +
+      '<span class="m level">' + esc(p.level) + "</span>" +
+      '<span class="m loc">' + esc(p.loc) + "</span>" +
+      '<span class="arr">→</span>';
+    var detail = document.createElement("div");
+    detail.className = "pos-detail";
+    detail.id = detailId;
+    detail.setAttribute("role", "region");
+    detail.setAttribute("aria-labelledby", rowId);
+    var subj = "Reakce na pozici: " + p.title + " (" + p.loc + ")";
+    detail.innerHTML =
+      '<div class="pos-detail-inner"><div class="pos-detail-pad">' +
+        '<div class="pos-desc">' +
+          posBodyHTML(p) +
+          metaTagsHTML(p) +
+          '<p class="pos-detail-link"><a class="ref-more" href="pozice/' + p.id + '.html">Otevřít jako samostatnou stránku →</a></p>' +
+        "</div>" +
+        applyFormHTML(subj) +
+      "</div></div>";
+    wrap.appendChild(row);
+    wrap.appendChild(detail);
+    function toggle() { var open = detail.classList.toggle("open"); row.setAttribute("aria-expanded", open ? "true" : "false"); }
+    row.addEventListener("click", toggle);
+    row.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); toggle(); } });
+    wireApplyForm(detail.querySelector(".apply-form"), p);
+    return wrap;
+  }
 
   function renderPositions() {
     if (!list) return;
     list.innerHTML = "";
     POS.forEach(function (p, i) {
-      var wrap = document.createElement("div");
-      wrap.className = "pos-item";
-      var row = document.createElement("div");
-      row.className = "pos-row";
-      row.setAttribute("role", "button");
-      row.setAttribute("tabindex", "0");
-      row.setAttribute("aria-expanded", "false");
-      row.style.animationDelay = Math.min(i * 40, 320) + "ms";
-      var bonus = p.bonus ? ' <span class="pos-bonus">+ příspěvek ' + esc(p.bonus) + "</span>" : "";
-      row.innerHTML =
-        '<span class="t">' + esc(p.title) + bonus + "</span>" +
-        '<span class="m field">' + esc(p.field) + "</span>" +
-        '<span class="m level">' + esc(p.level) + "</span>" +
-        '<span class="m loc">' + esc(p.loc) + "</span>" +
-        '<span class="arr">→</span>';
-      var detail = document.createElement("div");
-      detail.className = "pos-detail";
-      var subj = "Reakce na pozici: " + p.title + " (" + p.loc + ")";
-      var popis = (window.POZICE_POPISY || {})[p.id];
-      var introHtml = "";
-      if (popis && popis.descHtml) {
-        var mIntro = popis.descHtml.match(/<p>([\s\S]*?)<\/p>/);
-        if (mIntro) introHtml = "<p>" + mIntro[1] + "</p>";
-      }
-      if (!introHtml) introHtml = "<p>Kompletní popis role, požadavky i co nabízíme najdete na stránce pozice.</p>";
-      detail.innerHTML =
-        '<div class="pos-detail-inner"><div class="pos-detail-pad">' +
-          '<div class="pos-desc">' +
-            "<h3>" + esc(p.title) + "</h3>" +
-            introHtml +
-            '<div class="pos-tags"><span>' + esc(p.field) + "</span><span>" + esc(p.level) + "</span><span>" + esc(p.loc) + "</span></div>" +
-            '<p style="margin-top:16px"><a class="ref-more" href="pozice/' + p.id + '.html">Otevřít stránku pozice →</a></p>' +
-          "</div>" +
-          '<form class="apply-form" data-subject="' + esc(subj) + '">' +
-            '<span class="af-title">Reagovat na pozici</span>' +
-            '<input type="text" name="name" placeholder="Jméno a příjmení" autocomplete="name" aria-label="Jméno a příjmení" />' +
-            '<input type="text" name="contact" placeholder="E-mail nebo telefon" autocomplete="email" aria-label="E-mail nebo telefon" />' +
-            '<textarea name="note" placeholder="Pár vět o vás, nebo odkaz na profil. CV doplníme později." aria-label="Zpráva"></textarea>' +
-            '<button type="submit" class="btn btn-primary">Odeslat reakci</button>' +
-            '<span class="af-note">Odesláním se otevře e-mail na info@sintera.cz s předvyplněnou pozicí.</span>' +
-            '<span class="af-note af-gdpr">' + GDPR_NOTE + "</span>" +
-          "</form>" +
-        "</div></div>";
-      wrap.appendChild(row); wrap.appendChild(detail); list.appendChild(wrap);
-      function toggle() { var open = detail.classList.toggle("open"); row.setAttribute("aria-expanded", open ? "true" : "false"); }
-      row.addEventListener("click", toggle);
-      row.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); toggle(); } });
-      var form = detail.querySelector(".apply-form");
-      form.addEventListener("submit", function (ev) {
-        ev.preventDefault();
-        var fd = new FormData(form);
-        var body = "Pozice: " + p.title + ", " + p.loc + "\nJméno: " + (fd.get("name") || "") + "\nKontakt: " + (fd.get("contact") || "") + "\n\n" + (fd.get("note") || "");
-        window.location.href = "mailto:info@sintera.cz?subject=" + encodeURIComponent(form.dataset.subject) + "&body=" + encodeURIComponent(body);
-      });
+      var item = buildPosItem(p);
+      item.querySelector(".pos-row").style.animationDelay = Math.min(i * 40, 320) + "ms";
+      list.appendChild(item);
     });
     if (empty) empty.hidden = POS.length !== 0;
   }
@@ -468,7 +496,7 @@
 })();
 
 /* ============================================================
-   D) Rotující klientské citace (.mcite-rotor) — interval 6 s, jemný fade.
+   D) Rotující klientské citace (.mcite-rotor): interval 6 s, jemný fade.
       Při reduced-motion zůstává jen první citace.
    ============================================================ */
 (function () {

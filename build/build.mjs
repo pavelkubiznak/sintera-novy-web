@@ -401,6 +401,7 @@ async function main() {
     const posOut = site.positions.map(p => {
       const o = { id: p.id, t: p.t, k: p.k, o: p.o, s: p.s };
       if (p.bonus) o.bonus = p.bonus;
+      if (p.salaryRange) o.sal = p.salaryRange;
       if (p.featured) o.featured = true;
       return o;
     });
