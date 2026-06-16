@@ -1131,7 +1131,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .pos-row:focus-vis
 @media (max-width: 640px) { .ref-archive { padding: 22px; gap: 18px; } .ref-archive .btn-primary { width: 100%; text-align: center; } }
 
 /* homepage rozbalení pozice: jemnější typografie popisu (scopováno pod .pos-desc .body; detailové stránky beze změny) */
-.pos-desc .body { max-width: 660px; margin-bottom: 28px; font-size: 16px; line-height: 1.7; }
+.pos-desc .body { max-width: 660px; margin: 0 0 28px; font-size: 16px; line-height: 1.7; } /* margin-top:0 → popis lícuje nahoře s formulářem */
 .pos-desc .body > :first-child { margin-top: 0; }
 .pos-desc .body p { max-width: inherit; line-height: 1.7; }
 .pos-desc .body li { font-size: 16px; line-height: 1.7; margin: 11px 0; }
