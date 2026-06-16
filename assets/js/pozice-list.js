@@ -1,4 +1,4 @@
-/* SINTERA · stránka /pozice/ — výpis všech pozic + filtry (vanilla JS, bez závislostí).
+/* SINTERA · stránka /pozice/ : výpis všech pozic + filtry (vanilla JS, bez závislostí).
    Data z assets/js/pozice-data.js (window.POZICE, OBORY, SENIORITY, KRAJE).
    Každý řádek je odkaz na detail pozice. Odkazy jsou relativní ke složce stránky;
    pokud stránka NENÍ ve složce pozice/, nastav na kontejneru data-detail-base
@@ -46,15 +46,34 @@
 
   function render() {
     var rows = POZICE.filter(matches);
-    list.innerHTML = rows.map(function (p, i) {
-      var bonus = p.bonus ? ' <span class="pos-bonus">+ příspěvek ' + esc(p.bonus) + "</span>" : "";
-      return '<a class="pos-row" href="' + DETAIL_BASE + p.id + '.html" style="animation-delay:' + Math.min(i * 22, 420) + 'ms">' +
-        '<span class="t">' + esc(p.t) + bonus + "</span>" +
-        '<span class="m field">' + esc(OB[p.o] || p.o) + "</span>" +
-        '<span class="m level">' + esc(SEN[p.s] || p.s) + "</span>" +
-        '<span class="m loc">' + esc((p.k || []).join(" / ")) + "</span>" +
-        '<span class="arr" aria-hidden="true">→</span></a>';
-    }).join("");
+    var build = window.SINTERA_buildPosItem; // sdílený accordion builder z app.js
+    list.innerHTML = "";
+    rows.forEach(function (p, i) {
+      var delay = Math.min(i * 22, 420) + "ms";
+      if (build) {
+        // rozbalovací položka (stejný vzor jako homepage); panel se staví lazy až při prvním rozbalení
+        var item = build(
+          { id: p.id, title: p.t, field: OB[p.o] || p.o, level: SEN[p.s] || p.s, loc: (p.k || []).join(" / "), bonus: p.bonus || "", salary: p.sal || "" },
+          { lazy: true, detailBase: DETAIL_BASE }
+        );
+        item.querySelector(".pos-row").style.animationDelay = delay;
+        list.appendChild(item);
+      } else {
+        // fallback: prostý odkaz na detail, kdyby se builder nenačetl
+        var bonus = p.bonus ? ' <span class="pos-bonus">+ příspěvek ' + esc(p.bonus) + "</span>" : "";
+        var a = document.createElement("a");
+        a.className = "pos-row";
+        a.href = DETAIL_BASE + p.id + ".html";
+        a.style.animationDelay = delay;
+        a.innerHTML =
+          '<span class="t">' + esc(p.t) + bonus + "</span>" +
+          '<span class="m field">' + esc(OB[p.o] || p.o) + "</span>" +
+          '<span class="m level">' + esc(SEN[p.s] || p.s) + "</span>" +
+          '<span class="m loc">' + esc((p.k || []).join(" / ")) + "</span>" +
+          '<span class="arr" aria-hidden="true">→</span>';
+        list.appendChild(a);
+      }
+    });
     if (emptyEl) emptyEl.hidden = rows.length !== 0;
     if (countEl) {
       var active = state.o || state.s || state.k || state.q;

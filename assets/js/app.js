@@ -242,8 +242,12 @@
     });
   }
 
-  // rozbalovací položka pozice (accordion); sdíleno homepage seznamem i /pozice/
-  function buildPosItem(p) {
+  // rozbalovací položka pozice (accordion); sdíleno homepage seznamem i /pozice/.
+  // p = { id, title, field, level, loc, bonus, salary }. opts.lazy = panel se postaví až při prvním rozbalení
+  // (kvůli výkonu na /pozice/ se 76 položkami). opts.detailBase = prefix odkazu na detail (homepage "pozice/", /pozice/ "").
+  function buildPosItem(p, opts) {
+    opts = opts || {};
+    var detailBase = (opts.detailBase != null) ? opts.detailBase : "pozice/";
     var wrap = document.createElement("div");
     wrap.className = "pos-item";
     var rowId = "pos-row-" + p.id, detailId = "pos-detail-" + p.id;
@@ -267,23 +271,33 @@
     detail.setAttribute("role", "region");
     detail.setAttribute("aria-labelledby", rowId);
     var subj = "Reakce na pozici: " + p.title + " (" + p.loc + ")";
-    detail.innerHTML =
-      '<div class="pos-detail-inner"><div class="pos-detail-pad">' +
-        '<div class="pos-desc">' +
-          posBodyHTML(p) +
-          metaTagsHTML(p) +
-          '<p class="pos-detail-link"><a class="ref-more" href="pozice/' + p.id + '.html">Otevřít jako samostatnou stránku →</a></p>' +
-        "</div>" +
-        applyFormHTML(subj) +
-      "</div></div>";
+    var built = false;
+    function fillDetail() {
+      if (built) return; built = true;
+      detail.innerHTML =
+        '<div class="pos-detail-inner"><div class="pos-detail-pad">' +
+          '<div class="pos-desc">' +
+            posBodyHTML(p) +
+            metaTagsHTML(p) +
+            '<p class="pos-detail-link"><a class="ref-more" href="' + detailBase + p.id + '.html">Otevřít jako samostatnou stránku →</a></p>' +
+          "</div>" +
+          applyFormHTML(subj) +
+        "</div></div>";
+      wireApplyForm(detail.querySelector(".apply-form"), p);
+    }
+    if (!opts.lazy) fillDetail();
     wrap.appendChild(row);
     wrap.appendChild(detail);
-    function toggle() { var open = detail.classList.toggle("open"); row.setAttribute("aria-expanded", open ? "true" : "false"); }
+    function toggle() {
+      fillDetail();
+      var open = detail.classList.toggle("open");
+      row.setAttribute("aria-expanded", open ? "true" : "false");
+    }
     row.addEventListener("click", toggle);
     row.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); toggle(); } });
-    wireApplyForm(detail.querySelector(".apply-form"), p);
     return wrap;
   }
+  window.SINTERA_buildPosItem = buildPosItem;
 
   function renderPositions() {
     if (!list) return;
