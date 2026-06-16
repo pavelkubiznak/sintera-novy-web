@@ -290,6 +290,7 @@
     wrap.appendChild(detail);
     function toggle() {
       fillDetail();
+      void detail.offsetHeight; // vynuť layout (hlavně u lazy obsahu), ať grid-template-rows:1fr má finální výšku a animace nezůstane na nule
       var open = detail.classList.toggle("open");
       row.setAttribute("aria-expanded", open ? "true" : "false");
       // až po doběhnutí výškové animace přepočítej dekorativní nit (finální výška + geometrie)
