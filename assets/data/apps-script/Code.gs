@@ -8,17 +8,22 @@
  *     Vstup: { "action": "reference_request", "email": "...", "phone": "...",
  *              "name": "...", "position": "...", "source": "...", "consent": true, "website": "" }
  *     Ověří firemní doménu, zaloguje lead do listu "leady_reference",
- *     pošle přes Resend e-mail s odkazem na neveřejnou landing page.
+ *     pošle e-mail (přes Gmail / GmailApp) s odkazem na neveřejnou landing page.
  *
  * Nasazení: v Sheetu Rozšíření → Apps Script → vlož tento kód → Nasadit → Webová aplikace
  *   - "Spustit jako": já,  "Kdo má přístup": Kdokoli.
+ *   - Při prvním spuštění Google vyžádá oprávnění k odesílání e-mailu (GmailApp). Schval.
+ *
+ * E-maily se posílají PŘÍMO přes Google z účtu, který skript vlastní. Žádný Resend ani
+ * externí služba. Kopie každého odeslaného e-mailu je ve složce Odeslané daného účtu.
  *
  * Tajemství NEDÁVEJ do kódu. Projektová nastavení → Vlastnosti skriptu (Script Properties):
- *   TOKEN            = dlouhý náhodný řetězec (pro zápis obsahu z GPT)
- *   RESEND_API_KEY   = re_... (druhý API klíč pro doménu sintera.cz)
- *   FROM_EMAIL       = "Sintera <reference@sintera.cz>"
- *   LANDING_URL      = https://www.sintera.cz/reference/<neuhodnutelny-slug>/
- *   REPLY_TO         = (volitelné) kam mají chodit odpovědi, např. info@sintera.cz
+ *   TOKEN        = dlouhý náhodný řetězec (pro zápis obsahu z GPT)
+ *   LANDING_URL  = https://www.sintera.cz/reference/<neuhodnutelny-slug>/
+ *   FROM_EMAIL   = (volitelné) ověřený alias odesílatele, např. "info@sintera.cz".
+ *                  Musí být v Gmailu účtu nastaven jako "Odesílat jako / Send mail as".
+ *                  Když prázdné, odešle se z adresy účtu, pod kterým skript běží.
+ *   REPLY_TO     = (volitelné) kam mají chodit odpovědi, default info@sintera.cz
  */
 
 function prop_(key, fallback) {
@@ -149,7 +154,7 @@ function handleReferenceRequest_(body) {
     consent: 'ano'
   });
 
-  // 7) Odeslání e-mailu přes Resend
+  // 7) Odeslání e-mailu přes Gmail (GmailApp)
   var landing = prop_('LANDING_URL', '');
   if (!landing) return json_({ ok: false, error: 'missing_landing_url' });
   var send = sendReferenceEmail_(email, body.name || '', landing);
@@ -169,10 +174,8 @@ function logLead_(d) {
 }
 
 function sendReferenceEmail_(to, name, landing) {
-  var apiKey = prop_('RESEND_API_KEY', '');
-  var from = prop_('FROM_EMAIL', 'Sintera <reference@sintera.cz>');
-  var replyTo = prop_('REPLY_TO', '');
-  if (!apiKey) return { ok: false, detail: 'missing RESEND_API_KEY' };
+  var from = prop_('FROM_EMAIL', '');                 // volitelně ověřený alias (Send mail as)
+  var replyTo = prop_('REPLY_TO', 'info@sintera.cz');
 
   var hello = name ? ('Dobrý den, ' + name + ',') : 'Dobrý den,';
   var html =
@@ -192,20 +195,16 @@ function sendReferenceEmail_(to, name, landing) {
       '<p>Sintera Czech</p>' +
     '</div>';
 
-  var payload = { from: from, to: [to], subject: 'Reference Sintery', html: html };
-  if (replyTo) payload.reply_to = replyTo;
+  var plain = (name ? ('Dobrý den, ' + name + ',') : 'Dobrý den,') + '\n\n' +
+    'děkujeme za zájem o reference Sintery. Najdete je zde:\n' + landing + '\n\n' +
+    'Když budete chtít probrat konkrétní pozici, stačí odpovědět na tento e-mail.\n\nSintera Czech';
+
+  var options = { htmlBody: html, name: 'Sintera Czech', replyTo: replyTo };
+  if (from) options.from = from;                      // funguje jen pokud je to ověřený alias
 
   try {
-    var res = UrlFetchApp.fetch('https://api.resend.com/emails', {
-      method: 'post',
-      contentType: 'application/json',
-      headers: { Authorization: 'Bearer ' + apiKey },
-      payload: JSON.stringify(payload),
-      muteHttpExceptions: true
-    });
-    var code = res.getResponseCode();
-    if (code >= 200 && code < 300) return { ok: true };
-    return { ok: false, detail: 'resend ' + code + ': ' + res.getContentText() };
+    GmailApp.sendEmail(to, 'Reference Sintery', plain, options);
+    return { ok: true };
   } catch (err) {
     return { ok: false, detail: String(err) };
   }

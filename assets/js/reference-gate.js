@@ -8,9 +8,7 @@
  * (tzv. simple request), tělo je stejně JSON. Server čte e.postData.contents.
  */
 (function () {
-  // TODO (Pavel): nastav na URL nasazeného Apps Scriptu (…/exec); viz README-reference-gate.md, krok A2.
-  // Dokud je tu placeholder, formulář se neodešle (zobrazí chybovou hlášku); zbytek webu funguje normálně.
-  var ENDPOINT = 'NASTAV_URL_APPS_SCRIPTU/exec'; // TODO: Apps Script web app /exec URL
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyoSQr6qvQhGBTQo9LohaiUf5ph1zc4T9z9c3uXcYEudgOu85Yg-gJzhw6tCu1D2pZY/exec';
 
   // Zrcadlo seznamu z free-domains.js (kvůli rychlé hlášce ještě před odesláním).
   var FREE_DOMAINS = [
