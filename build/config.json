@@ -7,6 +7,8 @@
     "pozice": "https://docs.google.com/spreadsheets/d/14KteI4GZ58x5kj2MAWhSDb7gS5aLUhi9IEXRPH0cCHs/gviz/tq?tqx=out:csv&gid=1003913165",
     "reference": "https://docs.google.com/spreadsheets/d/14KteI4GZ58x5kj2MAWhSDb7gS5aLUhi9IEXRPH0cCHs/gviz/tq?tqx=out:csv&gid=1908671428",
     "casestudies": "https://docs.google.com/spreadsheets/d/14KteI4GZ58x5kj2MAWhSDb7gS5aLUhi9IEXRPH0cCHs/gviz/tq?tqx=out:csv&gid=277944144",
-    "klienti": "https://docs.google.com/spreadsheets/d/14KteI4GZ58x5kj2MAWhSDb7gS5aLUhi9IEXRPH0cCHs/gviz/tq?tqx=out:csv&gid=549882764"
+    "klienti": "https://docs.google.com/spreadsheets/d/14KteI4GZ58x5kj2MAWhSDb7gS5aLUhi9IEXRPH0cCHs/gviz/tq?tqx=out:csv&gid=549882764",
+    "_reference_zed_napoveda": "Doplň gviz CSV URL listu reference_zed (import sheets-templates/reference_zed.csv). Dokud je prázdné, build použije fallback assets/data/reference-wall.json.",
+    "reference_zed": ""
   }
 }

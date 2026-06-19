@@ -13,6 +13,7 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Reference · Sintera</title>
   <link rel="stylesheet" href="../../assets/css/styles.css">
+  <link rel="stylesheet" href="../../assets/css/reference-wall.css">
   <style>
     .lp { max-width: 1040px; margin: 0 auto; padding: 64px 24px 96px; }
     .lp__kicker { color: var(--accent); font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 14px; }
@@ -52,8 +53,11 @@
       Když vás něco zaujme, ozvěte se. Vše probereme diskrétně a bez závazku.
     </p>
 
-    <h2 class="lp__section-title">Reference klientů</h2>
-    <div class="lp__grid" id="lp-refs"></div>
+    <section class="rw">
+      <h2 class="lp__section-title">Reference, které nekončí</h2>
+      <p class="rw__count"><b id="rw-n"></b> doložených referencí</p>
+      <div class="rw__grid" id="rw-grid"></div>
+    </section>
 
     <h2 class="lp__section-title">Ukázky případů</h2>
     <div id="lp-cases"></div>
@@ -86,7 +90,7 @@
           tagHtml +
         '</article>';
       }).join('');
-      document.getElementById('lp-refs').innerHTML = refs;
+      var elRefs = document.getElementById('lp-refs'); if (elRefs) elRefs.innerHTML = refs;
 
       var cases = (d.cases || []).map(function (c) {
         function row(label, val) { return val ? '<dt>' + label + '</dt><dd>' + esc(val) + '</dd>' : ''; }
@@ -103,5 +107,10 @@
       document.getElementById('lp-cases').innerHTML = cases;
     })();
   </script>
+
+  <!-- Zeď referencí (jen na této neveřejné stránce) -->
+  <script>window.WALL_BASE = '../../assets/reference-wall/';</script>
+  <script src="../../assets/data/reference-wall.js"></script>
+  <script src="../../assets/js/reference-wall.js"></script>
 </body>
 </html>

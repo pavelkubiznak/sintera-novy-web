@@ -145,6 +145,16 @@ function mapClients(rows) {
   return rows.filter(r => yes(r.ve_stripu)).sort((a, b) => (+a.poradi || 0) - (+b.poradi || 0))
     .map(r => ({ name: r.nazev, logo: logoPath(r.logo_slug), _logoSlug: r.logo_slug || "" }));
 }
+// zeď referencí (list reference_zed): scan → full/thumb, scan2 → full2, štítky podle ";"
+function mapReferenceWall(rows) {
+  return rows.filter(r => yes(r.zverejnit)).map(r => ({
+    firma: r.firma || "", sektor: r.sektor || "", obor: r.obor || "", role: r.role || "", kontakt: r.kontakt || "",
+    stitky: String(r.stitky || "").split(";").map(s => s.trim()).filter(Boolean),
+    thumb: "thumbs/" + String(r.scan || "").replace(/^full-/, "wall-"),
+    full: "full/" + (r.scan || ""),
+    full2: r.scan2 ? "full/" + r.scan2 : "",
+  }));
+}
 function mapPositions(rows) {
   const seen = new Map();
   return rows.filter(r => yes(r.zverejnit)).map((r, i) => {
@@ -376,8 +386,8 @@ function writeSitemap(positions) {
 /* ---------- main ---------- */
 async function main() {
   console.log("Sintera build…");
-  const [pz, rf, cs, kl] = await Promise.all([
-    loadSheet(cfg.sheets.pozice), loadSheet(cfg.sheets.reference), loadSheet(cfg.sheets.casestudies), loadSheet(cfg.sheets.klienti),
+  const [pz, rf, cs, kl, rw] = await Promise.all([
+    loadSheet(cfg.sheets.pozice), loadSheet(cfg.sheets.reference), loadSheet(cfg.sheets.casestudies), loadSheet(cfg.sheets.klienti), loadSheet(cfg.sheets.reference_zed),
   ]);
 
   const site = {
@@ -395,6 +405,13 @@ async function main() {
   fs.writeFileSync(path.join(DATA, "reference-data.json"), JSON.stringify(refData, null, 2));
   fs.writeFileSync(path.join(DATA, "reference-data.js"),
     "/* AUTO-GENEROVÁNO buildem (build/build.mjs). Needituj ručně. Interní pole (_*) odstraněna. */\nwindow.SINTERA_DATA = " + JSON.stringify(stripInternal(refData), null, 2) + ";\n");
+
+  // Zeď referencí: z listu reference_zed (zverejnit=ano), fallback na commitnutý reference-wall.json
+  const wall = rw ? mapReferenceWall(rw)
+    : (() => { try { return JSON.parse(fs.readFileSync(path.join(DATA, "reference-wall.json"), "utf8")); } catch { return []; } })();
+  fs.writeFileSync(path.join(DATA, "reference-wall.js"),
+    "/* AUTO: zeď referencí (build/build.mjs z listu reference_zed; fallback reference-wall.json). Needituj ručně. */\nwindow.REFERENCE_WALL = " + JSON.stringify(wall) + ";\n");
+  console.log(`  ✓ reference-wall.js (${wall.length} referencí, ${rw ? "ze Sheetu reference_zed" : "fallback reference-wall.json"})`);
 
   // Pozice ze Sheetu → přegeneruj klientská data, aby homepage seznam (/), stránka /pozice/ i popisy detailů jely ze Sheetu
   if (pz) {
