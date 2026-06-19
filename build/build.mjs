@@ -357,6 +357,7 @@ function prerender(site, labels) {
     "<!--JSONLD-->": itemListLD(site.positions),
   };
   for (const [marker, content] of Object.entries(repl)) html = html.replace(marker, content);
+  html = html.split("%%BASE%%").join(BASE); // canonical/og/JSON-LD se odvodí z baseUrl (github.io teď, sintera.cz po Fázi 2)
   fs.writeFileSync(path.join(ROOT, "index.html"), html);
   console.log("  ✓ index.html (prerender)");
 }
