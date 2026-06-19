@@ -51,7 +51,13 @@ function parseCSV(text) {
 }
 async function loadSheet(url) {
   if (!url) return null;
-  try { const res = await fetch(url); if (!res.ok) throw new Error("HTTP " + res.status); const rows = parseCSV(await res.text()); return rows.length ? rows : null; }
+  try {
+    let text;
+    if (url.startsWith("file:")) text = fs.readFileSync(fileURLToPath(url), "utf8"); // lokální CSV (testování buildu)
+    else { const res = await fetch(url); if (!res.ok) throw new Error("HTTP " + res.status); text = await res.text(); }
+    const rows = parseCSV(text);
+    return rows.length ? rows : null;
+  }
   catch (e) { console.warn("  ! Sheet nedostupný, fallback:", e.message); return null; }
 }
 function fallback(name, key) { try { return JSON.parse(fs.readFileSync(path.join(DATA, name), "utf8"))[key]; } catch { return []; } }
@@ -68,12 +74,17 @@ const PZ = loadPozice();
    Sheet nemá sloupec id, ale názvy 1:1 odpovídají dosavadnímu pozice-data.js. Díky tomu se ze Sheetu
    bere obsah, ale URL detailů zůstávají stabilní. Nový/přejmenovaný název dostane slug-id. */
 const norm = s => String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
-// title → seznam id v původním pořadí. STABILNÍ registr v build/pozice-id-registry.json (build ho NIKDY nepřepisuje),
-// aby přegenerování pozice-data.js ze Sheetu nemohlo poškodit přiřazení id. Názvy nejsou unikátní (8 skupin se opakuje).
+// title → seznam id (occurrence-aware). Stabilní registr v build/pozice-id-registry.json. Původních 76 (8 neunikátních
+// názvů) má svá id; NOVÉ pozice ze Sheetu (název není v registru) dostanou číselné id (max+1) a build je do registru DOPLNÍ
+// (commitne se), takže /pozice/<id>.html zůstává stejná i po dalších buildech.
+const REGISTRY_PATH = path.join(__dirname, "pozice-id-registry.json");
 const ID_REG = (() => {
-  try { return new Map(Object.entries(JSON.parse(fs.readFileSync(path.join(__dirname, "pozice-id-registry.json"), "utf8")))); }
+  try { return new Map(Object.entries(JSON.parse(fs.readFileSync(REGISTRY_PATH, "utf8")))); }
   catch { const m = new Map(); for (const p of PZ.POZICE) { const k = norm(p.t); if (!m.has(k)) m.set(k, []); m.get(k).push(p.id); } return m; }
 })();
+let MAX_ID = 0; // nejvyšší dosavadní číselné id = základ pro přidělování nových
+for (const ids of ID_REG.values()) for (const v of ids) { const n = Number(v); if (Number.isFinite(n) && n > MAX_ID) MAX_ID = n; }
+let REGISTRY_DIRTY = false;
 
 /* ---------- popisy pozic (descHtml překlopené ze sintera.cz) ---------- */
 const POPISY = (() => { try { return JSON.parse(fs.readFileSync(path.join(DATA, "pozice-popisy.json"), "utf8")); } catch { return {}; } })();
@@ -158,11 +169,17 @@ function mapReferenceWall(rows) {
 function mapPositions(rows) {
   const seen = new Map();
   return rows.filter(r => yes(r.zverejnit)).map((r, i) => {
-    let id = (r.id || "").trim();                               // budoucí stabilita: pokud Sheet má sloupec id, použij ho
+    let id = (r.id || "").trim();                               // pokud Sheet má sloupec id, použij ho
     if (!id) {
       const k = norm(r.nazev), occ = seen.get(k) || 0; seen.set(k, occ + 1);
-      const ids = ID_REG.get(k) || [];
-      id = ids[occ] ?? ((slugify(r.nazev) || ("pos" + i)) + (occ ? "-" + (occ + 1) : "")); // nový/přejmenovaný název → slug
+      let ids = ID_REG.get(k);
+      if (!ids) { ids = []; ID_REG.set(k, ids); }
+      if (ids[occ] != null) {
+        id = ids[occ];                                          // existující registrované id (původních 76 i dříve přidané)
+      } else {
+        id = ++MAX_ID;                                          // NOVÁ pozice → stabilní číselné id (max+1)
+        ids[occ] = id; REGISTRY_DIRTY = true;                   // doplň do registru (occurrence-aware) → stálá URL
+      }
     }
     return {
       id, t: r.nazev, o: r.obor, s: r.seniorita, k: (r.kraj || "").split("/").map(s => s.trim()).filter(Boolean),
@@ -430,12 +447,17 @@ async function main() {
       "var KRAJE = " + JSON.stringify(PZ.KRAJE) + ";\n" +
       "var POZICE = " + JSON.stringify(posOut) + ";\n");
     const popisi = {};
-    for (const p of site.positions) if (p.descHtml) popisi[p.id] = { descHtml: p.descHtml };
+    for (const p of site.positions) { const body = positionBodyHTML(p, labels); if (body) popisi[p.id] = { descHtml: body }; }
     const sortedKeys = Object.keys(popisi).sort((a, b) => (!isNaN(+a) && !isNaN(+b)) ? (+a - +b) : String(a).localeCompare(String(b)));
     const sortedPopisi = {}; for (const k of sortedKeys) sortedPopisi[k] = popisi[k];
     fs.writeFileSync(path.join(DATA, "pozice-popisy.json"), JSON.stringify(sortedPopisi, null, 2) + "\n");
     fs.writeFileSync(path.join(DATA, "pozice-popisy.js"), "window.POZICE_POPISY = " + JSON.stringify(sortedPopisi) + ";\n");
     console.log("  ✓ pozice-data.js + pozice-popisy.{json,js} přegenerováno ze Sheetu");
+    if (REGISTRY_DIRTY) {
+      const obj = {}; for (const [k, v] of ID_REG) obj[k] = v;
+      fs.writeFileSync(REGISTRY_PATH, JSON.stringify(obj, null, 2) + "\n");
+      console.log("  ✓ pozice-id-registry.json doplněn o nové pozice (stabilní id)");
+    }
   }
 
   prerender(site, labels);

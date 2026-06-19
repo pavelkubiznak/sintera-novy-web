@@ -89,13 +89,21 @@ function handleContentWrite_(body) {
   var def = TARGETS[target];
   if (!def) return json_({ ok: false, error: 'unknown target: ' + target });
 
+  var publish = (body.publish === true || body.publish === 'ano' || body.publish === 'true');
+
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sh = ss.getSheetByName(def.sheet) || ss.insertSheet(def.sheet);
   if (sh.getLastRow() === 0) sh.appendRow(def.headers);
 
   var map = def.build(record);
+  if (publish && def.headers.indexOf('zverejnit') !== -1) map.zverejnit = 'ano';
   sh.appendRow(def.headers.map(function (h) { return map[h]; }));
-  return json_({ ok: true, target: target, sheet: def.sheet, row: sh.getLastRow() });
+  var row = sh.getLastRow();
+
+  var built = false, buildDetail = '';
+  if (publish) { var r = triggerBuild_(); built = r.ok; buildDetail = r.detail || ''; }
+  return json_({ ok: true, target: target, sheet: def.sheet, row: row,
+                 published: publish, build_triggered: built, build_detail: buildDetail });
 }
 
 /* ====================== B) ŽÁDOST O REFERENCE (veřejné) ====================== */
@@ -233,4 +241,46 @@ function doGet() {
 
 function json_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+
+/* ====================== C) Publikace na web (tlačítko v Sheetu) ====================== */
+// Menu „Sintera → Publikovat na web" spustí build na GitHubu (workflow_dispatch).
+// Do Script Properties přidej: GH_TOKEN = fine-grained GitHub token (Actions: Read and write).
+// Volitelně: GH_OWNER, GH_REPO, GH_WORKFLOW, GH_BRANCH (mají rozumné výchozí hodnoty níže).
+
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('Sintera')
+    .addItem('Publikovat na web', 'publishSite')
+    .addToUi();
+}
+
+// Spustí build webu přes GitHub workflow_dispatch. Sdílí menu „Publikovat"
+// i publikace přímo z chatu (createRecord s publish:true).
+function triggerBuild_() {
+  var token = prop_('GH_TOKEN', '');
+  if (!token) return { ok: false, detail: 'missing GH_TOKEN' };
+  var owner = prop_('GH_OWNER', 'pavelkubiznak');
+  var repo = prop_('GH_REPO', 'sintera-novy-web');
+  var workflow = prop_('GH_WORKFLOW', 'deploy.yml');
+  var branch = prop_('GH_BRANCH', 'main');
+  var url = 'https://api.github.com/repos/' + owner + '/' + repo + '/actions/workflows/' + workflow + '/dispatches';
+  try {
+    var res = UrlFetchApp.fetch(url, {
+      method: 'post', contentType: 'application/json',
+      headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json',
+                 'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'sintera-sheet' },
+      payload: JSON.stringify({ ref: branch }), muteHttpExceptions: true
+    });
+    var code = res.getResponseCode();
+    if (code === 204) return { ok: true };
+    return { ok: false, detail: 'github ' + code + ': ' + res.getContentText() };
+  } catch (err) { return { ok: false, detail: String(err) }; }
+}
+
+function publishSite() {
+  var ui = SpreadsheetApp.getUi();
+  var r = triggerBuild_();
+  if (r.ok) ui.alert('Spuštěno. Web se přebuilduje, za 1 až 2 minuty bude aktuální.');
+  else ui.alert('Build se nepodařilo spustit: ' + (r.detail || 'neznámá chyba'));
 }

@@ -4,10 +4,10 @@ info:
   description: Zápis pozice, reference nebo case study do Google Sheetu (jako koncept).
   version: 2.0.0
 servers:
-  - url: https://script.google.com/macros/s/NASAD_ID/exec
-    description: Apps Script web app (nahraď NASAD_ID svým deployment ID)
+  - url: https://script.google.com
+    description: Apps Script web app (doména; cesta níže míří na /exec nasazení)
 paths:
-  /:
+  /macros/s/AKfycbyoSQr6qvQhGBTQo9LohaiUf5ph1zc4T9z9c3uXcYEudgOu85Yg-gJzhw6tCu1D2pZY/exec:
     post:
       operationId: createRecord
       summary: Uloží pozici, referenci nebo case study jako koncept.
@@ -28,10 +28,49 @@ paths:
                 target:
                   type: string
                   enum: [pozice, reference, case]
+                publish:
+                  type: boolean
+                  description: >
+                    Když true, záznam se rovnou zveřejní (zverejnit=ano) a spustí se build webu.
+                    Když chybí nebo false, uloží se jen jako koncept.
                 record:
                   type: object
                   description: >
-                    Obsah podle target. pozice → Position; reference → Reference; case → Case.
+                    Obsah záznamu. Vyplň pole podle target: pro "pozice" pole pozice,
+                    pro "reference" pole reference, pro "case" pole case. Ostatní nech prázdná.
+                  properties:
+                    title: { type: string, description: "pozice: jen název role" }
+                    category: { type: string, enum: [vyroba, auto, tech, kvalita, logistika, servis, projekty, finance, hr, obchod], description: "pozice: obor" }
+                    seniority: { type: string, enum: [spec, man, top], description: "pozice" }
+                    region: { type: string, description: "pozice nebo case: kraj/region" }
+                    employmentType: { type: string, enum: [FULL_TIME, PART_TIME], description: "pozice" }
+                    workMode: { type: string, enum: [onsite, hybrid, remote], description: "pozice" }
+                    bonus: { type: string, description: "pozice" }
+                    salaryRange: { type: string, description: "pozice: mzda od-do" }
+                    salaryNote: { type: string, description: "pozice" }
+                    intro: { type: string, description: "pozice: úvod" }
+                    whyTalk: { type: array, items: { type: string }, description: "pozice" }
+                    responsibilities: { type: array, items: { type: string }, description: "pozice" }
+                    mustHave: { type: array, items: { type: string }, description: "pozice" }
+                    niceToHave: { type: array, items: { type: string }, description: "pozice" }
+                    offer: { type: array, items: { type: string }, description: "pozice" }
+                    cta: { type: string, description: "pozice" }
+                    featured: { type: boolean, description: "pozice" }
+                    datePosted: { type: string, description: "pozice" }
+                    validThrough: { type: string, description: "pozice" }
+                    company: { type: string, description: "reference: název firmy" }
+                    role: { type: string, description: "reference nebo case: role / typ spolupráce" }
+                    quote: { type: string, description: "reference: krátká citace" }
+                    long: { type: string, description: "reference: 2 až 4 věty" }
+                    tags: { type: array, items: { type: string }, description: "reference: štítky" }
+                    logo_slug: { type: string, description: "reference" }
+                    consent: { type: boolean, description: "reference: souhlas se zveřejněním" }
+                    name: { type: string, description: "case: pracovní název case study" }
+                    companyType: { type: string, description: "case: typ firmy" }
+                    situ: { type: string, description: "case: výchozí problém" }
+                    why: { type: string, description: "case: proč běžný nábor nestačil" }
+                    change: { type: string, description: "case: co Sintera udělala jinak" }
+                    win: { type: string, description: "case: výsledek" }
       responses:
         '200':
           description: OK
