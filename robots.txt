@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /reference/
 Disallow: /assets/reference-wall/
-Sitemap: https://pavelkubiznak.github.io/sintera-novy-web/sitemap.xml
+Sitemap: https://www.sintera.cz/sitemap.xml

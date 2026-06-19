@@ -1,6 +1,6 @@
 {
   "site": {
-    "baseUrl": "https://pavelkubiznak.github.io/sintera-novy-web"
+    "baseUrl": "https://www.sintera.cz"
   },
   "sheets": {
     "_napoveda": "Veřejné CSV exporty Google Sheetu (Sdílet → Kdokoli s odkazem → Čtenář). Spreadsheet 14KteI4GZ58x5kj2MAWhSDb7gS5aLUhi9IEXRPH0cCHs. Endpoint gviz/tq?tqx=out:csv je robustní v CI (bez přesměrování). Alternativa: export?format=csv&gid=...",
