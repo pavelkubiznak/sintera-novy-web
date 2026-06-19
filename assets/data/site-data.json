@@ -1916,6 +1916,53 @@
       "cta": "",
       "descHtml": "<h4>Náplň práce</h4><ul><li>Servisní zásahy a opravy výrobních strojů</li><li>Diagnostika, analýza příčin a odstranění poruch</li><li>Komunikace s vedoucími oddělení, operátory a techniky dodavatelských společností</li><li>Menší údržbářská činnost v rámci celé budovy a výroby</li></ul><h4>Váš profil</h4><ul><li>Ukončené USO/SŠ v oboru elektro</li><li>Praxe na obdobné pozici výhodou</li><li>Vyhláška 50/78 sb. výhodou, pro absolventy el. oboru, lze dodělat</li><li>Technickou zdatnost, konstruktivní přístup</li><li>Samostatnost, osobní zodpovědnost, pečlivost, loajalita, spolehlivost</li><li>Týmový duch</li></ul><h4>Nabízíme</h4><ul><li>Práce ve stabilní společnosti</li><li>Nadstandardní platové ohodnocení + náborový příspěvek 30.000 Kč</li><li>Moderní a přátelské pracovní prostředí</li><li>Kariérní rozvoj</li><li>Bonusová složka, náborový příspěvek</li><li>5 týdnů dovolené</li><li>Vzdělávací kurzy</li><li>Cafeterie, příspěvek na stravenkovou kartu apod.</li></ul>",
       "featured": false
+    },
+    {
+      "id": 864,
+      "t": "Projektant",
+      "o": "projekty",
+      "s": "spec",
+      "k": [
+        "Pardubický kraj"
+      ],
+      "bonus": "Příspěvek na penzijní připojištění až 1 500 Kč měsíčně, Pluxee, MultiSport karta, dotované stravování, podpora volnočasových aktivit a zdraví.",
+      "rezim": "onsite",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Hledáme projektanta pro technicky zajímavé stavební projekty v Pardubickém kraji. Nejde jen o kreslení výkresů. Důležité je přemýšlet nad technickým řešením, hledat souvislosti a vidět za projektem skutečný výsledek.",
+      "whyTalk": "Budete u projektů od prvního zaměření až po realizaci.\nDostanete se i mimo kancelář a uvidíte výsledky své práce v reálném provozu.\nRole je vhodná pro zkušenějšího projektanta i pro člověka na začátku kariéry, který se chce učit od zkušenějších kolegů.",
+      "responsibilities": [
+        "Zpracovávat projektovou dokumentaci v různých stupních projektové přípravy.",
+        "Spolupracovat na návrhu a realizaci technicky zajímavých stavebních projektů.",
+        "Komunikovat s kolegy napříč profesemi.",
+        "Jezdit podle potřeby mimo kancelář a ověřovat řešení v reálném provozu.",
+        "Podílet se na projektech s dlouhodobým významem, které nejsou běžnou rutinou."
+      ],
+      "mustHave": [
+        "Vzdělání stavebního nebo technického směru.",
+        "Technické myšlení a schopnost hledat řešení.",
+        "Samostatnost a zodpovědnost.",
+        "Znalost AutoCADu nebo obdobných projekčních nástrojů."
+      ],
+      "niceToHave": [
+        "Znalost Revitu.",
+        "Zkušenost s projektováním pozemních staveb."
+      ],
+      "offer": [
+        "Atraktivní finanční ohodnocení podle vašich zkušeností. Konkrétní podmínky si řekneme otevřeně v prvním hovoru.",
+        "Stabilního zaměstnavatele s dlouhodobou perspektivou a silným postavením na trhu.",
+        "5 týdnů dovolené a zaměstnanecké benefity.",
+        "Příspěvek na penzijní připojištění až 1 500 Kč měsíčně.",
+        "Dotované stravování a roční benefitní program Pluxee.",
+        "MultiSport kartu a podporu volnočasových aktivit pro vás i vaši rodinu.",
+        "Příspěvky na dětské aktivity a podporu zdraví včetně očkování."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Ozvěte se nám diskrétně, klidně i bez životopisu. Projdeme spolu, jestli vám role dává smysl.",
+      "descHtml": "",
+      "featured": false
     }
   ],
   "references": [
