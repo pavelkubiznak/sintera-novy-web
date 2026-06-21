@@ -409,6 +409,61 @@ function writeSitemap(positions) {
   console.log("  ✓ sitemap.xml, robots.txt, .nojekyll");
 }
 
+/* ---------- Přesměrování starých URL (web4u → nový web) ----------
+   GitHub Pages je statický hosting bez serverových přesměrování (žádný .htaccess/301).
+   404.html je univerzální „chytač": GitHub ho servíruje pro každou neexistující cestu.
+   Staré číslování pozic = stejné jako nové (registr převzal web4u id), takže
+   /cz/pozice/<id> → /pozice/<id>.html (jen pro živé pozice), uzavřené → výpis /pozice/.
+   Klientské (JS) přesměrování stačí — jsou to odkazy, na které klikají lidé. */
+function writeRedirects(positions) {
+  const idMap = "{" + positions.map(p => `"${p.id}":1`).join(",") + "}";
+  const html = `<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Přesměrování — Sintera Czech</title>
+<script>
+(function () {
+  var IDS = ${idMap};
+  var p = (location.pathname || "").toLowerCase();
+  var to = null, m = p.match(/^\\/(?:cz|cs)\\/pozice\\/(\\d+)/);
+  if (m) { to = IDS[m[1]] ? "/pozice/" + m[1] + ".html" : "/pozice/"; }
+  else if (/^\\/(?:cz|cs)\\/(?:pracovni-pozice|j)\\b/.test(p)) { to = "/pozice/"; }
+  else if (/^\\/(?:cz|cs)(?:\\/|$)/.test(p)) { to = "/"; }
+  if (to) { location.replace(to); }
+})();
+</script>
+<style>
+  :root { --navy:#0e1230; --ter:#c8704f; }
+  html, body { margin:0; height:100%; }
+  body { background:var(--navy); color:#f5f3ee; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; display:flex; align-items:center; justify-content:center; text-align:center; padding:24px; }
+  .box { max-width:560px; }
+  h1 { font-size:28px; font-weight:600; margin:0 0 12px; letter-spacing:-0.01em; }
+  p { font-size:16px; line-height:1.6; color:#cfcbe0; margin:0 0 28px; }
+  .btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  a.btn { display:inline-block; padding:13px 22px; border-radius:999px; text-decoration:none; font-weight:600; font-size:15px; }
+  a.primary { background:var(--ter); color:#1a0e08; }
+  a.ghost { border:1px solid rgba(245,243,238,.35); color:#f5f3ee; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <h1>Stránka se přesouvá…</h1>
+    <p>Web Sintera má novou podobu i adresy. Pokud vás stránka automaticky nepřesměruje, pokračujte ručně:</p>
+    <div class="btns">
+      <a class="btn primary" href="/pozice/">Otevřené pozice</a>
+      <a class="btn ghost" href="/">Domů</a>
+    </div>
+  </div>
+</body>
+</html>
+`;
+  fs.writeFileSync(path.join(ROOT, "404.html"), html);
+  console.log(`  ✓ 404.html (staré /cz/pozice/<id> → /pozice/<id>.html; ${positions.length} živých id, uzavřené → /pozice/)`);
+}
+
 /* ---------- main ---------- */
 async function main() {
   console.log("Sintera build…");
@@ -471,6 +526,7 @@ async function main() {
   prerender(site, labels);
   writeDetailPages(site.positions, labels);
   writeSitemap(site.positions);
+  writeRedirects(site.positions);
   console.log(`Hotovo: ${site.positions.length} pozic, ${site.references.length} referencí, ${site.cases.length} cases, ${site.clients.length} klientů, ${site.rotor.length} rotor vět.`);
 }
 main().catch(e => { console.error(e); process.exit(1); });
