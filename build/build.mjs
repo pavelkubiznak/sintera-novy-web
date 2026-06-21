@@ -224,12 +224,20 @@ function marqueeHTML(clients) {
   return group + group; // dvě identické skupiny pro plynulou smyčku bez mezery
 }
 const HOMEPAGE_POS = [830, 856, 862, 853, 805, 833, 795, 827, 832]; // záložní kurátorský výběr (když Sheet nemá featured); jinak řídí homepage sloupec featured
+// Oranžový chip s příspěvkem (prerender fallback). Stejná logika jako v app.js:
+// prefix „+ příspěvek" jen u čistých částek; když hodnota slovo „příspěvek" už obsahuje, vypíše se tak, jak je.
+function bonusChip(v) {
+  v = String(v == null ? "" : v).trim();
+  if (!v) return "";
+  const label = /příspěvek/i.test(v) ? v : `+ příspěvek ${v}`;
+  return `<span class="pos-bonus" title="${esc(label)}">${esc(label)}</span>`;
+}
 function positionsHTML(positions, labels) {
   const byId = new Map(positions.map(p => [p.id, p]));
   const featured = positions.filter(p => p.featured);
   const curated = (featured.length ? featured : HOMEPAGE_POS.map(id => byId.get(id)).filter(Boolean)).slice(0, 9);
   return curated.map(p => {
-    const bonus = p.bonus ? `<span class="bonus">Příspěvek ${esc(p.bonus)}</span>` : "";
+    const bonus = bonusChip(p.bonus);
     return `<div class="pos-item"><a class="pos-row" href="pozice/${esc(p.id)}.html">` +
       `<span class="t">${esc(p.t)}${bonus}</span>` +
       `<span class="m field">${esc(labels.OBORY[p.o] || p.o)}</span>` +

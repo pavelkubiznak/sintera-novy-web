@@ -245,6 +245,15 @@
   // rozbalovací položka pozice (accordion); sdíleno homepage seznamem i /pozice/.
   // p = { id, title, field, level, loc, bonus, salary }. opts.lazy = panel se postaví až při prvním rozbalení
   // (kvůli výkonu na /pozice/ se 76 položkami). opts.detailBase = prefix odkazu na detail (homepage "pozice/", /pozice/ "").
+  // Oranžový chip s příspěvkem. Prefix „+ příspěvek" jen u čistých částek;
+  // když hodnota sama obsahuje slovo „příspěvek", vypíše se tak, jak je (bez zdvojení).
+  function bonusChip(v) {
+    v = String(v == null ? "" : v).trim();
+    if (!v) return "";
+    var label = /příspěvek/i.test(v) ? v : "+ příspěvek " + v;
+    return ' <span class="pos-bonus" title="' + esc(label) + '">' + esc(label) + "</span>";
+  }
+
   function buildPosItem(p, opts) {
     opts = opts || {};
     var detailBase = (opts.detailBase != null) ? opts.detailBase : "pozice/";
@@ -258,7 +267,7 @@
     row.setAttribute("tabindex", "0");
     row.setAttribute("aria-expanded", "false");
     row.setAttribute("aria-controls", detailId);
-    var bonus = p.bonus ? ' <span class="pos-bonus">+ příspěvek ' + esc(p.bonus) + "</span>" : "";
+    var bonus = bonusChip(p.bonus);
     row.innerHTML =
       '<span class="t">' + esc(p.title) + bonus + "</span>" +
       '<span class="m field">' + esc(p.field) + "</span>" +
