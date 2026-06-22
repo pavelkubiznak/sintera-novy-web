@@ -105,6 +105,27 @@ const PZ = loadPozice();
    Sheet nemá sloupec id, ale názvy 1:1 odpovídají dosavadnímu pozice-data.js. Díky tomu se ze Sheetu
    bere obsah, ale URL detailů zůstávají stabilní. Nový/přejmenovaný název dostane slug-id. */
 const norm = s => String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+
+// Obory sladěné s jobs.cz (kód → label je v assets/js/pozice-data.js OBORY).
+// Pozici zařadíme podle oboru v Sheetu (je-li to už nový kód, má přednost),
+// jinak automaticky podle názvu role. Tím se starý hrubý kód (vyroba/auto/tech/
+// logistika) rozdělí do jemnějších oborů (Strojírenství vs Výroba a průmysl, …).
+const OBORY_CODES = new Set(["stroj", "prumysl", "elektro", "technika", "kvalita", "servis", "doprava", "nakup", "projekty", "obchod", "finance", "hr"]);
+const COMBINING = new RegExp("[\\u0300-\\u036f]", "g");
+const deburr = s => String(s || "").toLowerCase().normalize("NFD").replace(COMBINING, "");
+function classifyObor(sheetObor, title) {
+  const o = deburr(sheetObor).trim();
+  if (OBORY_CODES.has(o)) return o;                       // Sheet už používá nový kód → má přednost
+  const t = deburr(title);
+  if (/\bcnc\b|frez|soustruh|soustruz|zamec|svar|serizov|obrab|horizontk|karusel/.test(t)) return "stroj";
+  if (/electric|elektro|\bplc\b|robot|converter|automat/.test(t)) return "elektro";
+  if (/technolog|konstrukt|vyvoj|testovac|process engineer/.test(t)) return "technika";
+  if (/procure|nakup/.test(t)) return "nakup";
+  if (/logist|dispec|zasob|sklad|doprav/.test(t)) return "doprava";
+  if (/vyrob|montaz|operations|operator|procesn|vedouci|mistr|smen/.test(t)) return "prumysl";
+  const legacy = { vyroba: "stroj", auto: "elektro", tech: "technika", logistika: "doprava" };
+  return legacy[o] || o || "prumysl";
+}
 // title → seznam id (occurrence-aware). Stabilní registr v build/pozice-id-registry.json. Původních 76 (8 neunikátních
 // názvů) má svá id; NOVÉ pozice ze Sheetu (název není v registru) dostanou číselné id (max+1) a build je do registru DOPLNÍ
 // (commitne se), takže /pozice/<id>.html zůstává stejná i po dalších buildech.
@@ -213,7 +234,7 @@ function mapPositions(rows) {
       }
     }
     return {
-      id, t: r.nazev, o: r.obor, s: r.seniorita, k: (r.kraj || "").split("/").map(s => s.trim()).filter(Boolean),
+      id, t: r.nazev, o: classifyObor(r.obor, r.nazev), s: r.seniorita, k: (r.kraj || "").split("/").map(s => s.trim()).filter(Boolean),
       bonus: r.bonus || "", rezim: r.rezim || "", datePosted: r.datum_zverejneni || "", validThrough: r.platnost_do || "", employmentType: r.uvazek || "FULL_TIME",
       intro: r.uvod || "", whyTalk: r.proc_mluvit || "",
       responsibilities: splitList(r.naplne), mustHave: splitList(r.must), niceToHave: splitList(r.vyhoda), offer: splitList(r.nabizime),
