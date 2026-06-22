@@ -1,6 +1,51 @@
 {
   "positions": [
     {
+      "id": 865,
+      "t": "Procurement Specialist",
+      "o": "logistika",
+      "s": "spec",
+      "k": [
+        "Liberecký kraj"
+      ],
+      "bonus": "",
+      "rezim": "hybrid",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Hledáme člověka, který chce v nákupu reálně ovlivňovat podmínky spolupráce s dodavateli. Nepůjde jen o administraci objednávek, ale o vyjednávání, práci s daty, smluvní podklady a hledání lepších řešení pro dlouhodobě funkční dodavatelské vztahy.",
+      "whyTalk": "Budete mít vliv na podmínky spolupráce s dodavateli.\nDostanete prostor hledat nová řešení, nejen držet běžnou operativu.\nVýsledek vaší práce bude vidět v praxi.",
+      "responsibilities": [
+        "Jednat s dodavateli a nastavovat spolupráci tak, aby byla výhodná, férová a dlouhodobě funkční.",
+        "Vyjednávat ceny, připravovat smluvní podklady a dohlížet na promítnutí dohod do praxe.",
+        "Pracovat s nákupními procesy, daty a podklady pro rychlejší a přesnější rozhodování.",
+        "Vyhledávat nové dodavatele, porovnávat možnosti na trhu a podílet se na výběrových řízeních.",
+        "Přicházet s vlastními návrhy, jak nákup v dané oblasti posouvat dál."
+      ],
+      "mustHave": [
+        "Zkušenost z nákupu, ideálně z výrobní firmy.",
+        "Angličtinu alespoň pro běžné pracovní situace.",
+        "Chuť vyjednávat, domlouvat podmínky a hledat praktická řešení.",
+        "Dobrý přehled v úkolech, schopnost pohlídat si detail a dotahovat věci do konce.",
+        "Jistotu při práci v systému, s daty a čísly."
+      ],
+      "niceToHave": [],
+      "offer": [
+        "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+        "Roli, kde nebudete jen přeposílat objednávky, ale reálně ovlivníte spolupráci s dodavateli.",
+        "Stabilní zázemí a práci, kde je výsledek vaší práce vidět.",
+        "Závodní stravování.",
+        "Příspěvek na dopravu.",
+        "Příspěvek na penzijní připojištění.",
+        "MultiSport kartu."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Máte za sebou praxi v nákupu a chcete roli, kde se nebudete točit jen kolem objednávek a rutinní administrativy? Tady budete jednat s dodavateli, vyjednávat podmínky, porovnávat možnosti na trhu a pracovat s podklady, podle kterých se dělají konkrétní rozhodnutí. Role dává smysl někomu, kdo se umí domluvit, pohlídat si detail a dotahovat věci do praxe.\n\nRádi si s vámi nezávazně a diskrétně promluvíme o tom, jak je nákup v této firmě nastavený, s jakými dodavateli se pracuje a jaký prostor budete mít pro vlastní návrhy. Pro první kontakt nepotřebujeme hotový životopis. Stačí krátká zpráva, odkaz na profil nebo pár vět o tom, co v nákupu řešíte dnes.\n\nBěhem prvního hovoru vám otevřeně řekneme i mzdové podmínky, rozsah odpovědnosti a další praktické informace. Cílem není tlačit vás do rychlého rozhodnutí, ale zjistit, jestli role odpovídá tomu, kam se chcete v nákupu posunout. Když to bude dávat smysl oběma stranám, domluvíme další krok.",
+      "descHtml": "",
+      "featured": false
+    },
+    {
       "id": 864,
       "t": "Projektant",
       "o": "projekty",
