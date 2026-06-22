@@ -113,9 +113,13 @@ const norm = s => String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
 const OBORY_CODES = new Set(["stroj", "prumysl", "elektro", "technika", "kvalita", "servis", "doprava", "nakup", "projekty", "obchod", "finance", "hr"]);
 const COMBINING = new RegExp("[\\u0300-\\u036f]", "g");
 const deburr = s => String(s || "").toLowerCase().normalize("NFD").replace(COMBINING, "");
+// Mapování čitelného názvu oboru → kód (kvůli dropdownu v Sheetu, kde se vybírá název).
+const OBOR_BY_LABEL = {};
+for (const [code, label] of Object.entries(PZ.OBORY || {})) OBOR_BY_LABEL[deburr(label).trim()] = code;
 function classifyObor(sheetObor, title) {
   const o = deburr(sheetObor).trim();
   if (OBORY_CODES.has(o)) return o;                       // Sheet už používá nový kód → má přednost
+  if (OBOR_BY_LABEL[o]) return OBOR_BY_LABEL[o];          // Sheet má čitelný název z dropdownu (např. „Strojírenství")
   const t = deburr(title);
   if (/\bcnc\b|frez|soustruh|soustruz|zamec|svar|serizov|obrab|horizontk|karusel/.test(t)) return "stroj";
   if (/electric|elektro|\bplc\b|robot|converter|automat/.test(t)) return "elektro";
