@@ -442,21 +442,22 @@ function writeSitemap(positions) {
   console.log("  ✓ sitemap.xml, robots.txt, .nojekyll");
 }
 
-/* ---------- Přesměrování starých URL (web4u → nový web) ----------
-   GitHub Pages je statický hosting bez serverových přesměrování (žádný .htaccess/301).
-   404.html je univerzální „chytač": GitHub ho servíruje pro každou neexistující cestu.
-   Staré číslování pozic = stejné jako nové (registr převzal web4u id), takže
-   /cz/pozice/<id> → /pozice/<id>.html (jen pro živé pozice), uzavřené → výpis /pozice/.
-   Klientské (JS) přesměrování stačí — jsou to odkazy, na které klikají lidé. */
+/* ---------- 404.html: přesměrování JEN starých odkazů na POZICE ----------
+   GitHub Pages je statický hosting bez serverových přesměrování; 404.html je
+   univerzální „chytač" pro každou neexistující cestu. Přesměrováváme ZÁMĚRNĚ jen
+   staré odkazy na pozice (kandidáti je dostali), zbytek webu necháváme být —
+   jakákoli jiná neexistující adresa (vč. staré homepage /cz/, blogu) ukáže
+   normální „Stránka nenalezena" s odkazy Domů / Pozice, žádné přesměrování.
+   Staré číslování pozic = shodné s novým (registr převzal web4u id):
+   /cz/pozice/<id> → /pozice/<id>.html (živé), uzavřené → výpis /pozice/;
+   staré výpisy /cz|/cs/pracovni-pozice* a /cs/j/* → /pozice/.
+   Anti-flash: při přesměrování schováme stránku, ať nebliká 404. */
 function writeRedirects(positions) {
   const idMap = "{" + positions.map(p => `"${p.id}":1`).join(",") + "}";
   const html = `<!doctype html>
 <html lang="cs">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>Přesměrování — Sintera Czech</title>
 <script>
 (function () {
   var IDS = ${idMap};
@@ -464,10 +465,12 @@ function writeRedirects(positions) {
   var to = null, m = p.match(/^\\/(?:cz|cs)\\/pozice\\/(\\d+)/);
   if (m) { to = IDS[m[1]] ? "/pozice/" + m[1] + ".html" : "/pozice/"; }
   else if (/^\\/(?:cz|cs)\\/(?:pracovni-pozice|j)\\b/.test(p)) { to = "/pozice/"; }
-  else if (/^\\/(?:cz|cs)(?:\\/|$)/.test(p)) { to = "/"; }
-  if (to) { location.replace(to); }
+  if (to) { document.documentElement.style.display = "none"; location.replace(to); }
 })();
 </script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Stránka nenalezena — Sintera Czech</title>
 <style>
   :root { --navy:#0e1230; --ter:#c8704f; }
   html, body { margin:0; height:100%; }
@@ -483,18 +486,18 @@ function writeRedirects(positions) {
 </head>
 <body>
   <div class="box">
-    <h1>Stránka se přesouvá…</h1>
-    <p>Web Sintera má novou podobu i adresy. Pokud vás stránka automaticky nepřesměruje, pokračujte ručně:</p>
+    <h1>Stránka nenalezena</h1>
+    <p>Tahle adresa na webu Sintera neexistuje. Přejděte prosím na úvod nebo na otevřené pozice.</p>
     <div class="btns">
-      <a class="btn primary" href="/pozice/">Otevřené pozice</a>
-      <a class="btn ghost" href="/">Domů</a>
+      <a class="btn primary" href="/">Domů</a>
+      <a class="btn ghost" href="/pozice/">Otevřené pozice</a>
     </div>
   </div>
 </body>
 </html>
 `;
   fs.writeFileSync(path.join(ROOT, "404.html"), html);
-  console.log(`  ✓ 404.html (staré /cz/pozice/<id> → /pozice/<id>.html; ${positions.length} živých id, uzavřené → /pozice/)`);
+  console.log(`  ✓ 404.html (jen pozice: /cz/pozice/<id> → /pozice/<id>.html, ${positions.length} živých id; zbytek = normální „nenalezeno")`);
 }
 
 /* ---------- AI čitelnost: FAQ stránka, llms.txt, schema do statických stránek ---------- */
