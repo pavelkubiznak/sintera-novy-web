@@ -445,12 +445,13 @@ function writeSitemap(positions) {
 /* ---------- 404.html: přesměrování JEN starých odkazů na POZICE ----------
    GitHub Pages je statický hosting bez serverových přesměrování; 404.html je
    univerzální „chytač" pro každou neexistující cestu. Přesměrováváme ZÁMĚRNĚ jen
-   staré odkazy na pozice (kandidáti je dostali), zbytek webu necháváme být —
-   jakákoli jiná neexistující adresa (vč. staré homepage /cz/, blogu) ukáže
-   normální „Stránka nenalezena" s odkazy Domů / Pozice, žádné přesměrování.
+   staré odkazy na pozice (kandidáti je dostali) + starou homepage; zbytek webu
+   necháváme být — jiná neexistující adresa (např. blog detail-novinky) ukáže
+   normální „Stránka nenalezena" s odkazy Domů / Pozice, bez přesměrování.
    Staré číslování pozic = shodné s novým (registr převzal web4u id):
    /cz/pozice/<id> → /pozice/<id>.html (živé), uzavřené → výpis /pozice/;
-   staré výpisy /cz|/cs/pracovni-pozice* a /cs/j/* → /pozice/.
+   staré výpisy /cz|/cs/pracovni-pozice* a /cs/j/* → /pozice/;
+   stará homepage /cz/ (i /cz) → nový úvod / (rychle, anti-flash bez 404).
    Anti-flash: při přesměrování schováme stránku, ať nebliká 404. */
 function writeRedirects(positions) {
   const idMap = "{" + positions.map(p => `"${p.id}":1`).join(",") + "}";
@@ -465,6 +466,7 @@ function writeRedirects(positions) {
   var to = null, m = p.match(/^\\/(?:cz|cs)\\/pozice\\/(\\d+)/);
   if (m) { to = IDS[m[1]] ? "/pozice/" + m[1] + ".html" : "/pozice/"; }
   else if (/^\\/(?:cz|cs)\\/(?:pracovni-pozice|j)\\b/.test(p)) { to = "/pozice/"; }
+  else if (/^\\/(?:cz|cs)\\/?$/.test(p)) { to = "/"; } // stará homepage /cz/ → nový úvod (rychle, bez 404)
   if (to) { document.documentElement.style.display = "none"; location.replace(to); }
 })();
 </script>

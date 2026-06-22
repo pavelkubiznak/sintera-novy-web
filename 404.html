@@ -9,6 +9,7 @@
   var to = null, m = p.match(/^\/(?:cz|cs)\/pozice\/(\d+)/);
   if (m) { to = IDS[m[1]] ? "/pozice/" + m[1] + ".html" : "/pozice/"; }
   else if (/^\/(?:cz|cs)\/(?:pracovni-pozice|j)\b/.test(p)) { to = "/pozice/"; }
+  else if (/^\/(?:cz|cs)\/?$/.test(p)) { to = "/"; } // stará homepage /cz/ → nový úvod (rychle, bez 404)
   if (to) { document.documentElement.style.display = "none"; location.replace(to); }
 })();
 </script>
