@@ -3,7 +3,7 @@
     {
       "id": 865,
       "t": "Procurement Specialist",
-      "o": "logistika",
+      "o": "nakup",
       "s": "spec",
       "k": [
         "Liberecký kraj"
@@ -146,7 +146,7 @@
     {
       "id": 541,
       "t": "Programátor CNC",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Plzeňský kraj"
@@ -171,7 +171,7 @@
     {
       "id": 540,
       "t": "Horizontkář CNC",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Plzeňský kraj"
@@ -196,7 +196,7 @@
     {
       "id": 539,
       "t": "Frézař – CNC",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Plzeňský kraj"
@@ -221,7 +221,7 @@
     {
       "id": 691,
       "t": "Electrical Designer",
-      "o": "auto",
+      "o": "elektro",
       "s": "spec",
       "k": [
         "Praha"
@@ -246,7 +246,7 @@
     {
       "id": 570,
       "t": "Manager vývojového a testovacího centra",
-      "o": "tech",
+      "o": "technika",
       "s": "man",
       "k": [
         "Vysočina"
@@ -296,7 +296,7 @@
     {
       "id": 592,
       "t": "Vývojový konstruktér",
-      "o": "tech",
+      "o": "technika",
       "s": "spec",
       "k": [
         "Praha"
@@ -397,7 +397,7 @@
     {
       "id": 833,
       "t": "Technolog",
-      "o": "tech",
+      "o": "technika",
       "s": "spec",
       "k": [
         "Praha"
@@ -422,7 +422,7 @@
     {
       "id": 634,
       "t": "CNC Frézař",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Plzeňský kraj"
@@ -447,7 +447,7 @@
     {
       "id": 683,
       "t": "Converter Engineer",
-      "o": "auto",
+      "o": "elektro",
       "s": "spec",
       "k": [
         "Praha"
@@ -472,7 +472,7 @@
     {
       "id": 688,
       "t": "Electrical Engineer",
-      "o": "auto",
+      "o": "elektro",
       "s": "spec",
       "k": [
         "Praha"
@@ -497,7 +497,7 @@
     {
       "id": 571,
       "t": "Electrical Designer",
-      "o": "auto",
+      "o": "elektro",
       "s": "spec",
       "k": [
         "Praha"
@@ -522,7 +522,7 @@
     {
       "id": 700,
       "t": "Svářeč",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Jihomoravský kraj"
@@ -572,7 +572,7 @@
     {
       "id": 784,
       "t": "Strojní zámečník",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Jihomoravský kraj"
@@ -597,7 +597,7 @@
     {
       "id": 772,
       "t": "Seřizovač CNC strojů",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Praha"
@@ -622,7 +622,7 @@
     {
       "id": 695,
       "t": "Seřizovač CNC karuselu",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Jihomoravský kraj"
@@ -647,7 +647,7 @@
     {
       "id": 694,
       "t": "Seřizovač CNC soustruhu",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Jihomoravský kraj"
@@ -722,7 +722,7 @@
     {
       "id": 680,
       "t": "Dispečer/ka logistiky",
-      "o": "logistika",
+      "o": "doprava",
       "s": "spec",
       "k": [
         "Praha"
@@ -747,7 +747,7 @@
     {
       "id": 744,
       "t": "Seřizovač CNC soustruh/frézka",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Praha"
@@ -772,7 +772,7 @@
     {
       "id": 754,
       "t": "Technolog",
-      "o": "tech",
+      "o": "technika",
       "s": "spec",
       "k": [
         "Plzeňský kraj"
@@ -822,7 +822,7 @@
     {
       "id": 723,
       "t": "Seřizovač CNC strojů",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Plzeňský kraj",
@@ -874,7 +874,7 @@
     {
       "id": 778,
       "t": "Elektromechanik",
-      "o": "auto",
+      "o": "elektro",
       "s": "spec",
       "k": [
         "Praha",
@@ -926,7 +926,7 @@
     {
       "id": 781,
       "t": "Process Engineer – Automatisation and Robotics",
-      "o": "auto",
+      "o": "elektro",
       "s": "spec",
       "k": [
         "Vysočina"
@@ -951,7 +951,7 @@
     {
       "id": 719,
       "t": "Strojní zámečník",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Plzeňský kraj"
@@ -1051,7 +1051,7 @@
     {
       "id": 795,
       "t": "Project Procurement Manager",
-      "o": "logistika",
+      "o": "nakup",
       "s": "man",
       "k": [
         "Celá ČR",
@@ -1077,7 +1077,7 @@
     {
       "id": 766,
       "t": "Electrical Designer Senior/Junior",
-      "o": "auto",
+      "o": "elektro",
       "s": "spec",
       "k": [
         "Praha"
@@ -1102,7 +1102,7 @@
     {
       "id": 798,
       "t": "Specialista technologie",
-      "o": "tech",
+      "o": "technika",
       "s": "spec",
       "k": [
         "Plzeňský kraj"
@@ -1177,7 +1177,7 @@
     {
       "id": 814,
       "t": "CNC Programátor – špičková přesná výroba",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Liberecký kraj"
@@ -1304,7 +1304,7 @@
     {
       "id": 623,
       "t": "Technolog",
-      "o": "tech",
+      "o": "technika",
       "s": "spec",
       "k": [
         "Plzeňský kraj"
@@ -1354,7 +1354,7 @@
     {
       "id": 863,
       "t": "Procesní manažer",
-      "o": "vyroba",
+      "o": "prumysl",
       "s": "man",
       "k": [
         "Vysočina",
@@ -1432,7 +1432,7 @@
     {
       "id": 859,
       "t": "Specialista výrobních technologií",
-      "o": "tech",
+      "o": "technika",
       "s": "spec",
       "k": [
         "Vysočina",
@@ -1509,7 +1509,7 @@
     {
       "id": 856,
       "t": "Operations Manager | strategická výrobní role",
-      "o": "vyroba",
+      "o": "prumysl",
       "s": "top",
       "k": [
         "Jihomoravský kraj"
@@ -1560,7 +1560,7 @@
     {
       "id": 853,
       "t": "PLC Specialista",
-      "o": "auto",
+      "o": "elektro",
       "s": "spec",
       "k": [
         "Praha",
@@ -1586,7 +1586,7 @@
     {
       "id": 852,
       "t": "Vedoucí montáže",
-      "o": "vyroba",
+      "o": "prumysl",
       "s": "man",
       "k": [
         "Olomoucký kraj"
@@ -1611,7 +1611,7 @@
     {
       "id": 849,
       "t": "Analytik logistických procesů",
-      "o": "logistika",
+      "o": "doprava",
       "s": "spec",
       "k": [
         "Praha"
@@ -1636,7 +1636,7 @@
     {
       "id": 848,
       "t": "Vedoucí výrobního úseku",
-      "o": "vyroba",
+      "o": "prumysl",
       "s": "man",
       "k": [
         "Liberecký kraj"
@@ -1737,7 +1737,7 @@
     {
       "id": 843,
       "t": "Seřizovač",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Vysočina"
@@ -1762,7 +1762,7 @@
     {
       "id": 840,
       "t": "Vedoucí týmu",
-      "o": "vyroba",
+      "o": "prumysl",
       "s": "man",
       "k": [
         "Vysočina"
@@ -1837,7 +1837,7 @@
     {
       "id": 836,
       "t": "CNC Programátor / Specialista",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Liberecký kraj"
@@ -1862,7 +1862,7 @@
     {
       "id": 835,
       "t": "CNC specialista – CAM + výroba",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "spec",
       "k": [
         "Liberecký kraj"
@@ -1887,7 +1887,7 @@
     {
       "id": 834,
       "t": "Manažer CNC výroby – strategická role",
-      "o": "vyroba",
+      "o": "stroj",
       "s": "man",
       "k": [
         "Liberecký kraj"
@@ -1937,7 +1937,7 @@
     {
       "id": 830,
       "t": "Vedoucí výroby",
-      "o": "vyroba",
+      "o": "prumysl",
       "s": "man",
       "k": [
         "Plzeňský kraj"
@@ -1962,7 +1962,7 @@
     {
       "id": 829,
       "t": "Logistics Coordinator",
-      "o": "logistika",
+      "o": "doprava",
       "s": "spec",
       "k": [
         "Praha"
@@ -1987,7 +1987,7 @@
     {
       "id": 822,
       "t": "Programátor robotů",
-      "o": "auto",
+      "o": "elektro",
       "s": "spec",
       "k": [
         "Plzeňský kraj"
