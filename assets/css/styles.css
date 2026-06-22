@@ -1105,6 +1105,13 @@ html[data-motion="jemne"] .logo-band-track { animation: none; }
 .skip-link:focus { left: 0; }
 a:focus-visible, button:focus-visible, summary:focus-visible, .pos-row:focus-visible, .ref-card:focus-visible, .case-card:focus-visible, .nav-cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .nav-links a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+/* FAQ stránka (AI čitelnost / GEO) */
+.faq-list { margin-top: 12px; }
+.faq-item { padding: 26px 0; border-bottom: 1px solid var(--line); }
+.faq-item:first-child { border-top: 1px solid var(--line); }
+.faq-q { font-size: 20px; font-weight: 600; letter-spacing: -0.005em; margin: 0 0 10px; color: var(--ink); }
+.faq-a { font-size: 16px; line-height: 1.7; color: var(--dim); margin: 0; max-width: 760px; }
+
 .pos-bonus { display: inline-block; max-width: 240px; margin-left: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--accent); border: 1px solid color-mix(in oklab, var(--accent) 45%, transparent); border-radius: 999px; padding: 2px 10px; vertical-align: middle; text-transform: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* rotující klientské citace (.mcite-rotor): stejný vizuál jako .mcite, jen se prolínají */

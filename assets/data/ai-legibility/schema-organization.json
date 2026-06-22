@@ -1,0 +1,37 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Sintera Czech s.r.o.",
+  "alternateName": "Sintera",
+  "url": "https://www.sintera.cz/",
+  "logo": "https://www.sintera.cz/assets/img/og-cover.png",
+  "image": "https://www.sintera.cz/assets/img/og-cover.png",
+  "description": "Sintera Czech je personálně-poradenská společnost zaměřená na přímé vyhledávání (direct a executive search) kandidátů ve výrobě, technice, automotive, kvalitě, logistice, financích, HR, obchodu a managementu. Oslovuje napřímo odborníky, kteří práci mají a aktivně ji nehledají.",
+  "telephone": "+420499599861",
+  "email": "info@sintera.cz",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Uhelná 160/24",
+    "addressLocality": "Hradec Králové",
+    "addressCountry": "CZ"
+  },
+  "areaServed": { "@type": "Country", "name": "Česká republika" },
+  "serviceType": ["Direct search", "Executive search", "Vyhledávání kandidátů"],
+  "knowsAbout": [
+    "direct search",
+    "executive search",
+    "nábor ve výrobě a strojírenství",
+    "automotive",
+    "technika a konstrukce",
+    "kvalita a zkušebnictví",
+    "logistika a nákup",
+    "servis a údržba",
+    "projekty a stavebnictví",
+    "finance",
+    "HR",
+    "obchod",
+    "management"
+  ],
+  "sameAs": ["https://www.linkedin.com/company/sintera-czech-s-r-o-"],
+  "identifier": "29130336"
+}

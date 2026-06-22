@@ -32,6 +32,37 @@ const BASE = cfg.site.baseUrl.replace(/\/$/, "");
 const yes = v => String(v || "").trim().toLowerCase() === "ano";
 const esc = s => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
+/* ---------- AI čitelnost (GEO): jediný zdroj = assets/data/ai-legibility/ ---------- */
+const AILEG = path.join(DATA, "ai-legibility");
+const ldScript = obj => `<script type="application/ld+json">\n${JSON.stringify(obj)}\n</script>`;
+// Organization/ProfessionalService do <head> všech stránek; URL pole odvozená z baseUrl.
+const ORG_LD = (() => {
+  const o = JSON.parse(fs.readFileSync(path.join(AILEG, "schema-organization.json"), "utf8"));
+  o.url = BASE + "/";
+  if (o.logo) o.logo = BASE + "/assets/img/og-cover.png";
+  if (o.image) o.image = BASE + "/assets/img/og-cover.png";
+  return ldScript(o);
+})();
+// faq.md → [{q, a}]; H1 + úvodní odstavec (meta) se přeskočí, sekce ## = otázka, text pod ní = odpověď.
+function parseFaq(md) {
+  const qa = []; let cur = null;
+  for (const raw of md.split("\n")) {
+    const line = raw.trim();
+    if (line.startsWith("## ")) { cur = { q: line.slice(3).trim(), a: [] }; qa.push(cur); }
+    else if (line.startsWith("# ")) { cur = null; }
+    else if (cur && line) { cur.a.push(line); }
+  }
+  return qa.map(x => ({ q: x.q, a: x.a.join(" ") }));
+}
+const FAQ_QA = parseFaq(fs.readFileSync(path.join(AILEG, "faq.md"), "utf8"));
+// FAQPage JSON-LD ze STEJNÉHO zdroje (faq.md), aby strukturovaná data vždy odpovídala viditelné stránce.
+// (Pozn.: schema-faqpage.json je tím nahrazeno — měl o 1 otázku méně než faq.md.)
+const FAQ_LD = ldScript({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_QA.map(x => ({ "@type": "Question", name: x.q, acceptedAnswer: { "@type": "Answer", text: x.a } })),
+});
+
 function parseCSV(text) {
   const rows = []; let row = [], cur = "", q = false;
   for (let i = 0; i < text.length; i++) {
@@ -331,6 +362,7 @@ ${JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", 
   { "@type": "ListItem", position: 3, name: p.t, item: url },
 ] })}
 </script>
+${ORG_LD}
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -363,7 +395,7 @@ ${JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", 
 <footer>
   <a class="nav-logo nav-wordmark" href="../index.html">Sintera<span>.</span></a>
   <div class="foot-col"><strong>Kontakt</strong>Uhelná 160/24, Hradec Králové<br><a href="tel:+420499599861">+420 499 599 861</a><br><a href="mailto:info@sintera.cz">info@sintera.cz</a></div>
-  <span class="copy">© ${new Date().getFullYear()} Sintera Czech s.r.o. · IČ 29130336</span>
+  <span class="copy">© ${new Date().getFullYear()} Sintera Czech s.r.o. · IČ 29130336 · <a href="../faq/">Časté dotazy</a> · <a href="../ochrana-osobnich-udaju/">Ochrana osobních údajů</a></span>
 </footer>
 </body>
 </html>
@@ -380,6 +412,7 @@ function prerender(site, labels) {
     "<!--MARQUEE-->": marqueeHTML(site.clients),
     "<!--POSITIONS-->": positionsHTML(site.positions, labels),
     "<!--JSONLD-->": itemListLD(site.positions),
+    "<!--ORG-->": ORG_LD,
   };
   for (const [marker, content] of Object.entries(repl)) html = html.replace(marker, content);
   html = html.split("%%BASE%%").join(BASE); // canonical/og/JSON-LD se odvodí z baseUrl (github.io teď, sintera.cz po Fázi 2)
@@ -399,7 +432,7 @@ function writeDetailPages(positions, labels) {
 
 /* ---------- SEO výstupy ---------- */
 function writeSitemap(positions) {
-  const sections = ["/", "/#problem", "/#cases", "/#reference", "/#pozice", "/#kontakt", "/pozice/", "/reference-info/"];
+  const sections = ["/", "/#problem", "/#cases", "/#reference", "/#pozice", "/#kontakt", "/pozice/", "/faq/", "/reference-info/"];
   const jobs = positions.map(p => `/pozice/${p.id}.html`);
   const urls = sections.concat(jobs).map(u => `  <url><loc>${BASE}${u}</loc><changefreq>weekly</changefreq></url>`).join("\n");
   fs.writeFileSync(path.join(ROOT, "sitemap.xml"),
@@ -462,6 +495,118 @@ function writeRedirects(positions) {
 `;
   fs.writeFileSync(path.join(ROOT, "404.html"), html);
   console.log(`  ✓ 404.html (staré /cz/pozice/<id> → /pozice/<id>.html; ${positions.length} živých id, uzavřené → /pozice/)`);
+}
+
+/* ---------- AI čitelnost: FAQ stránka, llms.txt, schema do statických stránek ---------- */
+function faqPage() {
+  const url = `${BASE}/faq/`;
+  const title = "Časté dotazy · Sintera Czech";
+  const desc = "Odpovědi na časté otázky o přímém vyhledávání (direct a executive search) se Sinterou: obory, regiony, rychlost, průběh spolupráce a reference.";
+  const items = FAQ_QA.map(x =>
+    `        <div class="faq-item">\n          <h3 class="faq-q">${esc(x.q)}</h3>\n          <p class="faq-a">${esc(x.a)}</p>\n        </div>`
+  ).join("\n");
+  return `<!DOCTYPE html>
+<html lang="cs" data-theme="dark" data-motion="plne" data-reading="pasy">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${title}</title>
+  <meta name="description" content="${esc(desc)}" />
+  <link rel="canonical" href="${url}" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0e1230" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="cs_CZ" />
+  <meta property="og:site_name" content="Sintera Czech" />
+  <meta property="og:title" content="${title}" />
+  <meta property="og:description" content="${esc(desc)}" />
+  <meta property="og:url" content="${url}" />
+  <meta property="og:image" content="${BASE}/assets/img/og-cover.png" />
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/fonts.css" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  ${ORG_LD}
+  ${FAQ_LD}
+</head>
+<body>
+  <a class="skip-link" href="#faq">Přeskočit na obsah</a>
+  <div class="grain" aria-hidden="true"></div>
+
+  <nav id="nav">
+    <a class="nav-logo nav-wordmark" href="../index.html">Sintera<span>.</span></a>
+    <div class="nav-links">
+      <a href="../index.html#trh">Jak pracujeme</a>
+      <a href="../index.html#reference">Reference</a>
+      <a href="../pozice/">Pozice</a>
+      <a href="../index.html#kontakt">Kontakt</a>
+    </div>
+    <a class="nav-cta" href="../index.html#kontakt">Marně hledáte lidi?</a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+      <i></i><i></i><i></i>
+    </button>
+  </nav>
+
+  <main>
+    <section class="block" id="faq">
+      <div class="block-inner narrow">
+        <span class="kicker">Časté dotazy</span>
+        <div class="sect-head">
+          <h2>Časté dotazy</h2>
+        </div>
+        <p class="positions-lead">Faktické odpovědi na otázky, které řeší personální ředitelé a HR při výběru search partnera.</p>
+        <div class="faq-list">
+${items}
+        </div>
+        <p style="margin-top:40px">
+          <a class="btn btn-line" href="../index.html#kontakt">Máte jinou otázku? Ozvěte se →</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="nav-logo nav-wordmark" href="../index.html">Sintera<span>.</span></a>
+    <div class="foot-col">
+      <strong>Kontakt</strong>
+      Uhelná 160/24, Hradec Králové<br>
+      <a href="tel:+420499599861">+420 499 599 861</a><br>
+      <a href="mailto:info@sintera.cz">info@sintera.cz</a>
+    </div>
+    <div class="foot-col">
+      <strong>Sledujte nás</strong>
+      <a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <span class="copy">© <span id="yr">${new Date().getFullYear()}</span> Sintera Czech s.r.o. · <a href="../faq/">Časté dotazy</a> · <a href="../ochrana-osobnich-udaju/">Ochrana osobních údajů</a></span>
+  </footer>
+
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>
+`;
+}
+function writeFaqPage() {
+  const dir = path.join(ROOT, "faq");
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, "index.html"), faqPage());
+  console.log(`  ✓ faq/ (${FAQ_QA.length} otázek, FAQPage + Organization JSON-LD)`);
+}
+function writeLlmsTxt() {
+  fs.copyFileSync(path.join(AILEG, "llms.txt"), path.join(ROOT, "llms.txt"));
+  console.log("  ✓ llms.txt (kořen, indexovatelný)");
+}
+// Organization JSON-LD do statických stránek (idempotentně, jediný zdroj = schema-organization.json).
+function injectOrgIntoStatic(relFiles) {
+  const block = `<!--ORG_LD_START-->\n${ORG_LD}\n<!--ORG_LD_END-->`;
+  let n = 0;
+  for (const rel of relFiles) {
+    const fp = path.join(ROOT, rel);
+    if (!fs.existsSync(fp)) continue;
+    let html = fs.readFileSync(fp, "utf8");
+    if (html.includes("<!--ORG_LD_START-->")) html = html.replace(/<!--ORG_LD_START-->[\s\S]*?<!--ORG_LD_END-->/, block);
+    else html = html.replace("</head>", `${block}\n</head>`);
+    fs.writeFileSync(fp, html); n++;
+  }
+  console.log(`  ✓ Organization JSON-LD do statických stránek (${n})`);
 }
 
 /* ---------- main ---------- */
@@ -527,6 +672,9 @@ async function main() {
   writeDetailPages(site.positions, labels);
   writeSitemap(site.positions);
   writeRedirects(site.positions);
+  writeFaqPage();
+  writeLlmsTxt();
+  injectOrgIntoStatic(["pozice/index.html", "reference-info/index.html", "ochrana-osobnich-udaju/index.html"]);
   console.log(`Hotovo: ${site.positions.length} pozic, ${site.references.length} referencí, ${site.cases.length} cases, ${site.clients.length} klientů, ${site.rotor.length} rotor vět.`);
 }
 main().catch(e => { console.error(e); process.exit(1); });
