@@ -42,6 +42,45 @@
     .lp__btn { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; font-weight: 600; padding: 15px 30px; border-radius: 10px; }
     @media (max-width: 720px) { .lp__grid { grid-template-columns: 1fr; } }
   </style>
+<!--ORG_LD_START-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Sintera Czech s.r.o.","alternateName":"Sintera","url":"https://www.sintera.cz/","logo":"https://www.sintera.cz/assets/img/og-cover.png","image":"https://www.sintera.cz/assets/img/og-cover.png","description":"Sintera Czech je personálně-poradenská společnost zaměřená na přímé vyhledávání (direct a executive search) kandidátů ve výrobě, technice, automotive, kvalitě, logistice, financích, HR, obchodu a managementu. Oslovuje napřímo odborníky, kteří práci mají a aktivně ji nehledají.","telephone":"+420499599861","email":"info@sintera.cz","address":{"@type":"PostalAddress","streetAddress":"Uhelná 160/24","addressLocality":"Hradec Králové","addressCountry":"CZ"},"areaServed":{"@type":"Country","name":"Česká republika"},"serviceType":["Direct search","Executive search","Vyhledávání kandidátů"],"knowsAbout":["direct search","executive search","nábor ve výrobě a strojírenství","automotive","technika a konstrukce","kvalita a zkušebnictví","logistika a nákup","servis a údržba","projekty a stavebnictví","finance","HR","obchod","management"],"sameAs":["https://www.linkedin.com/company/sintera-czech-s-r-o-"],"identifier":"29130336"}
+</script>
+<!--ORG_LD_END-->
+<!--ANALYTICS_START-->
+<script>
+/* Sintera · first-party měření návštěvnosti (cookieless).
+ * Vlož do <head> všech stránek jako <script>...</script> (inline je nejjednodušší).
+ * Posílá pageview a akce (klik na e-mail/telefon, odeslání formuláře) do Apps Scriptu,
+ * který je loguje do listu "navstevy". Neukládá cookies, IP ani identifikátory.
+ */
+(function () {
+  var EP = 'https://script.google.com/macros/s/AKfycbyoSQr6qvQhGBTQo9LohaiUf5ph1zc4T9z9c3uXcYEudgOu85Yg-gJzhw6tCu1D2pZY/exec';
+  function send(t, name) {
+    try {
+      var data = JSON.stringify({
+        action: 'hit', t: t, path: location.pathname, ref: document.referrer, name: name || ''
+      });
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(EP, new Blob([data], { type: 'text/plain;charset=UTF-8' }));
+      } else {
+        fetch(EP, { method: 'POST', body: data, keepalive: true, mode: 'no-cors' });
+      }
+    } catch (e) {}
+  }
+  send('pageview');
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = (a.getAttribute('href') || '').toLowerCase();
+    if (href.indexOf('mailto:') === 0) send('event', 'email-klik');
+    else if (href.indexOf('tel:') === 0) send('event', 'telefon-klik');
+  }, true);
+  document.addEventListener('submit', function () { send('event', 'formular-odeslano'); }, true);
+  window.sterk = function (name) { send('event', name); }; // ruční sledování akce
+})();
+</script>
+<!--ANALYTICS_END-->
 </head>
 <body>
   <main class="lp">

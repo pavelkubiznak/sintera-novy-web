@@ -62,6 +62,8 @@ const FAQ_LD = ldScript({
   "@type": "FAQPage",
   mainEntity: FAQ_QA.map(x => ({ "@type": "Question", name: x.q, acceptedAnswer: { "@type": "Answer", text: x.a } })),
 });
+// First-party cookieless měření návštěvnosti (assets/data/analytics/sintera-analytics.js) → inline do <head> všech stránek.
+const ANALYTICS = "<script>\n" + fs.readFileSync(path.join(DATA, "analytics", "sintera-analytics.js"), "utf8").trim() + "\n</script>";
 
 function parseCSV(text) {
   const rows = []; let row = [], cur = "", q = false;
@@ -388,6 +390,7 @@ ${JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", 
 ] })}
 </script>
 ${ORG_LD}
+${ANALYTICS}
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -438,6 +441,7 @@ function prerender(site, labels) {
     "<!--POSITIONS-->": positionsHTML(site.positions, labels),
     "<!--JSONLD-->": itemListLD(site.positions),
     "<!--ORG-->": ORG_LD,
+    "<!--ANALYTICS-->": ANALYTICS,
   };
   for (const [marker, content] of Object.entries(repl)) html = html.replace(marker, content);
   html = html.split("%%BASE%%").join(BASE); // canonical/og/JSON-LD se odvodí z baseUrl (github.io teď, sintera.cz po Fázi 2)
@@ -557,6 +561,7 @@ function faqPage() {
   <link rel="stylesheet" href="../assets/css/styles.css" />
   ${ORG_LD}
   ${FAQ_LD}
+  ${ANALYTICS}
 </head>
 <body>
   <a class="skip-link" href="#faq">Přeskočit na obsah</a>
@@ -624,19 +629,26 @@ function writeLlmsTxt() {
   fs.copyFileSync(path.join(AILEG, "llms.txt"), path.join(ROOT, "llms.txt"));
   console.log("  ✓ llms.txt (kořen, indexovatelný)");
 }
-// Organization JSON-LD do statických stránek (idempotentně, jediný zdroj = schema-organization.json).
-function injectOrgIntoStatic(relFiles) {
-  const block = `<!--ORG_LD_START-->\n${ORG_LD}\n<!--ORG_LD_END-->`;
+// Org JSON-LD + měření do statických stránek (idempotentně přes markery; jediný zdroj = source soubory).
+function injectIntoStatic(relFiles) {
+  const blocks = [
+    { tag: "ORG_LD", content: ORG_LD },
+    { tag: "ANALYTICS", content: ANALYTICS },
+  ];
   let n = 0;
   for (const rel of relFiles) {
     const fp = path.join(ROOT, rel);
     if (!fs.existsSync(fp)) continue;
     let html = fs.readFileSync(fp, "utf8");
-    if (html.includes("<!--ORG_LD_START-->")) html = html.replace(/<!--ORG_LD_START-->[\s\S]*?<!--ORG_LD_END-->/, block);
-    else html = html.replace("</head>", `${block}\n</head>`);
+    for (const b of blocks) {
+      const wrapped = `<!--${b.tag}_START-->\n${b.content}\n<!--${b.tag}_END-->`;
+      const re = new RegExp(`<!--${b.tag}_START-->[\\s\\S]*?<!--${b.tag}_END-->`);
+      if (re.test(html)) html = html.replace(re, wrapped);
+      else html = html.replace("</head>", `${wrapped}\n</head>`);
+    }
     fs.writeFileSync(fp, html); n++;
   }
-  console.log(`  ✓ Organization JSON-LD do statických stránek (${n})`);
+  console.log(`  ✓ Org JSON-LD + měření do statických stránek (${n})`);
 }
 
 /* ---------- main ---------- */
@@ -704,7 +716,7 @@ async function main() {
   writeRedirects(site.positions);
   writeFaqPage();
   writeLlmsTxt();
-  injectOrgIntoStatic(["pozice/index.html", "reference-info/index.html", "ochrana-osobnich-udaju/index.html"]);
+  injectIntoStatic(["pozice/index.html", "reference-info/index.html", "ochrana-osobnich-udaju/index.html", "reference/reference-2026-c5219413a491/index.html"]);
   console.log(`Hotovo: ${site.positions.length} pozic, ${site.references.length} referencí, ${site.cases.length} cases, ${site.clients.length} klientů, ${site.rotor.length} rotor vět.`);
 }
 main().catch(e => { console.error(e); process.exit(1); });
