@@ -63,7 +63,8 @@ const FAQ_LD = ldScript({
   mainEntity: FAQ_QA.map(x => ({ "@type": "Question", name: x.q, acceptedAnswer: { "@type": "Answer", text: x.a } })),
 });
 // First-party cookieless měření návštěvnosti (assets/data/analytics/sintera-analytics.js) → inline do <head> všech stránek.
-const ANALYTICS = "<script>\n" + fs.readFileSync(path.join(DATA, "analytics", "sintera-analytics.js"), "utf8").trim() + "\n</script>";
+// POZOR: případný doslovný </script> v obsahu (i v komentáři) by inline skript předčasně ukončil → escapujeme na <\/script>.
+const ANALYTICS = "<script>\n" + fs.readFileSync(path.join(DATA, "analytics", "sintera-analytics.js"), "utf8").trim().replace(/<\/script>/gi, "<\\/script>") + "\n</script>";
 
 function parseCSV(text) {
   const rows = []; let row = [], cur = "", q = false;
