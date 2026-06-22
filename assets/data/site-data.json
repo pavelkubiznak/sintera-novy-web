@@ -1,6 +1,56 @@
 {
   "positions": [
     {
+      "id": 866,
+      "t": "Specialista logistiky",
+      "o": "doprava",
+      "s": "spec",
+      "k": [
+        "Praha",
+        "Středočeský kraj"
+      ],
+      "bonus": "",
+      "rezim": "hybrid",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Hledáme někoho, kdo rozumí logistice a chce mít reálný vliv na spolupráci s dopravci napříč Evropou. Nejde jen o organizaci přeprav, ale také o smlouvy, ceníky, data, fakturaci a postupné zlepšování procesů.",
+      "whyTalk": "Budete nastavovat spolupráci s dopravci, ne jen řešit operativu.\nRole propojuje logistiku, čísla, vyjednávání a hledání lepších řešení.\nPo zapracování je možná občasná práce z domova.",
+      "responsibilities": [
+        "Spravovat spolupráci s dopravci včetně smluv, ceníků a podmínek.",
+        "Vyhledávat nové přepravní partnery napříč Evropou.",
+        "Nastavovat procesy tak, aby logistika fungovala efektivněji a s menším prostorem pro chyby.",
+        "Pracovat s podklady k fakturaci a kontrolovat návaznosti v datech.",
+        "Komunikovat s partnery a hledat funkční řešení pro každodenní provoz.",
+        "Propojovat logistické procesy s čísly, termíny a interními požadavky."
+      ],
+      "mustHave": [
+        "Zkušenost s logistikou, dopravou nebo organizací přepravních procesů.",
+        "Chuť komunikovat, vyjednávat a hledat funkční řešení.",
+        "Schopnost hlídat detail, termíny a návaznosti.",
+        "Jistotu při práci s daty, podklady, smlouvami a fakturací.",
+        "Samostatný přístup a schopnost fungovat v týmu."
+      ],
+      "niceToHave": [
+        "Znalost němčiny."
+      ],
+      "offer": [
+        "Nadstandardní mzdové podmínky.",
+        "Stabilní logistickou roli, ve které uvidíte výsledek své práce.",
+        "25 dní dovolené.",
+        "Sick days.",
+        "Stravenkový paušál.",
+        "Pružný začátek pracovní doby.",
+        "Možnost občasného home office po zapracování.",
+        "Cafeteria systém."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Nadstandardní mzdové podmínky probereme otevřeně v prvním hovoru.",
+      "cta": "Ozvěte se nám diskrétně, i když zatím nemáte připravený životopis nebo si jen chcete ověřit, jestli by vám role dávala smysl. V prvním hovoru si projdeme, jak je logistika ve firmě nastavená, s jakými dopravci a partnery se pracuje, jak velký prostor budete mít pro vlastní návrhy a co se od vás bude čekat v prvních měsících. Otevřeně probereme také mzdové podmínky, režim práce po zapracování a to, jak často se v roli řeší operativa, smlouvy, data nebo komunikace se zahraničními partnery. Pokud máte zkušenost z logistiky, dopravy nebo přepravních procesů a chcete práci, kde nejde jen o každodenní hašení problémů, ale i o zlepšování spolupráce a nastavení pravidel, rádi si s vámi promluvíme.",
+      "descHtml": "",
+      "featured": false
+    },
+    {
       "id": 865,
       "t": "Procurement Specialist",
       "o": "nakup",
