@@ -5,7 +5,10 @@
       "t": "Nástrojař",
       "o": "stroj",
       "s": "spec",
-      "k": [],
+      "k": [
+        "Královéhradecký kraj",
+        "Pardubický kraj"
+      ],
       "bonus": "",
       "rezim": "onsite",
       "datePosted": "",
