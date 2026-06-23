@@ -1,6 +1,57 @@
 {
   "positions": [
     {
+      "id": 867,
+      "t": "Nástrojař",
+      "o": "stroj",
+      "s": "spec",
+      "k": [],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Pro stabilní výrobní společnost hledáme nástrojaře nebo nástrojařku se zkušeností z výroby, strojírenství nebo nástrojárny. Role je vhodná pro někoho, kdo umí pracovat podle technické dokumentace, má cit pro přesnost a chce dlouhodobě působit v technicky zaměřeném prostředí.",
+      "whyTalk": "",
+      "responsibilities": [
+        "Vyrábět, udržovat a opravovat nástroje, přípravky nebo formy.",
+        "Seřizovat nástroje a kontrolovat jejich funkčnost.",
+        "Pracovat podle technické dokumentace.",
+        "Upravovat a dolaďovat nástroje podle potřeb výroby.",
+        "Spolupracovat s výrobou, údržbou a technickým oddělením.",
+        "Kontrolovat kvalitu provedené práce.",
+        "Řešit běžné technické problémy v rámci nástrojárny."
+      ],
+      "mustHave": [
+        "Zkušenost na obdobné pozici ve výrobní nebo strojírenské společnosti.",
+        "Orientace v technické dokumentaci.",
+        "Manuální zručnost a technické myšlení.",
+        "Pečlivost, samostatnost a zodpovědný přístup.",
+        "Schopnost řešit technické úkoly prakticky a efektivně."
+      ],
+      "niceToHave": [
+        "Vzdělání technického směru.",
+        "Praxe v nástrojárně.",
+        "Zkušenost s obráběním, broušením, měřením nebo údržbou nástrojů.",
+        "Znalost práce s měřidly.",
+        "Zkušenost s opravami forem, přípravků nebo výrobních nástrojů."
+      ],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Stabilní zaměstnání v zavedené výrobní společnosti.",
+        "Férové pracovní podmínky.",
+        "Zaškolení a podporu zkušených kolegů.",
+        "Možnost dlouhodobé spolupráce.",
+        "Odborný rozvoj v technickém oboru.",
+        "Zázemí společnosti s jasně nastavenými procesy."
+      ],
+      "salaryRange": "",
+      "salaryNote": "",
+      "cta": "Rádi vám diskrétně řekneme víc o firmě, týmu i konkrétních podmínkách. Stačí krátký rozhovor, i bez životopisu. Společně si ověříme, jestli dává role smysl vzhledem k vašim zkušenostem, očekávání a tomu, jaký typ výrobního prostředí vám sedí.",
+      "descHtml": "",
+      "featured": false
+    },
+    {
       "id": 866,
       "t": "Specialista logistiky",
       "o": "doprava",
