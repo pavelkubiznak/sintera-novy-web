@@ -1,6 +1,58 @@
 {
   "positions": [
     {
+      "id": 843,
+      "t": "Seřizovač",
+      "o": "stroj",
+      "s": "spec",
+      "k": [
+        "Královéhradecký kraj",
+        "Pardubický kraj"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Hledáme člověka do výroby, který má technické myšlení, manuální zručnost a chuť pracovat se stroji. Nemusíte mít za sebou roky na stejné pozici. Důležitý je zájem o technický provoz.",
+      "whyTalk": "",
+      "responsibilities": [
+        "Seřizovat a nastavovat výrobní stroje podle aktuálních potřeb výroby.",
+        "Připravovat stroje na výrobu a kontrolovat jejich správný chod.",
+        "Dohlížet na plynulost výroby a kvalitu vyráběných dílů.",
+        "Provádět běžné kontroly, úpravy a drobná nastavení strojů.",
+        "Řešit technické odchylky a běžné provozní problémy.",
+        "Spolupracovat s výrobou, údržbou a technickým oddělením.",
+        "Předávat informace mezi směnami a podílet se na plynulém chodu provozu."
+      ],
+      "mustHave": [
+        "Technické myšlení a manuální zručnost.",
+        "Pečlivost, samostatnost a zodpovědný přístup.",
+        "Cit pro kvalitu, přesnost a bezpečný chod výroby.",
+        "Schopnost řešit praktické technické úkoly.",
+        "Ochotu učit se a rozvíjet se v technickém provozu."
+      ],
+      "niceToHave": [
+        "Praxe na obdobné pozici velkou výhodou.",
+        "Znalost práce s měřidly nebo základními kontrolními postupy."
+      ],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Férové pracovní podmínky.",
+        "Čistý provoz.",
+        "Stabilní zaměstnání v zavedené výrobní společnosti.",
+        "Zaškolení a podporu zkušených kolegů.",
+        "Možnost dlouhodobé spolupráce.",
+        "Odborný rozvoj v technickém oboru.",
+        "Zázemí společnosti s jasně nastavenými procesy."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Ozvěte se nám diskrétně. Rádi si s vámi krátce projdeme, co už z výroby nebo technického provozu znáte, co vás baví a jaká směna, lokalita nebo podmínky pro vás dávají smysl. Životopis není nutný hned na začátku. Stačí pár vět o vaší praxi a domluvíme se na dalším kroku.",
+      "descHtml": "",
+      "featured": false
+    },
+    {
       "id": 867,
       "t": "Nástrojař",
       "o": "prumysl",
@@ -1839,7 +1891,7 @@
       "featured": false
     },
     {
-      "id": 843,
+      "id": 868,
       "t": "Seřizovač",
       "o": "stroj",
       "s": "spec",
