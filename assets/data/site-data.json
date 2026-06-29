@@ -1,6 +1,54 @@
 {
   "positions": [
     {
+      "id": 871,
+      "t": "Specialista kvality",
+      "o": "kvalita",
+      "s": "spec",
+      "k": [
+        "Praha",
+        "Středočeský kraj"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Baví vás kvalita a chcete mít práci, kde budete v kontaktu s výrobou i lidmi napříč týmy? Tahle role je pro někoho, kdo rád hledá praktická řešení, zlepšuje fungování procesů a chce vidět dopad své práce v praxi.",
+      "whyTalk": "Role propojuje kvalitu, výrobu, zákazníka, technologii a navazující týmy.\nBudete řešit příčiny problémů, ne jen jejich následky.\nVaše práce bude mít viditelný dopad na stabilitu výroby i kvalitu produktu.",
+      "responsibilities": [
+        "Propojovat oblast kvality s výrobou, zákazníkem, technologií a navazujícími týmy.",
+        "Hledat souvislosti, odhalovat příčiny problémů a navrhovat funkční řešení.",
+        "Podílet se na zlepšování procesů a nastavených postupů.",
+        "Spolupracovat s lidmi napříč týmy a pomáhat dotahovat řešení do praxe.",
+        "Ovlivňovat stabilitu výroby, kvalitu produktu a efektivitu procesů."
+      ],
+      "mustHave": [
+        "Zkušenost z oblasti kvality ve výrobním nebo technickém prostředí.",
+        "Chuť propojovat kvalitu s technikou, procesy a praktickým řešením problémů.",
+        "Schopnost dívat se na problém v souvislostech, hledat příčiny a dotahovat věci do výsledku.",
+        "Angličtinu pro běžnou pracovní komunikaci."
+      ],
+      "niceToHave": [],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Práci pro silného hráče ve svém oboru.",
+        "Možnost osobního a profesního růstu.",
+        "Práci na zajímavých projektech.",
+        "Zkrácenou pracovní dobu.",
+        "Pružnou pracovní dobu.",
+        "5 týdnů dovolené.",
+        "Příspěvek na penzijní připojištění.",
+        "Dotované závodní stravování.",
+        "Zázemí zkušeného týmu."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Zajímá vás kvalita, která nekončí u kontroly a tabulek? Ozvěte se nám. Rádi s vámi diskrétně projdeme, jak je role nastavená, jaký typ výroby a procesů řeší a jestli dává smysl pro vaše další směřování. Stačí krátká zpráva, i bez životopisu.",
+      "descHtml": "",
+      "featured": true
+    },
+    {
       "id": 870,
       "t": "Quality Leader",
       "o": "kvalita",
