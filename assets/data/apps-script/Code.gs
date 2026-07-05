@@ -267,6 +267,12 @@ function onOpen() {
     .addItem('Statistiky návštěvnosti (vytvořit/obnovit)', 'vytvorStatistiky')
     .addItem('Obory: dropdown + sjednotit', 'nastavOboryDropdown')
     .addToUi();
+  // samoúdržba při otevření Sheetu: featured max 9 + list statistiky (založí chybějící, přestaví rozbitý)
+  try { enforceFeaturedLimit_(); } catch (e) {}
+  try {
+    var st = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('statistiky');
+    if (!st || String(st.getRange('B4').getDisplayValue()).indexOf('#') === 0) vytvorStatistiky();
+  } catch (e) {}
 }
 
 function triggerBuild_() {
@@ -486,13 +492,15 @@ function vytvorStatistiky() {
   sh.getRange('A1').setValue('STATISTIKY NÁVŠTĚVNOSTI').setFontWeight('bold').setFontSize(14);
   sh.getRange('A2').setValue('Živé vzorce nad listem navstevy — aktualizují se samy. Časy jsou pražské.').setFontColor('#888888');
 
+  // POZOR: středníky jako oddělovače argumentů — česká locale Sheetu čárky nebere (parse error);
+  // středník funguje ve všech locale. Čárky UVNITŘ query stringu jsou syntaxe QUERY, ty zůstávají.
   var kpi = [
-    ['Dnes (zobrazení + akce)', '=COUNTIFS(navstevy!A:A,">="&TODAY(),navstevy!A:A,"<"&(TODAY()+1))'],
-    ['Posledních 7 dní', '=COUNTIFS(navstevy!A:A,">="&(TODAY()-6))'],
-    ['Posledních 30 dní', '=COUNTIFS(navstevy!A:A,">="&(TODAY()-29))'],
-    ['30 dní jen zvenku (bez interních prokliků)', '=COUNTIFS(navstevy!A:A,">="&(TODAY()-29),navstevy!D:D,"<>(interní)")'],
-    ['Celkem zobrazení stránek (od začátku měření)', '=COUNTIF(navstevy!B:B,"pageview")'],
-    ['Celkem akcí (kliky na e-mail/telefon, formuláře)', '=COUNTIF(navstevy!B:B,"event")']
+    ['Dnes (zobrazení + akce)', '=COUNTIFS(navstevy!A:A;">="&TODAY();navstevy!A:A;"<"&(TODAY()+1))'],
+    ['Posledních 7 dní', '=COUNTIFS(navstevy!A:A;">="&(TODAY()-6))'],
+    ['Posledních 30 dní', '=COUNTIFS(navstevy!A:A;">="&(TODAY()-29))'],
+    ['30 dní jen zvenku (bez interních prokliků)', '=COUNTIFS(navstevy!A:A;">="&(TODAY()-29);navstevy!D:D;"<>(interní)")'],
+    ['Celkem zobrazení stránek (od začátku měření)', '=COUNTIF(navstevy!B:B;"pageview")'],
+    ['Celkem akcí (kliky na e-mail/telefon, formuláře)', '=COUNTIF(navstevy!B:B;"event")']
   ];
   for (var i = 0; i < kpi.length; i++) {
     sh.getRange(4 + i, 1).setValue(kpi[i][0]).setFontWeight('bold');
@@ -500,16 +508,16 @@ function vytvorStatistiky() {
   }
 
   sh.getRange('A11').setValue('NÁVŠTĚVY PO DNECH (posledních 30)').setFontWeight('bold');
-  sh.getRange('A12').setFormula('=QUERY(navstevy!A2:E,"select toDate(A), count(B) where A is not null group by toDate(A) order by toDate(A) desc limit 30 label toDate(A) \'Den\', count(B) \'Návštěv\'",0)');
+  sh.getRange('A12').setFormula('=QUERY(navstevy!A2:E;"select toDate(A), count(B) where A is not null group by toDate(A) order by toDate(A) desc limit 30 label toDate(A) \'Den\', count(B) \'Návštěv\'";0)');
 
   sh.getRange('D11').setValue('NEJNAVŠTĚVOVANĚJŠÍ STRÁNKY (30 dní)').setFontWeight('bold');
-  sh.getRange('D12').setFormula('=QUERY(navstevy!A2:E,"select C, count(B) where B=\'pageview\' and A >= date \'"&TEXT(TODAY()-29,"yyyy-mm-dd")&"\' group by C order by count(B) desc limit 20 label C \'Stránka\', count(B) \'Zobrazení\'",0)');
+  sh.getRange('D12').setFormula('=QUERY(navstevy!A2:E;"select C, count(B) where B=\'pageview\' and A >= date \'"&TEXT(TODAY()-29;"yyyy-mm-dd")&"\' group by C order by count(B) desc limit 20 label C \'Stránka\', count(B) \'Zobrazení\'";0)');
 
   sh.getRange('G11').setValue('ODKUD LIDÉ PŘICHÁZEJÍ (30 dní)').setFontWeight('bold');
-  sh.getRange('G12').setFormula('=QUERY(navstevy!A2:E,"select D, count(B) where B=\'pageview\' and A >= date \'"&TEXT(TODAY()-29,"yyyy-mm-dd")&"\' group by D order by count(B) desc limit 15 label D \'Zdroj\', count(B) \'Návštěv\'",0)');
+  sh.getRange('G12').setFormula('=QUERY(navstevy!A2:E;"select D, count(B) where B=\'pageview\' and A >= date \'"&TEXT(TODAY()-29;"yyyy-mm-dd")&"\' group by D order by count(B) desc limit 15 label D \'Zdroj\', count(B) \'Návštěv\'";0)');
 
   sh.getRange('J11').setValue('AKCE (kliky a formuláře)').setFontWeight('bold');
-  sh.getRange('J12').setFormula('=QUERY(navstevy!A2:E,"select E, count(B) where B=\'event\' group by E order by count(B) desc limit 15 label E \'Akce\', count(B) \'Počet\'",0)');
+  sh.getRange('J12').setFormula('=QUERY(navstevy!A2:E;"select E, count(B) where B=\'event\' group by E order by count(B) desc limit 15 label E \'Akce\', count(B) \'Počet\'";0)');
 
   sh.setColumnWidth(1, 300); sh.setColumnWidth(2, 110);
   sh.setColumnWidth(4, 260); sh.setColumnWidth(5, 100);
