@@ -462,7 +462,7 @@ function writeDetailPages(positions, labels) {
 
 /* ---------- SEO výstupy ---------- */
 function writeSitemap(positions) {
-  const sections = ["/", "/#problem", "/#cases", "/#reference", "/#pozice", "/#kontakt", "/pozice/", "/faq/", "/reference-info/"];
+  const sections = ["/", "/pozice/", "/faq/", "/reference-info/"]; // bez #kotev — vyhledávače fragmenty v sitemap ignorují
   const jobs = positions.map(p => `/pozice/${p.id}.html`);
   const urls = sections.concat(jobs).map(u => `  <url><loc>${BASE}${u}</loc><changefreq>weekly</changefreq></url>`).join("\n");
   fs.writeFileSync(path.join(ROOT, "sitemap.xml"),
