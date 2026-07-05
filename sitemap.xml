@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.sintera.cz/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/#problem</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/#cases</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/#reference</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/#pozice</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/#kontakt</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://www.sintera.cz/pozice/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://www.sintera.cz/faq/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://www.sintera.cz/reference-info/</loc><changefreq>weekly</changefreq></url>
