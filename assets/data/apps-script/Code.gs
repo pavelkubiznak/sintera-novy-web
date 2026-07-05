@@ -68,7 +68,9 @@ var TARGETS = {
 };
 
 function handleContentWrite_(body) {
-  if (body.token !== prop_('TOKEN', 'ZMENME_na_dlouhy_nahodny_retezec')) {
+  // fail-closed: bez nastavené Script Property TOKEN se zápis vždy odmítne
+  var token = prop_('TOKEN', '');
+  if (!token || body.token !== token) {
     return json_({ ok: false, error: 'unauthorized' });
   }
   var target = body.target || (body.position ? 'pozice' : '');
