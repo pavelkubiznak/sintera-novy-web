@@ -1,6 +1,53 @@
 {
   "positions": [
     {
+      "id": 873,
+      "t": "IT specialista / specialistka pro systémy a technologie",
+      "o": "technika",
+      "s": "spec",
+      "k": [
+        "Pardubický kraj"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Hledáme někoho, kdo umí prakticky řešit každodenní IT požadavky a dobře komunikuje s kolegy napříč firmou. Tahle role je pro člověka, kterého baví hledat příčiny problémů, nastavovat funkční řešení a vidět konkrétní výsledek své práce. Čeká vás samostatná a viditelná pozice s reálným vlivem na fungování firmy.",
+      "whyTalk": "Čeká vás technicky zajímavá práce u lídra v oboru.\nBudete spolupracovat s mezinárodním IT týmem.\nDostanete prostor pro profesní a odborný růst.\nVýsledky své práce uvidíte každý den.",
+      "responsibilities": [
+        "Pomáhat kolegům s každodenními IT požadavky.",
+        "Řešit IT podporu a hledat praktická řešení problémů.",
+        "Instalovat a nastavovat software i hardware.",
+        "Spolupracovat s kolegy napříč firmou, aby technologie fungovaly tak, jak mají.",
+        "Řešit technické potíže, hledat jejich příčiny a nacházet funkční řešení.",
+        "Přinášet návrhy na zlepšení v oblasti IT i každodenních procesů."
+      ],
+      "mustHave": [
+        "Zkušenost na obdobné IT pozici.",
+        "Schopnost sebevědomě komunikovat s kolegy i vedením.",
+        "Znalost anglického jazyka."
+      ],
+      "niceToHave": [
+        "Zkušenost z výroby, kvality, logistiky nebo průmyslového inženýrství s přesahem do IT.",
+        "Orientace v digitálních nástrojích a výrobních IT systémech, například MES.",
+        "Znalost německého jazyka."
+      ],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Technicky zajímavou práci u lídra v oboru.",
+        "Spolupráci s mezinárodním IT týmem.",
+        "Stabilní zázemí a prostor převzít odpovědnost.",
+        "Možnost profesního a odborného růstu.",
+        "Práci, kde výsledky uvidíte každý den."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Zaujala vás IT role v Pardubickém kraji? Napište nám i bez životopisu. Krátce si řekneme, jaké systémy a technologie máte za sebou, co vás v IT baví a doplníme konkrétní detaily k náplni práce, týmu, očekáváním i mzdě.",
+      "descHtml": "",
+      "featured": true
+    },
+    {
       "id": 872,
       "t": "Skladník / skladnice",
       "o": "doprava",
@@ -1927,7 +1974,7 @@
       "salaryNote": "",
       "cta": "",
       "descHtml": "<p>Baví Vás automatizace, PLC programování a technické výzvy, které mají skutečný dopad? Chcete být součástí moderní výroby, kde se technické novinky opravdu promítají do každodenní výroby?</p><p>Nebudete jen „programovat“. Stanete se člověkem, na kterého se výroba obrací ve chvíli, kdy je potřeba rychle analyzovat problém a najít funkční a praktické technologické řešení.</p><h4>Co Vás čeká</h4><ul><li>Programování PLC systémů</li><li>Spolupráce s procesními inženýry</li><li>Podíl na stabilitě a zefektivnění výrobních linek</li><li>Uvádění technických řešení a nápravných opatření</li></ul><h4>Oceníme především</h4><ul><li>Praxi v oblasti PLC programování</li><li>Výhodou je znalost kamerových systémů</li><li>Umíte analyzovat technické problémy a hledat efektivní řešení</li><li>Máte analytické a na detail zaměřené myšlení</li><li>Znalost anglického jazyka, každá úroveň je vítána</li></ul><h4>Co Vám nabízíme</h4><ul><li>Práci pro lídra ve svém oboru</li><li>Nadstandardní platové ohodnocení</li><li>Zázemí prosperující společnosti</li><li>5 týdnů dovolené</li><li>Roční bonus</li><li>Příspěvek na penzijní připojištění</li><li>Dotované závodní stravování</li><li>Věrnostní bonusy za odpracované roky</li><li>Možnost pracovat s nejmodernějšími technologiemi</li></ul>",
-      "featured": true
+      "featured": false
     },
     {
       "id": 852,
