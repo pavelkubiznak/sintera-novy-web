@@ -251,7 +251,7 @@ function doPost(e) {
 }
 
 function doGet() {
-  return json_({ ok: true, service: 'sintera', targets: Object.keys(TARGETS), actions: ['reference_request', 'hit'] });
+  return json_({ ok: true, service: 'sintera', targets: Object.keys(TARGETS), actions: ['reference_request', 'hit'], token_set: !!prop_('TOKEN', '') });
 }
 
 function json_(obj) {
