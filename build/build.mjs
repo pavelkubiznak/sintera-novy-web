@@ -83,16 +83,58 @@ function parseCSV(text) {
   const head = rows.shift().map(h => h.trim());
   return rows.filter(r => r.some(v => v.trim() !== "")).map(r => { const o = {}; head.forEach((h, i) => o[h] = (r[i] || "").trim()); return o; });
 }
-async function loadSheet(url) {
-  if (!url) return null;
-  try {
-    let text;
-    if (url.startsWith("file:")) text = fs.readFileSync(fileURLToPath(url), "utf8"); // lokální CSV (testování buildu)
-    else { const res = await fetch(url); if (!res.ok) throw new Error("HTTP " + res.status); text = await res.text(); }
-    const rows = parseCSV(text);
-    return rows.length ? rows : null;
+/* Načtení listu ze Sheetu. Když je list NAKONFIGUROVANÝ, ale nejde přečíst, zapíše se to do
+   SHEET_FAILURES a build se pak ZASTAVÍ (viz kontrola v main). Dřív se tiše couvlo k záložním
+   datům a web nepozorovaně zamrzl — 23. 7. 2026 to takhle uteklo 3 dny (sdílení Sheetu se
+   přeplo na „Omezené"). Lokálně jde tiché couvnutí povolit: ALLOW_SHEET_FALLBACK=1 node build/build.mjs */
+const SHEET_FAILURES = [];
+const ALLOW_SHEET_FALLBACK = process.env.ALLOW_SHEET_FALLBACK === "1";
+
+async function loadSheet(url, name) {
+  if (!url) return null;                                  // záměrně nenakonfigurovaný list (např. reference_zed)
+  const POKUSU = 3;
+  let lastErr;
+  for (let i = 1; i <= POKUSU; i++) {
+    try {
+      let text;
+      if (url.startsWith("file:")) text = fs.readFileSync(fileURLToPath(url), "utf8"); // lokální CSV (testování buildu)
+      else { const res = await fetch(url); if (!res.ok) throw new Error("HTTP " + res.status); text = await res.text(); }
+      // Google vrací HTTP 200 s přihlašovací HTML stránkou, když sdílení není „kdokoli s odkazem"
+      if (/<!DOCTYPE html|<html[\s>]/i.test(text.slice(0, 300))) {
+        throw new Error("místo CSV přišla přihlašovací stránka (sdílení Sheetu není veřejné)");
+      }
+      const rows = parseCSV(text);
+      if (!rows.length) throw new Error("prázdná odpověď");
+      return rows;
+    } catch (e) {
+      lastErr = e;
+      if (i < POKUSU) await new Promise(r => setTimeout(r, 1500 * i)); // krátký odklad, ať přežijeme výpadek sítě
+    }
   }
-  catch (e) { console.warn("  ! Sheet nedostupný, fallback:", e.message); return null; }
+  SHEET_FAILURES.push({ name: name || "?", message: lastErr.message });
+  console.warn(`  ! list "${name}" nedostupný (${POKUSU} pokusy): ${lastErr.message}`);
+  return null;
+}
+
+// Zastaví build, když nešel přečíst nakonfigurovaný list — ať výpadek nezůstane bez povšimnutí.
+function zkontrolujDostupnostSheetu() {
+  if (!SHEET_FAILURES.length) return;
+  if (ALLOW_SHEET_FALLBACK) {
+    console.warn(`  ! POZOR: ${SHEET_FAILURES.length} list(ů) nedostupných, jedu ze záložních dat (ALLOW_SHEET_FALLBACK=1)`);
+    return;
+  }
+  console.error("\n=====================================================================");
+  console.error(" BUILD ZASTAVEN: nejde přečíst Google Sheet, web by zůstal neaktuální.");
+  console.error("=====================================================================");
+  SHEET_FAILURES.forEach(f => console.error(`  • list "${f.name}": ${f.message}`));
+  console.error("\n CO S TÍM (nejčastější příčina je sdílení tabulky):");
+  console.error("  1) Otevři Sheet → tlačítko Share (vpravo nahoře)");
+  console.error("  2) Obecný přístup musí být: „Kdokoli s odkazem\" = Čtenář");
+  console.error("     (přidání člověka do tabulky to umí přepnout na „Omezené\")");
+  console.error("  3) Pak znovu: v Sheetu menu Sintera → Publikovat na web");
+  console.error("\n Záměrně jsem NEPOUŽIL záložní data, aby si téhle chyby někdo všiml.");
+  console.error(" Web zůstává v poslední funkční podobě, nic se nerozbilo.\n");
+  process.exit(1);
 }
 function fallback(name, key) { try { return JSON.parse(fs.readFileSync(path.join(DATA, name), "utf8"))[key]; } catch { return []; } }
 
@@ -656,8 +698,9 @@ function injectIntoStatic(relFiles) {
 async function main() {
   console.log("Sintera build…");
   const [pz, rf, cs, kl, rw] = await Promise.all([
-    loadSheet(cfg.sheets.pozice), loadSheet(cfg.sheets.reference), loadSheet(cfg.sheets.casestudies), loadSheet(cfg.sheets.klienti), loadSheet(cfg.sheets.reference_zed),
+    loadSheet(cfg.sheets.pozice, "pozice"), loadSheet(cfg.sheets.reference, "reference"), loadSheet(cfg.sheets.casestudies, "casestudies"), loadSheet(cfg.sheets.klienti, "klienti"), loadSheet(cfg.sheets.reference_zed, "reference_zed"),
   ]);
+  zkontrolujDostupnostSheetu(); // nedostupný list = tvrdá chyba (viz komentář u loadSheet)
 
   const site = {
     positions: pz ? mapPositions(pz) : PZ.POZICE.map(p => ({ ...p })),
