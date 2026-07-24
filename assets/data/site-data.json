@@ -1,6 +1,50 @@
 {
   "positions": [
     {
+      "id": 874,
+      "t": "Projektový inženýr / projektová inženýrka",
+      "o": "projekty",
+      "s": "spec",
+      "k": [
+        "Pardubický kraj"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Máte zkušenost s technickými projekty a chcete vidět, jak se vaše práce promění v reálný výsledek? Hledáme někoho, kdo zvládne vést projekty od návrhu až po spuštění do sériové výroby. Čeká vás samostatná, viditelná role s prostorem pro vlastní rozhodování.",
+      "whyTalk": "Samostatná projektová role s viditelným dopadem.\nProjekty od návrhu až po sériovou výrobu.\nSpolupráce napříč výrobou, kvalitou, údržbou, technickými týmy i dodavateli.\nStabilní zázemí silné technologické společnosti.",
+      "responsibilities": [
+        "Řídit technické projekty a zavádět nové výrobky i technologie.",
+        "Koordinovat dodávky, instalace, přejímky a spuštění strojů.",
+        "Spolupracovat při přesunech výroby mezi závody.",
+        "Propojovat výrobu, kvalitu, údržbu, technické týmy a dodavatele.",
+        "Dotahovat projekty do cíle v termínu a s reálným dopadem."
+      ],
+      "mustHave": [
+        "Praxi na obdobné pozici nebo v podobné technické projektové roli.",
+        "Schopnost samostatně plánovat, koordinovat a dotahovat věci do výsledku.",
+        "Technické myšlení a orientaci v dokumentaci.",
+        "Znalost anglického jazyka."
+      ],
+      "niceToHave": [
+        "Znalost německého jazyka."
+      ],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Samostatnou projektovou roli s viditelným dopadem.",
+        "Práci na zajímavých projektech a výrobních technologiích.",
+        "Stabilní zázemí silné technologické společnosti.",
+        "Zajímavý balíček zaměstnaneckých benefitů."
+      ],
+      "salaryRange": "",
+      "salaryNote": "",
+      "cta": "Zaujala vás role? Napište mi i bez životopisu. Ráda doplním konkrétní informace o projektech, firmě i podmínkách a společně ověříme, jestli dává smysl se potkat.",
+      "descHtml": "",
+      "featured": false
+    },
+    {
       "id": 873,
       "t": "IT specialista / specialistka pro systémy a technologie",
       "o": "technika",
