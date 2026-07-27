@@ -1,6 +1,56 @@
 {
   "positions": [
     {
+      "id": 830,
+      "t": "Vedoucí výroby",
+      "o": "prumysl",
+      "s": "man",
+      "k": [
+        "Pardubický kraj"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Hledáme zkušeného člověka z výrobního prostředí, který chce převzít odpovědnost za vedení a rozvoj výroby. Jde o samostatnou a viditelnou roli s reálným vlivem na každodenní fungování výroby, tým i další směřování.",
+      "whyTalk": "Převezmete odpovědnost za výrobu.\nBudete nastavovat priority a ovlivňovat další rozvoj výrobních procesů.\nVaše rozhodnutí budou mít přímý dopad na výsledky výroby i fungování týmu.",
+      "responsibilities": [
+        "Vést výrobu a odpovídat za její výsledky.",
+        "Vést, podporovat a rozvíjet výrobní tým.",
+        "Zajišťovat plnění výrobních plánů, kvality, produktivity a efektivity.",
+        "Plánovat výrobní kapacity a personální potřeby.",
+        "Nastavovat priority a koordinovat činnosti napříč výrobou.",
+        "Řešit klíčová provozní a organizační témata.",
+        "Vyhodnocovat výrobní ukazatele a řídit navazující zlepšovací opatření."
+      ],
+      "mustHave": [
+        "Zkušenost s vedením lidí a odpovědností za výrobu.",
+        "Orientaci ve výrobních procesech, plánování kapacit, kvalitě a efektivitě výroby.",
+        "Schopnost nastavovat priority, samostatně rozhodovat a nést odpovědnost za svěřenou oblast.",
+        "Přirozenou komunikaci napříč výrobou i s dalšími odděleními.",
+        "Schopnost pracovat s výrobními ukazateli a využívat je při rozhodování.",
+        "Znalost anglického jazyka."
+      ],
+      "niceToHave": [],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Samostatnou a viditelnou vedoucí pozici s reálným vlivem na fungování výroby.",
+        "Technicky zajímavé prostředí ve stabilní mezinárodní společnosti.",
+        "Prostor převzít odpovědnost, nastavovat priority a ovlivňovat další rozvoj výroby.",
+        "Možnost profesního a odborného růstu.",
+        "Práci, ve které budou výsledky vašich rozhodnutí skutečně vidět.",
+        "Pět týdnů dovolené.",
+        "Příspěvek na dopravu, stravování, penzijní nebo životní pojištění.",
+        "Další zaměstnanecké benefity a odměny."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Nadstandardní platové ohodnocení.",
+      "cta": "Rádi vám ji představíme diskrétně a bez závazků. Ozvěte se i bez životopisu. Stačí krátká zpráva nebo kontakt a domluvíme si první rozhovor.",
+      "descHtml": "",
+      "featured": false
+    },
+    {
       "id": 874,
       "t": "Projektový inženýr / projektová inženýrka",
       "o": "projekty",
@@ -2372,7 +2422,7 @@
       "featured": false
     },
     {
-      "id": 830,
+      "id": 875,
       "t": "Vedoucí výroby",
       "o": "prumysl",
       "s": "man",
