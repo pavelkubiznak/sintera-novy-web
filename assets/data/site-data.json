@@ -1,6 +1,51 @@
 {
   "positions": [
     {
+      "id": 787,
+      "t": "Inženýr kvality",
+      "o": "kvalita",
+      "s": "spec",
+      "k": [
+        "Liberecký kraj"
+      ],
+      "bonus": "",
+      "rezim": "hybrid",
+      "datePosted": "2026-07-30",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Hledáme někoho, kdo chce mít kvalitu opravdu ve svých rukou. Ne jen plnit tabulky, ale ovlivňovat, jak funguje výroba, procesy i spolupráce napříč společností. Čeká vás samostatná odborná role u lídra ve svém oboru, kde budete partnerem výroby, technologie, konstrukce i dalších interních týmů.",
+      "whyTalk": "Budete mít reálný vliv na fungování kvality napříč společností.\nČeká vás odborná, samostatná role s odpovědností.\nDostanete prostor posouvat procesy, ne jen řešit administrativu.\nBudete spolupracovat s výrobou, technologií, konstrukcí i dalšími týmy.",
+      "responsibilities": [
+        "Povedete oblast kvality napříč společností.",
+        "Budete hledat příčiny problémů, navrhovat řešení a posouvat kvalitu i procesy dopředu.",
+        "Budete spolupracovat s výrobou, technologií, konstrukcí a dalšími interními týmy.",
+        "Budete se podílet na nastavování, zlepšování a rozvoji systému kvality.",
+        "Budete řešit neshody a nápravná opatření.",
+        "Budete aktivně ovlivňovat, jak kvalita ve firmě funguje."
+      ],
+      "mustHave": [
+        "Zkušenost z oblasti kvality ve výrobní společnosti.",
+        "Schopnost dívat se na problém v souvislostech a najít jeho skutečnou příčinu.",
+        "Samostatnost, systematičnost a schopnost dotahovat věci do konce.",
+        "Schopnost komunikovat s lidmi napříč firmou a obhájit svůj pohled.",
+        "Znalost anglického jazyka."
+      ],
+      "niceToHave": [],
+      "offer": [
+        "Nadstandardní platové ohodnocení a atraktivní benefity.",
+        "Odbornou pozici s reálným vlivem na fungování společnosti.",
+        "Práci u technologicky vyspělé české společnosti a lídra ve svém oboru.",
+        "Zajímavé projekty v oblasti kvality.",
+        "Moderní pracovní prostředí, stabilní zázemí a férové jednání.",
+        "Možnost profesního i kariérního růstu."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Pokud vás láká kvalita, která má skutečný dopad na výrobu, procesy i spolupráci napříč firmou, ozvěte se nám. Rádi si s vámi diskrétně promluvíme o tom, co už máte za sebou, co by vás v kvalitě bavilo dál a jestli by tahle role dávala smysl. Stačí krátká zpráva, i bez životopisu.",
+      "descHtml": "",
+      "featured": true
+    },
+    {
       "id": 830,
       "t": "Vedoucí výroby",
       "o": "prumysl",
@@ -1712,7 +1757,7 @@
       "featured": false
     },
     {
-      "id": 787,
+      "id": 876,
       "t": "Inženýr kvality",
       "o": "kvalita",
       "s": "spec",
@@ -2016,7 +2061,7 @@
       "salaryNote": "",
       "cta": "",
       "descHtml": "<h4>Hlavní odpovědnosti</h4><ul><li>Zastřešení výrobních aktivit napříč několika výrobními závody</li><li>Vedení výrobních týmů a spolupráce s managementem jednotlivých provozů</li><li>Odpovědnost za výkon, stabilitu a efektivitu výroby</li><li>Nastavování a optimalizace výrobních procesů a standardů</li><li>Identifikace příležitostí pro zvyšování produktivity a efektivity</li><li>Koordinace spolupráce napříč výrobou, kvalitou, technologiemi a dalšími odděleními</li><li>Podpora rozvoje firemní kultury, leadershipu a spolupráce mezi závody</li><li>Aktivní účast na strategickém směřování výrobní organizace</li><li>Řízení změn a dlouhodobý rozvoj výrobního prostředí</li></ul><h4>Koho hledáme</h4><ul><li>Zkušenosti s řízením výroby nebo provozu ve výrobní společnosti</li><li>Zkušenost s vedením větších týmů a výrobních struktur</li><li>Schopnost kombinovat strategický pohled s každodenní realitou výroby</li><li>Přirozený leadership, schopnost získat důvěru lidí i managementu</li><li>Orientace na výsledky, efektivitu a dlouhodobý rozvoj organizace</li><li>Komunikativní znalost anglického jazyka</li><li>Zkušenost mimo automotive výhodou</li></ul><h4>Klíčové benefity role</h4><ul><li>Strategická manažerská role s vysokou mírou autonomie</li><li>Reálný vliv na fungování výroby a další rozvoj organizace</li><li>Dlouhodobá perspektiva ve stabilní mezinárodní společnosti</li><li>Zajímavé finanční ohodnocení včetně bonusové složky</li><li>Služební automobil i k soukromému využití</li><li>Prostředí otevřené novým nápadům, inovacím a rozvoji</li></ul>",
-      "featured": true
+      "featured": false
     },
     {
       "id": 855,
