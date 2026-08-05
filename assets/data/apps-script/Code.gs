@@ -18,6 +18,79 @@ function prop_(key, fallback) {
   return (v === null || v === undefined || v === '') ? (fallback || '') : v;
 }
 
+/* ============ NEVEŘEJNÁ TABULKA (osobní údaje + měření) ============
+   Hlavní tabulka MUSÍ být veřejně čitelná, protože z ní build tahá obsah webu.
+   Proto do ní nepatří nic osobního: leady z formuláře i log návštěvnosti žijí
+   v samostatné tabulce, kterou tenhle skript založí pod účtem majitele
+   (nové tabulky jsou soukromé, nikdo jiný se k nim nedostane).
+   Migrace proběhne sama při prvním požadavku po nasazení a je idempotentní. */
+var PUBLIC_SS_ID = '14KteI4GZ58x5kj2MAWhSDb7gS5aLUhi9IEXRPH0cCHs';
+var PRIVATE_SS_KEY = 'PRIVATE_SS_ID';
+
+function verejnaTabulka_() {
+  try { var a = SpreadsheetApp.getActiveSpreadsheet(); if (a) return a; } catch (e) {}
+  return SpreadsheetApp.openById(PUBLIC_SS_ID);
+}
+
+function neverejnaTabulka_() {
+  var props = PropertiesService.getScriptProperties();
+  var id = props.getProperty(PRIVATE_SS_KEY);
+  if (id) {
+    try { return SpreadsheetApp.openById(id); } catch (e) { /* smazaná → založ znovu */ }
+  }
+  var ss = SpreadsheetApp.create('Sintera – leady a měření (NEVEŘEJNÉ)');
+  props.setProperty(PRIVATE_SS_KEY, ss.getId());
+  try { presunNeverejneListy_(ss); } catch (e) {}
+  return ss;
+}
+
+// Jednorázově přenese listy s osobními údaji a měřením z veřejné tabulky do neveřejné.
+function presunNeverejneListy_(cil) {
+  var zdroj = verejnaTabulka_();
+  if (!zdroj || zdroj.getId() === cil.getId()) return;
+  ['leady_reference', 'navstevy'].forEach(function (name) {   // navstevy před statistikami (vzorce na ně odkazují)
+    var sh = zdroj.getSheetByName(name);
+    if (!sh || cil.getSheetByName(name)) return;
+    sh.copyTo(cil).setName(name);
+    zdroj.deleteSheet(sh);
+  });
+  var staraStat = zdroj.getSheetByName('statistiky');         // statistiky postavíme v neveřejné tabulce znovu
+  if (staraStat) zdroj.deleteSheet(staraStat);
+  var prazdny = cil.getSheetByName('Sheet1') || cil.getSheetByName('List1');
+  if (prazdny && cil.getSheets().length > 1) cil.deleteSheet(prazdny);
+  try { vytvorStatistiky(); } catch (e) {}
+}
+
+/* ---------- brzdy proti zneužití veřejných akcí ---------- */
+// Formulář referencí: strop nezávislý na e-mailu (limit 120 s per e-mail sám o sobě
+// nebrání útočníkovi rozesílat poštu jménem Sintery na cizí adresy).
+function lzeOdeslatReferenci_() {
+  var cache = CacheService.getScriptCache();
+  var hod = 'send:h:' + Utilities.formatDate(new Date(), 'Europe/Prague', 'yyyyMMddHH');
+  var zaHodinu = Number(cache.get(hod) || 0);
+  if (zaHodinu >= 20) return false;
+
+  var props = PropertiesService.getScriptProperties();
+  var den = Utilities.formatDate(new Date(), 'Europe/Prague', 'yyyyMMdd');
+  var ulozeno = String(props.getProperty('send_count') || '').split(':');
+  var zaDen = (ulozeno[0] === den) ? Number(ulozeno[1] || 0) : 0;
+  if (zaDen >= 50) return false;
+
+  cache.put(hod, String(zaHodinu + 1), 3900);
+  props.setProperty('send_count', den + ':' + (zaDen + 1));
+  return true;
+}
+
+// Měření: strop zápisů za minutu, ať nejde vyčerpat denní kvótu skriptu a zaplnit tabulku.
+function lzeZapsatHit_() {
+  var cache = CacheService.getScriptCache();
+  var k = 'hits:' + Utilities.formatDate(new Date(), 'Europe/Prague', 'yyyyMMddHHmm');
+  var n = Number(cache.get(k) || 0);
+  if (n >= 120) return false;
+  cache.put(k, String(n + 1), 120);
+  return true;
+}
+
 /* ====================== A) ZÁPIS OBSAHU (token) ====================== */
 
 var list = function (v) { return Array.isArray(v) ? v.join('\n') : (v || ''); };
@@ -154,6 +227,9 @@ function handleReferenceRequest_(body) {
 
   var landing = prop_('LANDING_URL', '');
   if (!landing) return json_({ ok: false, error: 'missing_landing_url' });
+  // strop odeslaných e-mailů (proti zneužití endpointu k rozesílání jménem Sintery)
+  if (!lzeOdeslatReferenci_()) return json_({ ok: true, note: 'rate_limited' });
+
   var send = sendReferenceEmail_(email, body.name || '', landing);
   if (!send.ok) return json_({ ok: false, error: 'send_failed', detail: send.detail });
 
@@ -161,7 +237,7 @@ function handleReferenceRequest_(body) {
 }
 
 function logLead_(d) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = neverejnaTabulka_();                 // osobní údaje NIKDY do veřejné tabulky
   var sh = ss.getSheetByName('leady_reference') || ss.insertSheet('leady_reference');
   var headers = ['cas','email','firma_domena','telefon','jmeno','pozice','zdroj','souhlas'];
   if (sh.getLastRow() === 0) sh.appendRow(headers);
@@ -215,11 +291,12 @@ function escapeHtml_(s) {
 /* ============ B2) Měření návštěvnosti (first-party, bez cookies) ============ */
 function handleHit_(body) {
   try {
+    if (!lzeZapsatHit_()) return json_({ ok: true, note: 'rate_limited' });
     var t = body.t === 'event' ? 'event' : 'pageview';
     var path = String(body.path || '').slice(0, 200);
     var name = String(body.name || '').slice(0, 80);
     var zdroj = refHost_(body.ref);
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var ss = neverejnaTabulka_();               // měření mimo veřejnou tabulku
     var sh = ss.getSheetByName('navstevy') || ss.insertSheet('navstevy');
     if (sh.getLastRow() === 0) sh.appendRow(['cas', 'typ', 'stranka', 'zdroj', 'akce']);
     var cas = Utilities.formatDate(new Date(), 'Europe/Prague', 'yyyy-MM-dd HH:mm:ss');
@@ -251,7 +328,10 @@ function doPost(e) {
 }
 
 function doGet() {
-  return json_({ ok: true, service: 'sintera', targets: Object.keys(TARGETS), actions: ['reference_request', 'hit'], token_set: !!prop_('TOKEN', '') });
+  var privateOk = false;
+  try { privateOk = !!neverejnaTabulka_(); } catch (e) {}   // založí/zmigruje neveřejnou tabulku při prvním volání
+  return json_({ ok: true, service: 'sintera', targets: Object.keys(TARGETS), actions: ['reference_request', 'hit'],
+                 token_set: !!prop_('TOKEN', ''), private_data: privateOk });
 }
 
 function json_(obj) {
@@ -269,10 +349,8 @@ function onOpen() {
     .addToUi();
   // samoúdržba při otevření Sheetu: featured max 9 + list statistiky (založí chybějící, přestaví rozbitý)
   try { enforceFeaturedLimit_(); } catch (e) {}
-  try {
-    var st = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('statistiky');
-    if (!st || String(st.getRange('B4').getDisplayValue()).indexOf('#') === 0) vytvorStatistiky();
-  } catch (e) {}
+  // statistiky teď žijí v neveřejné tabulce (osobní údaje a měření mimo veřejnou);
+  // staví se na vyžádání z menu Sintera, protože k nim má přístup jen majitel.
 }
 
 function triggerBuild_() {
@@ -484,7 +562,7 @@ function opravStareCasy() {
 // Spuštění: menu Sintera → Statistiky návštěvnosti (nebo Run → vytvorStatistiky).
 // Opakované spuštění list jen znovu postaví (bezpečné).
 function vytvorStatistiky() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = neverejnaTabulka_();                 // statistiky patří k datům měření, ne do veřejné tabulky
   var sh = ss.getSheetByName('statistiky');
   if (!sh) sh = ss.insertSheet('statistiky');
   sh.clear();

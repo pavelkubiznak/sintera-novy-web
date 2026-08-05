@@ -187,6 +187,24 @@ let MAX_ID = 0; // nejvyšší dosavadní číselné id = základ pro přidělov
 for (const ids of ID_REG.values()) for (const v of ids) { const n = Number(v); if (Number.isFinite(n) && n > MAX_ID) MAX_ID = n; }
 let REGISTRY_DIRTY = false;
 
+/* Datum první publikace pozice (id → RRRR-MM-DD). Drží se v build/pozice-datum-publikace.json,
+   aby JobPosting datePosted zůstal stálý a denní build ho nepřepisoval na „dnes". */
+const DATES_PATH = path.join(__dirname, "pozice-datum-publikace.json");
+const PUB_DATES = (() => { try { return JSON.parse(fs.readFileSync(DATES_PATH, "utf8")); } catch { return {}; } })();
+let DATES_DIRTY = false;
+function prvniPublikace(id, now) {
+  const key = String(id);
+  if (!PUB_DATES[key]) { PUB_DATES[key] = now.toISOString().slice(0, 10); DATES_DIRTY = true; }
+  return PUB_DATES[key];
+}
+function ulozDataPublikace() {
+  if (!DATES_DIRTY) return;
+  const serazeno = {};
+  for (const k of Object.keys(PUB_DATES).sort((a, b) => (+a) - (+b))) serazeno[k] = PUB_DATES[k];
+  fs.writeFileSync(DATES_PATH, JSON.stringify(serazeno, null, 2) + "\n");
+  console.log("  ✓ pozice-datum-publikace.json aktualizován (stálé datePosted)");
+}
+
 /* ---------- popisy pozic (descHtml překlopené ze sintera.cz) ---------- */
 const POPISY = (() => { try { return JSON.parse(fs.readFileSync(path.join(DATA, "pozice-popisy.json"), "utf8")); } catch { return {}; } })();
 
@@ -369,14 +387,17 @@ function jobDescription(p, labels) {
     `<p>Tuto roli obsazujeme přímým vyhledáváním (direct search): aktivně oslovujeme odborníky, kteří se sami nehlásí. Konkrétní náplň práce, požadavky i podmínky upřesníme při prvním hovoru.</p>`;
 }
 function jobPosting(p, labels) {
+  // datePosted MUSÍ zůstat původní datum publikace. Když ho denní build přepisoval na „dnes",
+  // vypadaly všechny inzeráty jako čerstvé — to Google for Jobs zakazuje (umělá čerstvost).
+  // Zdroj v pořadí: sloupec datum_zverejneni ze Sheetu → zapamatované datum v registru → dnešek (nová pozice).
   const now = new Date();
-  const posted = now.toISOString().slice(0, 10);
-  const through = new Date(now.getTime() + 90 * 864e5).toISOString().slice(0, 10);
+  const posted = p.datePosted || prvniPublikace(p.id, now);
+  const through = new Date(new Date(posted).getTime() + 90 * 864e5).toISOString().slice(0, 10);
   const sal = salaryLD(p.salaryRange);
   return {
     "@context": "https://schema.org", "@type": "JobPosting",
     title: p.t, identifier: { "@type": "PropertyValue", name: "Sintera", value: String(p.id) },
-    datePosted: p.datePosted || posted, validThrough: p.validThrough || through,
+    datePosted: posted, validThrough: p.validThrough || through,
     employmentType: p.employmentType || "FULL_TIME",
     description: positionBodyHTML(p, labels),
     hiringOrganization: { "@type": "Organization", name: "Sintera Czech s.r.o.", sameAs: BASE + "/", logo: BASE + "/assets/img/logo-color.png" },
@@ -757,6 +778,7 @@ async function main() {
   prerender(site, labels);
   writeDetailPages(site.positions, labels);
   writeSitemap(site.positions);
+  ulozDataPublikace();   // stálé datePosted (viz jobPosting)
   writeRedirects(site.positions);
   writeFaqPage();
   writeLlmsTxt();
