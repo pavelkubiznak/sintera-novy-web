@@ -39,8 +39,8 @@ const ldScript = obj => `<script type="application/ld+json">\n${JSON.stringify(o
 const ORG_LD = (() => {
   const o = JSON.parse(fs.readFileSync(path.join(AILEG, "schema-organization.json"), "utf8"));
   o.url = BASE + "/";
-  if (o.logo) o.logo = BASE + "/assets/img/og-cover.png";
-  if (o.image) o.image = BASE + "/assets/img/og-cover.png";
+  if (o.logo) o.logo = BASE + "/assets/img/og-cover.jpg";
+  if (o.image) o.image = BASE + "/assets/img/og-cover.jpg";
   return ldScript(o);
 })();
 // faq.md → [{q, a}]; H1 + úvodní odstavec (meta) se přeskočí, sekce ## = otázka, text pod ní = odpověď.
@@ -345,10 +345,15 @@ function marqueeHTML(clients) {
 const HOMEPAGE_POS = [830, 856, 862, 853, 805, 833, 795, 827, 832]; // záložní kurátorský výběr (když Sheet nemá featured); jinak řídí homepage sloupec featured
 // Oranžový chip s příspěvkem (prerender fallback). Stejná logika jako v app.js:
 // prefix „+ příspěvek" jen u čistých částek; když hodnota slovo „příspěvek" už obsahuje, vypíše se tak, jak je.
-function bonusChip(v) {
+function bonusLabel(v, prefix) {
   v = String(v == null ? "" : v).trim();
   if (!v) return "";
-  const label = /příspěvek/i.test(v) ? v : `+ příspěvek ${v}`;
+  if (/příspěvek/i.test(v)) return v.charAt(0).toUpperCase() + v.slice(1);  // hodnota už slovo obsahuje (např. „náborový příspěvek")
+  return `${prefix} ${v}`;
+}
+function bonusChip(v) {
+  const label = bonusLabel(v, "+ příspěvek");
+  if (!label) return "";
   return `<span class="pos-bonus" title="${esc(label)}">${esc(label)}</span>`;
 }
 function positionsHTML(positions, labels) {
@@ -382,7 +387,7 @@ function applicantCountries(krList) {
 }
 function jobDescription(p, labels) {
   const obor = labels.OBORY[p.o] || "", sen = labels.SENIORITY[p.s] || "", loc = (p.k || []).join(", ");
-  const bonus = p.bonus ? ` Náborový příspěvek ${esc(p.bonus)}.` : "";
+  const bonus = p.bonus ? ` ${esc(bonusLabel(p.bonus, "Náborový příspěvek"))}.` : "";
   return `<p>${esc(p.t)} v oboru ${esc(obor)} (${esc(sen)}), lokalita: ${esc(loc)}.${bonus}</p>` +
     `<p>Tuto roli obsazujeme přímým vyhledáváním (direct search): aktivně oslovujeme odborníky, kteří se sami nehlásí. Konkrétní náplň práce, požadavky i podmínky upřesníme při prvním hovoru.</p>`;
 }
@@ -420,7 +425,7 @@ function itemListLD(positions) {
 /* ---------- samostatná stránka pozice ---------- */
 function detailPage(p, labels) {
   const obor = labels.OBORY[p.o] || p.o, sen = labels.SENIORITY[p.s] || p.s, loc = (p.k || []).join(" / ");
-  const bonus = p.bonus ? `<span>Příspěvek ${esc(p.bonus)}</span>` : "";
+  const bonus = p.bonus ? `<span>${esc(bonusLabel(p.bonus, "Příspěvek"))}</span>` : "";
   const title = `${esc(p.t)} · ${esc(loc)} · Sintera Czech`;
   const desc = `${esc(p.t)} (${esc(obor)}, ${esc(sen)}), lokalita ${esc(loc)}. Obsazujeme přímým vyhledáváním. Reagujte e-mailem na info@sintera.cz.`;
   const subj = encodeURIComponent(`Reakce na pozici: ${p.t} (${loc})`);
@@ -439,7 +444,7 @@ function detailPage(p, labels) {
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${desc}">
 <meta property="og:url" content="${url}">
-<meta property="og:image" content="${BASE}/assets/img/og-cover.png">
+<meta property="og:image" content="${BASE}/assets/img/og-cover.jpg">
 <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
 <link rel="stylesheet" href="../assets/css/fonts.css">
 <link rel="stylesheet" href="../assets/css/styles.css">
@@ -619,7 +624,7 @@ function faqPage() {
   <meta property="og:title" content="${title}" />
   <meta property="og:description" content="${esc(desc)}" />
   <meta property="og:url" content="${url}" />
-  <meta property="og:image" content="${BASE}/assets/img/og-cover.png" />
+  <meta property="og:image" content="${BASE}/assets/img/og-cover.jpg" />
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../assets/css/fonts.css" />
   <link rel="stylesheet" href="../assets/css/styles.css" />

@@ -60,7 +60,10 @@
         list.appendChild(item);
       } else {
         // fallback: prostý odkaz na detail, kdyby se builder nenačetl
-        var bonus = p.bonus ? ' <span class="pos-bonus">+ příspěvek ' + esc(p.bonus) + "</span>" : "";
+        // prefix jen u čistých částek; hodnota, která slovo „příspěvek" už obsahuje, se nezdvojuje
+        var bv = String(p.bonus || "").trim();
+        var blabel = bv ? (/příspěvek/i.test(bv) ? bv.charAt(0).toUpperCase() + bv.slice(1) : "+ příspěvek " + bv) : "";
+        var bonus = blabel ? ' <span class="pos-bonus" title="' + esc(blabel) + '">' + esc(blabel) + "</span>" : "";
         var a = document.createElement("a");
         a.className = "pos-row";
         a.href = DETAIL_BASE + p.id + ".html";
