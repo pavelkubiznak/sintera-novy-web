@@ -116,6 +116,24 @@ async function loadSheet(url, name) {
   return null;
 }
 
+// Zastaví build, když ze Sheetu nevypadla ŽÁDNÁ pozice. Data můžou dorazit v pořádku (HTTP 200,
+// validní CSV), a přesto být nepoužitelná — 5. 8. 2026 gviz bez parametru headers=1 slepil hlavičku
+// s prvním řádkem dat, build nenašel sloupce a vyrobil web BEZ POZIC, aniž by si toho kdo všiml.
+function zkontrolujObsah(site) {
+  if (site.positions && site.positions.length) return;
+  if (ALLOW_SHEET_FALLBACK) { console.warn("  ! POZOR: 0 pozic, pokračuji (ALLOW_SHEET_FALLBACK=1)"); return; }
+  console.error("\n=====================================================================");
+  console.error(" BUILD ZASTAVEN: ze Sheetu nevyšla ani jedna pozice.");
+  console.error("=====================================================================");
+  console.error("  Data se načetla, ale build v nich nenašel žádnou pozice ke zveřejnění.");
+  console.error("\n CO ZKONTROLOVAT:");
+  console.error("  1) List „pozice\" má v řádku 1 hlavičku (nazev, obor, ... zverejnit)");
+  console.error("  2) Aspoň jeden řádek má ve sloupci zverejnit hodnotu „ano\"");
+  console.error("  3) V build/config.json mají URL parametr headers=1");
+  console.error("\n Web zůstává v poslední funkční podobě, nic se nesmazalo.\n");
+  process.exit(1);
+}
+
 // Zastaví build, když nešel přečíst nakonfigurovaný list — ať výpadek nezůstane bez povšimnutí.
 function zkontrolujDostupnostSheetu() {
   if (!SHEET_FAILURES.length) return;
@@ -736,6 +754,7 @@ async function main() {
     rotor:      fallback("reference-data.json", "rotor"),
     homepage:   fallback("reference-data.json", "homepage"),
   };
+  zkontrolujObsah(site);   // prázdný výsledek = tvrdá chyba (viz komentář u funkce)
   const labels = { OBORY: PZ.OBORY, SENIORITY: PZ.SENIORITY, KRAJE: PZ.KRAJE };
 
   fs.writeFileSync(path.join(DATA, "site-data.json"), JSON.stringify(site, null, 2));
