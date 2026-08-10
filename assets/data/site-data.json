@@ -1,6 +1,56 @@
 {
   "positions": [
     {
+      "id": 878,
+      "t": "Technický projektový manažer R&D",
+      "o": "technika",
+      "s": "spec",
+      "k": [
+        "Ostravský kraj"
+      ],
+      "bonus": "",
+      "rezim": "hybrid",
+      "datePosted": "2026-08-10",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Budete řídit technickou stránku vývojových projektů od zadání až po realizaci. Propojíte vývoj, zákazníka, dodavatele i výrobu a budete držet projekt ve směru, který dává technicky i nákladově smysl.",
+      "whyTalk": "Reálný vliv na vývoj produktu od prvního technického zadání.\nSamostatná technická role bez přímého vedení lidí.\nSpolupráce s odborníky napříč konstrukcí, simulacemi, testováním a výrobou.",
+      "responsibilities": [
+        "Řídit technické projekty zaměřené na vývoj produktů.",
+        "Koordinovat vývojový tým a spolupracovat se specialisty na konstrukci, simulace a testování.",
+        "Komunikovat se zákazníky a dodavateli o technických požadavcích i aktuálním stavu vývoje.",
+        "Hlídát harmonogram, rozpočet vývoje a nákladovou stránku produktu.",
+        "Spolupracovat s výrobou, nákupem, obchodem i dalšími odbornými odděleními.",
+        "Vést technická jednání s dodavateli.",
+        "Podílet se na rozvoji produktů, vývojových metod a projektových procesů."
+      ],
+      "mustHave": [
+        "Technické vzdělání.",
+        "Zkušenost z vývojového, technického nebo výrobního prostředí.",
+        "Schopnost řídit technickou stránku projektu a domluvit se s lidmi napříč firmou.",
+        "Angličtinu pro pracovní komunikaci.",
+        "Samostatnost, systematičnost a schopnost dotahovat věci do konce."
+      ],
+      "niceToHave": [
+        "Orientace v hydraulických systémech.",
+        "Němčina."
+      ],
+      "offer": [
+        "Nadstandardní mzdové podmínky, konkrétně je probereme otevřeně v prvním hovoru.",
+        "Práci na vývojových projektech s dopadem na finální produkt.",
+        "Moderní high-tech zázemí.",
+        "Mezinárodní prostředí.",
+        "Bezkonkurenční benefitní balíček.",
+        "Možnost profesního růstu.",
+        "Nástup ihned nebo podle dohody."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Zaujala vás technická role, kde nejde jen o koordinaci tabulek, ale o skutečné vedení vývojového směru produktu? Rádi s vámi projdeme detaily diskrétně a bez zbytečné administrativy. V prvním hovoru si řekneme, jaké typy projektů vás čekají, s jakými týmy budete spolupracovat, jak vypadá rozhodování v R&D a kde budete mít největší prostor ovlivnit výsledek. Probereme také mzdové podmínky, očekávání firmy a to, jestli role odpovídá vaší zkušenosti i dalšímu směru, kterým se chcete profesně posunout. Nemusíte mít připravený životopis. Stačí krátká zpráva nebo kontakt a domluvíme se na čase, který vám bude vyhovovat.",
+      "descHtml": "",
+      "featured": true
+    },
+    {
       "id": 877,
       "t": "Procurement Manager",
       "o": "nakup",
@@ -1920,7 +1970,7 @@
       "salaryNote": "",
       "cta": "",
       "descHtml": "<h4>Náplň práce</h4><ul><li>Kompletní odpovědnost za plynulý chod technické a analytické laboratoře</li><li>Vedení laboratorních aktivit</li><li>Odborná podpora výroby</li><li>Vedení a rozvoj týmu (laboranti, techničtí odborníci)</li><li>Aktivní zapojení do projektů a technologického rozvoje společnosti</li><li>Návrh a optimalizace nových analytických metod</li><li>Odpovědnost za kvalitu výsledků měření a jejich praktickou interpretaci</li><li>Tvorba a řízení rozpočtu laboratoře, kalkulace testů a analýz</li></ul><h4>Váš profil</h4><ul><li>VŠ/SŠ vzdělání chemického nebo technického směru</li><li>Praktickou zkušenost s laboratorní prací nebo kvalitou výroby</li><li>Zkušenost s vedením lidí</li><li>Chuť pracovat v oboru, který není svázaný rigidními normami a umožňuje odbornou kreativitu</li><li>Orientaci v BOZP a laboratorní legislativě (výhodou)</li><li>Znalost anglického jazyka</li></ul><h4>Proč Vás to bude bavit</h4><ul><li>Práce v rámci špičkově vybavené laboratoře a moderního technologického závodu</li><li>Možnost formovat nový, perspektivní obor a být u jeho vývoje od začátku</li><li>Velký prostor pro vlastní know-how, nápady a zlepšení</li><li>Viditelný dopad Vaší práce na výsledky společnosti</li></ul><h4>Nabízíme</h4><ul><li>Přátelské pracovní prostředí a stabilní zázemí silné společnosti</li><li>Dlouhodobou spolupráci a práci na zajímavých projektech</li><li>Nadstandardní finanční ohodnocení</li><li>Podporu odborného a manažerského rozvoje</li></ul>",
-      "featured": true
+      "featured": false
     },
     {
       "id": 863,
