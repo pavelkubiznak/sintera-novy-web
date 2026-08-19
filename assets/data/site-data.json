@@ -1,6 +1,56 @@
 {
   "positions": [
     {
+      "id": 879,
+      "t": "Manažer výroby",
+      "o": "prumysl",
+      "s": "man",
+      "k": [
+        "Zlínský kraj"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "2026-08-19",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Hledáme manažera výroby, který převezme celkovou odpovědnost za výrobu a bude mít reálný vliv na její výkon, kvalitu i efektivitu. Role je vhodná pro člověka, který umí vést lidi, nastavovat priority a zároveň hledat praktická zlepšení přímo ve výrobě.",
+      "whyTalk": "",
+      "responsibilities": [
+        "Převezmete celkovou odpovědnost za výrobu.",
+        "Povedete tým, nastavíte priority, pravidla a očekávání.",
+        "Pohlídáte termíny, kvalitu a plynulost zakázek.",
+        "Propojíte jednotlivé části výroby a budete řešit situace s dopadem na výsledek.",
+        "Budete hledat slabá místa, zjednodušovat procesy a navrhovat zlepšení.",
+        "Stanete se důležitým partnerem pro vedení firmy."
+      ],
+      "mustHave": [
+        "Zkušenost z výrobního nebo technického prostředí.",
+        "Praxi s vedením lidí.",
+        "Technické myšlení a přehled o fungování výroby.",
+        "Schopnost rychle se zorientovat ve výrobě a rozhodovat se věcně.",
+        "Přirozenou autoritu, samostatnost a chuť dotahovat věci do výsledku."
+      ],
+      "niceToHave": [
+        "Zkušenost se zlepšováním procesů ve výrobě.",
+        "Praxe z prostředí moderních technologií nebo projektově řízené výroby."
+      ],
+      "offer": [
+        "Nadstandardní platové ohodnocení a bonusovou složku.",
+        "Manažerskou pozici se skutečným vlivem na výrobu.",
+        "Smysluplnou práci ve firmě, která si stojí za kvalitou a výsledky.",
+        "Tým, který drží spolu a ocení zkušenosti i nové nápady.",
+        "Možnost být u klíčových projektů od prvního nápadu až po realizaci.",
+        "Stabilní zázemí u silného hráče ve svém oboru, moderní technologie a perspektivu růstu.",
+        "Služební automobil i pro soukromé využití.",
+        "Příspěvky na volnočasové aktivity, rozvojová školení a další firemní benefity."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Nadstandardní platové ohodnocení.",
+      "cta": "Zajímá vás role, kde budete mít celkovou odpovědnost za výrobu a prostor ovlivnit její výkon, kvalitu i další směřování? Ozvěte se nám diskrétně. Stačí krátká zpráva, klidně i bez životopisu. V prvním hovoru si otevřeně řekneme, o jakou firmu jde, jak je role nastavená, jaký prostor k rozhodování budete mít a jaké jsou finanční podmínky.",
+      "descHtml": "",
+      "featured": true
+    },
+    {
       "id": 878,
       "t": "Technický projektový manažer R&D",
       "o": "technika",
@@ -1945,7 +1995,7 @@
       "salaryNote": "",
       "cta": "",
       "descHtml": "<p>Baví Vás technologie, procesy a zlepšování výroby? Hledáme Technologa, který chce mít reálný vliv na to, jak se ve výrobě pracuje, od nastavení postupů až po zavádění změn a hledání efektivnějších řešení. Čeká Vás stabilní zázemí, moderní prostředí a prostor posouvat věci dopředu.</p><h4>Co u nás budete dělat</h4><ul><li>Připravovat a aktualizovat technologické postupy a kontrolní plány</li><li>Nastavovat a upravovat postupy pro jednotlivé výrobní operace tak, aby výroba běžela hladce</li><li>Předepisovat materiál a tvořit výkresy polotovarů</li><li>Připravovat zakázky „do výroby“ a držet přehled, aby se nic nezaseklo</li><li>Dělat drobné konstrukční úpravy a tvořit výrobní výkresy</li><li>Navrhovat výrobní přípravky a podílet se na zlepšování procesů a technologií</li></ul><h4>Koho hledáme</h4><ul><li>Máte SŠ/VŠ technického směru (výhodou) a technické myšlení</li><li>Máte praxi v technologii nebo přípravě výroby, nebo se v tom chcete dál rozvíjet</li><li>Umíte číst a používat technickou dokumentaci</li><li>Umíte komunikovat a spolupracovat s výrobou i dalšími odděleními</li><li>Máte chuť zkoušet nové věci a zlepšovat výrobu</li><li>Helios je výhodou, ne podmínkou</li></ul><h4>Co Vám nabídneme</h4><ul><li>Stabilní firmu s dlouhodobou perspektivou a jistotou</li><li>Nadstandardní platové ohodnocení</li><li>Možnost profesního a odborného růstu (prostor učit se, posouvat se a rozvíjet se v praxi)</li><li>Benefity, které si zamilujete</li></ul>",
-      "featured": true
+      "featured": false
     },
     {
       "id": 827,
