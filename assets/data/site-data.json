@@ -1,6 +1,53 @@
 {
   "positions": [
     {
+      "id": 881,
+      "t": "Procesní inženýr",
+      "o": "prumysl",
+      "s": "spec",
+      "k": [
+        "Vysočina",
+        "Jihomoravský kraj"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Chcete práci, kde vaše nápady nezůstanou jen na papíře? V této roli budete mít prostor reálně ovlivnit fungování výroby, zlepšovat procesy a podílet se na technických projektech ve stabilním výrobním prostředí.",
+      "whyTalk": "Budete mít přímý vliv na efektivitu výroby.\nDostanete prostor pro vlastní návrhy a technická zlepšení.\nČekají vás projekty v oblasti Lean a Kaizen.\nRole stojí na spolupráci výroby, kvality a vývoje.",
+      "responsibilities": [
+        "Optimalizovat výrobní procesy a hledat cesty ke zvýšení jejich efektivity.",
+        "Zavádět nové technologie a výrobní postupy.",
+        "Řešit technické problémy ve výrobě a navrhovat konkrétní zlepšení.",
+        "Zapojovat se do projektů zaměřených na Lean a Kaizen.",
+        "Spolupracovat s kolegy z výroby, kvality a vývoje.",
+        "Přicházet s vlastními nápady a aktivně ovlivňovat fungování výroby."
+      ],
+      "mustHave": [
+        "Praxi v oblasti výrobních procesů.",
+        "Technické a analytické myšlení.",
+        "Chuť hledat zlepšení a dotahovat je do praxe.",
+        "Znalost anglického jazyka."
+      ],
+      "niceToHave": [
+        "Znalost nástrojů pro zlepšování procesů.",
+        "Zkušenost s Lean nebo Six Sigma."
+      ],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Možnost kariérního a profesního růstu.",
+        "Práci na zajímavých a různorodých projektech.",
+        "Zázemí společnosti, která patří mezi lídry ve svém oboru.",
+        "Stabilní výrobní prostředí s prostorem ovlivnit, jak výroba funguje."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Nadstandardní platové ohodnocení.",
+      "cta": "Zajímá vás role, kde procesní zlepšení nejsou jen prezentace, ale skutečně se promítají do výroby? Ozvěte se nám diskrétně. Rádi s vámi probereme, jaké projekty vás čekají, jak velký prostor budete mít pro vlastní návrhy, s kým budete spolupracovat a jak může role navazovat na vaše dosavadní zkušenosti.\n\nNemusíte mít připravený životopis ani být rozhodnutí, že chcete měnit práci. Stačí, když vám dává smysl zjistit víc. V prvním hovoru si otevřeně řekneme, jak role vypadá v praxi, jaké technické výzvy firma řeší a jaký typ zkušeností je pro ni důležitý. Stejně tak se pobavíme o tom, co je důležité pro vás: projekty, technologie, míra samostatnosti, další růst i očekávání ke mzdě.\n\nVše probíhá diskrétně. Pokud po prvním rozhovoru usoudíte, že role není pro vás, nic se neděje. Pokud naopak uvidíme oboustranný smysl, domluvíme další krok a pomůžeme vám získat jasný obrázek o pozici, týmu i prostředí. Napište nám pár vět o své zkušenosti s výrobními procesy, nebo jen pošlete kontakt. Ozveme se zpět a domluvíme se na čase, který vám bude vyhovovat.",
+      "descHtml": "",
+      "featured": true
+    },
+    {
       "id": 880,
       "t": "Financial Controller",
       "o": "finance",
@@ -1865,7 +1912,7 @@
       "salaryNote": "",
       "cta": "",
       "descHtml": "<h4>Co vás čeká</h4><ul><li>Kvalifikace a rozvoj nových i stávajících dodavatelů a jejich podpora v oblasti kvality a procesů</li><li>Koordinace vzorkování, vyhodnocování a schvalování prvních vzorků</li><li>Realizace a vyhodnocování auditů dodavatelů</li><li>Nastavování nápravných opatření a sledování jejich plnění</li><li>Řešení dodavatelských reklamací</li><li>Zlepšování procesů a hledání úspor v rámci dodavatelského řetězce</li><li>Spolupráce při hodnocení dodavatelů a podpora při vstupní kontrole kvality i výrobních procesech</li></ul><h4>Koho hledáme</h4><ul><li>Vzdělání technického směru</li><li>Praxi v oblasti kvality</li><li>Zkušenost s procesními audity, certifikace auditora velkou výhodou</li><li>Znalost nástrojů kvality</li><li>Samostatnost, zodpovědnost</li><li>Analytické myšlení, systematický přístup</li><li>Znalost anglického jazyka</li></ul><h4>Co nabízíme</h4><ul><li>Zajímavou a samostatnou pozici v rostoucí mezinárodní společnosti</li><li>Nadstandardní platové ohodnocení</li><li>Možnost odborného i kariérního růstu</li><li>Odborná školení a rozvoj v oblasti kvality</li><li>Flexibilní pracovní dobu</li><li>13. plat, příspěvek na dopravu, stravenky, příspěvek na penzijní připojištění</li><li>5 týdnů dovolené a další firemní benefity</li></ul>",
-      "featured": true
+      "featured": false
     },
     {
       "id": 813,
