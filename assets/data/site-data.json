@@ -1,6 +1,53 @@
 {
   "positions": [
     {
+      "id": 880,
+      "t": "Financial Controller",
+      "o": "finance",
+      "s": "spec",
+      "k": [
+        "Plzeňský kraj"
+      ],
+      "bonus": "",
+      "rezim": "hybrid",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Hledáme Financial Controllera pro roli, kde budete pracovat s daty, controllingovými výstupy a projekty, které mají dopad na fungování firmy. Dostanete prostor věci nejen vyhodnocovat, ale také hledat jednodušší a efektivnější způsob, jak controllingové procesy posouvat dál.",
+      "whyTalk": "Budete pracovat na zajímavých projektech v oblasti controllingu.\nDostanete prostor pro samostatnost a vlastní nápady.\nBudete ovlivňovat, jak se controllingové procesy rozvíjejí a zjednodušují.",
+      "responsibilities": [
+        "Věnovat se controllingovým aktivitám.",
+        "Pracovat s daty, výstupy, kalkulacemi a odchylkami.",
+        "Připravovat ad hoc analýzy pro konkrétní rozhodování.",
+        "Podílet se na plánování, budgetingu a forecastingu.",
+        "Hledat možnosti, jak controllingové procesy zjednodušit a zefektivnit.",
+        "Spolupracovat na zavádění nových nástrojů a postupů.",
+        "Komunikovat a spolupracovat s odděleními napříč firmou."
+      ],
+      "mustHave": [
+        "Máte zkušenost s controllingem, reportingem, finančními analýzami nebo podobnou oblastí.",
+        "Orientujete se ve finančních datech a umíte v nich hledat souvislosti.",
+        "V práci využijete angličtinu.",
+        "Jste samostatní, pečliví a analyticky založení.",
+        "Baví vás hledat způsoby, jak věci dělat efektivněji a posouvat je dál."
+      ],
+      "niceToHave": [],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Práci na zajímavých projektech v oblasti controllingu.",
+        "Prostor pro samostatnost a vlastní nápady.",
+        "Možnost ovlivňovat a rozvíjet controllingové procesy.",
+        "Spolupráci napříč firmou.",
+        "Stabilní zázemí silné společnosti.",
+        "Zajímavé zaměstnanecké benefity."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Ozvěte se nám diskrétně, i pokud zatím nemáte aktualizovaný životopis. V prvním hovoru si otevřeně řekneme, jak role funguje, jaký typ controllingové agendy převažuje, jak je nastavený hybridní režim a jaké jsou mzdové podmínky.",
+      "descHtml": "",
+      "featured": false
+    },
+    {
       "id": 879,
       "t": "Manažer výroby",
       "o": "prumysl",
