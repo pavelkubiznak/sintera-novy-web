@@ -1,6 +1,53 @@
 {
   "positions": [
     {
+      "id": 787,
+      "t": "Inženýr kvality",
+      "o": "kvalita",
+      "s": "spec",
+      "k": [
+        "Plzeňský kraj"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "2026-08-21",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Hledáme někoho, koho baví kvalita ve výrobním prostředí a chce být v kontaktu s výrobou i lidmi napříč týmy. Role propojuje kvalitu, výrobu, zákazníka, technologii a navazující týmy. Budete hledat příčiny problémů, navrhovat praktická řešení a vidět dopad své práce přímo ve výrobě.",
+      "whyTalk": "Budete mít vliv na stabilitu výroby i kvalitu produktu.\nNejde jen o kontrolu, ale o hledání příčin a praktické zlepšování procesů.\nRole propojuje techniku, výrobu, zákazníka a spolupráci napříč týmy.",
+      "responsibilities": [
+        "Propojovat oblast kvality s výrobou, zákazníkem, technologií a navazujícími týmy.",
+        "Hledat souvislosti, odhalovat příčiny problémů a navrhovat funkční řešení.",
+        "Podílet se na zlepšování procesů a nastavených postupů.",
+        "Spolupracovat s lidmi napříč týmy a dotahovat řešení do praxe.",
+        "Ovlivňovat stabilitu výroby, kvalitu produktu a efektivitu procesů."
+      ],
+      "mustHave": [
+        "Zkušenost z oblasti kvality ve výrobním nebo technickém prostředí.",
+        "Chuť propojovat kvalitu s technikou, procesy a praktickým řešením problémů.",
+        "Schopnost dívat se na problém v souvislostech, hledat příčiny a dotahovat věci do výsledku.",
+        "Znalost anglického nebo německého jazyka."
+      ],
+      "niceToHave": [],
+      "offer": [
+        "Nadstandardní mzdové ohodnocení.",
+        "Práce pro silného hráče ve svém oboru.",
+        "Možnost osobního a profesního růstu.",
+        "Práce na zajímavých projektech.",
+        "Zkrácená pracovní doba.",
+        "Pružná pracovní doba.",
+        "5 týdnů dovolené.",
+        "Příspěvek na penzijní připojištění.",
+        "Dotované závodní stravování.",
+        "Zázemí zkušeného týmu."
+      ],
+      "salaryRange": "",
+      "salaryNote": "",
+      "cta": "Rádi vám k roli řekneme víc diskrétně a bez závazku. Stačí krátká zpráva, i bez životopisu. Probereme, jak role reálně vypadá, s kým budete spolupracovat, jaké typy problémů se v kvalitě řeší a jaký prostor budete mít pro návrhy změn. Pokud vás baví kvalita ve výrobě, hledání příčin a praktické dotahování řešení do výsledku, může dávat smysl se nezávazně pobavit.",
+      "descHtml": "",
+      "featured": true
+    },
+    {
       "id": 881,
       "t": "Procesní inženýr",
       "o": "prumysl",
@@ -234,7 +281,7 @@
       "featured": true
     },
     {
-      "id": 787,
+      "id": 876,
       "t": "Inženýr kvality",
       "o": "kvalita",
       "s": "spec",
@@ -1837,7 +1884,7 @@
       "salaryNote": "",
       "cta": "",
       "descHtml": "<h4>Your tasks</h4><ul><li>You will prepare technical requirements and specifications for deliveries and services from sub-suppliers</li><li>You will procure products, deliveries, and services, and generate purchase orders</li><li>You will issue requests for quotations, conduct price comparisons, and analyze supplier and order data</li><li>You will negotiate prices and framework agreements with suppliers and subcontractors</li><li>You will manage and monitor delivery schedules in coordination with project managers</li><li>You will negotiate adjustments (offers and orders) to ensure both technical and commercial requirements</li><li>You will prepare bills of quantities and variation offers (variation and claim management)</li></ul><h4>Requirements</h4><ul><li>Completed secondary or university education, preferably in a technical field</li><li>Experience in project procurement</li><li>Knowledge of English and German</li><li>Technical background</li><li>Proven experience in negotiation, contract management, claim management, and billing processes</li><li>Strong communication and commercial skills</li></ul><h4>We offer</h4><ul><li>Stable employment in a successful international company</li><li>Opportunity to work on interesting projects</li><li>Flexible working hours and the option to work from home</li><li>Opportunities for further education and professional training</li><li>Attractive salary package</li><li>30 days of vacation per year</li><li>Company pension scheme and many other benefits</li></ul>",
-      "featured": true
+      "featured": false
     },
     {
       "id": 766,
@@ -1990,7 +2037,7 @@
       "featured": false
     },
     {
-      "id": 876,
+      "id": 882,
       "t": "Inženýr kvality",
       "o": "kvalita",
       "s": "spec",
