@@ -1,6 +1,53 @@
 {
   "positions": [
     {
+      "id": 843,
+      "t": "Seřizovač",
+      "o": "stroj",
+      "s": "spec",
+      "k": [
+        "Plzeňský kraj"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Role pro někoho, koho baví technika, práce se stroji a výroba. Hodí se pro zkušené seřizovače i pro technicky založené uchazeče, kteří se chtějí potřebné věci naučit.",
+      "whyTalk": "Nemusíte mít roky praxe jako seřizovač.\nZaškolení dostanete podle svých zkušeností.\nBudete mít podporu zkušenějších kolegů a prostor se profesně posouvat.",
+      "responsibilities": [
+        "Nastavovat a seřizovat výrobní stroje a zařízení.",
+        "Připravovat zařízení na výrobu a kontrolovat jejich správný chod.",
+        "Dohlížet na plynulý průběh výroby a kvalitu vyráběných dílů.",
+        "Řešit běžné technické problémy.",
+        "Provádět drobné opravy a základní údržbu podle pracoviště.",
+        "Spolupracovat s kolegy ve výrobě.",
+        "Postupně se učit další technické činnosti."
+      ],
+      "mustHave": [
+        "Manuální zručnost a vztah k technice.",
+        "Spolehlivost a zodpovědný přístup.",
+        "Ochota pracovat ve směnném provozu.",
+        "Chuť učit se nové věci."
+      ],
+      "niceToHave": [],
+      "offer": [
+        "Nadstandardní platové ohodnocení, konkrétní podmínky řekneme otevřeně v prvním hovoru.",
+        "Stabilní práce na hlavní pracovní poměr v zavedené výrobní společnosti.",
+        "Čisté pracovní prostředí.",
+        "Férový a přátelský kolektiv.",
+        "Pořádné zaškolení podle vašich zkušeností.",
+        "Podpora zkušenějších kolegů.",
+        "Možnost naučit se nové věci a profesně se posouvat.",
+        "Dlouhodobá stabilita."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Má smysl se ozvat i bez zkušenosti přímo ze seřizování. Pokud vás baví technika, jste manuálně zruční a chcete zjistit, jestli by vám tahle práce seděla, můžeme si nejdřív krátce a nezávazně zavolat. Klidně i bez životopisu.",
+      "descHtml": "",
+      "featured": true
+    },
+    {
       "id": 787,
       "t": "Inženýr kvality",
       "o": "kvalita",
@@ -605,7 +652,7 @@
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Rádi si s vámi diskrétně zavoláme a řekneme víc o týmu, výrobním prostředí i o tom, jak velký prostor pro změny v roli opravdu je. Nemusíte mít připravený životopis. Stačí krátce napsat, co dnes v kvalitě řešíte, jaký tým vedete nebo kam se chcete posunout. Společně rychle ověříme, jestli pro vás role dává smysl.",
       "descHtml": "",
-      "featured": true
+      "featured": false
     },
     {
       "id": 869,
@@ -657,7 +704,7 @@
       "featured": false
     },
     {
-      "id": 843,
+      "id": 868,
       "t": "Seřizovač",
       "o": "stroj",
       "s": "spec",
@@ -2547,7 +2594,7 @@
       "featured": false
     },
     {
-      "id": 868,
+      "id": 883,
       "t": "Seřizovač",
       "o": "stroj",
       "s": "spec",
