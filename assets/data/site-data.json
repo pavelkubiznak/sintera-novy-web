@@ -1,6 +1,58 @@
 {
   "positions": [
     {
+      "id": 884,
+      "t": "SAP Application Owner",
+      "o": "technika",
+      "s": "spec",
+      "k": [
+        "Pardubický kraj"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Převezmete klíčovou odbornou roli pro SAP HANA a jeho další rozvoj ve společnosti s významným postavením na českém trhu. Nebudete jen spravovat systém. Stanete se odborným partnerem pro oblast SAP, budete mít vlastní odpovědnost a prostor ovlivňovat řešení, která mají přímý dopad na fungování firmy.",
+      "whyTalk": "Role je pro firmu důležitá, protože SAP patří mezi klíčové systémy pro její fungování.\nStanete se odborným partnerem pro SAP, ne jen člověkem na operativní požadavky.\nDostanete prostor převzít odpovědnost za vlastní oblast a ovlivňovat další směřování systému.\nBudete se dál odborně rozvíjet v SAP HANA a spolupracovat se zkušenými SAP specialisty.",
+      "responsibilities": [
+        "Spravovat a dále rozvíjet prostředí SAP HANA.",
+        "Navrhovat a implementovat nové funkcionality.",
+        "Řešit uživatelské požadavky a hledat funkční řešení.",
+        "Pracovat s daty a datovými analýzami.",
+        "Integrovat SAP s dalšími informačními systémy.",
+        "Spravovat uživatele a oprávnění.",
+        "Spolupracovat s interními i externími SAP specialisty."
+      ],
+      "mustHave": [
+        "Praktická zkušenost se SAPem nebo SAP HANA.",
+        "Orientace v ERP prostředí.",
+        "Schopnost samostatně řešit požadavky a hledat funkční řešení.",
+        "Analytické a logické myšlení.",
+        "Schopnost pracovat v souvislostech a chápat návaznost firemních procesů.",
+        "Chuť dál se odborně rozvíjet v oblasti SAP.",
+        "Připravenost postupně převzít větší odpovědnost za vlastní oblast."
+      ],
+      "niceToHave": [
+        "Zkušenost s ERP prostředím ve výrobní společnosti."
+      ],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Práce pro silnou společnost s významným postavením na českém trhu.",
+        "Klíčová odborná role v oblasti SAP s reálným vlivem na fungování firmy.",
+        "Možnost stát se strategickým partnerem pro správu a další rozvoj SAP.",
+        "Prostor ovlivňovat další směřování systému.",
+        "Odborná školení a další rozvoj v oblasti SAP HANA.",
+        "Spolupráce se zkušenými SAP specialisty.",
+        "Bezkonkurenční zaměstnanecké benefity."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Jestli máte zkušenost se SAPem nebo SAP HANA a chcete roli, kde budete mít skutečný vliv, stojí za to si o této příležitosti promluvit. Nejde jen o operativní správu systému nebo vyřizování jednotlivých požadavků. Firma hledá člověka, který se postupně stane klíčovým odborným partnerem pro oblast SAP, bude rozumět návaznosti procesů a pomůže určovat, kam se má systém dál posouvat.\n\nV prvním hovoru si diskrétně projdeme, jak je role nastavená, jaké SAP prostředí vás čeká, s kým budete spolupracovat a kde bude prostor pro vlastní rozhodování. Otevřeně probereme také mzdové podmínky, očekávání firmy a to, jak velkou odpovědnost byste v čase přebírali. Probereme i to, jak role zapadá do širšího fungování firmy, kde bude největší dopad a jaká témata bude potřeba v SAP prostředí rozvíjet.\n\nNemusíte mít hotový životopis ani jistotu, že chcete měnit práci. Stačí chuť zjistit, jestli by pro vás tahle role mohla být zajímavým dalším krokem. Pokud se ukáže, že role dává smysl, navážeme konkrétními informacemi. Pokud ne, zůstane jen u neformálního rozhovoru.",
+      "descHtml": "",
+      "featured": true
+    },
+    {
       "id": 843,
       "t": "Seřizovač",
       "o": "stroj",
@@ -604,7 +656,7 @@
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Zajímá vás kvalita, která nekončí u kontroly a tabulek? Ozvěte se nám. Rádi s vámi diskrétně projdeme, jak je role nastavená, jaký typ výroby a procesů řeší a jestli dává smysl pro vaše další směřování. Stačí krátká zpráva, i bez životopisu.",
       "descHtml": "",
-      "featured": true
+      "featured": false
     },
     {
       "id": 870,
