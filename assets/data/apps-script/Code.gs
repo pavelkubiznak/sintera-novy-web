@@ -222,6 +222,7 @@ function handleReferenceRequest_(body) {
     email: email, domain: domain,
     phone: (body.phone || '').trim(), name: (body.name || '').trim(),
     position: (body.position || '').trim(), source: (body.source || '').trim(),
+    referral: (body.referral || '').trim(),   // „Odkud nás znáte?" (select na webu)
     consent: 'ano'
   });
 
@@ -239,10 +240,12 @@ function handleReferenceRequest_(body) {
 function logLead_(d) {
   var ss = neverejnaTabulka_();                 // osobní údaje NIKDY do veřejné tabulky
   var sh = ss.getSheetByName('leady_reference') || ss.insertSheet('leady_reference');
-  var headers = ['cas','email','firma_domena','telefon','jmeno','pozice','zdroj','souhlas'];
+  var headers = ['cas','email','firma_domena','telefon','jmeno','pozice','zdroj','souhlas','odkud_nas_znate'];
   if (sh.getLastRow() === 0) sh.appendRow(headers);
+  // list založený před přidáním sloupce „odkud_nas_znate": doplnit hlavičku, data se nepřepisují
+  else if (sh.getRange(1, headers.length).getValue() === '') sh.getRange(1, headers.length).setValue(headers[headers.length - 1]);
   sh.appendRow([
-    new Date(), d.email, d.domain, d.phone, d.name, d.position, d.source, d.consent
+    new Date(), d.email, d.domain, d.phone, d.name, d.position, d.source, d.consent, d.referral || ''
   ]);
 }
 

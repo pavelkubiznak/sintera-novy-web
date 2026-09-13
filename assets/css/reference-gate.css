@@ -33,6 +33,15 @@
 .rg__input::placeholder { color: var(--dim); opacity: 0.7; }
 .rg__input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(200, 112, 79, 0.18); }
 
+/* Select „Odkud nás znáte?": stejný vzhled jako input, vlastní šipka. */
+select.rg__input {
+  appearance: none; -webkit-appearance: none;
+  padding-right: 40px; cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23999' stroke-width='1.6'/></svg>");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+select.rg__input option { color: #111; background: #fff; }
+
 .rg__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 .rg__consent {
