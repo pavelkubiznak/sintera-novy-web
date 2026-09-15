@@ -1,6 +1,56 @@
 {
   "positions": [
     {
+      "id": 885,
+      "t": "Supplier Quality & Development Manager",
+      "o": "kvalita",
+      "s": "spec",
+      "k": [
+        "Plzeňský kraj"
+      ],
+      "bonus": "",
+      "rezim": "hybrid",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Buďte klíčovým hráčem v řízení a rozvoji dodavatelské kvality u technologického lídra ve svém oboru. Budete pracovat pro silnou mezinárodní technickou společnost, která stojí za technologicky náročnými projekty s vysokými požadavky na kvalitu a spolehlivost. Čeká vás možnost skutečně ovlivňovat způsob, jakým bude dodavatelská kvalita ve společnosti fungovat.",
+      "whyTalk": "Budete hlavním odborným kontaktem pro Supplier Quality mezi dodavateli, kvalitou, nákupem, engineeringem a projektovými týmy.\nDostanete prostor rozvíjet strategické dodavatele a posouvat Supplier Quality procesy dopředu.\nBudete mít reálný vliv na technicky náročné projekty, kvalitu i řízení rizik.",
+      "responsibilities": [
+        "Rozvíjet a hodnotit strategické dodavatele.",
+        "Podílet se na jejich kvalifikaci, auditech a nastavování požadovaných standardů.",
+        "Řešit dodavatelské neshody, jejich skutečné příčiny a nápravná opatření.",
+        "Pracovat s metodami 8D, RCA, CAPA, FMEA a risk managementem.",
+        "Sledovat výkonnost dodavatelů prostřednictvím KPI a aktivně pracovat na jejím zlepšování.",
+        "Identifikovat rizika dříve, než ovlivní výrobu nebo celý projekt.",
+        "Přicházet s vlastními návrhy a být odborným partnerem pro interní týmy i management."
+      ],
+      "mustHave": [
+        "Zkušenost s dodavatelskou kvalitou, supplier developmentem nebo řízením technických dodavatelů.",
+        "Orientace v technickém a výrobním prostředí.",
+        "Schopnost hledat skutečné příčiny problémů a systematicky je řešit.",
+        "Silné komunikační a vyjednávací schopnosti.",
+        "Schopnost získat respekt dodavatelů i interních kolegů a prosadit potřebné změny.",
+        "Angličtina pro každodenní komunikaci."
+      ],
+      "niceToHave": [
+        "Zkušenost z oblasti kvality nebo technického či strategického nákupu."
+      ],
+      "offer": [
+        "Nadstandardní finanční ohodnocení odpovídající významu a senioritě role.",
+        "Klíčová odborná pozice s vysokou mírou vlivu a odpovědnosti.",
+        "Práce na technicky náročných a mimořádně zajímavých projektech.",
+        "Prostor nastavovat věci, přicházet s vlastními řešeními a vidět jejich reálný dopad.",
+        "Spolupráce se zkušenými odborníky z kvality, nákupu, engineeringu a projektového řízení.",
+        "Stabilní zázemí silné mezinárodní technické společnosti.",
+        "Zaměstnanecké benefity."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Pokud máte zkušenost s technickými dodavateli, umíte propojit kvalitu, techniku a business a chcete být v roli, kde budete mít skutečný vliv, ráda vám o této příležitosti řeknu více. Ozvat se můžete i bez životopisu. Stačí krátká zpráva a diskrétně probereme, jestli pro vás role dává smysl. Možná právě vy budete člověkem, který posune Supplier Quality zase o úroveň výš.",
+      "descHtml": "",
+      "featured": true
+    },
+    {
       "id": 884,
       "t": "SAP Application Owner",
       "o": "technika",
@@ -563,7 +613,7 @@
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Zaujala vás IT role v Pardubickém kraji? Napište nám i bez životopisu. Krátce si řekneme, jaké systémy a technologie máte za sebou, co vás v IT baví a doplníme konkrétní detaily k náplni práce, týmu, očekáváním i mzdě.",
       "descHtml": "",
-      "featured": true
+      "featured": false
     },
     {
       "id": 872,
