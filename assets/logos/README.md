@@ -2,6 +2,14 @@
 
 Jednotně zpracovaný balík log **131 klientů**. Připraveno pro logo strip na homepage a stránku Reference.
 
+## ➕ Přidání nového loga (když přibude nový klient)
+
+1. Vlož zdrojové logo do **`raw/_nova/`** (čisté SVG, jinak velké PNG/PDF). Soubor pojmenuj **slugem** klienta (malá písmena, bez mezer a diakritiky), např. `acme-tools.svg`. Stejný slug použij i v referenci (`logo_slug`).
+2. Otevři **Cowork (Claude)** a řekni: „Zpracuj nová loga ze složky `_nova`." Claude vyrobí mono-light variantu (homepage strip) i web SVG/PNG (referenční karta) a zařadí je do balíku.
+3. Dokud logo není doplněné, reference se ukáže s názvem firmy jako textem (nic se nerozbije).
+
+Plně automatický vkladač záměrně neděláme: loga chodí v různé kvalitě a potřebují ruční doladění (ořez, barva, mono na tmavém pozadí). Krátká verze tohohle návodu je i přímo ve složce `raw/_nova/README.md`.
+
 ## 👉 Primární web asset = složka `web/`
 Pro každého klienta:
 - **`web/<slug>.svg`** — čistý vektor (má ho **73 ze 131** klientů). **Toto používej přednostně.**
