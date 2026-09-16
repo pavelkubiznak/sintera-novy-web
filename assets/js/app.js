@@ -269,9 +269,12 @@
           }
         })
         .catch(function () {
+          // záložní cesta (výpadek, nebo endpoint ještě neumí "application"): otevřít e-mail jako dřív + odkaz v hlášce
           btn.disabled = false;
           btn.textContent = original;
-          show('Nepovedlo se odeslat. Zkuste to prosím za chvíli znovu, nebo nám napište na <a href="' + esc(mailtoFallback(name, contact, note)) + '">info@sintera.cz</a>.', "err");
+          var mailto = mailtoFallback(name, contact, note);
+          show('Odeslání přes web se nepovedlo. Otevřeli jsme vám e-mail s předvyplněnou reakcí; kdyby se neotevřel, napište nám na <a href="' + esc(mailto) + '">info@sintera.cz</a>.', "err");
+          window.location.href = mailto;
         });
     });
   }
@@ -322,7 +325,7 @@
           '<div class="pos-desc">' +
             posBodyHTML(p) +
             metaTagsHTML(p) +
-            '<p class="pos-detail-link"><a class="ref-more" href="' + detailBase + p.id + '.html">Otevřít jako samostatnou stránku →</a></p>' +
+            '<p class="pos-detail-link"><a class="ref-more" href="' + esc(detailBase + p.id) + '.html">Otevřít jako samostatnou stránku →</a></p>' +
           "</div>" +
           applyFormHTML(subj) +
         "</div></div>";

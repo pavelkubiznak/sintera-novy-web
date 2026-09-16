@@ -59,6 +59,10 @@ Google Sheets (4 listy) → `build/build.mjs` → JSON v `assets/data/` + preren
 - Loga: na tmavém pozadí `mono-light`, na světlém `mono-dark`, SITEL barevně.
   Vždy `alt` = název firmy, `loading="lazy"`.
 - Respektovat `prefers-reduced-motion`.
+- Web má Content-Security-Policy (`<meta>`, vkládá build přes `withCsp`): skripty jen z vlastní
+  domény, inline `<script>` bloky jen s hashem, který build spočítá sám. Nový inline skript nebo
+  nový externí zdroj (CDN, obrázky z cizí domény, fetch na jiný server) bez úpravy `withCsp`
+  v `build/build.mjs` prohlížeč zablokuje. Po ruční úpravě HTML spusť build.
 
 ## Build
 

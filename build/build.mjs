@@ -14,6 +14,7 @@
    ===================================================================== */
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -32,9 +33,41 @@ const BASE = cfg.site.baseUrl.replace(/\/$/, "");
 const yes = v => String(v || "").trim().toLowerCase() === "ano";
 const esc = s => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
+/* ---------- Content-Security-Policy (GitHub Pages neumí HTTP hlavičky, proto <meta>) ----------
+   Skripty jen z vlastní domény + hash každého inline bloku na dané stránce (JSON-LD se nespouští,
+   hash nepotřebuje). Spojení jen na Apps Script (formuláře, měření). Kdyby escapování někde selhalo,
+   podstrčený skript se díky CSP stejně nespustí. Vkládá se hned za <meta charset>, idempotentně. */
+const cspHash = s => "'sha256-" + crypto.createHash("sha256").update(s, "utf8").digest("base64") + "'";
+function withCsp(html, opts = {}) {
+  const hashes = new Set();
+  for (const m of html.matchAll(/<script(\s[^>]*)?>([\s\S]*?)<\/script>/gi)) {
+    const attrs = m[1] || "";
+    if (/\bsrc\s*=/i.test(attrs) || /ld\+json/i.test(attrs)) continue;
+    hashes.add(cspHash(m[2]));
+  }
+  const csp = [
+    "default-src 'self'",
+    "script-src 'self'" + (hashes.size ? " " + [...hashes].join(" ") : ""),
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data:",
+    "font-src 'self'",
+    "connect-src 'self' https://script.google.com https://script.googleusercontent.com",
+    "form-action 'self'",
+    "base-uri 'none'",
+    "object-src 'none'",
+  ].join("; ");
+  const meta = `<meta http-equiv="Content-Security-Policy" content="${csp}">\n<meta name="referrer" content="${opts.referrer || "strict-origin-when-cross-origin"}">`;
+  html = html.replace(/<meta http-equiv="Content-Security-Policy"[^>]*>\n?/i, "").replace(/<meta name="referrer"[^>]*>\n?/i, "");
+  if (!/<meta charset=[^>]*>/i.test(html)) throw new Error("withCsp: stránka nemá <meta charset>, CSP nelze vložit");
+  return html.replace(/(<meta charset=[^>]*>)/i, `$1\n${meta}`);
+}
+
 /* ---------- AI čitelnost (GEO): jediný zdroj = assets/data/ai-legibility/ ---------- */
 const AILEG = path.join(DATA, "ai-legibility");
-const ldScript = obj => `<script type="application/ld+json">\n${JSON.stringify(obj)}\n</script>`;
+// JSON do <script>: JSON.stringify neescapuje "<", takže text ze Sheetu obsahující "</script>" by ukončil blok
+// a spustil vlastní kód na stránce. Proto "<" (a U+2028/2029) vždy jako \u escape; pro JSON i JS je to platný zápis.
+const ldJson = obj => JSON.stringify(obj).replace(/</g, "\\u003c").replace(/[\u2028\u2029]/g, c => "\\u" + c.charCodeAt(0).toString(16));
+const ldScript = obj => `<script type="application/ld+json">\n${ldJson(obj)}\n</script>`;
 // Organization/ProfessionalService do <head> všech stránek; URL pole odvozená z baseUrl.
 const ORG_LD = (() => {
   const o = JSON.parse(fs.readFileSync(path.join(AILEG, "schema-organization.json"), "utf8"));
@@ -247,7 +280,7 @@ function structuredBody(p) {
 function positionBodyHTML(p, labels) {
   const structured = structuredBody(p);
   if (structured) return structured;
-  if (p.descHtml) return p.descHtml;                                      // popis (HTML) ze Sheetu
+  // (surové HTML ze Sheetu se záměrně nebere: strukturovaná pole stačí a neescapovaný sloupec by byl XSS)
   if (POPISY[p.id] && POPISY[p.id].descHtml) return POPISY[p.id].descHtml; // záloha z pozice-popisy.json
   return jobDescription(p, labels);
 }
@@ -307,6 +340,9 @@ function mapPositions(rows) {
   const seen = new Map();
   return rows.filter(r => yes(r.zverejnit)).map((r, i) => {
     let id = (r.id || "").trim();                               // pokud Sheet má sloupec id, použij ho
+    // id je součást názvu souboru (pozice/<id>.html), URL i inline JS v 404.html: povolit jen čísla,
+    // jinak by hodnota jako "../index" ze Sheetu přepsala cizí soubor.
+    if (id && !/^[0-9]{1,12}$/.test(id)) throw new Error(`Neplatné id pozice ze Sheetu: "${id}" (řádek ${i + 2}, "${r.nazev}"). Povolena jsou jen čísla.`);
     if (!id) {
       const k = norm(r.nazev), occ = seen.get(k) || 0; seen.set(k, occ + 1);
       let ids = ID_REG.get(k);
@@ -324,7 +360,7 @@ function mapPositions(rows) {
       intro: r.uvod || "", whyTalk: r.proc_mluvit || "",
       responsibilities: splitList(r.naplne), mustHave: splitList(r.must), niceToHave: splitList(r.vyhoda), offer: splitList(r.nabizime),
       salaryRange: r.mzda_rozsah || "", salaryNote: r.mzda_pozn || "", cta: r.cta || "",
-      descHtml: (r.popis || "").trim(), featured: yes(r.featured),
+      featured: yes(r.featured),
     };
   });
 }
@@ -414,7 +450,8 @@ function jobPosting(p, labels) {
   // vypadaly všechny inzeráty jako čerstvé — to Google for Jobs zakazuje (umělá čerstvost).
   // Zdroj v pořadí: sloupec datum_zverejneni ze Sheetu → zapamatované datum v registru → dnešek (nová pozice).
   const now = new Date();
-  const posted = p.datePosted || prvniPublikace(p.id, now);
+  // neplatné datum ze Sheetu (překlep) by shodilo celý build; pak radši zapamatované datum z registru
+  const posted = (/^\d{4}-\d{2}-\d{2}$/.test(p.datePosted) && !isNaN(new Date(p.datePosted))) ? p.datePosted : prvniPublikace(p.id, now);
   const through = new Date(new Date(posted).getTime() + 90 * 864e5).toISOString().slice(0, 10);
   const sal = salaryLD(p.salaryRange);
   return {
@@ -437,7 +474,7 @@ function itemListLD(positions) {
       "@type": "ListItem", position: i + 1, name: p.t, url: `${BASE}/pozice/${p.id}.html`,
     })),
   };
-  return `<script type="application/ld+json">\n${JSON.stringify(list)}\n</script>`;
+  return ldScript(list);
 }
 
 /* ---------- samostatná stránka pozice ---------- */
@@ -467,10 +504,10 @@ function detailPage(p, labels) {
 <link rel="stylesheet" href="../assets/css/fonts.css">
 <link rel="stylesheet" href="../assets/css/styles.css">
 <script type="application/ld+json">
-${JSON.stringify(jobPosting(p, labels))}
+${ldJson(jobPosting(p, labels))}
 </script>
 <script type="application/ld+json">
-${JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+${ldJson({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
   { "@type": "ListItem", position: 1, name: "Sintera", item: BASE + "/" },
   { "@type": "ListItem", position: 2, name: "Aktuální pozice", item: BASE + "/#pozice" },
   { "@type": "ListItem", position: 3, name: p.t, item: url },
@@ -532,7 +569,7 @@ function prerender(site, labels) {
   };
   for (const [marker, content] of Object.entries(repl)) html = html.replace(marker, content);
   html = html.split("%%BASE%%").join(BASE); // canonical/og/JSON-LD se odvodí z baseUrl (github.io teď, sintera.cz po Fázi 2)
-  fs.writeFileSync(path.join(ROOT, "index.html"), html);
+  fs.writeFileSync(path.join(ROOT, "index.html"), withCsp(html));
   console.log("  ✓ index.html (prerender)");
 }
 
@@ -542,7 +579,7 @@ function writeDetailPages(positions, labels) {
   for (const f of fs.readdirSync(POZICE_DIR)) {
     if (f.endsWith(".html") && f !== "index.html") fs.unlinkSync(path.join(POZICE_DIR, f));
   }
-  for (const p of positions) fs.writeFileSync(path.join(POZICE_DIR, `${p.id}.html`), detailPage(p, labels));
+  for (const p of positions) fs.writeFileSync(path.join(POZICE_DIR, `${p.id}.html`), withCsp(detailPage(p, labels)));
   console.log(`  ✓ ${positions.length} stránek pozic (pozice/<id>.html)`);
 }
 
@@ -570,7 +607,7 @@ function writeSitemap(positions) {
    stará homepage /cz/ (i /cz) → nový úvod / (rychle, anti-flash bez 404).
    Anti-flash: při přesměrování schováme stránku, ať nebliká 404. */
 function writeRedirects(positions) {
-  const idMap = "{" + positions.map(p => `"${p.id}":1`).join(",") + "}";
+  const idMap = ldJson(Object.fromEntries(positions.map(p => [String(p.id), 1])));
   const html = `<!doctype html>
 <html lang="cs">
 <head>
@@ -614,7 +651,7 @@ function writeRedirects(positions) {
 </body>
 </html>
 `;
-  fs.writeFileSync(path.join(ROOT, "404.html"), html);
+  fs.writeFileSync(path.join(ROOT, "404.html"), withCsp(html));
   console.log(`  ✓ 404.html (jen pozice: /cz/pozice/<id> → /pozice/<id>.html, ${positions.length} živých id; zbytek = normální „nenalezeno")`);
 }
 
@@ -709,7 +746,7 @@ ${items}
 function writeFaqPage() {
   const dir = path.join(ROOT, "faq");
   fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, "index.html"), faqPage());
+  fs.writeFileSync(path.join(dir, "index.html"), withCsp(faqPage()));
   console.log(`  ✓ faq/ (${FAQ_QA.length} otázek, FAQPage + Organization JSON-LD)`);
 }
 function writeLlmsTxt() {
@@ -733,7 +770,8 @@ function injectIntoStatic(relFiles) {
       if (re.test(html)) html = html.replace(re, wrapped);
       else html = html.replace("</head>", `${wrapped}\n</head>`);
     }
-    fs.writeFileSync(fp, html); n++;
+    // neveřejná stránka s referencemi: neposílat její adresu v Refereru na cizí weby
+    fs.writeFileSync(fp, withCsp(html, { referrer: rel.startsWith("reference/") ? "no-referrer" : undefined })); n++;
   }
   console.log(`  ✓ Org JSON-LD + měření do statických stránek (${n})`);
 }

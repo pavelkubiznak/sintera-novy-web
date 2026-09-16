@@ -220,9 +220,9 @@ function handleReferenceRequest_(body) {
 
   logLead_({
     email: email, domain: domain,
-    phone: (body.phone || '').trim(), name: (body.name || '').trim(),
-    position: (body.position || '').trim(), source: (body.source || '').trim(),
-    referral: (body.referral || '').trim(),   // „Odkud nás znáte?" (select na webu)
+    phone: String(body.phone || '').trim().slice(0, 40), name: String(body.name || '').trim().slice(0, 80),
+    position: String(body.position || '').trim().slice(0, 120), source: String(body.source || '').trim().slice(0, 200),
+    referral: String(body.referral || '').trim().slice(0, 80),   // „Odkud nás znáte?" (select na webu)
     consent: 'ano'
   });
 
@@ -232,7 +232,7 @@ function handleReferenceRequest_(body) {
   if (!lzeOdeslatReferenci_()) return json_({ ok: true, note: 'rate_limited' });
 
   var send = sendReferenceEmail_(email, body.name || '', landing);
-  if (!send.ok) return json_({ ok: false, error: 'send_failed', detail: send.detail });
+  if (!send.ok) { console.error('sendReferenceEmail_: ' + send.detail); return json_({ ok: false, error: 'send_failed' }); }
 
   return json_({ ok: true });
 }
@@ -253,6 +253,10 @@ function sendReferenceEmail_(to, name, landing) {
   var from = prop_('FROM_EMAIL', '');
   var replyTo = prop_('REPLY_TO', 'info@sintera.cz');
 
+  // Jméno jde do e-mailu odesílaného jménem Sintery na cizí adresu: krátké, jeden řádek, bez odkazů
+  // a adres (jinak by šel endpoint zneužít k doručení vlastního textu z důvěryhodného odesílatele).
+  name = String(name || '').replace(/[\r\n\t]+/g, ' ').trim().slice(0, 60);
+  if (/https?:|www\.|@|\.[a-z]{2,4}\//i.test(name)) name = '';
   var hello = name ? ('Dobrý den, ' + name + ',') : 'Dobrý den,';
   var html =
     '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#1a1a1a">' +
@@ -413,8 +417,7 @@ function doPost(e) {
 function doGet() {
   var privateOk = false;
   try { privateOk = !!neverejnaTabulka_(); } catch (e) {}   // založí/zmigruje neveřejnou tabulku při prvním volání
-  return json_({ ok: true, service: 'sintera', targets: Object.keys(TARGETS), actions: ['reference_request', 'hit'],
-                 token_set: !!prop_('TOKEN', ''), private_data: privateOk });
+  return json_({ ok: true, service: 'sintera', private_data: privateOk });   // health-check; nic o konfiguraci ven
 }
 
 function json_(obj) {
