@@ -308,6 +308,85 @@ function handleHit_(body) {
   return json_({ ok: true });
 }
 
+/* ============ B3) Reakce na pozici (formulář na webu) ============
+   Web pošle { action:'application', id, position, loc, name, contact, note, website, source }.
+   Zapíše řádek do neveřejné tabulky (list "reakce_pozice"), pošle e-mail do Sintery
+   (APPLY_TO, výchozí info@sintera.cz) a uchazeči potvrzení, pokud uvedl e-mail. */
+function handleApplication_(body) {
+  if (body.website) return json_({ ok: true });                       // honeypot: skryté pole vyplní jen robot
+
+  var name = String(body.name || '').trim().slice(0, 120);
+  var contact = String(body.contact || '').trim().slice(0, 160);
+  var note = String(body.note || '').trim().slice(0, 4000);
+  var position = String(body.position || '').trim().slice(0, 200);
+  var loc = String(body.loc || '').trim().slice(0, 120);
+  var id = String(body.id || '').trim().slice(0, 20);
+  var source = String(body.source || '').trim().slice(0, 200);
+  if (!name || !contact) return json_({ ok: false, error: 'missing_fields' });
+
+  // stejný člověk, stejná pozice, do 2 minut = dvojklik, nezapisovat dvakrát
+  var cache = CacheService.getScriptCache();
+  var ck = 'app:' + id + ':' + contact.toLowerCase();
+  if (cache.get(ck)) return json_({ ok: true, note: 'duplicate' });
+  cache.put(ck, '1', 120);
+
+  var cas = Utilities.formatDate(new Date(), 'Europe/Prague', 'yyyy-MM-dd HH:mm:ss');
+  logApplication_({ cas: cas, id: id, position: position, loc: loc, name: name, contact: contact, note: note, source: source });
+
+  // Interní upozornění má vlastní strop (40/h), aby záplava robotů nevyčerpala denní kvótu Gmailu.
+  // Reakce je v tabulce i tehdy, když se e-mail neposlal.
+  var applyTo = prop_('APPLY_TO', 'info@sintera.cz');
+  var contactEmail = emailDomain_(contact) ? contact.toLowerCase() : '';
+  if (lzeOdeslatInterni_()) {
+    var subject = 'Reakce na pozici: ' + position + (loc ? ' (' + loc + ')' : '');
+    var text =
+      'Nová reakce z webu sintera.cz\n\n' +
+      'Pozice: ' + position + (loc ? ' (' + loc + ')' : '') + (id ? '  [id ' + id + ']' : '') + '\n' +
+      'Jméno: ' + name + '\n' +
+      'Kontakt: ' + contact + '\n' +
+      'Čas: ' + cas + '\n\n' +
+      (note ? note + '\n\n' : '(bez zprávy)\n\n') +
+      'Záznam je i v tabulce, list "reakce_pozice".';
+    var opt = { name: 'Sintera web' };
+    if (contactEmail) opt.replyTo = contactEmail;                     // Odpovědět = rovnou uchazeči
+    try { GmailApp.sendEmail(applyTo, subject, text, opt); } catch (e) {}
+  }
+
+  // potvrzení uchazeči: jen když dal e-mail, a jen v rámci společného stropu (chrání před rozesíláním jménem Sintery)
+  if (contactEmail && lzeOdeslatReferenci_()) {
+    var from = prop_('FROM_EMAIL', '');
+    var replyTo = prop_('REPLY_TO', 'info@sintera.cz');
+    var potvrzeni =
+      'Dobrý den,\n\n' +
+      'děkujeme za vaši reakci na pozici ' + position + (loc ? ' (' + loc + ')' : '') + '. ' +
+      'Dorazila k nám a ozveme se vám.\n\n' +
+      'Kdybyste chtěli cokoli doplnit, stačí odpovědět na tento e-mail.\n\n' +
+      'Sintera Czech\n+420 499 599 861';
+    var o2 = { name: 'Sintera Czech', replyTo: replyTo };
+    if (from) o2.from = from;
+    try { GmailApp.sendEmail(contactEmail, 'Vaše reakce na pozici ' + position, potvrzeni, o2); } catch (e) {}
+  }
+
+  return json_({ ok: true });
+}
+
+function logApplication_(d) {
+  var ss = neverejnaTabulka_();                 // osobní údaje NIKDY do veřejné tabulky
+  var sh = ss.getSheetByName('reakce_pozice') || ss.insertSheet('reakce_pozice');
+  if (sh.getLastRow() === 0) sh.appendRow(['cas', 'pozice_id', 'pozice', 'misto', 'jmeno', 'kontakt', 'zprava', 'zdroj']);
+  sh.appendRow([d.cas, d.id, d.position, d.loc, d.name, d.contact, d.note, d.source]);
+}
+
+// Interní upozornění na reakce: strop za hodinu (nezávislý na stropu pro e-maily ven)
+function lzeOdeslatInterni_() {
+  var cache = CacheService.getScriptCache();
+  var k = 'app:h:' + Utilities.formatDate(new Date(), 'Europe/Prague', 'yyyyMMddHH');
+  var n = Number(cache.get(k) || 0);
+  if (n >= 40) return false;
+  cache.put(k, String(n + 1), 3900);
+  return true;
+}
+
 function refHost_(ref) {
   if (!ref) return '(přímo)';
   var m = String(ref).match(/^https?:\/\/([^\/]+)/i);
@@ -324,6 +403,7 @@ function doPost(e) {
     var body = JSON.parse((e && e.postData && e.postData.contents) || '{}');
     if (body.action === 'reference_request') return handleReferenceRequest_(body);
     if (body.action === 'hit') return handleHit_(body);
+    if (body.action === 'application') return handleApplication_(body);
     return handleContentWrite_(body);
   } catch (err) {
     return json_({ ok: false, error: String(err) });

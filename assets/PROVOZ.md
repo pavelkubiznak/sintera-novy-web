@@ -43,6 +43,14 @@ Volné e-maily (gmail, seznam apod.) jsou blokované. Každá žádost se zalogu
 **`leady_reference`** (čas, e-mail, doména, telefon, jméno, pozice). E-mail odchází přes
 Gmail účtu, na kterém běží skript (kopie je ve složce Odeslané).
 
+## 6b) Reakce uchazečů na pozice
+
+Formulář „Reagovat na pozici" (u každé pozice na webu) odesílá reakci rovnou z webu:
+přijde e-mail na **info@sintera.cz** (tlačítko Odpovědět jde přímo uchazeči) a uchazeči
+s e-mailem přijde potvrzení. Každá reakce je zároveň v neveřejné tabulce v listu
+**`reakce_pozice`** (čas, pozice, jméno, kontakt, zpráva), kdyby e-mail zapadl.
+Jinou adresu pro příjem nastavíš v Apps Scriptu ve vlastnostech skriptu jako `APPLY_TO`.
+
 ## 7) Loga nových klientů
 
 - Existující klient (logo už máme) → v referenci stačí `logo_slug` a logo se ukáže.

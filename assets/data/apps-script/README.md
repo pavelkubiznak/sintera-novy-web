@@ -55,6 +55,19 @@ Tělo: `{ "token": "...", "target": "reference", "record": { ... } }`. Vše se u
 koncept (`zverejnit = ne`). Listy `reference` a `case_studies` si skript při prvním zápisu
 založí s hlavičkou sám.
 
+## Další akce na stejném endpointu (bez tokenu)
+
+- `reference_request` — formulář „Získat reference" (reference-gate.js).
+- `hit` — měření návštěvnosti (beacon).
+- `application` — **reakce na pozici** z formuláře na webu (app.js). Zapíše řádek do listu
+  `reakce_pozice` v neveřejné tabulce, pošle e-mail na `APPLY_TO` (vlastnost skriptu, výchozí
+  `info@sintera.cz`; v odpovědi je jako Reply-To rovnou uchazeč) a uchazeči potvrzení, pokud
+  uvedl e-mail. Honeypot `website`, dvojklik do 2 minut se zahodí, stropy 40 interních e-mailů
+  za hodinu a společný strop pro e-maily ven.
+
+**Po každé změně `Code.gs`:** vložit celý soubor do Apps Scriptu a `Nasadit → Spravovat nasazení
+→ ✎ → Verze: Nová verze → Nasadit`. URL `/exec` zůstává stejná, nic na webu se nemění.
+
 ## Soubory
 
 - `Code.gs` — endpoint (doPost zapíše řádek do správného listu, doGet health-check).
