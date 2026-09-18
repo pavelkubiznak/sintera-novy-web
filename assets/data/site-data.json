@@ -1,6 +1,98 @@
 {
   "positions": [
     {
+      "id": 889,
+      "t": "HR specialista / recruiter",
+      "o": "hr",
+      "s": "spec",
+      "k": [
+        "Jihomoravský kraj",
+        "Vysočina"
+      ],
+      "bonus": "",
+      "rezim": "hybrid",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Baví Vás nábor i další oblasti HR a chcete mít prostor ovlivnit, jak se lidé hledají, vybírají a vítají v novém týmu? Čeká Vás pestrá HR role v silné mezinárodní společnosti, která je významným hráčem na trhu. Propojíte práci s kandidáty, spolupráci s vedoucími týmů a péči o nové kolegy.",
+      "whyTalk": "Dostanete prostor poznat firmu do hloubky, přicházet s vlastními nápady a postupně převzít větší odpovědnost.\nPříležitost je vhodná pro zkušenosti z interního HR i personální agentury.\nOtevřená je také kandidátům s první relevantní praxí a chutí dál se rozvíjet.",
+      "responsibilities": [
+        "Vyhledávání a oslovování kandidátů, práce s reakcemi a vedení pohovorů.",
+        "Spolupráce s vedoucími týmů při hledání lidí, kteří k nim profesně i lidsky zapadnou.",
+        "Koordinace jednotlivých kroků výběrového řízení a průběžná komunikace s kandidáty.",
+        "Tvorba inzerátů a zapojení do náborové komunikace na sociálních sítích.",
+        "Onboarding a adaptace nových kolegů.",
+        "Spolupráce na dalších aktivitách a projektech v oblasti HR.",
+        "Prostor přicházet s návrhy, které zlepší zkušenost kandidátů i zaměstnanců a fungování HR procesů."
+      ],
+      "mustHave": [
+        "Umět si zorganizovat práci, reagovat na změny a dodržet domluvené kroky.",
+        "Mít zkušenost s náborem nebo další HR agendou v interním týmu, případně praxi z personální agentury.",
+        "Samostatnost, přirozená komunikace a chuť učit se."
+      ],
+      "niceToHave": [
+        "Angličtina."
+      ],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Atraktivní zaměstnanecké benefity.",
+        "Zázemí silné společnosti a podporu zkušeného HR týmu.",
+        "Možnost profesního a odborného růstu v náboru i dalších oblastech HR.",
+        "Prostor pro vlastní nápady a postupné převzetí větší samostatnosti.",
+        "Možnost vidět výsledky své práce i po nástupu nových kolegů."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Zaujala Vás tahle příležitost? Napište nám nebo pošlete svůj životopis. Rádi Vám přiblížíme tým, konkrétní náplň práce i možnosti dalšího rozvoje. Ozvat se můžete i bez životopisu.",
+      "featured": true
+    },
+    {
+      "id": 890,
+      "t": "HR specialista / recruiter",
+      "o": "hr",
+      "s": "spec",
+      "k": [
+        "Jihomoravský kraj",
+        "Vysočina"
+      ],
+      "bonus": "",
+      "rezim": "hybrid",
+      "datePosted": "",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Baví Vás nábor i další oblasti HR a chcete mít prostor ovlivnit, jak se lidé hledají, vybírají a vítají v novém týmu? Čeká Vás pestrá HR role v silné mezinárodní společnosti, která je významným hráčem na trhu. Propojíte práci s kandidáty, spolupráci s vedoucími týmů a péči o nové kolegy.",
+      "whyTalk": "Dostanete prostor poznat firmu do hloubky, přicházet s vlastními nápady a postupně převzít větší odpovědnost.\nPříležitost je vhodná pro zkušenosti z interního HR i personální agentury.\nOtevřená je také kandidátům s první relevantní praxí a chutí dál se rozvíjet.",
+      "responsibilities": [
+        "Vyhledávání a oslovování kandidátů, práce s reakcemi a vedení pohovorů.",
+        "Spolupráce s vedoucími týmů při hledání lidí, kteří k nim profesně i lidsky zapadnou.",
+        "Koordinace jednotlivých kroků výběrového řízení a průběžná komunikace s kandidáty.",
+        "Tvorba inzerátů a zapojení do náborové komunikace na sociálních sítích.",
+        "Onboarding a adaptace nových kolegů.",
+        "Spolupráce na dalších aktivitách a projektech v oblasti HR.",
+        "Prostor přicházet s návrhy, které zlepší zkušenost kandidátů i zaměstnanců a fungování HR procesů."
+      ],
+      "mustHave": [
+        "Umět si zorganizovat práci, reagovat na změny a dodržet domluvené kroky.",
+        "Mít zkušenost s náborem nebo další HR agendou v interním týmu, případně praxi z personální agentury.",
+        "Samostatnost, přirozená komunikace a chuť učit se."
+      ],
+      "niceToHave": [
+        "Angličtina."
+      ],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Atraktivní zaměstnanecké benefity.",
+        "Zázemí silné společnosti a podporu zkušeného HR týmu.",
+        "Možnost profesního a odborného růstu v náboru i dalších oblastech HR.",
+        "Prostor pro vlastní nápady a postupné převzetí větší samostatnosti.",
+        "Možnost vidět výsledky své práce i po nástupu nových kolegů."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Zaujala Vás tahle příležitost? Napište nám nebo pošlete svůj životopis. Rádi Vám přiblížíme tým, konkrétní náplň práce i možnosti dalšího rozvoje. Ozvat se můžete i bez životopisu.",
+      "featured": true
+    },
+    {
       "id": 887,
       "t": "HR specialista",
       "o": "hr",
@@ -472,7 +564,7 @@
       "salaryRange": "",
       "salaryNote": "Nadstandardní platové ohodnocení.",
       "cta": "Zajímá vás role, kde budete mít celkovou odpovědnost za výrobu a prostor ovlivnit její výkon, kvalitu i další směřování? Ozvěte se nám diskrétně. Stačí krátká zpráva, klidně i bez životopisu. V prvním hovoru si otevřeně řekneme, o jakou firmu jde, jak je role nastavená, jaký prostor k rozhodování budete mít a jaké jsou finanční podmínky.",
-      "featured": true
+      "featured": false
     },
     {
       "id": 878,
