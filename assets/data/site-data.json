@@ -1,6 +1,52 @@
 {
   "positions": [
     {
+      "id": 887,
+      "t": "HR specialista",
+      "o": "hr",
+      "s": "spec",
+      "k": [
+        "Jihomoravský kraj",
+        "Vysočina"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "2026-09-18",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Baví Vás nábor i další oblasti HR a chcete mít prostor ovlivnit, jak se lidé hledají, vybírají a vítají v novém týmu? Čeká Vás pestrá HR role v silné mezinárodní společnosti, kde propojíte práci s kandidáty, spolupráci s vedoucími týmů a péči o nové kolegy. Dostanete prostor poznat firmu do hloubky, přicházet s vlastními nápady a postupně převzít větší odpovědnost.",
+      "whyTalk": "Máte zkušenosti z interního HR a hledáte další krok.\nLáká Vás přechod z personální agentury do interního HR.\nMáte první relevantní praxi a chuť se dál rozvíjet.\nChcete vidět výsledky své práce i po nástupu nových kolegů.",
+      "responsibilities": [
+        "Vyhledávat a oslovovat kandidáty, pracovat s reakcemi a vést pohovory.",
+        "Spolupracovat s vedoucími týmů při hledání lidí, kteří k nim profesně i lidsky zapadnou.",
+        "Koordinovat jednotlivé kroky výběrového řízení a průběžně komunikovat s kandidáty.",
+        "Tvořit inzeráty a zapojovat se do náborové komunikace na sociálních sítích.",
+        "Postupně se zapojovat do onboardingu a adaptace nových kolegů.",
+        "Spolupracovat na dalších HR aktivitách a projektech.",
+        "Přicházet s návrhy, které zlepší zkušenost kandidátů i zaměstnanců a fungování HR procesů."
+      ],
+      "mustHave": [
+        "Zkušenost s náborem nebo další HR agendou v interním týmu, případně praxe z personální agentury.",
+        "Schopnost zorganizovat si práci, reagovat na změny a dodržet domluvené kroky.",
+        "Přirozená komunikace, samostatnost a chuť učit se."
+      ],
+      "niceToHave": [
+        "Angličtina."
+      ],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Zázemí silné společnosti a podporu zkušeného HR týmu.",
+        "Možnost profesního a odborného růstu v náboru i dalších oblastech HR.",
+        "Prostor pro vlastní nápady a postupné převzetí větší samostatnosti.",
+        "Atraktivní zaměstnanecké benefity.",
+        "5 týdnů dovolené."
+      ],
+      "salaryRange": "",
+      "salaryNote": "",
+      "cta": "Zaujala Vás tahle příležitost? Napište nám zprávu nebo pošlete životopis. Rádi Vám diskrétně přiblížíme tým, konkrétní náplň práce i možnosti dalšího rozvoje. Klidně i bez životopisu na začátek.",
+      "featured": true
+    },
+    {
       "id": 885,
       "t": "Supplier Quality & Development Manager",
       "o": "kvalita",
@@ -467,7 +513,7 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Chcete nákup posunout dál a být u toho vidět? Ozvěte se nám diskrétně. Klidně i bez životopisu, nejdřív si jen řekneme, co od další role čekáte a jestli Vám tahle příležitost dává smysl.",
-      "featured": true
+      "featured": false
     },
     {
       "id": 876,
