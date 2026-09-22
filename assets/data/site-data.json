@@ -1,6 +1,51 @@
 {
   "positions": [
     {
+      "id": 891,
+      "t": "Mistr výroby",
+      "o": "prumysl",
+      "s": "man",
+      "k": [
+        "Jihomoravský kraj",
+        "Vysočina"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "2026-09-22",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Máte zkušenosti s vedením lidí ve výrobě a hledáte pozici, kde budete mít skutečný vliv na fungování výroby? Pro výrobní společnost hledáme zkušeného Mistra výroby, který se ujme odpovědnosti za chod výrobního úseku a vedení týmu. Velkou výhodou této pozice je možnost volby pracovního režimu: k dispozici je jednosměnný i směnný provoz podle toho, co Vám bude více vyhovovat.",
+      "whyTalk": "Můžete si zvolit jednosměnný nebo směnný provoz podle své preference.\nBudete mít reálný vliv na fungování výrobního úseku.\nDostanete prostor přicházet s vlastními návrhy a zapojit se do nových procesů, projektů a technologií.",
+      "responsibilities": [
+        "Organizovat a koordinovat každodenní chod výroby.",
+        "Dohlížet na plnění výrobního plánu, kvalitu a dodržování stanovených postupů.",
+        "Zaškolovat a rozvíjet zaměstnance.",
+        "Odpovídat za BOZP a pořádek na pracovišti.",
+        "Schvalovat docházku, dovolené a podklady pro odměňování.",
+        "Spolupracovat při náboru nových kolegů.",
+        "Zapojovat se do zavádění nových procesů, projektů a technologií."
+      ],
+      "mustHave": [
+        "Zkušenosti z výrobního prostředí.",
+        "Praxe s vedením lidí.",
+        "Schopnost organizovat práci a řešit každodenní situace ve výrobě.",
+        "Samostatnost, zodpovědnost a přirozená autorita.",
+        "Technické uvažování a chuť posouvat výrobu dál."
+      ],
+      "niceToHave": [],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Jednosměnný nebo směnný provoz dle Vaší preference.",
+        "Prostor ovlivňovat fungování výroby a přicházet s vlastními návrhy.",
+        "Stabilní pracovní prostředí a zázemí zavedené společnosti.",
+        "Atraktivní zaměstnanecké benefity."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
+      "cta": "Pokud máte zkušenosti s vedením výroby a hledáte pozici, kde budete mít reálnou odpovědnost a možnost ovlivnit fungování provozu, rádi Vám představíme více detailů. Ozvat se můžete diskrétně a nezávazně, i bez životopisu.",
+      "featured": true
+    },
+    {
       "id": 889,
       "t": "HR specialista / recruiter",
       "o": "hr",
