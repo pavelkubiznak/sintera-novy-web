@@ -391,6 +391,66 @@ function lzeOdeslatInterni_() {
   return true;
 }
 
+/* ============ B4) Poptávka od klienta („Pošlete nám pozici") ============
+   Web pošle { action:'inquiry', company, name, contact, note, website, source }.
+   Zapíše řádek do neveřejné tabulky (list "poptavky"), pošle e-mail do Sintery
+   (INQUIRY_TO, jinak APPLY_TO, jinak info@sintera.cz; Reply-To je klient)
+   a klientovi potvrzení, pokud uvedl e-mail. */
+function handleInquiry_(body) {
+  if (body.website) return json_({ ok: true });                       // honeypot: skryté pole vyplní jen robot
+
+  var company = String(body.company || '').trim().slice(0, 160);
+  var name = String(body.name || '').trim().slice(0, 120);
+  var contact = String(body.contact || '').trim().slice(0, 160);
+  var note = String(body.note || '').trim().slice(0, 6000);
+  var source = String(body.source || '').trim().slice(0, 200);
+  if (!company || !contact) return json_({ ok: false, error: 'missing_fields' });
+
+  // stejná firma i kontakt do 2 minut = dvojklik, nezapisovat dvakrát
+  var cache = CacheService.getScriptCache();
+  var ck = 'inq:' + company.toLowerCase() + ':' + contact.toLowerCase();
+  if (cache.get(ck)) return json_({ ok: true, note: 'duplicate' });
+  cache.put(ck, '1', 120);
+
+  var cas = Utilities.formatDate(new Date(), 'Europe/Prague', 'yyyy-MM-dd HH:mm:ss');
+  var ss = neverejnaTabulka_();                 // kontakty klientů NIKDY do veřejné tabulky
+  var sh = ss.getSheetByName('poptavky') || ss.insertSheet('poptavky');
+  if (sh.getLastRow() === 0) sh.appendRow(['cas', 'firma', 'jmeno', 'kontakt', 'popis', 'zdroj']);
+  sh.appendRow([cas, company, name, contact, note, source]);
+
+  var kam = prop_('INQUIRY_TO', prop_('APPLY_TO', 'info@sintera.cz'));
+  var contactEmail = emailDomain_(contact) ? contact.toLowerCase() : '';
+  if (lzeOdeslatInterni_()) {
+    var text =
+      'Nová poptávka z webu sintera.cz\n\n' +
+      'Firma: ' + company + '\n' +
+      (name ? 'Jméno: ' + name + '\n' : '') +
+      'Kontakt: ' + contact + '\n' +
+      'Čas: ' + cas + '\n\n' +
+      (note ? note + '\n\n' : '(bez popisu pozice)\n\n') +
+      'Záznam je i v tabulce, list "poptavky".';
+    var opt = { name: 'Sintera web' };
+    if (contactEmail) opt.replyTo = contactEmail;                     // Odpovědět = rovnou klientovi
+    try { GmailApp.sendEmail(kam, 'Poptávka z webu: ' + company, text, opt); } catch (e) {}
+  }
+
+  if (contactEmail && lzeOdeslatReferenci_()) {
+    var from = prop_('FROM_EMAIL', '');
+    var replyTo = prop_('REPLY_TO', 'info@sintera.cz');
+    var potvrzeni =
+      'Dobrý den,\n\n' +
+      'děkujeme za poptávku. Dorazila k nám a ozveme se vám do druhého pracovního dne.\n\n' +
+      'Kdybyste chtěli cokoli doplnit, stačí odpovědět na tento e-mail. ' +
+      'Nebo rovnou zavolejte na +420 499 599 861.\n\n' +
+      'Sintera Czech';
+    var o2 = { name: 'Sintera Czech', replyTo: replyTo };
+    if (from) o2.from = from;
+    try { GmailApp.sendEmail(contactEmail, 'Vaše poptávka pro Sinteru', potvrzeni, o2); } catch (e) {}
+  }
+
+  return json_({ ok: true });
+}
+
 function refHost_(ref) {
   if (!ref) return '(přímo)';
   var m = String(ref).match(/^https?:\/\/([^\/]+)/i);
@@ -408,6 +468,7 @@ function doPost(e) {
     if (body.action === 'reference_request') return handleReferenceRequest_(body);
     if (body.action === 'hit') return handleHit_(body);
     if (body.action === 'application') return handleApplication_(body);
+    if (body.action === 'inquiry') return handleInquiry_(body);
     return handleContentWrite_(body);
   } catch (err) {
     return json_({ ok: false, error: String(err) });

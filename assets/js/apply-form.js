@@ -1,7 +1,9 @@
 /* ============================================================
-   SINTERA · formulář „Reagovat na pozici" (jeden zdroj pro celý web).
-   Používá ho homepage a výpis /pozice/ (formulář staví app.js za běhu)
-   i samostatné stránky pozice/<id>.html (formulář je přímo v HTML z buildu).
+   SINTERA · formuláře, které se odesílají rovnou z webu (jeden zdroj pro celý web).
+   1) „Reagovat na pozici" (data-action="application") · homepage, výpis /pozice/
+      (staví ho app.js za běhu) i stránky pozice/<id>.html (v HTML z buildu).
+   2) „Pošlete nám pozici" pro klienty (data-action="inquiry") · sekce Kontakt.
+   Povinná pole nese samo HTML ([required] + data-msg s hláškou).
 
    Odesílá se rovnou z webu na Apps Script (akce "application"), ne přes
    poštovní program uchazeče: ten často chybí a reakce se dřív ztrácela.
@@ -20,8 +22,8 @@
     var subj = "Reakce na pozici: " + p.title + (p.loc ? " (" + p.loc + ")" : "");
     return '<form class="apply-form" novalidate data-id="' + esc(p.id) + '" data-position="' + esc(p.title) + '" data-loc="' + esc(p.loc || "") + '" data-subject="' + esc(subj) + '">' +
       '<span class="af-title">Reagovat na pozici</span>' +
-      '<input type="text" name="name" placeholder="Jméno a příjmení" autocomplete="name" aria-label="Jméno a příjmení" required />' +
-      '<input type="text" name="contact" placeholder="E-mail nebo telefon" autocomplete="email" aria-label="E-mail nebo telefon" required />' +
+      '<input type="text" name="name" placeholder="Jméno a příjmení" autocomplete="name" aria-label="Jméno a příjmení" required data-msg="Napište prosím své jméno." />' +
+      '<input type="text" name="contact" placeholder="E-mail nebo telefon" autocomplete="email" aria-label="E-mail nebo telefon" required data-msg="Napište prosím e-mail nebo telefon, ať se vám můžeme ozvat." />' +
       '<textarea name="note" placeholder="Pár vět o vás, nebo odkaz na profil. CV doplníme později." aria-label="Zpráva"></textarea>' +
       '<div class="af-hp" aria-hidden="true"><label>Web<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>' +
       '<button type="submit" class="btn btn-primary">Odeslat reakci</button>' +
@@ -37,20 +39,27 @@
     var d = form.dataset;
     var msg = form.querySelector(".af-msg"), btn = form.querySelector('button[type="submit"]');
     if (!msg || !btn) return;
+    var POLE = ["name", "contact", "note", "company"];
 
     function show(html, kind) { msg.innerHTML = html; msg.hidden = false; msg.className = "af-msg af-msg--" + kind; }
-    function mailtoFallback(name, contact, note) {
-      var body = "Pozice: " + (d.position || "") + (d.loc ? ", " + d.loc : "") + "\nJméno: " + name + "\nKontakt: " + contact + "\n\n" + note;
-      return "mailto:info@sintera.cz?subject=" + encodeURIComponent(d.subject || ("Reakce na pozici: " + (d.position || ""))) + "&body=" + encodeURIComponent(body);
+    function mailtoFallback(data) {
+      var body = (d.position ? "Pozice: " + d.position + (d.loc ? ", " + d.loc : "") + "\n" : "") +
+        (data.company ? "Firma: " + data.company + "\n" : "") +
+        "Jméno: " + (data.name || "") + "\nKontakt: " + (data.contact || "") + "\n\n" + (data.note || "");
+      return "mailto:info@sintera.cz?subject=" + encodeURIComponent(d.subject || "Zpráva z webu") + "&body=" + encodeURIComponent(body);
     }
 
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
       var fd = new FormData(form);
-      var name = String(fd.get("name") || "").trim(), contact = String(fd.get("contact") || "").trim(), note = String(fd.get("note") || "").trim();
-      if (!name) { show("Napište prosím své jméno.", "err"); form.name.focus(); return; }
-      if (!contact) { show("Napište prosím e-mail nebo telefon, ať se vám můžeme ozvat.", "err"); form.contact.focus(); return; }
-      var data = { action: "application", id: d.id || "", position: d.position || "", loc: d.loc || "", name: name, contact: contact, note: note, website: fd.get("website") || "", source: location.pathname };
+      var data = { action: d.action || "application", source: location.pathname, website: fd.get("website") || "" };
+      POLE.forEach(function (k) { if (fd.get(k) != null) data[k] = String(fd.get(k)).trim(); });
+      if (data.action === "application") { data.id = d.id || ""; data.position = d.position || ""; data.loc = d.loc || ""; }
+
+      var chybi = null;                                       // co je povinné, říká HTML ([required])
+      form.querySelectorAll("[required]").forEach(function (el) { if (!chybi && !String(el.value || "").trim()) chybi = el; });
+      if (chybi) { show(chybi.dataset.msg || "Vyplňte prosím toto pole.", "err"); chybi.focus(); return; }
+
       btn.disabled = true;
       var original = btn.textContent;
       btn.textContent = "Odesílám…";
@@ -61,17 +70,17 @@
           if (res && res.ok) {
             form.reset();
             btn.textContent = "Odesláno";
-            show("Děkujeme, vaše reakce k nám dorazila. Ozveme se vám.", "ok");
+            show(d.ok || "Děkujeme, vaše reakce k nám dorazila. Ozveme se vám.", "ok");
           } else {
             throw new Error((res && res.error) || "send_failed");
           }
         })
         .catch(function () {
-          // záložní cesta (výpadek sítě): otevřít e-mail s předvyplněnou reakcí + odkaz v hlášce
+          // záložní cesta (výpadek sítě): otevřít e-mail s předvyplněným textem + odkaz v hlášce
           btn.disabled = false;
           btn.textContent = original;
-          var mailto = mailtoFallback(name, contact, note);
-          show('Odeslání přes web se nepovedlo. Otevřeli jsme vám e-mail s předvyplněnou reakcí; kdyby se neotevřel, napište nám na <a href="' + esc(mailto) + '">info@sintera.cz</a>.', "err");
+          var mailto = mailtoFallback(data);
+          show('Odeslání přes web se nepovedlo. Otevřeli jsme vám e-mail s předvyplněnou zprávou; kdyby se neotevřel, napište nám na <a href="' + esc(mailto) + '">info@sintera.cz</a>.', "err");
           window.location.href = mailto;
         });
     });
