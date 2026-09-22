@@ -490,13 +490,30 @@ function itemListLD(positions) {
   return ldScript(list);
 }
 
+/* Formulář „Reagovat na pozici" na stránce pozice. Markup musí odpovídat tomu,
+   co staví assets/js/apply-form.js na homepage; odesílání navěsí ten samý modul
+   podle data-atributů, takže tady je jen HTML. */
+function applyFormHTML(p, loc) {
+  const subj = `Reakce na pozici: ${p.t}${loc ? ` (${loc})` : ""}`;
+  return `<form class="apply-form" novalidate data-id="${esc(p.id)}" data-position="${esc(p.t)}" data-loc="${esc(loc)}" data-subject="${esc(subj)}">
+  <span class="af-title">Reagovat na pozici</span>
+  <input type="text" name="name" placeholder="Jméno a příjmení" autocomplete="name" aria-label="Jméno a příjmení" required />
+  <input type="text" name="contact" placeholder="E-mail nebo telefon" autocomplete="email" aria-label="E-mail nebo telefon" required />
+  <textarea name="note" placeholder="Pár vět o vás, nebo odkaz na profil. CV doplníme později." aria-label="Zpráva"></textarea>
+  <div class="af-hp" aria-hidden="true"><label>Web<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+  <button type="submit" class="btn btn-primary">Odeslat reakci</button>
+  <p class="af-msg" role="status" aria-live="polite" hidden></p>
+  <span class="af-note">Reakce přijde přímo k nám do Sintery. Když uvedete e-mail, pošleme vám potvrzení.</span>
+  <span class="af-note af-gdpr">${GDPR_NOTE}</span>
+</form>`;
+}
+
 /* ---------- samostatná stránka pozice ---------- */
 function detailPage(p, labels) {
   const obor = labels.OBORY[p.o] || p.o, sen = labels.SENIORITY[p.s] || p.s, loc = (p.k || []).join(" / ");
   const bonus = p.bonus ? `<span>${esc(bonusLabel(p.bonus, "Příspěvek"))}</span>` : "";
   const title = `${esc(p.t)} · ${esc(loc)} · Sintera Czech`;
   const desc = `${esc(p.t)} (${esc(obor)}, ${esc(sen)}), lokalita ${esc(loc)}. Obsazujeme přímým vyhledáváním. Reagujte e-mailem na info@sintera.cz.`;
-  const subj = encodeURIComponent(`Reakce na pozici: ${p.t} (${loc})`);
   const url = `${BASE}/pozice/${p.id}.html`;
   return `<!DOCTYPE html>
 <html lang="cs">
@@ -539,7 +556,7 @@ ${ANALYTICS}
     <a href="../index.html#pozice">Pozice</a>
     <a href="../index.html#kontakt">Kontakt</a>
   </div>
-  <a class="nav-cta" href="mailto:info@sintera.cz?subject=${subj}">Reagovat</a>
+  <a class="nav-cta" href="#reagovat">Reagovat</a>
 </nav>
 <main>
 <section class="block" style="padding-top:clamp(140px,16vw,180px)">
@@ -549,11 +566,12 @@ ${ANALYTICS}
     <h1 class="lead">${esc(p.t)}</h1>
     <div class="pos-tags" style="margin-top:22px"><span>${esc(loc)}</span><span>${esc(obor)}</span><span>${esc(sen)}</span>${bonus}</div>
     <div class="body" style="margin-top:28px">${positionBodyHTML(p, labels)}</div>
-    <div class="hero-ctas" style="margin-top:40px;flex-wrap:wrap">
-      <a class="btn btn-primary" href="mailto:info@sintera.cz?subject=${subj}&body=${encodeURIComponent("Jméno:\nKontakt:\n\nPár vět o vás nebo odkaz na profil:")}">Reagovat na pozici</a>
-      <a class="btn btn-line" href="tel:+420499599861">Zavolejte nám · +420 499 599 861</a>
+    <div id="reagovat" style="margin-top:48px;max-width:680px;scroll-margin-top:120px">
+${applyFormHTML(p, loc)}
+      <div class="hero-ctas" style="margin-top:28px;flex-wrap:wrap">
+        <a class="btn btn-line" href="tel:+420499599861">Zavolejte nám · +420 499 599 861</a>
+      </div>
     </div>
-    <p style="margin-top:24px;max-width:680px;font-size:12.5px;line-height:1.6;color:var(--dim)">${GDPR_NOTE}</p>
   </div>
 </section>
 </main>
@@ -562,6 +580,7 @@ ${ANALYTICS}
   <div class="foot-col"><strong>Kontakt</strong>Uhelná 160/24, Hradec Králové<br><a href="tel:+420499599861">+420 499 599 861</a><br><a href="mailto:info@sintera.cz">info@sintera.cz</a></div>
   <span class="copy">© ${new Date().getFullYear()} Sintera Czech s.r.o. · IČ 29130336 · <a href="../faq/">Časté dotazy</a> · <a href="../ochrana-osobnich-udaju/">Ochrana osobních údajů</a></span>
 </footer>
+<script src="../assets/js/apply-form.js"></script>
 </body>
 </html>
 `;
