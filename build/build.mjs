@@ -327,8 +327,21 @@ function mapClients(rows) {
     .map(r => ({ name: r.nazev, logo: logoPath(r.logo_slug), _logoSlug: r.logo_slug || "" }));
 }
 // zeď referencí (list reference_zed): scan → full/thumb, scan2 → full2, štítky podle ";"
+// Zeď referencí je veřejně dostupná (rozhodnutí 22. 9. 2026), proto z popisných textů
+// vyhazujeme kontaktní údaje: web slibuje „telefon kontaktní osoby je skrytý" a v Sheetu
+// se telefony do popisu oboru občas zatoulají. Jméno kontaktu zůstává v poli kontakt.
+function bezKontaktu(s) {
+  return String(s || "")
+    .replace(/[|,;.\s-]*\bkontaktn?[íi]?\s*osoba\b[^|]*/gi, "")                 // „Kontaktní osoba: …" až do konce úseku
+    .replace(/[|,;]?\s*\b(tel|telefon|mobil|e-?mail)\b\s*[:.]?\s*\S[^|]*/gi, "") // telefon/e-mail i s hodnotou
+    .replace(/\+?\s*\(?420\)?[\s./-]*\d{3}[\s./-]*\d{3}[\s./-]*\d{3}/g, "")     // samostatné české číslo
+    .replace(/[\w.+-]+@[\w-]+\.[\w.]+/g, "")
+    .replace(/\s*\|\s*$/, "").replace(/\s{2,}/g, " ").replace(/[\s,;|-]+$/, "").trim();
+}
+const bezCisla = s => String(s || "").replace(/[\w.+-]+@[\w-]+\.[\w.]+|\+?\s*\(?420\)?[\s./-]*\d{3}[\s./-]*\d{3}[\s./-]*\d{3}/g, "").replace(/[\s,;|-]+$/, "").trim();
+const ocistiRadekZdi = r => ({ ...r, obor: bezKontaktu(r.obor), kontakt: bezCisla(r.kontakt) });
 function mapReferenceWall(rows) {
-  return rows.filter(r => yes(r.zverejnit)).map(r => ({
+  return rows.filter(r => yes(r.zverejnit)).map(r => ocistiRadekZdi({
     firma: r.firma || "", sektor: r.sektor || "", obor: r.obor || "", role: r.role || "", kontakt: r.kontakt || "",
     stitky: String(r.stitky || "").split(";").map(s => s.trim()).filter(Boolean),
     thumb: "thumbs/" + String(r.scan || "").replace(/^full-/, "wall-"),
@@ -803,7 +816,7 @@ async function main() {
 
   // Zeď referencí: z listu reference_zed (zverejnit=ano), fallback na commitnutý reference-wall.json
   const wall = rw ? mapReferenceWall(rw)
-    : (() => { try { return JSON.parse(fs.readFileSync(path.join(DATA, "reference-wall.json"), "utf8")); } catch { return []; } })();
+    : (() => { try { return JSON.parse(fs.readFileSync(path.join(DATA, "reference-wall.json"), "utf8")).map(ocistiRadekZdi); } catch { return []; } })();
   fs.writeFileSync(path.join(DATA, "reference-wall.js"),
     "/* AUTO: zeď referencí (build/build.mjs z listu reference_zed; fallback reference-wall.json). Needituj ručně. */\nwindow.REFERENCE_WALL = " + JSON.stringify(wall) + ";\n");
   console.log(`  ✓ reference-wall.js (${wall.length} referencí, ${rw ? "ze Sheetu reference_zed" : "fallback reference-wall.json"})`);

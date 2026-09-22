@@ -51,6 +51,18 @@ s e-mailem přijde potvrzení. Každá reakce je zároveň v neveřejné tabulce
 **`reakce_pozice`** (čas, pozice, jméno, kontakt, zpráva), kdyby e-mail zapadl.
 Jinou adresu pro příjem nastavíš v Apps Scriptu ve vlastnostech skriptu jako `APPLY_TO`.
 
+## 6c) Reference: co je veřejné a co ne
+
+Stránka s referencemi za formulářem (`/reference/<slug>/`) **není tajná**: adresa je
+ve veřejném repozitáři a skeny referencí jsou dostupné každému, kdo zná cestu. Formulář
+slouží k získání kontaktu, ne k utajení. Tohle je vědomé rozhodnutí (22. 9. 2026).
+Stránka je jen vyřazená z vyhledávačů (`robots.txt`, `noindex`).
+
+Proto: **do referencí nedávej nic, co nemá být venku.** Telefony a e-maily kontaktních
+osob build z textů automaticky odstraňuje (`bezKontaktu` v `build/build.mjs`), jméno
+a funkce kontaktní osoby zůstávají jako „Referuje: …". Zobrazení loga i reference kryje
+rámcová smlouva; u koho ji nemáš, toho z prezentace vynech.
+
 ## 7) Loga nových klientů
 
 - Existující klient (logo už máme) → v referenci stačí `logo_slug` a logo se ukáže.
