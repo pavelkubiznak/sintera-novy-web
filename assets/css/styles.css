@@ -526,42 +526,29 @@ html[data-motion="jemne"] .ticker-cta .tk-track { animation: none; }
   mask-image: radial-gradient(125% 115% at 50% 48%, #000 30%, rgba(0,0,0,0.55) 60%, transparent 82%);
   transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.hero-net svg { width: 100%; height: 100%; display: block; }
-.hero-net .net-canvas { width: 100%; height: 100%; display: block; }
-.hero-net .net-lines path { stroke: color-mix(in oklab, var(--accent) 26%, transparent); stroke-width: 1; }
-.hero-net .net-reach { stroke: color-mix(in oklab, var(--accent) 16%, transparent); stroke-width: 1; stroke-dasharray: 2 8; }
-.hero-net .net-nodes circle { fill: var(--dim); opacity: 0.4; transition: fill 0.5s ease, opacity 0.5s ease; }
-.hero-net .net-nodes circle.faint { opacity: 0.16; }
-.hero-net .net-nodes circle.lit { fill: var(--accent); opacity: 1; }
-/* hero: searchlight přes anonymní profilové karty (skrytý trh) */
 .hero-net .search-field { position: absolute; inset: 0; }
+/* vazby: SVG v procentech plochy (preserveAspectRatio=none), tah drží 1px díky non-scaling-stroke */
+.hero-net .net-lines { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero-net .net-link { fill: none; stroke: color-mix(in oklab, var(--accent) 24%, transparent); stroke-width: 1; }
+.hero-net .net-reach { fill: none; stroke: color-mix(in oklab, var(--accent) 14%, transparent); stroke-width: 1; stroke-dasharray: 2 8; }
 .hero-net .searchlight { position: absolute; left: 0; top: 0; width: 340px; height: 340px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(255,246,235,0.12), rgba(255,246,235,0.04) 44%, transparent 70%); mix-blend-mode: screen; will-change: transform; z-index: 1; }
-.hero-net .pcard { position: absolute; width: 212px; box-sizing: border-box; border: 1px solid rgba(242,239,231,0.12); background: rgba(14,18,48,0.55); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); border-radius: 20px; padding: 15px 17px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 12px 34px rgba(0,0,0,0.32); opacity: var(--o, 0.5); transform: scale(var(--s, 1)); transform-origin: center; filter: blur(var(--b, 0px)); transition: opacity 0.6s ease, border-color 0.45s ease, box-shadow 0.45s ease, filter 0.5s ease; }
-.hero-net .pcard .pc-name { font-family: var(--serif); font-size: 17px; color: var(--ink); line-height: 1.05; }
-.hero-net .pcard .pc-loc { font-size: 11.5px; letter-spacing: 0.04em; color: rgba(242,239,231,0.55); }
-.hero-net .pcard .pc-role { font-size: 12.5px; font-weight: 600; letter-spacing: 0.01em; color: var(--accent); }
-.hero-net .pcard .pc-proof { font-size: 11.5px; line-height: 1.45; color: rgba(242,239,231,0.6); text-wrap: pretty; }
-.hero-net .pcard .pc-status { align-self: flex-start; margin-top: 3px; font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(242,239,231,0.55); border: 1px solid rgba(242,239,231,0.14); border-radius: 999px; padding: 3px 10px; }
-.hero-net .pcard .pc-dot { position: absolute; top: 14px; right: 15px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); opacity: 0; transition: opacity 0.4s ease; }
-.hero-net .pcard.focus { opacity: calc(var(--o, 0.5) + 0.16); }
-.hero-net .pcard.match { opacity: 1 !important; filter: none !important; transform: scale(1.05) !important; border-color: color-mix(in oklab, var(--accent) 70%, transparent); box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 55%, transparent), 0 16px 46px rgba(0,0,0,0.45), 0 0 32px color-mix(in oklab, var(--accent) 20%, transparent); z-index: 20 !important; }
-.hero-net .pcard.match .pc-status { border-color: color-mix(in oklab, var(--accent) 55%, transparent); color: var(--accent); }
-.hero-net .pcard.match .pc-dot { opacity: 1; }
-.hero-net .net-nodes circle.lit { fill: var(--accent); opacity: 1; }
-.hero-net .net-dot { fill: var(--dim); opacity: 0.4; transition: fill 0.45s ease, opacity 0.45s ease, filter 0.45s ease; }
-.hero-net .net-dot.found { fill: var(--accent); opacity: 1; filter: drop-shadow(0 0 7px color-mix(in oklab, var(--accent) 65%, transparent)); }
-.hero-net .net-pulse { fill: none; stroke: var(--accent); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; opacity: 0; }
-.hero-net .net-pulse.go { animation: net-ignite 0.95s ease-out; }
-.hero-net .net-signal { fill: var(--accent); filter: drop-shadow(0 0 4px color-mix(in oklab, var(--accent) 45%, transparent)); }
-.hero-net .net-ping { fill: none; stroke: var(--accent); stroke-width: 1.5; }
-@media (prefers-reduced-motion: no-preference) {
-  html[data-motion="plne"] .hero-net .net-float { animation: net-drift 18s ease-in-out infinite alternate; }
-}
-/* statický fallback: jeden uzel zvýrazněný (jemné / reduced-motion / bez JS) */
-html[data-motion="jemne"] .hero-net .net-dot { fill: var(--accent); opacity: 1; }
-@media (prefers-reduced-motion: reduce) { .hero-net .net-dot { fill: var(--accent); opacity: 1; } }
-@keyframes net-drift { from { transform: translateY(-8px); } to { transform: translateY(8px); } }
-@keyframes net-ignite { 0% { transform: scale(0.5); opacity: 0.9; } 100% { transform: scale(3.2); opacity: 0; } }
+/* uzly jsou HTML kolečka (ostrá v každé velikosti); SVG nese jen linky */
+.hero-net .net-dot { position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--dim); opacity: 0.45; z-index: 2; transition: background 0.45s ease, opacity 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease; }
+.hero-net .net-dot.faint { width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; opacity: 0.18; }
+.hero-net .net-dot.near { opacity: 0.72; }
+.hero-net .net-dot.found,
+.hero-net .search-field:not(.net-live) .net-dot.lead { background: var(--accent); opacity: 1; transform: scale(1.25); box-shadow: 0 0 14px color-mix(in oklab, var(--accent) 70%, transparent); }
+.hero-net .net-dot::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1px solid var(--accent); opacity: 0; }
+.hero-net .net-dot.found::after { animation: net-ping 1.1s ease-out; }
+/* popisek: role, kraj a stav na trhu; žádná jména ani vymyšlené osoby */
+.hero-net .net-label { position: absolute; width: 210px; display: flex; flex-direction: column; gap: 3px; transform: translate(16px, -50%); opacity: 0; visibility: hidden; transition: opacity 0.45s ease, visibility 0.45s; z-index: 3; }
+.hero-net .net-label.flip { transform: translate(calc(-100% - 16px), -50%); text-align: right; align-items: flex-end; }
+.hero-net .net-label.on,
+.hero-net .search-field:not(.net-live) .net-label.lead { opacity: 1; visibility: visible; }
+.hero-net .net-label .nl-role { font-size: 13px; font-weight: 600; letter-spacing: 0.01em; color: var(--accent); }
+.hero-net .net-label .nl-meta { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(242, 239, 231, 0.55); line-height: 1.4; text-wrap: pretty; }
+@keyframes net-ping { 0% { transform: scale(0.6); opacity: 0.85; } 100% { transform: scale(2.6); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .hero-net .net-dot.found::after { animation: none; } }
 
 /* ---------- nit: zřetelná i přes světlé pásy ---------- */
 #thread-svg { z-index: 0; }

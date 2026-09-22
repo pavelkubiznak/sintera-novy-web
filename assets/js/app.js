@@ -379,7 +379,9 @@
 })();
 
 /* ============================================================
-   B) HERO · searchlight přes anonymní profilové karty (skrytý trh)
+   B) HERO · reflektor hledá v síti skrytého trhu
+   Uzly a vazby jsou v HTML (viz .hero-net v šabloně), JS jen přesouvá světlo
+   a rozsvěcuje nalezený uzel. Bez JS i při reduced-motion svítí uzel .lead z CSS.
    ============================================================ */
 (function () {
   "use strict";
@@ -388,103 +390,55 @@
   var field = document.querySelector(".hero-net .search-field");
   if (!field) return;
   var light = field.querySelector(".searchlight");
-
-  var heroProfiles = [
-    { name: "Tomáš V.", loc: "Hradec Králové", role: "Vedoucí údržby", proof: "Snížil neplánované odstávky. Vede tým 28 techniků.", status: "práci má" },
-    { name: "Jana M.", loc: "Brno", role: "Quality Manager", proof: "Připravila zákaznický audit. Stabilizovala reklamace.", status: "aktivně nehledá" },
-    { name: "Petr K.", loc: "Plzeň", role: "Vedoucí výroby", proof: "Rozjel novou linku. Stabilizoval třísměnný provoz.", status: "na inzerát by nereagoval" },
-    { name: "Martin S.", loc: "Liberec", role: "Technolog", proof: "Zkrátil náběh nových projektů. Zná automotive i kusovou výrobu.", status: "dává smysl oslovit" },
-    { name: "Eva R.", loc: "Pardubice", role: "Nákup pro výrobu", proof: "Vyjednala nové dodavatele. Drží termíny i při výpadcích.", status: "práci má" },
-    { name: "Michal D.", loc: "Ostrava", role: "Svařovací inženýr", proof: "Zavedl nové postupy. Pomohl projít zákaznickým auditem.", status: "aktivně nehledá" },
-    { name: "Lucie B.", loc: "Olomouc", role: "HR Business Partner", proof: "Zrychlila nábor technických rolí. Nastavila spolupráci s manažery.", status: "práci má" },
-    { name: "Radek P.", loc: "Kolín", role: "CNC specialista", proof: "Zkrátil seřizovací časy. Školí mladší operátory.", status: "na trhu není vidět" },
-    { name: "Kateřina H.", loc: "Praha", role: "B2B obchod", proof: "Otevřela nové zákaznické účty. Zná technický prodej.", status: "aktivně nehledá" },
-    { name: "David N.", loc: "Jihlava", role: "Operations Manager", proof: "Sjednotil plánování výroby. Zlepšil dostupnost kapacit.", status: "dává smysl oslovit" },
-    { name: "Ondřej T.", loc: "Zlín", role: "Údržbář automatizace", proof: "Zkrátil prostoje linky. Zná PLC i mechaniku.", status: "práci má" },
-    { name: "Veronika S.", loc: "České Budějovice", role: "Plánování výroby", proof: "Sladila kapacity s odbytem. Snížila zpoždění zakázek.", status: "aktivně nehledá" },
-    { name: "Filip H.", loc: "Mladá Boleslav", role: "Kvalitář", proof: "Vedl 8D reklamace. Zlepšil first pass yield.", status: "dává smysl oslovit" },
-    { name: "Marek L.", loc: "Ústí nad Labem", role: "Mistr výroby", proof: "Vede dvě směny. Zaškolil nové operátory.", status: "na inzerát by nereagoval" },
-    { name: "Hana P.", loc: "Zlín", role: "Procesní inženýr", proof: "Zavedla měření taktů. Odstranila úzká místa.", status: "práci má" },
-    { name: "Jakub N.", loc: "Třinec", role: "Konstruktér", proof: "Navrhl přípravky pro montáž. Zkrátil čas sestavení.", status: "na trhu není vidět" }
-  ];
-  // 3 řady × 3 sloupce, rovnoměrné rozprostření s jitterem a hloubkou (organické, ne mřížka)
-  var LAYOUT = [
-    { p: 0, left: "5%",  top: "7%",  d: 1 }, { p: 1, left: "37%", top: "13%", d: 3 }, { p: 9, right: "3%", top: "5%",  d: 2 },
-    { p: 4, left: "2%",  top: "40%", d: 2 }, { p: 7, left: "31%", top: "37%", d: 1 }, { p: 3, right: "2%", top: "39%", d: 3 },
-    { p: 6, left: "7%",  top: "73%", d: 2 }, { p: 8, left: "39%", top: "67%", d: 3 }, { p: 2, right: "4%", top: "74%", d: 2 }
-  ];
-  var DEPTH = { 1: { o: 0.92, s: 1.0, b: 0, z: 7, amp: 3.5 }, 2: { o: 0.56, s: 0.92, b: 0.6, z: 4, amp: 5 }, 3: { o: 0.32, s: 0.82, b: 1.6, z: 2, amp: 7 } };
-
-  var shown = {};
-  function fill(el, idx) {
-    var pr = heroProfiles[idx];
-    el.innerHTML = '<span class="pc-dot"></span><span class="pc-name">' + pr.name + '</span><span class="pc-loc">' + pr.loc + '</span><span class="pc-role">' + pr.role + '</span><span class="pc-proof">' + pr.proof + '</span><span class="pc-status">' + pr.status + '</span>';
-  }
-  function rnd(seed) { var x = Math.sin((seed + 1) * 99.7) * 43758.5; return x - Math.floor(x); }
-  var cards = [];
-  LAYOUT.forEach(function (it, i) {
-    var dp = DEPTH[it.d];
-    var el = document.createElement("article");
-    el.className = "pcard";
-    if (it.left) el.style.left = it.left;
-    if (it.right) el.style.right = it.right;
-    el.style.top = it.top;
-    el.style.setProperty("--o", dp.o); el.style.setProperty("--s", dp.s); el.style.setProperty("--b", dp.b + "px");
-    el.style.zIndex = dp.z;
-    fill(el, it.p); shown[it.p] = true; field.appendChild(el);
-    cards.push({ el: el, depth: it.d, scale: dp.s, amp: dp.amp, sp: 0.16 + rnd(i) * 0.14, ph: rnd(i + 3) * 6.28, profile: it.p });
-  });
+  var dots = [].slice.call(field.querySelectorAll(".net-dot:not(.faint)"));
+  var labels = [].slice.call(field.querySelectorAll(".net-label"));
+  if (!dots.length || dots.length !== labels.length) return;   // markup se rozešel s JS → nech statický stav
 
   var centers = [];
-  function refresh() { centers = cards.map(function (c) { return { x: c.el.offsetLeft + c.el.offsetWidth / 2, y: c.el.offsetTop + c.el.offsetHeight / 2, el: c.el }; }); }
-  refresh(); window.addEventListener("resize", refresh);
-  function ctaSpark() { var s = document.querySelector("#hero-cta .cta-spark"); if (s) { s.classList.remove("spark"); void s.offsetWidth; s.classList.add("spark"); } }
-  function place(x, y) { if (light) light.style.transform = "translate(" + x + "px," + y + "px) translate(-50%,-50%)"; }
-
-  var MATCHABLE = cards.map(function (c, i) { return i; });
-  var FOCUS_R = 150;
-  if (reduced) { var m0 = centers[MATCHABLE[0]]; if (m0) { m0.el.classList.add("match"); place(m0.x, m0.y); } return; }
-
-  var rc = 0;
-  function recycle() {
-    if (docEl.dataset.motion === "jemne") return;
-    var cand = [];
-    cards.forEach(function (c, i) { if (!c.el.classList.contains("match") && !c.el.classList.contains("focus")) cand.push(i); });
-    if (!cand.length) return;
-    var ci = cand[(rnd(rc++) * cand.length) | 0];
-    var card = cards[ci], next = -1;
-    for (var k = 1; k <= heroProfiles.length; k++) { var idx = (card.profile + k) % heroProfiles.length; if (!shown[idx]) { next = idx; break; } }
-    if (next < 0) return;
-    card.el.style.opacity = "0";
-    setTimeout(function () {
-      delete shown[card.profile]; fill(card.el, next); card.profile = next; shown[next] = true;
-      var fw = field.clientWidth, fh = field.clientHeight, cw = card.el.offsetWidth, chh = card.el.offsetHeight;
-      var maxL = Math.max(14, fw - cw - 14), maxT = Math.max(14, fh - chh - 14);
-      card.el.style.right = "";
-      card.el.style.left = ((14 + rnd(rc + 7) * (maxL - 14)) / fw * 100).toFixed(1) + "%";
-      card.el.style.top = ((14 + rnd(rc + 11) * (maxT - 14)) / fh * 100).toFixed(1) + "%";
-      card.el.style.opacity = ""; refresh();
-    }, 560);
+  function refresh() {
+    centers = dots.map(function (d) { return { x: d.offsetLeft + d.offsetWidth / 2, y: d.offsetTop + d.offsetHeight / 2 }; });
   }
-  setInterval(recycle, 3000);
+  refresh();
+  window.addEventListener("resize", refresh);
 
-  var lastIdx = -1, lx = field.clientWidth * 0.5, ly = field.clientHeight * 0.42;
-  var tx = lx, ty = ly, phase = "move", dwellUntil = 0, matchEl = null, cur = null, ti = 0;
-  function nextTarget() { var idx; do { idx = (rnd(ti++) * cards.length) | 0; } while (cards.length > 1 && idx === lastIdx); lastIdx = idx; cur = centers[idx]; if (cur) { tx = cur.x; ty = cur.y; } phase = "move"; }
-  nextTarget();
+  if (reduced) return;                                         // statický stav z CSS, nic se nehýbe
+
+  function place(x, y) { if (light) light.style.transform = "translate(" + x + "px," + y + "px) translate(-50%,-50%)"; }
+  function ctaSpark() { var s = document.querySelector("#hero-cta .cta-spark"); if (s) { s.classList.remove("spark"); void s.offsetWidth; s.classList.add("spark"); } }
+  function found(i) {
+    dots.forEach(function (d, k) { d.classList.toggle("found", k === i); });
+    labels.forEach(function (l, k) { l.classList.toggle("on", k === i); });
+  }
+  function rnd(seed) { var x = Math.sin((seed + 1) * 99.7) * 43758.5; return x - Math.floor(x); }
+
+  var FOCUS_R = 140;
+  var lx = field.clientWidth * 0.5, ly = field.clientHeight * 0.45, tx = lx, ty = ly;
+  var phase = "move", dwellUntil = 0, cur = -1, last = -1, ti = 0, live = false;
+
+  function nextTarget() {
+    var idx; do { idx = (rnd(ti++) * dots.length) | 0; } while (dots.length > 1 && idx === last);
+    last = cur = idx;
+    var c = centers[idx]; if (c) { tx = c.x; ty = c.y; }
+    phase = "move"; found(-1);
+  }
+
   function loop(now) {
-    var jemne = docEl.dataset.motion === "jemne", T = now / 1000;
-    if (!jemne) cards.forEach(function (c) {
-      if (c.el.classList.contains("match")) return;
-      var dx = Math.sin(T * c.sp + c.ph) * c.amp, dy = Math.cos(T * c.sp * 0.82 + c.ph) * c.amp * 0.7;
-      c.el.style.transform = "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px) scale(" + c.scale + ")";
+    // přepínač „jemné animace": reflektor stojí, platí statický stav z CSS
+    if (docEl.dataset.motion === "jemne") {
+      if (live) { live = false; field.classList.remove("net-live"); found(-1); }
+      requestAnimationFrame(loop); return;
+    }
+    if (!live) { live = true; field.classList.add("net-live"); nextTarget(); }
+
+    lx += (tx - lx) * 0.055; ly += (ty - ly) * 0.055;
+    place(lx, ly);
+    dots.forEach(function (d, k) {
+      var c = centers[k]; if (!c) return;
+      d.classList.toggle("near", k !== cur && Math.hypot(c.x - lx, c.y - ly) < FOCUS_R);
     });
-    if (jemne) { if (!matchEl) { var mm = centers[MATCHABLE[0]]; if (mm) { matchEl = mm.el; matchEl.classList.add("match"); place(mm.x, mm.y); } } requestAnimationFrame(loop); return; }
-    lx += (tx - lx) * 0.055; ly += (ty - ly) * 0.055; place(lx, ly);
-    centers.forEach(function (c) { var d = Math.hypot(c.x - lx, c.y - ly); c.el.classList.toggle("focus", d < FOCUS_R && c.el !== matchEl); });
     if (phase === "move") {
-      if (cur && Math.hypot(tx - lx, ty - ly) < 5) { phase = "dwell"; dwellUntil = now + 2900; matchEl = cur.el; matchEl.classList.add("match"); matchEl.classList.remove("focus"); ctaSpark(); }
-    } else if (now >= dwellUntil) { if (matchEl) { matchEl.classList.remove("match"); matchEl = null; } nextTarget(); }
+      if (Math.hypot(tx - lx, ty - ly) < 5) { phase = "dwell"; dwellUntil = now + 2800; found(cur); ctaSpark(); }
+    } else if (now >= dwellUntil) { nextTarget(); }
     requestAnimationFrame(loop);
   }
   if (document.readyState === "complete") requestAnimationFrame(loop);
