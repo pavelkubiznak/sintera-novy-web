@@ -412,6 +412,7 @@ function handleInquiry_(body) {
   var contact = String(body.contact || '').trim().slice(0, 160);
   var note = String(body.note || '').trim().slice(0, 6000);
   var source = String(body.source || '').trim().slice(0, 200);
+  var en = body.lang === 'en';                                        // poptávka z anglické verze webu (/en/)
   if (!company || !contact) return json_({ ok: false, error: 'missing_fields' });
 
   // stejná firma i kontakt do 2 minut = dvojklik, nezapisovat dvakrát
@@ -430,7 +431,7 @@ function handleInquiry_(body) {
   var contactEmail = emailDomain_(contact) ? contact.toLowerCase() : '';
   if (lzeOdeslatInterni_()) {
     var text =
-      'Nová poptávka z webu sintera.cz\n\n' +
+      'Nová poptávka z webu sintera.cz' + (en ? ' (ANGLICKÁ verze webu, klientovi odpovídat anglicky)' : '') + '\n\n' +
       'Firma: ' + company + '\n' +
       (name ? 'Jméno: ' + name + '\n' : '') +
       'Kontakt: ' + contact + '\n' +
@@ -439,13 +440,18 @@ function handleInquiry_(body) {
       'Záznam je i v tabulce, list "poptavky".';
     var opt = { name: 'Sintera web' };
     if (contactEmail) opt.replyTo = contactEmail;                     // Odpovědět = rovnou klientovi
-    try { GmailApp.sendEmail(kam, 'Poptávka z webu: ' + company, text, opt); } catch (e) {}
+    try { GmailApp.sendEmail(kam, (en ? '[EN] ' : '') + 'Poptávka z webu: ' + company, text, opt); } catch (e) {}
   }
 
   if (contactEmail && lzeOdeslatReferenci_()) {
     var from = prop_('FROM_EMAIL', '');
     var replyTo = prop_('REPLY_TO', 'info@sintera.cz');
-    var potvrzeni =
+    var potvrzeni = en ?
+      'Hello,\n\n' +
+      'thank you for your enquiry. It has reached us and we will reply within two working days.\n\n' +
+      'If you would like to add anything, simply reply to this email, ' +
+      'or call us on +420 499 599 861.\n\n' +
+      'Sintera Czech' :
       'Dobrý den,\n\n' +
       'děkujeme za poptávku. Dorazila k nám a ozveme se vám do druhého pracovního dne.\n\n' +
       'Kdybyste chtěli cokoli doplnit, stačí odpovědět na tento e-mail. ' +
@@ -453,7 +459,7 @@ function handleInquiry_(body) {
       'Sintera Czech';
     var o2 = { name: 'Sintera Czech', replyTo: replyTo };
     if (from) o2.from = from;
-    try { GmailApp.sendEmail(contactEmail, 'Vaše poptávka pro Sinteru', potvrzeni, o2); } catch (e) {}
+    try { GmailApp.sendEmail(contactEmail, en ? 'Your enquiry to Sintera' : 'Vaše poptávka pro Sinteru', potvrzeni, o2); } catch (e) {}
   }
 
   return json_({ ok: true });

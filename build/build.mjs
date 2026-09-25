@@ -384,22 +384,26 @@ function rotorHTML(rotor) {
     `<figure class="rotor-item${i === 0 ? " active" : ""}"><blockquote>„${esc(r.q)}“</blockquote>${r.c ? `<figcaption>${esc(r.c)}</figcaption>` : ""}</figure>`
   ).join("\n");
 }
-function casesHTML(cases, n = 6) {
+const CARD_UI = {
+  cs: { story: "Příběh", storyMore: "Číst příběh →", refMore: "Číst celé →" },
+  en: { story: "Story", storyMore: "Read the story →", refMore: "Read in full →" },
+};
+function casesHTML(cases, n = 6, ui = CARD_UI.cs) {
   return cases.slice(0, n).map(c =>
-    `<article class="case-card rv" data-id="${esc(c.id)}" role="button" tabindex="0" aria-label="Příběh: ${esc(c.name)}">` +
+    `<article class="case-card rv" data-id="${esc(c.id)}" role="button" tabindex="0" aria-label="${ui.story}: ${esc(c.name)}">` +
     `<div class="case-meta">${esc(c.meta)}</div>` +
     `<p class="case-hook">${esc(c.situ)}</p>` +
-    `<span class="case-more">Číst příběh →</span></article>`
+    `<span class="case-more">${ui.storyMore}</span></article>`
   ).join("\n");
 }
-function refsHTML(refs, n = 9) {
+function refsHTML(refs, n = 9, ui = CARD_UI.cs) {
   return refs.slice(0, n).map(r => {
     const logo = `<div class="ref-logo">${r.logo ? `<img src="${esc(r.logo)}" alt="${esc(r.company)}" loading="lazy">` : `<span class="ref-logo-name">${esc(r.company)}</span>`}</div>`;
     return `<article class="ref-card rv" data-id="${esc(r.id)}" role="button" tabindex="0" aria-label="Reference: ${esc(r.company)}">` +
       logo +
       `<blockquote>„${esc(r.quote)}“</blockquote>` +
       `<div class="who"><strong>${esc(r.company)}</strong>${r.role ? `<span>${esc(r.role)}</span>` : ""}</div>` +
-      `<span class="ref-more">Číst celé →</span></article>`;
+      `<span class="ref-more">${ui.refMore}</span></article>`;
   }).join("\n");
 }
 function marqueeHTML(clients) {
@@ -583,8 +587,15 @@ ${footerHTML("../")}
 }
 
 /* ---------- prerender ---------- */
+// Jazykové verze úvodní stránky: čeština v kořeni, angličtina v /en/ (čtenář = klient).
+const HREFLANG = [
+  `<link rel="alternate" hreflang="cs" href="${BASE}/">`,
+  `<link rel="alternate" hreflang="en" href="${BASE}/en/">`,
+  `<link rel="alternate" hreflang="x-default" href="${BASE}/">`,
+].join("\n");
+
 function prerender(site, labels) {
-  let html = fs.readFileSync(TPL, "utf8");
+  const html = fs.readFileSync(TPL, "utf8");
   const repl = {
     "<!--ROTOR-->": rotorHTML(site.rotor),
     "<!--CASES-->": casesHTML(site.cases),
@@ -594,12 +605,84 @@ function prerender(site, labels) {
     "<!--JSONLD-->": itemListLD(site.positions),
     "<!--ORG-->": ORG_LD,
     "<!--ANALYTICS-->": ANALYTICS,
+    "<!--HREFLANG-->": HREFLANG,
     "<!--FOOT_OBORY-->": OBORY_STRANKY.map(o => `<a href="obory/${o.slug}/">${esc(o.nazev)}</a>`).join("<br>"),
   };
-  for (const [marker, content] of Object.entries(repl)) html = html.replace(marker, content);
-  html = html.split("%%BASE%%").join(BASE); // canonical/og/JSON-LD se odvodí z baseUrl (github.io teď, sintera.cz po Fázi 2)
-  fs.writeFileSync(path.join(ROOT, "index.html"), withCsp(html));
+  fs.writeFileSync(path.join(ROOT, "index.html"), withCsp(fillMarkers(html, repl)));
   console.log("  ✓ index.html (prerender)");
+}
+function fillMarkers(html, repl) {
+  for (const [marker, content] of Object.entries(repl)) html = html.replace(marker, content);
+  return html.split("%%BASE%%").join(BASE); // canonical/og/JSON-LD se odvodí z baseUrl
+}
+
+/* ---------- anglická verze /en/ ----------
+   Zdroj textů = assets/data/i18n/en.json. Česká šablona se přeloží nahrazením celých českých
+   úseků (klíč = přesný český text v šabloně). Tvrdé kontroly, ať se verze nerozjedou:
+   (1) každý klíč musí v šabloně existovat, jinak někdo změnil češtinu a překlad je zastaralý;
+   (2) v přeložené šabloně nesmí zůstat čeština (kromě vlastních jmen v _allow).
+   Reference a case studies ze Sheetu se překládají podle id; nepřeložené se na /en/ nezobrazí. */
+const EN = JSON.parse(fs.readFileSync(path.join(DATA, "i18n", "en.json"), "utf8"));
+const CZ_CHARS = /[áčďéěíňóřšťúůýž]/i;
+
+function translateTemplate(html, dict, allow) {
+  const keys = Object.keys(dict).sort((a, b) => b.length - a.length); // delší dřív, ať kratší klíč nerozbije delší úsek
+  const missing = keys.filter(k => !html.includes(k));
+  if (missing.length) throw new Error("i18n/en.json: tyto české texty už v šabloně nejsou (česká verze se změnila, uprav překlad):\n  - " + missing.map(k => k.slice(0, 120)).join("\n  - "));
+  for (const k of keys) html = html.split(k).join(dict[k]);
+  // zbylá čeština: viditelný text a čitelné atributy, bez komentářů a skriptů
+  let probe = html.replace(/<!--[\s\S]*?-->/g, "").replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<style[\s\S]*?<\/style>/gi, "");
+  for (const a of allow) probe = probe.split(a).join("");
+  const texty = [...probe.matchAll(/>([^<]+)</g)].map(m => m[1])
+    .concat([...probe.matchAll(/\b(?:alt|title|placeholder|aria-label|content|data-msg|data-ok|data-subject)="([^"]*)"/g)].map(m => m[1]));
+  const zbytek = texty.filter(t => CZ_CHARS.test(t)).map(t => t.trim().slice(0, 100));
+  if (zbytek.length) throw new Error("Anglická stránka obsahuje nepřeloženou češtinu (doplň do assets/data/i18n/en.json):\n  - " + zbytek.join("\n  - "));
+  return html;
+}
+// relativní odkazy z /en/ míří o úroveň výš (assets, české stránky); kotvy, absolutní a tel/mailto beze změny
+const upLevel = html => html.replace(/\b(href|src)="(?!https?:|#|mailto:|tel:|\.\.\/|\/|%%BASE%%|data:)([^"]*)"/g, '$1="../$2"');
+
+function enContent(site) {
+  const tag = t => EN.tags[t.trim()] || t.trim();
+  const refs = site.references.filter(r => EN.references[r.id]).map(r => ({
+    ...r, ...EN.references[r.id],
+    tags: String(r.tags || "").split(";").filter(t => t.trim()).map(tag).join("; "),
+  }));
+  const cases = site.cases.filter(c => EN.cases[c.id]).map(c => ({ ...c, ...EN.cases[c.id] }));
+  const rotor = site.rotor.filter(r => EN.rotor[r.id]).map(r => ({ ...r, q: EN.rotor[r.id] }));
+  const chybi = [
+    ...site.references.filter(r => !EN.references[r.id]).map(r => "reference " + r.id),
+    ...site.cases.filter(c => !EN.cases[c.id]).map(c => "case study " + c.id),
+    ...site.rotor.filter(r => !EN.rotor[r.id]).map(r => "rotor " + r.id),
+  ];
+  if (chybi.length) console.log("  ! /en/ bez anglického textu (nezobrazí se, doplň do i18n/en.json): " + chybi.join(", "));
+  return { refs, cases, rotor };
+}
+
+function prerenderEn(site) {
+  const { refs, cases, rotor } = enContent(site);
+  const up = o => ({ ...o, logo: o.logo ? "../" + o.logo : o.logo });
+  const org = JSON.parse(ORG_LD.replace(/^<script[^>]*>\n|\n<\/script>$/g, ""));
+  for (const k of ["description", "areaServed", "serviceType", "knowsAbout"]) if (EN.organization[k]) org[k] = EN.organization[k];
+  let html = translateTemplate(fs.readFileSync(TPL, "utf8"), EN.homepage, EN._allow || []);
+  html = fillMarkers(html, {
+    "<!--ROTOR-->": rotorHTML(rotor).replace(/„/g, "“").replace(/“<\/blockquote>/g, "”</blockquote>"),
+    "<!--CASES-->": casesHTML(cases, 6, CARD_UI.en),
+    "<!--REFS-->": refsHTML(refs, 9, CARD_UI.en).replace(/<blockquote>„/g, "<blockquote>“").replace(/“<\/blockquote>/g, "”</blockquote>"),
+    "<!--MARQUEE-->": marqueeHTML(site.clients),
+    "<!--JSONLD-->": "",
+    "<!--ORG-->": ldScript(org),
+    "<!--ANALYTICS-->": ANALYTICS,
+    "<!--HREFLANG-->": HREFLANG,
+  });
+  const dir = path.join(ROOT, "en");
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, "index.html"), withCsp(upLevel(html)));
+  // data pro app.js na /en/ (znovu vykresluje reference, case studies a rotor; loga o úroveň výš)
+  const data = { references: refs.map(up), cases, rotor, clients: site.clients.map(up) };
+  fs.writeFileSync(path.join(DATA, "reference-data.en.js"),
+    "/* AUTO-GENEROVÁNO buildem (build/build.mjs) z i18n/en.json + Sheetu. Needituj ručně. */\nwindow.SINTERA_DATA = " + JSON.stringify(stripInternal(data), null, 2) + ";\n");
+  console.log(`  ✓ en/index.html (${refs.length} referencí, ${cases.length} case studies)`);
 }
 
 function writeDetailPages(positions, labels) {
@@ -614,7 +697,7 @@ function writeDetailPages(positions, labels) {
 
 /* ---------- SEO výstupy ---------- */
 function writeSitemap(positions, extra = []) {
-  const sections = ["/", "/pozice/", "/faq/", "/reference-info/", ...extra]; // bez #kotev — vyhledávače fragmenty v sitemap ignorují
+  const sections = ["/", "/en/", "/pozice/", "/faq/", "/reference-info/", ...extra]; // bez #kotev — vyhledávače fragmenty v sitemap ignorují
   const jobs = positions.map(p => `/pozice/${p.id}.html`);
   const urls = sections.concat(jobs).map(u => `  <url><loc>${BASE}${u}</loc><changefreq>weekly</changefreq></url>`).join("\n");
   fs.writeFileSync(path.join(ROOT, "sitemap.xml"),
@@ -910,6 +993,7 @@ function pageShell({ rel, title, desc, url, ld = [], body }) {
       <a href="${rel}index.html#kontakt">Kontakt</a>
     </div>
     <a class="nav-cta" href="${rel}index.html#kontakt">Marně hledáte lidi?</a>
+    <a class="nav-lang" href="${rel}en/" hreflang="en" lang="en" aria-label="English version">EN</a>
     <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
   </nav>
   <main>
@@ -1204,6 +1288,7 @@ async function main() {
   }
 
   prerender(site, labels);
+  prerenderEn(site);
   writeDetailPages(site.positions, labels);
   writeSitemap(site.positions, extraSitemapUrls(site));
   ulozDataPublikace();   // stálé datePosted (viz jobPosting)

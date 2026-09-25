@@ -72,6 +72,12 @@ Google Sheets (4 listy) → `build/build.mjs` → JSON v `assets/data/` + preren
   platí); role, otevřené pozice, kraje, case studies a reference doplní build ze Sheetu.
   Case studies se berou z listu case_studies, slug = id bez `case_`. Složky jsou plně generované.
 - Apps Script: každý text od návštěvníka do tabulky přes `bunka_()` (jinak `=…` spustí vzorec).
+- Anglická verze `/en/` (čtenář = klient, ne uchazeč; pozice se NEpřekládají, jen odkaz na české `/pozice/`):
+  build (`prerenderEn`) přeloží českou šablonu podle `assets/data/i18n/en.json` (klíč = přesný český úsek
+  šablony). Změníš-li český text v šabloně, build spadne s výpisem neplatných klíčů: uprav i překlad.
+  Build spadne i při zbylé češtině v EN stránce (výjimky `_allow`). Reference/case studies ze Sheetu se
+  překládají podle id; nepřeložené se na `/en/` nezobrazí (build vypíše „! /en/ bez anglického textu").
+  JS texty: `T` v app.js a `EN` v apply-form.js podle `<html lang>`.
 
 ## Build
 

@@ -1,0 +1,319 @@
+{
+  "_readme": "Anglická verze webu (/en/). Build (build/build.mjs, renderHome) vezme českou šablonu build/templates/index.template.html a nahradí v ní každý klíč z 'homepage' anglickým textem. Když se český text v šabloně změní, klíč přestane sedět a build SPADNE s názvem chybějícího textu: pak uprav klíč i překlad tady. Zbylá čeština v anglické stránce build také zastaví (výjimky = vlastní jména v '_allow'). Reference a case studies ze Sheetu se překládají podle id (references/cases); co tu chybí, na anglické stránce není. Pravidla obsahu platí i v angličtině: bez dlouhé pomlčky, bez vymyšlených čísel. Čtenář = klient (HR a management zahraničních firem), často ne rodilý mluvčí: krátké věty, bez idiomů, britský pravopis.",
+
+  "_allow": ["Hradec Králové", "Uhelná", "Výzkumný ústav železniční", "Sécheron Hasler", "Vysočina", "Česká verze"],
+
+  "homepage": {
+    "<html lang=\"cs\"": "<html lang=\"en\"",
+    "<title>Sintera Czech · direct search do výroby a techniky, od CNC po management</title>": "<title>Sintera Czech · Direct search in manufacturing and engineering, from CNC to management</title>",
+    "<meta name=\"description\" content=\"Najdeme lidi, kteří práci mají a sami se nehlásí: CNC programátory, seřizovače, svářeče, techniky, inženýry i manažery. Do 10 dnů první kandidáti na míru zadání.\">": "<meta name=\"description\" content=\"We find people in the Czech Republic who have a job and are not applying: CNC programmers, setters, welders, technicians, engineers and managers. First candidates within 10 days, matched to your brief.\">",
+    "<link rel=\"canonical\" href=\"%%BASE%%/\">": "<link rel=\"canonical\" href=\"%%BASE%%/en/\">",
+    "<meta property=\"og:locale\" content=\"cs_CZ\">": "<meta property=\"og:locale\" content=\"en_GB\">\n<meta property=\"og:locale:alternate\" content=\"cs_CZ\">",
+    "<meta property=\"og:title\" content=\"Sintera Czech · direct search do výroby a techniky, od CNC po management\">": "<meta property=\"og:title\" content=\"Sintera Czech · Direct search in manufacturing and engineering, from CNC to management\">",
+    "<meta property=\"og:description\" content=\"Najdeme lidi, kteří práci mají a sami se nehlásí. Do 10 dnů první kandidáti na míru zadání.\">": "<meta property=\"og:description\" content=\"We find people who have a job and are not applying. First candidates within 10 days, matched to your brief.\">",
+    "<meta property=\"og:url\" content=\"%%BASE%%/\">": "<meta property=\"og:url\" content=\"%%BASE%%/en/\">",
+    "<meta name=\"twitter:description\" content=\"Najdeme lidi, kteří práci mají a sami se nehlásí. Do 10 dnů první kandidáti na míru zadání.\">": "<meta name=\"twitter:description\" content=\"We find people who have a job and are not applying. First candidates within 10 days, matched to your brief.\">",
+    "\"url\":\"%%BASE%%/\",\"inLanguage\":\"cs\"": "\"url\":\"%%BASE%%/en/\",\"inLanguage\":\"en\"",
+
+    "<a class=\"skip-link\" href=\"#top\">Přeskočit na obsah</a>": "<a class=\"skip-link\" href=\"#top\">Skip to content</a>",
+    "<a href=\"#trh\">Jak pracujeme</a>": "<a href=\"#trh\">How we work</a>",
+    "<a href=\"#reference\">Reference</a>": "<a href=\"#reference\">References</a>",
+    "<a href=\"pozice/\">Volné pozice</a>": "<a href=\"#pozice\">Open positions</a>",
+    "<a href=\"#kontakt\">Kontakt</a>": "<a href=\"#kontakt\">Contact</a>",
+    "<a class=\"nav-cta\" href=\"#kontakt\">Marně hledáte lidi?</a>": "<a class=\"nav-cta\" href=\"#kontakt\">Can't find the right people?</a>",
+    "<a class=\"nav-lang\" href=\"en/\" hreflang=\"en\" lang=\"en\" aria-label=\"English version\">EN</a>": "<a class=\"nav-lang\" href=\"index.html\" hreflang=\"cs\" lang=\"cs\" aria-label=\"Česká verze\">CZ</a>",
+
+    "<span class=\"nl-role\">Vedoucí údržby</span><span class=\"nl-meta\">Královéhradecký kraj · práci má</span>": "<span class=\"nl-role\">Maintenance Manager</span><span class=\"nl-meta\">Hradec Králové Region · employed</span>",
+    "<span class=\"nl-role\">Technolog</span><span class=\"nl-meta\">Liberecký kraj · dává smysl oslovit</span>": "<span class=\"nl-role\">Process Engineer</span><span class=\"nl-meta\">Liberec Region · worth approaching</span>",
+    "<span class=\"nl-role\">Plánování výroby</span><span class=\"nl-meta\">Jihočeský kraj · aktivně nehledá</span>": "<span class=\"nl-role\">Production Planner</span><span class=\"nl-meta\">South Bohemia · not looking</span>",
+    "<span class=\"nl-meta\">Kraj Vysočina · dává smysl oslovit</span>": "<span class=\"nl-meta\">Vysočina Region · worth approaching</span>",
+    "<span class=\"nl-role\">Nákup pro výrobu</span><span class=\"nl-meta\">Pardubický kraj · práci má</span>": "<span class=\"nl-role\">Production Buyer</span><span class=\"nl-meta\">Pardubice Region · employed</span>",
+    "<span class=\"nl-role\">Svařovací inženýr</span><span class=\"nl-meta\">Moravskoslezský kraj · aktivně nehledá</span>": "<span class=\"nl-role\">Welding Engineer</span><span class=\"nl-meta\">Moravia-Silesia · not looking</span>",
+    "<span class=\"nl-meta\">Jihomoravský kraj · na trhu není vidět</span>": "<span class=\"nl-meta\">South Moravia · not visible on the market</span>",
+    "<span class=\"nl-role\">Vedoucí výroby</span><span class=\"nl-meta\">Plzeňský kraj · na inzerát by nereagoval</span>": "<span class=\"nl-role\">Production Manager</span><span class=\"nl-meta\">Pilsen Region · would not answer an ad</span>",
+    "<span class=\"nl-role\">CNC specialista</span><span class=\"nl-meta\">Středočeský kraj · na trhu není vidět</span>": "<span class=\"nl-role\">CNC Specialist</span><span class=\"nl-meta\">Central Bohemia · not visible on the market</span>",
+    "<span class=\"nl-meta\">Olomoucký kraj · práci má</span>": "<span class=\"nl-meta\">Olomouc Region · employed</span>",
+
+    "<span class=\"hl-in\">Aktivní kandidáty</span>": "<span class=\"hl-in\">You have seen</span>",
+    "<span class=\"hl-in\">už jste viděli.</span>": "<span class=\"hl-in\">the active candidates.</span>",
+    "<span class=\"hl-in\">My najdeme</span>": "<span class=\"hl-in\">We find</span>",
+    "<span class=\"hl-in\"><em>ty ostatní.</em></span>": "<span class=\"hl-in\"><em>the others.</em></span>",
+    "<p class=\"hero-sub rv-load\" style=\"--d:5\">Hledáme lidi, kteří práci mají a sami se nehlásí, <a href=\"co-obsazujeme/\">od seřizovačů a CNC programátorů po výrobní ředitele</a>. Do 10 dnů vám představíme první kandidáty podle zadání, které si společně odsouhlasíme.</p>": "<p class=\"hero-sub rv-load\" style=\"--d:5\">We search the Czech labour market for people who have a job and are not applying, from CNC setters and programmers to production directors. Within 10 days we present the first candidates, matched to a brief we agree on together.</p>",
+    "Pošlete nám pozici, která vám nedá spát<span": "Send us the role that keeps you up at night<span",
+    "<a class=\"btn btn-line\" href=\"tel:+420499599861\">Zavolejte nám</a>": "<a class=\"btn btn-line\" href=\"tel:+420499599861\">Call us</a>",
+
+    "<p class=\"proof-intro rv\">Klienti nás neoceňují za množství CV. Oceňují <b>přesnost profilů</b>, <b>použitelné podklady</b> a <b>přehled o tom, co se na trhu skutečně děje.</b></p>": "<p class=\"proof-intro rv\">Clients do not value us for the number of CVs. They value <b>accurate profiles</b>, <b>candidate notes they can use</b> and <b>a clear view of what is really happening in the market.</b></p>",
+    "<div class=\"proof-pill\">Přesnost</div>": "<div class=\"proof-pill\">Accuracy</div>",
+    "<blockquote class=\"proof-quote\">„Ani jeden kandidát nebyl zcela mimo rozsah.“</blockquote>": "<blockquote class=\"proof-quote\">“Not a single candidate was completely off target.”</blockquote>",
+    "<div class=\"proof-pill\">Kontext</div>": "<div class=\"proof-pill\">Context</div>",
+    "<blockquote class=\"proof-quote\">„Poznámky ke kandidátům jsme následně využívali na pohovorech.“</blockquote>": "<blockquote class=\"proof-quote\">“We later used the notes on the candidates in our interviews.”</blockquote>",
+    "<div class=\"proof-pill\">Mimo trh</div>": "<div class=\"proof-pill\">Hidden market</div>",
+    "<blockquote class=\"proof-quote\">„Uchazeči, o kterých jsme si mysleli, že na trhu vůbec neexistují.“</blockquote>": "<blockquote class=\"proof-quote\">“Candidates we thought did not exist on the market at all.”</blockquote>",
+
+    "aria-label=\"Klienti, se kterými spolupracujeme\"": "aria-label=\"Clients we work with\"",
+    "<div class=\"marquee-label\">Důvěřují nám</div>": "<div class=\"marquee-label\">Trusted by</div>",
+
+    "<div class=\"kicker rv\">Problém</div>": "<div class=\"kicker rv\">The problem</div>",
+    "<h2 class=\"lead rv\">Když inzerce nestačí, <em>další inzerát nepomůže.</em></h2>": "<h2 class=\"lead rv\">When job ads are not working, <em>another ad will not help.</em></h2>",
+    "<p class=\"body rv\">Většina klientů se nám ozve ve chvíli, kdy už vyzkoušeli běžné cesty a aktivní kandidáty viděli. My v tu chvíli neotevřeme další inzerát. Ti, které potřebujete, většinou práci mají, sami se nehlásí a běžnou cestou se neukážou. Pro správnou nabídku jsou ale ochotní mluvit.</p>": "<p class=\"body rv\">Most clients contact us after they have tried the usual channels and seen the active candidates. At that point, we do not post another ad. The people you need usually have a job, do not apply and do not appear through the usual channels. But they are willing to talk about the right offer.</p>",
+    "<p class=\"rv\">Nejtěžší nebývá najít ředitele, ti bývají vidět. Nejtěžší je odborník, který má práci, není aktivní v hledání a na běžnou nabídku by pravděpodobně nereagoval. Proto na inzerát nikdy neodpoví.</p>": "<p class=\"rv\">The hardest person to find is rarely the director. Directors tend to be visible. The hardest is the specialist who has a job, is not looking and would probably ignore a standard offer. That is why they never answer a job ad.</p>",
+
+    "<div class=\"kicker rv\">Jiný druh práce</div>": "<div class=\"kicker rv\">A different kind of work</div>",
+    "<h2 class=\"lead rv\">Běžná agentura pracuje s tím, co přijde. <em>My s tím, co samo nepřijde.</em></h2>": "<h2 class=\"lead rv\">A typical agency works with whoever applies. <em>We work with the people who never would.</em></h2>",
+    "<p class=\"body rv\" style=\"margin-top:0\">Aktivní část trhu tvoří lidé, kteří právě hledají, reagují na inzeráty nebo jsou otevření nabídkám. My pracujeme i s těmi, kteří práci mají, sami se nehlásí a běžnou cestou se neukážou. Mají profil ne proto, že hledají práci, ale protože svou práci dělají dobře. Za nimi jdeme napřímo.</p>": "<p class=\"body rv\" style=\"margin-top:0\">The active part of the market is made up of people who are looking right now, answering ads or open to offers. We also work with people who have a job, do not apply and never appear through the usual channels. They have a strong profile not because they want a new job, but because they are good at the one they have. We approach them directly.</p>",
+    "<blockquote>„Konzultanti dokázali přesně identifikovat společnosti, kde se mohl nacházet vhodný kandidát na danou pozici.“</blockquote>": "<blockquote>“The consultants identified exactly which companies were likely to employ a suitable candidate for the role.”</blockquote>",
+    "<blockquote>„Služby Sintery využíváme pro velkou znalost pracovního trhu a široký záběr napříč odbornostmi a pozicemi.“</blockquote>": "<blockquote>“We use Sintera for its deep knowledge of the labour market and its wide reach across disciplines and positions.”</blockquote>",
+    "<blockquote>„Ve velmi krátkém časovém horizontu se podařilo obsadit pozici, kterou jsme hledali již delší dobu.“</blockquote>": "<blockquote>“In a very short time, we filled a position we had been trying to fill for a long while.”</blockquote>",
+    "<blockquote>„I přes velmi specifickou pozici drtivá většina kandidátů splnila naše minimální požadavky nastavené při zadání spolupráce.“</blockquote>": "<blockquote>“Even though the position was very specific, the vast majority of candidates met the minimum requirements we set in the brief.”</blockquote>",
+
+    "<div class=\"kicker rv\">Zadání role</div>": "<div class=\"kicker rv\">Defining the role</div>",
+    "<h2 class=\"lead rv\">Když roli špatně pojmenujete, <em>správní lidé propadnou sítem.</em></h2>": "<h2 class=\"lead rv\">Describe the role the wrong way <em>and the right people slip through the net.</em></h2>",
+    "<p class=\"body rv\" style=\"margin-top:0\">Stejnou roli může trh pojmenovávat jinak, než ji máte v hlavě. Stačí jeden špatně napsaný požadavek a kandidát, který umí čtyři z pěti věcí, vám vypadne. Ne proto, že by nebyl vhodný, ale protože zadání mířilo vedle.</p>": "<p class=\"body rv\" style=\"margin-top:0\">The market may use a different name for the role than the one you have in mind. One badly worded requirement is enough to lose a candidate who can do four of the five things you need. Not because they are unsuitable, but because the brief was aimed in the wrong place.</p>",
+    "<p class=\"body rv\">Proto nejdřív zpřesníme, koho opravdu hledáte. Co má člověk umět, co musí mít za sebou, v jakém prostředí má fungovat a podle čeho poznáte, že uspěje.</p>": "<p class=\"body rv\">So we start by clarifying who you really need: what the person must be able to do, what experience they must have, what environment they will work in and how you will know they are succeeding.</p>",
+    "<blockquote>„Stačil krátký hovor, aby byla pozice řádně popsána. Sintera má schopnost pochopit osobnostní profil kandidáta.“</blockquote>": "<blockquote>“A short call was enough to describe the position properly. Sintera understands the personality profile the candidate needs.”</blockquote>",
+    "<blockquote>„Jasně strukturovaný přístup omezil časové prostoje způsobené nejasným nebo špatně pochopeným zadáním.“</blockquote>": "<blockquote>“A clearly structured approach reduced the delays caused by an unclear or misunderstood brief.”</blockquote>",
+    "<blockquote>„Profily kandidátů s velkou přesností ladily s profilem pozic, které jsme poptávali.“</blockquote>": "<blockquote>“The candidate profiles matched the positions we were looking to fill with great accuracy.”</blockquote>",
+    "<blockquote>„Kandidáti doporučení k pohovoru odpovídali našim požadavkům rozsahem zkušeností, znalostí i očekáváním na danou pozici.“</blockquote>": "<blockquote>“The candidates recommended for interview matched our requirements in experience, knowledge and expectations for the role.”</blockquote>",
+
+    "<div class=\"kicker rv\">Searchová infrastruktura</div>": "<div class=\"kicker rv\">Search infrastructure</div>",
+    "<h2 class=\"lead rv\" style=\"max-width:13ch\">Nástroj otevře dveře. <em>Zkušenost rozhodne, na které zaklepat.</em></h2>": "<h2 class=\"lead rv\" style=\"max-width:13ch\">Tools open doors. <em>Experience decides which ones to knock on.</em></h2>",
+    "<p class=\"body rv\">Máme vlastní searchovou infrastrukturu: nástroje, které si z velké části sami stavíme, vlastní postupy a know-how budované roky. Není to raketová věda. Ale ne každý ji umí postavit a používat den za dnem správně. Stejně jako vy máte výrobní linku na svůj produkt, my máme linku na to, jak najít vašeho člověka.</p>": "<p class=\"body rv\">We have our own search infrastructure: tools we largely build ourselves, our own methods and know-how developed over years. It is not rocket science. But not everyone can build it and use it well, day after day. Just as you have a production line for your product, we have a production line for finding your person.</p>",
+    "<div class=\"lbl\">Mapování trhu</div><div class=\"sub\">Kdo roli reálně umí, i mimo portály a databáze.</div>": "<div class=\"lbl\">Market mapping</div><div class=\"sub\">Who can actually do the job, including people outside job boards and databases.</div>",
+    "<div class=\"lbl\">Přímé oslovení</div><div class=\"sub\">Konkrétní lidé, napřímo, s nabídkou na míru.</div>": "<div class=\"lbl\">Direct approach</div><div class=\"sub\">Specific people, contacted directly, with an offer that fits them.</div>",
+    "<div class=\"lbl\">Posouzení a kontext</div><div class=\"sub\">Souvislosti, které vysvětlují, proč má smysl s kandidátem mluvit.</div>": "<div class=\"lbl\">Assessment and context</div><div class=\"sub\">The background that explains why a candidate is worth talking to.</div>",
+    "<div class=\"lbl\">Představení</div><div class=\"sub\">Jen kandidáti, se kterými má smysl mluvit.</div>": "<div class=\"lbl\">Shortlist</div><div class=\"sub\">Only candidates who are worth talking to.</div>",
+
+    "<div class=\"kicker rv\">Přesnost místo objemu</div>": "<div class=\"kicker rv\">Accuracy over volume</div>",
+    "<h2 class=\"lead rv\">Nejde o počet CV. <em>Jde o to, kolik z nich stojí za rozhovor.</em></h2>": "<h2 class=\"lead rv\">It is not about the number of CVs. <em>It is about how many are worth an interview.</em></h2>",
+    "<p class=\"body rv\" style=\"margin-top:0\">Neposíláme desítky profilů, aby si firma sama domýšlela, proč je dostala. Kandidáta představujeme s kontextem: proč odpovídá zadání, co u něj dává smysl ověřit a proč má cenu vést rozhovor.</p>": "<p class=\"body rv\" style=\"margin-top:0\">We do not send dozens of profiles and leave you to guess why they arrived. We present each candidate with context: why they match the brief, what is worth checking and why the conversation is worth having.</p>",
+
+    "<h2 class=\"rv\">Když běžné cesty nestačily</h2>": "<h2 class=\"rv\">When the usual channels were not enough</h2>",
+    "<div class=\"rv\" style=\"margin-top:clamp(28px,3vw,40px)\"><a class=\"btn btn-line\" href=\"case-studies/\">Všechny case studies</a></div>": "",
+
+    "<div class=\"kicker rv\">Reference</div>": "<div class=\"kicker rv\">References</div>",
+    "<h2 class=\"rv\">Reference, které nekončí</h2>": "<h2 class=\"rv\">References that keep coming</h2>",
+    "<strong>Archiv více než 100 referencí</strong>": "<strong>An archive of more than 100 references</strong>",
+    "<span>Konkrétní situace, role a výsledky. Rozšířený výběr pošleme na váš firemní e-mail.</span>": "<span>Specific situations, roles and results. Ask us and we will send you a wider selection. The client quotes on this page are translated from Czech.</span>",
+    "<a class=\"btn btn-primary\" href=\"reference-info/\">Všech 100+ referencí</a>": "<a class=\"btn btn-primary\" href=\"#kontakt\">Ask for references</a>",
+
+    "<div class=\"kicker rv\">Search vede člověk</div>": "<div class=\"kicker rv\">Led by a person</div>",
+    "<h2 class=\"lead rv\">Search nevede formulář. <em>Vede ho člověk, který rozumí trhu.</em></h2>": "<h2 class=\"lead rv\">A search is not run by a form. <em>It is run by a person who knows the market.</em></h2>",
+    "<p class=\"body rv\">Za search odpovídá člověk, který ví, proč vám kandidáta posílá. Nečekáte na anonymní proces. U každého zadání víte, kdo ho vede, proč se hledá právě tímto směrem a co se na trhu děje.</p>": "<p class=\"body rv\">Every search is led by a person who knows why they are sending you a candidate. You are not waiting on an anonymous process. For each assignment, you know who is running it, why the search is going in this direction and what is happening in the market.</p>",
+    "aria-label=\"Video se připravuje\"": "aria-label=\"Video coming soon\"",
+    "<span class=\"video-cap\">Video se připravuje</span>": "<span class=\"video-cap\">Video coming soon</span>",
+
+    "<div class=\"kicker rv\">Volné pozice</div>": "<div class=\"kicker rv\">Open positions</div>",
+    "<h2 class=\"rv\">Aktuálně hledáme</h2>": "<h2 class=\"rv\">What we are working on now</h2>",
+    "<p class=\"positions-lead rv\">Výběr rolí, na kterých právě pracujeme. Ne všechny search projekty zveřejňujeme.</p>": "<p class=\"positions-lead rv\">Our job ads are published in Czech, because the people we approach work in the Czech Republic. They show the range of roles we fill: machine setters, CNC programmers, maintenance technicians, quality and design engineers, buyers and production managers. We do not publish every search.</p>",
+    "<div class=\"pos-list\" id=\"pos-list\"><!--POSITIONS--></div>": "",
+    "<div class=\"pos-empty\" id=\"pos-empty\" hidden>Tomuhle zadání teď nic neodpovídá. Většinu rolí hledáme i mimo tento seznam. Napište nám, koho potřebujete.</div>": "",
+    "<a class=\"btn btn-line\" href=\"pozice/\">Zobrazit všechny otevřené pozice</a>": "<a class=\"btn btn-line\" href=\"pozice/\" hreflang=\"cs\">See open positions (in Czech)</a>",
+
+    "<h2 class=\"rv\">Máte pozici, kterou <em>nemůžete obsadit?</em></h2>": "<h2 class=\"rv\">Do you have a role <em>you cannot fill?</em></h2>",
+    "<p class=\"rv\">Pošlete nám job description, nebo pár vět k roli. Ozveme se a řekneme, jak konkrétně ji uchopíme.</p>": "<p class=\"rv\">Send us the job description or a few sentences about the role. We will get back to you and explain exactly how we would approach it. You are welcome to write in English.</p>",
+    "data-subject=\"Poptávka z webu: obsazení pozice\" data-ok=\"Děkujeme, poptávka k nám dorazila. Ozveme se vám.\"": "data-subject=\"Enquiry from the website: a role to fill\" data-ok=\"Thank you, your enquiry has reached us. We will get back to you.\"",
+    "<span class=\"af-title\">Pošlete nám pozici</span>": "<span class=\"af-title\">Send us the role</span>",
+    "placeholder=\"Firma\" autocomplete=\"organization\" aria-label=\"Firma\" required data-msg=\"Napište prosím název firmy.\"": "placeholder=\"Company\" autocomplete=\"organization\" aria-label=\"Company\" required data-msg=\"Please enter your company name.\"",
+    "placeholder=\"Jméno a příjmení\" autocomplete=\"name\" aria-label=\"Jméno a příjmení\"": "placeholder=\"Full name\" autocomplete=\"name\" aria-label=\"Full name\"",
+    "placeholder=\"E-mail nebo telefon\" autocomplete=\"email\" aria-label=\"E-mail nebo telefon\" required data-msg=\"Napište prosím e-mail nebo telefon, ať se vám můžeme ozvat.\"": "placeholder=\"Email or phone\" autocomplete=\"email\" aria-label=\"Email or phone\" required data-msg=\"Please enter an email address or phone number so we can get back to you.\"",
+    "<textarea name=\"note\" placeholder=\"Pár vět k roli, nebo rovnou job description. Stačí i orientačně: co má člověk dělat, kde a proč se to nedaří obsadit.\" aria-label=\"Popis pozice\"></textarea>": "<textarea name=\"note\" placeholder=\"A few sentences about the role, or the full job description. A rough idea is enough: what the person will do, where, and why the role is hard to fill.\" aria-label=\"Role description\"></textarea>",
+    "<button type=\"submit\" class=\"btn btn-primary btn-big\">Odeslat pozici</button>": "<button type=\"submit\" class=\"btn btn-primary btn-big\">Send the role</button>",
+    "<span class=\"af-note\">Ozveme se do druhého pracovního dne. Potřebujete to rychleji? Zavolejte na <a href=\"tel:+420499599861\">+420 499 599 861</a>.</span>": "<span class=\"af-note\">We will reply within two working days. Need it sooner? Call us on <a href=\"tel:+420499599861\">+420 499 599 861</a>.</span>",
+    "<span class=\"af-note af-gdpr\">Kontaktní údaje použijeme jen k vyřízení této poptávky a k domluvě další spolupráce. Správcem je Sintera Czech s.r.o., IČ 29130336, Uhelná 160/24, Hradec Králové. Kdykoli si můžete vyžádat jejich opravu nebo výmaz na info@sintera.cz.</span>": "<span class=\"af-note af-gdpr\">We will use your contact details only to handle this enquiry and to arrange further cooperation. The data controller is Sintera Czech s.r.o., Company ID 29130336, Uhelná 160/24, Hradec Králové, Czech Republic. You can ask us to correct or delete your details at any time at info@sintera.cz.</span>",
+
+    "<strong>Kontakt</strong>\n    Uhelná 160/24, Hradec Králové<br>": "<strong>Contact</strong>\n    Uhelná 160/24, Hradec Králové<br>Czech Republic<br>",
+    "<strong>Sledujte nás</strong>": "<strong>Follow us</strong>",
+    "<div class=\"foot-col\"><strong>Obory</strong><!--FOOT_OBORY--></div>": "<div class=\"foot-col\"><strong>In Czech</strong><a href=\"index.html\" hreflang=\"cs\">Czech website</a><br><a href=\"pozice/\" hreflang=\"cs\">Open positions</a></div>",
+    "<a href=\"co-obsazujeme/\">Jaké pozice obsazujeme</a> · <a href=\"case-studies/\">Case studies</a> · <a href=\"faq/\">Časté dotazy</a> · <a href=\"ochrana-osobnich-udaju/\">Ochrana osobních údajů</a>": "<a href=\"ochrana-osobnich-udaju/\" hreflang=\"cs\">Privacy policy (in Czech)</a>",
+    "<span>IČ 29130336</span>": "<span>Company ID 29130336</span>",
+    "<button class=\"case-modal-x\" type=\"button\" data-close aria-label=\"Zavřít\">": "<button class=\"case-modal-x\" type=\"button\" data-close aria-label=\"Close\">",
+
+    "<script src=\"assets/data/reference-data.js\"></script>\n<script src=\"assets/js/pozice-data.js\"></script>\n<script src=\"assets/data/pozice-popisy.js\"></script>": "<script src=\"assets/data/reference-data.en.js\"></script>"
+  },
+
+  "rotor": {
+    "rot_01": "We present candidates with a clear reason to talk to them. Not profiles that leave you guessing why they were sent.",
+    "rot_02": "When a search is precise, the company does not sort through a pile of irrelevant CVs. It talks to people who make sense.",
+    "rot_03": "Sometimes the goal is not more applications. It is finding people who never appear, because they already have a job.",
+    "rot_04": "A candidate should not be just somewhere near the brief. There should be a clear reason why they are worth an interview.",
+    "rot_05": "A good search delivers more than CVs. It delivers context that helps the company decide faster and on the facts."
+  },
+
+  "tags": {
+    "Přesnost profilů": "Accurate profiles",
+    "Použitelné podklady": "Useful candidate notes",
+    "Dlouhodobá spolupráce": "Long-term cooperation",
+    "Kandidáti mimo aktivní trh": "Candidates outside the active market",
+    "Kontext": "Context",
+    "Rychlost": "Speed",
+    "Pochopení zadání": "Understanding the brief",
+    "Reporting": "Reporting"
+  },
+
+  "references": {
+    "ref_zf_passive_safety": {
+      "role": "Quality managers and quality engineers",
+      "quote": "99% of the candidates presented go straight to interview.",
+      "long": "For quality roles in automotive, the cooperation is set up so that the candidates who reach the shortlist match the requirements. There is no sorting through irrelevant CVs, and 99% of the candidates presented go straight to interview. Most of the positions are filled through Sintera."
+    },
+    "ref_sitel": {
+      "role": "Data centre technician, field response technician, site manager",
+      "quote": "We also received candidates who had seemed unreachable on the market.",
+      "long": "The written candidate presentations are thorough, clear and accurate. The candidates match the company's specific needs, expertise and budget. Within a short time, Sintera also reached people who had seemed unreachable on the market."
+    },
+    "ref_alstom": {
+      "role": "Specialist roles in procurement",
+      "quote": "Not a single candidate presented was outside the scope of the role.",
+      "long": "Sintera delivers precisely targeted candidates to the procurement department. None of them fall outside the scope of the role. The candidate notes include detailed comments on each profile, and the communication helps define the expectations for the position more precisely."
+    },
+    "ref_windmoller_holscher": {
+      "role": "Management and specialist technical positions",
+      "quote": "The candidate notes include Sintera's comments and the candidate's salary expectations.",
+      "long": "Communication throughout the cooperation is efficient and useful. The candidate notes include Sintera's comments, relevant information about the position and the person, and their salary expectations. So the company gets more than a CV: it gets the context for a decision."
+    },
+    "ref_jtekt_czech_republic": {
+      "role": "Specialist and technical positions",
+      "quote": "Several candidates often move on to the next rounds.",
+      "long": "The candidate profiles have a clear structure, are easy to read and contain what matters for the decision. The candidates match the requirements of the position, and several of them often move on to the next rounds."
+    },
+    "ref_nestle_cesko": {
+      "role": "Product and process specialist, safety technician",
+      "quote": "The profiles matched the agreed brief very closely.",
+      "long": "The profiles match the agreed brief very closely. Fast communication with the candidates keeps the selection moving without unnecessary delays. After a few interviews, the company selected a candidate for the product and process role."
+    },
+    "ref_aisan_industry": {
+      "role": "Mould maintenance specialist",
+      "quote": "The selection process ended sooner than expected.",
+      "long": "The team works professionally and in a clearly structured way, which reduces the delays caused by an unclear brief. Even for a very specific position, most candidates met the requirements, and the selection process ended sooner than expected."
+    },
+    "ref_siemens_energy": {
+      "role": "Tax Specialist",
+      "quote": "The notes on the candidates were used directly in the interviews.",
+      "long": "Communication is fast and pleasant. The notes attached to the CVs are detailed enough to be used directly in the interviews. Of four candidates, two moved on to the second round and both reached the offer stage."
+    },
+    "ref_trw_carr": {
+      "role": "Quality engineers and electrical roles",
+      "quote": "The consultants ask about the real content of the role in detail.",
+      "long": "The consultants go to the core of the position. They ask what the person will do, which team they will join and how the brief changes during the search. As a result, the search is based on the real context of the work, not just on the job title."
+    },
+    "ref_zf_electronics_klasterec": {
+      "role": "SMT, engineering, HR and technical positions",
+      "quote": "A stable team of consultants keeps its knowledge of the company and the industry.",
+      "long": "Sintera keeps a stable team of consultants who know the company and the automotive environment. Candidates go through thorough screening, and the profiles highlight the key professional skills expected for the position."
+    },
+    "ref_r_s_automotive": {
+      "role": "Lean specialist",
+      "quote": "Each candidate summary contains everything needed for the decision.",
+      "long": "Long-term cooperation means Sintera knows the company well and chooses suitable candidates. The summary for each person contains everything needed for the decision and works as a practical basis for the selection."
+    },
+    "ref_sanborn": {
+      "role": "Technical and production positions",
+      "quote": "The notes summarise the candidate's motivation, availability and salary expectations.",
+      "long": "Sintera helps fill even hard-to-fill positions in a short time. The CVs match the brief, and the introductory note summarises what matters for the decision: motivation to change jobs, availability for interview and salary expectations."
+    },
+    "ref_spofadental": {
+      "role": "Specialist and technical positions",
+      "quote": "A weekly report gives an ongoing view of the search.",
+      "long": "A weekly activity report gives an ongoing view of what is happening in the search. The cooperation is based on a regular supply of profiles and candidate notes that need no corrections."
+    },
+    "ref_m_a_s_automation": {
+      "role": "Design engineer, project manager",
+      "quote": "The profile of the position was understood precisely.",
+      "long": "The profile of the position was understood precisely. The research of potential candidates is professional and fast. The quality of candidates is above average against the benchmark, and the positions were filled in a short time."
+    },
+    "ref_konplan": {
+      "role": "Software developer, design engineer, PLC programmer, project manager",
+      "quote": "Even the candidates recommended for interview praise how Sintera deals with them.",
+      "long": "Sintera's professionalism is also confirmed by feedback from the candidates themselves after their interviews. The candidate assessments and the notes on the CVs speed up the process of filling the role."
+    },
+    "ref_vitesco_technologies": {
+      "role": "Category Manager Facility Management",
+      "quote": "The selected candidate started on the agreed date.",
+      "long": "Work on filling the position started immediately after the order. Communication is open and efficient. A suitable person was selected from the candidates presented, the contract was signed and the new employee started on the agreed date."
+    },
+    "ref_linet": {
+      "role": "Country Manager India and strategic management roles",
+      "quote": "The position was filled ahead of the planned date.",
+      "long": "The consultants identified exactly which companies were likely to employ a suitable candidate. The candidates matched both the requirements and the budget. A position that had been difficult to fill in the past was filled ahead of the planned date."
+    },
+    "ref_vyzkumny_ustav_zeleznicni": {
+      "role": "Management positions and specialists",
+      "quote": "The profiles match the position briefs with great accuracy.",
+      "long": "The search is efficient and precisely targeted at the positions required. Profiles arrive quickly, and the candidate notes provide key information for the interview. The cooperation has lasted many years and covers several fields and levels of seniority."
+    }
+  },
+
+  "cases": {
+    "case_uchazeci_kteri_na_trhu_pusobili_jako_nedostupni": {
+      "meta": "Technical roles for a data centre and emergency response · Systems integrator · Prague",
+      "name": "Candidates who had seemed unreachable",
+      "situ": "Specialised technical roles in a narrow field, where the usual channels do not bring enough relevant candidates.",
+      "why": "Some of the people the role needed looked, from the company's side, as if they did not exist on the market.",
+      "change": "Sintera ran a targeted search based on the company's specific needs, required expertise and budget.",
+      "win": "Within a very short time, a large number of strong candidates came forward."
+    },
+    "case_presnost_misto_objemu_99_kandidatu_na_pohovor": {
+      "meta": "Quality managers and quality engineers · Manufacturer of automotive safety systems · Czech Republic",
+      "name": "Accuracy over volume: 99% of candidates go to interview",
+      "situ": "For quality roles, there is no point in wasting time sorting through irrelevant CVs.",
+      "why": "In these roles, precise targeting is what counts. A high volume of CVs does not help if the candidates do not meet the requirements.",
+      "change": "Sintera presents candidates who meet the requirements of the role.",
+      "win": "99% of the candidates presented go on to interview, and most positions are filled through Sintera."
+    },
+    "case_specificke_pozice_za_kratkou_dobu": {
+      "meta": "Management and specialist positions · Aerospace and defence · Czech Republic",
+      "name": "Specific positions in a short time",
+      "situ": "Demanding and specific roles in a tightly regulated industry.",
+      "why": "The pool of candidates with the specific qualifications is limited, and they rarely apply on their own.",
+      "change": "Sintera delivers enough candidates in a short time, even for specific positions, together with the information needed about each of them.",
+      "win": "The cooperation has lasted several years, and candidates arrive with a good understanding of the position and the company."
+    },
+    "case_mezinarodni_manazer_pred_planovanym_terminem": {
+      "meta": "Country Manager India and strategic management roles · Medical device manufacturer · Central Bohemia",
+      "name": "An international manager ahead of schedule",
+      "situ": "Demanding international roles that had been difficult to fill in the past.",
+      "why": "Earlier attempts to fill these positions had run into difficulties.",
+      "change": "The consultants identified exactly which companies were likely to employ a suitable candidate.",
+      "win": "The position was filled ahead of the planned date."
+    },
+    "case_role_kde_rozhodlo_spravne_prelozene_zadani": {
+      "meta": "Mould maintenance specialist, design engineer · Automotive and automation · Czech Republic",
+      "name": "Roles where a well-defined brief made the difference",
+      "situ": "Very specific technical positions can be slowed down by an unclear brief.",
+      "why": "A standard job ad rarely brings a highly specialised profile. On top of that, one imprecise brief is enough to slow the whole process down.",
+      "change": "Sintera structures the brief, asks follow-up questions and turns the profile into a concrete search plan.",
+      "win": "The selection ended sooner than expected, and further positions were filled in a short time."
+    },
+    "case_pozice_kterou_trh_dlouho_nenabidl": {
+      "meta": "Textile specialist · Manufacturer of viscose and technical fibres · Lovosice area",
+      "name": "A position the market had not offered for a long time",
+      "situ": "The position had been open for a long time and could not be filled.",
+      "why": "The search had already taken a long time. The standard channels did not produce a candidate.",
+      "change": "Sintera ran a targeted search and provided regular reporting.",
+      "win": "The position was filled in a very short time, and the cooperation extended to further roles."
+    },
+    "case_dlouhodobe_partnerstvi_napric_obory": {
+      "meta": "Management positions and specialists · Certification, testing and automotive · Prague and other regions",
+      "name": "A long-term partnership across fields",
+      "situ": "Repeated filling of senior and specialised roles in demanding fields.",
+      "why": "Narrow expertise requires knowledge of the company, the industry and the candidate market.",
+      "change": "Sintera keeps a stable team of consultants and maintains its knowledge of the company over the long term.",
+      "win": "The references confirm long-term cooperation, accurate profiles and filled senior positions."
+    },
+    "case_search_rizeny_detailnim_briefem": {
+      "meta": "Quality engineers and technical roles · Automotive · Central Bohemia",
+      "name": "A search driven by a detailed brief",
+      "situ": "The profile must match the real work and the team, not just the job title.",
+      "why": "Without a detailed understanding of the role, the search risks poor targeting and unnecessary rounds of irrelevant candidates.",
+      "change": "The consultants ask about the content of the work, the team and any changes to the brief, and adjust the search accordingly.",
+      "win": "Better identification of candidates and a flexible response when the profile changes along the way."
+    }
+  },
+
+  "organization": {
+    "description": "Sintera Czech is a recruitment consultancy specialising in direct search for manufacturing and engineering companies in the Czech Republic. It fills skilled trade and technical roles (CNC programmers, machine setters, milling operators, welders, fitters, toolmakers, electromechanics, maintenance technicians), technician and engineering roles (quality, design, process engineering, automation) as well as management and top management. It approaches people directly who have a job and are not actively looking.",
+    "areaServed": { "@type": "Country", "name": "Czech Republic" },
+    "serviceType": ["Direct search", "Executive search", "Candidate search", "Recruitment for technical and manufacturing roles"],
+    "knowsAbout": ["direct search", "executive search", "recruitment in manufacturing and mechanical engineering", "automotive", "engineering and design", "quality and testing", "logistics and procurement", "service and maintenance", "projects and construction", "finance", "HR", "sales", "management", "CNC programmer", "CNC milling operator", "CNC machine operator", "CNC machine setter", "welder", "fitter", "toolmaker", "electromechanic", "maintenance technician", "service technician", "PLC programmer", "robot programmer", "quality engineer", "design engineer", "process engineer", "production foreman", "production manager", "buyer", "logistics specialist"]
+  }
+}

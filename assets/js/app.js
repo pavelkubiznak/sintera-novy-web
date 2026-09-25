@@ -13,6 +13,10 @@
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
   var DATA = window.SINTERA_DATA || { references: [], cases: [], rotor: [], clients: [] };
+  // texty, které skládá JS (anglická verze /en/ má <html lang="en">); caseLink null = bez odkazu na českou case study
+  var T = docEl.lang === "en"
+    ? { refMore: "Read in full →", story: "Story: ", storyMore: "Read the story →", situ: "Situation", why: "Why standard recruitment was not enough", change: "What we changed", win: "Result", caseLink: null, q1: "“", q2: "”" }
+    : { refMore: "Číst celé →", story: "Příběh: ", storyMore: "Číst příběh →", situ: "Situace", why: "Proč běžný nábor nestačil", change: "Co jsme změnili", win: "Výsledek", caseLink: "Celý příběh a související obory →", q1: "„", q2: "“" };
   // Formulář reakce na pozici (markup i odesílání) žije v assets/js/apply-form.js → window.SINTERA_APPLY.
 
   /* ---------- nav scrolled + mobilní menu ---------- */
@@ -68,9 +72,9 @@
       art.setAttribute("aria-label", "Reference: " + r.company);
       var logo = '<div class="ref-logo">' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="' + esc(r.company) + '" loading="lazy" />' : '<span class="ref-logo-name">' + esc(r.company) + "</span>") + "</div>";
       art.innerHTML = logo +
-        "<blockquote>„" + esc(r.quote) + "“</blockquote>" +
+        "<blockquote>" + T.q1 + esc(r.quote) + T.q2 + "</blockquote>" +
         '<div class="who"><strong>' + esc(r.company) + "</strong>" + (r.role ? "<span>" + esc(r.role) + "</span>" : "") + "</div>" +
-        '<span class="ref-more">Číst celé →</span>';
+        '<span class="ref-more">' + T.refMore + '</span>';
       function open() { openModalHTML(refDetailHTML(r), art); }
       art.addEventListener("click", open);
       art.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
@@ -98,7 +102,7 @@
     var el = document.getElementById("presnost-rotor");
     if (!el || !data.length) return;
     el.innerHTML = data.map(function (r, i) {
-      return '<figure class="rotor-item' + (i === 0 ? " active" : "") + '"><blockquote>„' + esc(r.q) + "“</blockquote>" + (r.c ? "<figcaption>" + esc(r.c) + "</figcaption>" : "") + "</figure>";
+      return '<figure class="rotor-item' + (i === 0 ? " active" : "") + '"><blockquote>' + T.q1 + esc(r.q) + T.q2 + "</blockquote>" + (r.c ? "<figcaption>" + esc(r.c) + "</figcaption>" : "") + "</figure>";
     }).join("");
     var items = el.querySelectorAll(".rotor-item");
     if (items.length < 2 || reduced) return;
@@ -121,15 +125,15 @@
   function caseDetailHTML(c) {
     return '<div class="case-modal-meta">' + esc(c.meta) + "</div>" +
       '<dl class="case-dl">' +
-      "<div><dt>Situace</dt><dd>" + esc(c.situ) + "</dd></div>" +
-      "<div><dt>Proč běžný nábor nestačil</dt><dd>" + esc(c.why) + "</dd></div>" +
-      "<div><dt>Co jsme změnili</dt><dd>" + esc(c.change) + "</dd></div>" +
-      '<div><dt>Výsledek</dt><dd class="win">' + esc(c.win) + "</dd></div></dl>" +
-      (c.id ? '<p style="margin-top:28px"><a class="btn btn-line" href="case-studies/' + esc(String(c.id).replace(/^case_/, "").replace(/_/g, "-")) + '/">Celý příběh a související obory →</a></p>' : "");
+      "<div><dt>" + T.situ + "</dt><dd>" + esc(c.situ) + "</dd></div>" +
+      "<div><dt>" + T.why + "</dt><dd>" + esc(c.why) + "</dd></div>" +
+      "<div><dt>" + T.change + "</dt><dd>" + esc(c.change) + "</dd></div>" +
+      '<div><dt>' + T.win + '</dt><dd class="win">' + esc(c.win) + "</dd></div></dl>" +
+      (c.id && T.caseLink ? '<p style="margin-top:28px"><a class="btn btn-line" href="case-studies/' + esc(String(c.id).replace(/^case_/, "").replace(/_/g, "-")) + '/">' + T.caseLink + '</a></p>' : "");
   }
   function refDetailHTML(r) {
     var tags = (r.tags || "").split(";").map(function (t) { return t.trim(); }).filter(Boolean);
-    return '<div class="ref-modal-quote">„' + esc(r.long || r.quote) + "“</div>" +
+    return '<div class="ref-modal-quote">' + T.q1 + esc(r.long || r.quote) + T.q2 + "</div>" +
       '<div class="ref-modal-who"><strong>' + esc(r.company) + "</strong>" + (r.role ? "<span>" + esc(r.role) + "</span>" : "") + "</div>" +
       (tags.length ? '<p class="ref-modal-ctx">' + tags.map(esc).join(" · ") + "</p>" : "");
   }
@@ -181,10 +185,10 @@
       art.className = "case-card rv";
       art.setAttribute("role", "button");
       art.setAttribute("tabindex", "0");
-      art.setAttribute("aria-label", "Příběh: " + (c.name || c.meta));
+      art.setAttribute("aria-label", T.story + (c.name || c.meta));
       art.innerHTML = '<div class="case-meta">' + esc(c.meta) + "</div>" +
         '<p class="case-hook">' + esc(c.situ) + "</p>" +
-        '<span class="case-more">Číst příběh →</span>';
+        '<span class="case-more">' + T.storyMore + '</span>';
       function open() { openModalHTML(caseDetailHTML(c), art); }
       art.addEventListener("click", open);
       art.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });

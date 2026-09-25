@@ -12,6 +12,7 @@
 (function () {
   "use strict";
 
+  var EN = document.documentElement.lang === "en";           // anglická verze /en/: hlášky formuláře anglicky
   var ENDPOINT = "https://script.google.com/macros/s/AKfycbyoSQr6qvQhGBTQo9LohaiUf5ph1zc4T9z9c3uXcYEudgOu85Yg-gJzhw6tCu1D2pZY/exec";
   var GDPR_NOTE = "Odesláním reakce poskytujete své osobní údaje (jméno, kontaktní údaje a informace o sobě) správci Sintera Czech s.r.o., IČ 29130336, se sídlem Uhelná 160/24, Hradec Králové, za účelem vyřízení Vaší reakce a zprostředkování zaměstnání, včetně případného předání potenciálnímu zaměstnavateli v rámci náborového procesu. Zpracování probíhá v souladu se zákonem č. 110/2019 Sb. a nařízením (EU) 2016/679 (GDPR). Máte právo na přístup k údajům, jejich opravu nebo výmaz a kdykoli odvolat svůj souhlas; podrobnosti Vám poskytneme na vyžádání na info@sintera.cz.";
 
@@ -44,32 +45,32 @@
     function show(html, kind) { msg.innerHTML = html; msg.hidden = false; msg.className = "af-msg af-msg--" + kind; }
     function mailtoFallback(data) {
       var body = (d.position ? "Pozice: " + d.position + (d.loc ? ", " + d.loc : "") + "\n" : "") +
-        (data.company ? "Firma: " + data.company + "\n" : "") +
-        "Jméno: " + (data.name || "") + "\nKontakt: " + (data.contact || "") + "\n\n" + (data.note || "");
+        (data.company ? (EN ? "Company: " : "Firma: ") + data.company + "\n" : "") +
+        (EN ? "Name: " : "Jméno: ") + (data.name || "") + (EN ? "\nContact: " : "\nKontakt: ") + (data.contact || "") + "\n\n" + (data.note || "");
       return "mailto:info@sintera.cz?subject=" + encodeURIComponent(d.subject || "Zpráva z webu") + "&body=" + encodeURIComponent(body);
     }
 
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
       var fd = new FormData(form);
-      var data = { action: d.action || "application", source: location.pathname, website: fd.get("website") || "" };
+      var data = { action: d.action || "application", source: location.pathname, website: fd.get("website") || "", lang: EN ? "en" : "cs" };
       POLE.forEach(function (k) { if (fd.get(k) != null) data[k] = String(fd.get(k)).trim(); });
       if (data.action === "application") { data.id = d.id || ""; data.position = d.position || ""; data.loc = d.loc || ""; }
 
       var chybi = null;                                       // co je povinné, říká HTML ([required])
       form.querySelectorAll("[required]").forEach(function (el) { if (!chybi && !String(el.value || "").trim()) chybi = el; });
-      if (chybi) { show(chybi.dataset.msg || "Vyplňte prosím toto pole.", "err"); chybi.focus(); return; }
+      if (chybi) { show(chybi.dataset.msg || (EN ? "Please fill in this field." : "Vyplňte prosím toto pole."), "err"); chybi.focus(); return; }
 
       btn.disabled = true;
       var original = btn.textContent;
-      btn.textContent = "Odesílám…";
+      btn.textContent = EN ? "Sending…" : "Odesílám…";
       // Content-Type text/plain = "simple request" bez CORS preflightu (Apps Script ho neumí); tělo je JSON, server čte e.postData.contents.
       fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(data) })
         .then(function (r) { return r.json(); })
         .then(function (res) {
           if (res && res.ok) {
             form.reset();
-            btn.textContent = "Odesláno";
+            btn.textContent = EN ? "Sent" : "Odesláno";
             show(d.ok || "Děkujeme, vaše reakce k nám dorazila. Ozveme se vám.", "ok");
           } else {
             throw new Error((res && res.error) || "send_failed");
@@ -80,7 +81,9 @@
           btn.disabled = false;
           btn.textContent = original;
           var mailto = mailtoFallback(data);
-          show('Odeslání přes web se nepovedlo. Otevřeli jsme vám e-mail s předvyplněnou zprávou; kdyby se neotevřel, napište nám na <a href="' + esc(mailto) + '">info@sintera.cz</a>.', "err");
+          show(EN
+            ? 'Sending through the website failed. We have opened an email with your message filled in. If it did not open, write to us at <a href="' + esc(mailto) + '">info@sintera.cz</a>.'
+            : 'Odeslání přes web se nepovedlo. Otevřeli jsme vám e-mail s předvyplněnou zprávou; kdyby se neotevřel, napište nám na <a href="' + esc(mailto) + '">info@sintera.cz</a>.', "err");
           window.location.href = mailto;
         });
     });

@@ -96,6 +96,9 @@ html[data-theme="svetly"] .logo-dark { display: none; }
   transition: background 0.25s, color 0.25s;
 }
 .nav-cta:hover { background: var(--accent); color: #fff; }
+/* přepínač jazyka CZ | EN (vždy viditelný, i na mobilu vedle hamburgeru) */
+.nav-lang { margin-left: -16px; padding: 8px 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--dim); transition: color 0.25s; }
+.nav-lang:hover { color: var(--accent); }
 
 /* ---------- hero ---------- */
 .hero {
@@ -1048,6 +1051,8 @@ html[data-motion="jemne"] .logo-band-track { animation: none; }
   .nav-links a { padding: 12px 0; width: 100%; }
   .nav-toggle { display: flex; margin-left: auto; }
   .nav-cta { display: none; }
+  .nav-lang { margin-left: auto; }
+  .nav-lang + .nav-toggle { margin-left: 14px; }
   .hero-net { display: none; }
   .proof-grid { grid-template-columns: 1fr; }
   .proof-item { padding: 36px 0; border-left: 0; border-top: 1px solid var(--line); }

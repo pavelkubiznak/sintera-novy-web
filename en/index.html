@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-motion="plne" data-reading="pasy">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-6xgeodEfXOK/3kuo9EK2lneO6gsnbJhy1JryW1BvpjQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; form-action 'self'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+/* Sintera · first-party měření návštěvnosti (cookieless).
+ * Vlož do <head> všech stránek jako <script>...<\/script> (inline je nejjednodušší).
+ * Posílá pageview a akce (klik na e-mail/telefon, odeslání formuláře) do Apps Scriptu,
+ * který je loguje do listu "navstevy". Neukládá cookies, IP ani identifikátory.
+ */
+(function () {
+  var EP = 'https://script.google.com/macros/s/AKfycbyoSQr6qvQhGBTQo9LohaiUf5ph1zc4T9z9c3uXcYEudgOu85Yg-gJzhw6tCu1D2pZY/exec';
+  // Vlastní (firemní) návštěvy: jednou otevři web s ?nosterk=1 a tento prohlížeč se
+  // přestane počítat (uloží se příznak do localStorage). Znovu zapnout: ?nosterk=0.
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('nosterk') === '1') localStorage.setItem('sterk_off', '1');
+    if (q.get('nosterk') === '0') localStorage.removeItem('sterk_off');
+    if (localStorage.getItem('sterk_off') === '1') return;
+  } catch (e) {}
+  function send(t, name) {
+    try {
+      var data = JSON.stringify({
+        action: 'hit', t: t, path: location.pathname, ref: document.referrer, name: name || ''
+      });
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(EP, new Blob([data], { type: 'text/plain;charset=UTF-8' }));
+      } else {
+        fetch(EP, { method: 'POST', body: data, keepalive: true, mode: 'no-cors' });
+      }
+    } catch (e) {}
+  }
+  send('pageview');
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = (a.getAttribute('href') || '').toLowerCase();
+    if (href.indexOf('mailto:') === 0) send('event', 'email-klik');
+    else if (href.indexOf('tel:') === 0) send('event', 'telefon-klik');
+  }, true);
+  document.addEventListener('submit', function () { send('event', 'formular-odeslano'); }, true);
+  window.sterk = function (name) { send('event', name); }; // ruční sledování akce
+})();
+</script>
+<title>Sintera Czech · Direct search in manufacturing and engineering, from CNC to management</title>
+<meta name="description" content="We find people in the Czech Republic who have a job and are not applying: CNC programmers, setters, welders, technicians, engineers and managers. First candidates within 10 days, matched to your brief.">
+<link rel="canonical" href="https://www.sintera.cz/en/">
+<link rel="alternate" hreflang="cs" href="https://www.sintera.cz/">
+<link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/">
+<link rel="alternate" hreflang="x-default" href="https://www.sintera.cz/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0e1230">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="cs_CZ">
+<meta property="og:site_name" content="Sintera Czech">
+<meta property="og:title" content="Sintera Czech · Direct search in manufacturing and engineering, from CNC to management">
+<meta property="og:description" content="We find people who have a job and are not applying. First candidates within 10 days, matched to your brief.">
+<meta property="og:url" content="https://www.sintera.cz/en/">
+<meta property="og:image" content="https://www.sintera.cz/assets/img/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sintera Czech · direct search">
+<meta name="twitter:description" content="We find people who have a job and are not applying. First candidates within 10 days, matched to your brief.">
+<meta name="twitter:image" content="https://www.sintera.cz/assets/img/og-cover.jpg">
+
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../assets/css/fonts.css">
+<link rel="stylesheet" href="../assets/css/styles.css">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Sintera Czech s.r.o.","alternateName":"Sintera","url":"https://www.sintera.cz/","logo":"https://www.sintera.cz/assets/img/og-cover.jpg","image":"https://www.sintera.cz/assets/img/og-cover.jpg","description":"Sintera Czech is a recruitment consultancy specialising in direct search for manufacturing and engineering companies in the Czech Republic. It fills skilled trade and technical roles (CNC programmers, machine setters, milling operators, welders, fitters, toolmakers, electromechanics, maintenance technicians), technician and engineering roles (quality, design, process engineering, automation) as well as management and top management. It approaches people directly who have a job and are not actively looking.","telephone":"+420499599861","email":"info@sintera.cz","address":{"@type":"PostalAddress","streetAddress":"Uhelná 160/24","addressLocality":"Hradec Králové","addressCountry":"CZ"},"areaServed":{"@type":"Country","name":"Czech Republic"},"serviceType":["Direct search","Executive search","Candidate search","Recruitment for technical and manufacturing roles"],"knowsAbout":["direct search","executive search","recruitment in manufacturing and mechanical engineering","automotive","engineering and design","quality and testing","logistics and procurement","service and maintenance","projects and construction","finance","HR","sales","management","CNC programmer","CNC milling operator","CNC machine operator","CNC machine setter","welder","fitter","toolmaker","electromechanic","maintenance technician","service technician","PLC programmer","robot programmer","quality engineer","design engineer","process engineer","production foreman","production manager","buyer","logistics specialist"],"sameAs":["https://www.linkedin.com/company/sintera-czech-s-r-o-"],"identifier":"29130336"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"Sintera Czech","url":"https://www.sintera.cz/en/","inLanguage":"en"}
+</script>
+
+</head>
+<body>
+
+<a class="skip-link" href="#top">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+
+<nav id="nav">
+  <a class="nav-logo nav-wordmark" href="#top">Sintera<span>.</span></a>
+  <div class="nav-links">
+    <a href="#trh">How we work</a>
+    <a href="#cases">Case studies</a>
+    <a href="#reference">References</a>
+    <a href="#pozice">Open positions</a>
+    <a href="#kontakt">Contact</a>
+  </div>
+  <a class="nav-cta" href="#kontakt">Can't find the right people?</a>
+  <a class="nav-lang" href="../index.html" hreflang="cs" lang="cs" aria-label="Česká verze">CZ</a>
+  <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+    <i></i><i></i><i></i>
+  </button>
+</nav>
+
+<main>
+<!-- ============================ HERO ============================ -->
+<header class="hero" id="top">
+  <div class="hero-net" aria-hidden="true">
+    <!-- síť skrytého trhu: uzly, vazby a reflektor, který jeden z nich najde (bez jmen a vymyšlených osob) -->
+    <div class="search-field">
+      <svg class="net-lines" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+      <path class="net-link" d="M12 15 L32 26" vector-effect="non-scaling-stroke"/>
+      <path class="net-link" d="M32 26 L50 13" vector-effect="non-scaling-stroke"/>
+      <path class="net-link" d="M50 13 L79 22" vector-effect="non-scaling-stroke"/>
+      <path class="net-link" d="M32 26 L59 50" vector-effect="non-scaling-stroke"/>
+      <path class="net-link" d="M79 22 L91 42" vector-effect="non-scaling-stroke"/>
+      <path class="net-link" d="M91 42 L59 50" vector-effect="non-scaling-stroke"/>
+      <path class="net-link" d="M59 50 L45 69" vector-effect="non-scaling-stroke"/>
+      <path class="net-link" d="M45 69 L18 78" vector-effect="non-scaling-stroke"/>
+      <path class="net-link" d="M9 47 L32 26" vector-effect="non-scaling-stroke"/>
+      <path class="net-link" d="M9 47 L45 69" vector-effect="non-scaling-stroke"/>
+      <path class="net-link" d="M59 50 L71 84" vector-effect="non-scaling-stroke"/>
+      <path class="net-link" d="M45 69 L71 84" vector-effect="non-scaling-stroke"/>
+      <path class="net-link" d="M79 22 L59 50" vector-effect="non-scaling-stroke"/>
+      <path class="net-link" d="M9 47 L12 15" vector-effect="non-scaling-stroke"/>
+      <path class="net-reach" d="M59 50 L24 38" vector-effect="non-scaling-stroke"/>
+      <path class="net-reach" d="M59 50 L85 63" vector-effect="non-scaling-stroke"/>
+      <path class="net-reach" d="M59 50 L55 90" vector-effect="non-scaling-stroke"/>
+      <path class="net-reach" d="M59 50 L88 12" vector-effect="non-scaling-stroke"/>
+      <path class="net-reach" d="M59 50 L6 66" vector-effect="non-scaling-stroke"/>
+      </svg>
+    <i class="net-dot faint" style="left:24%;top:38%"></i>
+    <i class="net-dot faint" style="left:68%;top:33%"></i>
+    <i class="net-dot faint" style="left:38%;top:56%"></i>
+    <i class="net-dot faint" style="left:85%;top:63%"></i>
+    <i class="net-dot faint" style="left:26%;top:60%"></i>
+    <i class="net-dot faint" style="left:55%;top:90%"></i>
+    <i class="net-dot faint" style="left:88%;top:12%"></i>
+    <i class="net-dot faint" style="left:6%;top:66%"></i>
+    <i class="net-dot" style="left:12%;top:15%"></i>
+    <i class="net-dot" style="left:32%;top:26%"></i>
+    <i class="net-dot" style="left:50%;top:13%"></i>
+    <i class="net-dot" style="left:79%;top:22%"></i>
+    <i class="net-dot" style="left:9%;top:47%"></i>
+    <i class="net-dot" style="left:91%;top:42%"></i>
+    <i class="net-dot lead" style="left:59%;top:50%"></i>
+    <i class="net-dot" style="left:45%;top:69%"></i>
+    <i class="net-dot" style="left:18%;top:78%"></i>
+    <i class="net-dot" style="left:71%;top:84%"></i>
+    <div class="net-label" style="left:12%;top:15%"><span class="nl-role">Maintenance Manager</span><span class="nl-meta">Hradec Králové Region · employed</span></div>
+    <div class="net-label" style="left:32%;top:26%"><span class="nl-role">Process Engineer</span><span class="nl-meta">Liberec Region · worth approaching</span></div>
+    <div class="net-label" style="left:50%;top:13%"><span class="nl-role">Production Planner</span><span class="nl-meta">South Bohemia · not looking</span></div>
+    <div class="net-label flip" style="left:79%;top:22%"><span class="nl-role">Operations Manager</span><span class="nl-meta">Vysočina Region · worth approaching</span></div>
+    <div class="net-label" style="left:9%;top:47%"><span class="nl-role">Production Buyer</span><span class="nl-meta">Pardubice Region · employed</span></div>
+    <div class="net-label flip" style="left:91%;top:42%"><span class="nl-role">Welding Engineer</span><span class="nl-meta">Moravia-Silesia · not looking</span></div>
+    <div class="net-label flip lead" style="left:59%;top:50%"><span class="nl-role">Quality Manager</span><span class="nl-meta">South Moravia · not visible on the market</span></div>
+    <div class="net-label" style="left:45%;top:69%"><span class="nl-role">Production Manager</span><span class="nl-meta">Pilsen Region · would not answer an ad</span></div>
+    <div class="net-label" style="left:18%;top:78%"><span class="nl-role">CNC Specialist</span><span class="nl-meta">Central Bohemia · not visible on the market</span></div>
+    <div class="net-label flip" style="left:71%;top:84%"><span class="nl-role">HR Business Partner</span><span class="nl-meta">Olomouc Region · employed</span></div>
+      <div class="searchlight"></div>
+    </div>
+  </div>
+  <div class="hero-inner">
+    <h1>
+      <span class="hl" style="--d:1"><span class="hl-in">You have seen</span></span>
+      <span class="hl" style="--d:2"><span class="hl-in">the active candidates.</span></span>
+      <span class="hl" style="--d:3"><span class="hl-in">We find</span></span>
+      <span class="hl" style="--d:4"><span class="hl-in"><em>the others.</em></span></span>
+    </h1>
+    <p class="hero-sub rv-load" style="--d:5">We search the Czech labour market for people who have a job and are not applying, from CNC setters and programmers to production directors. Within 10 days we present the first candidates, matched to a brief we agree on together.</p>
+    <div class="hero-ctas rv-load" style="--d:6">
+      <a class="btn btn-primary" id="hero-cta" href="#kontakt">Send us the role that keeps you up at night<span class="cta-spark" aria-hidden="true"></span></a>
+      <a class="btn btn-line" href="tel:+420499599861">Call us</a>
+    </div>
+  </div>
+  <div class="hero-scroll rv-load" style="--d:7" aria-hidden="true"><span></span>scroll</div>
+</header>
+
+<!-- ===================== DŮKAZNÍ PÁS ===================== -->
+<section id="proof" class="block proof">
+  <div class="block-inner">
+    <p class="proof-intro rv">Clients do not value us for the number of CVs. They value <b>accurate profiles</b>, <b>candidate notes they can use</b> and <b>a clear view of what is really happening in the market.</b></p>
+    <div class="proof-grid">
+      <div class="proof-item rv">
+        <div class="proof-pill">Accuracy</div>
+        <blockquote class="proof-quote">“Not a single candidate was completely off target.”</blockquote>
+        <div class="proof-who">ALSTOM</div>
+      </div>
+      <div class="proof-item rv">
+        <div class="proof-pill">Context</div>
+        <blockquote class="proof-quote">“We later used the notes on the candidates in our interviews.”</blockquote>
+        <div class="proof-who">Siemens Energy</div>
+      </div>
+      <div class="proof-item rv">
+        <div class="proof-pill">Hidden market</div>
+        <blockquote class="proof-quote">“Candidates we thought did not exist on the market at all.”</blockquote>
+        <div class="proof-who">SITEL</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== KLIENTI ===================== -->
+<section class="marquee-wrap" aria-label="Clients we work with">
+  <div class="marquee-label">Trusted by</div>
+  <div class="marquee">
+    <div class="marquee-track" id="marquee-track"><div class="mq-group"><span class="logo-slot"><img src="../assets/logos/processed/mono-light/aisan-mono-light.svg" alt="Aisan Industry" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/alstom-mono-light.svg" alt="Alstom" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/edwards-mono-light.svg" alt="Edwards" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/nestle-mono-light.svg" alt="Nestlé" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/panasonic-mono-light.svg" alt="Panasonic" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/safran-cabin-mono-light.svg" alt="Safran Cabin" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/siemens-energy-mono-light.svg" alt="Siemens Energy" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/winning-group-mono-light.svg" alt="Winning Group" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/linet-mono-light.png" alt="LINET" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/secheron-hasler-mono-light.png" alt="Sécheron Hasler" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/vitesco-mono-light.svg" alt="Vitesco Technologies" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/zf-mono-light.svg" alt="ZF" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/adp-mono-light.png" alt="Adp" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/aero-vodochody-mono-light.png" alt="Aero Vodochody" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/alldest-mono-light.png" alt="Alldest" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/araymond-mono-light.png" alt="Araymond" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/automotive-lighting-mono-light.png" alt="Automotive Lighting" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/benteler-mono-light.png" alt="Benteler" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/best-mono-light.png" alt="Best" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/bombardier-mono-light.png" alt="Bombardier" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/bosch-mono-light.png" alt="Bosch" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/bronswerk-mono-light.png" alt="Bronswerk" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/bull-mono-light.png" alt="Bull" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/busch-vyroba-mono-light.png" alt="Busch Výroba" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/comap-mono-light.png" alt="Comap" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/continental-mono-light.png" alt="Continental" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/coorstek-mono-light.png" alt="Coorstek" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/crystalex-mono-light.png" alt="Crystalex" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/csad-mono-light.png" alt="CSAD" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/daiho-mono-light.png" alt="Daiho" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/daikin-mono-light.png" alt="Daikin" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/danzer-mono-light.png" alt="Danzer" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/durr-mono-light.png" alt="Durr" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/egston-mono-light.png" alt="Egston" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/era-mono-light.png" alt="Era" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/explosia-mono-light.png" alt="Explosia" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/foxconn-mono-light.png" alt="Foxconn" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/fte-mono-light.png" alt="Fte" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/gebauer-griller-mono-light.png" alt="Gebauer Griller" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/gerresheimer-mono-light.png" alt="Gerresheimer" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/glenmark-mono-light.png" alt="Glenmark" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/grammer-mono-light.png" alt="Grammer" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/hyundai-mobis-mono-light.png" alt="Hyundai Mobis" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/ideal-automotive-mono-light.png" alt="Ideal Automotive" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/interkov-mono-light.png" alt="Interkov" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/inteva-mono-light.png" alt="Inteva" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/jablotron-mono-light.png" alt="Jablotron" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/jtekt-mono-light.png" alt="Jtekt" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/kermi-mono-light.png" alt="Kermi" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/konplan-mono-light.png" alt="Konplan" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/lactalis-mlekarna-klatovy-mono-light.png" alt="Lactalis - Mlékárna Klatovy" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/leoni-mono-light.png" alt="Leoni" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/madeta-mono-light.png" alt="Madeta" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/magna-mono-light.png" alt="Magna" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mahle-mono-light.png" alt="Mahle" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mann-hummel-mono-light.png" alt="Mann Hummel" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mea-mono-light.png" alt="Mea" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/meopta-mono-light.png" alt="Meopta" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mobis-czech-mono-light.png" alt="Mobis Czech" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mssl-mono-light.png" alt="Mssl" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mubea-mono-light.png" alt="Mubea" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mz-liberec-mono-light.png" alt="MZ Liberec" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/notino-mono-light.png" alt="Notino" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/omega-optics-mono-light.png" alt="Omega Optics" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/openmatics-mono-light.png" alt="Openmatics" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/pekm-cvg-mono-light.png" alt="Pekm - Cvg" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/prysmian-group-mono-light.png" alt="Prysmian Group" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/rs-automotive-mono-light.png" alt="Rs Automotive" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/sanborn-mono-light.png" alt="Sanborn" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/png/sitel-400x160.png" alt="SITEL" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/skalican-mono-light.png" alt="Skaličan" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/ssi-schafer-mono-light.png" alt="SSI Schäfer" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/swoboda-stamping-mono-light.png" alt="Swoboda-stamping" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/skoda-mono-light.png" alt="Škoda" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/technistone-mono-light.png" alt="Technistone" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/tgs-mono-light.png" alt="Tgs" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/tkd-epcos-mono-light.png" alt="TKD - Epcos" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/trw-mono-light.png" alt="Trw" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/voith-mono-light.png" alt="Voith" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/wanzl-mono-light.png" alt="Wanzl" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/zodiac-mono-light.png" alt="Zodiac" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/akt-mono-light.png" alt="Akt" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/astos-machinery-mono-light.png" alt="Astos Machinery" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/cd-telematika-mono-light.png" alt="Čd Telematika" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/erwin-junker-mono-light.png" alt="Erwin Junker" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/eurosoftware-mono-light.png" alt="Eurosoftware" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/gce-mono-light.png" alt="Gce" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/glanztoff-mono-light.png" alt="Glanztoff" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/gmc-mono-light.png" alt="Gmc" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/grupo-antolin-mono-light.png" alt="Grupo Antolin" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/itw-mono-light.png" alt="Itw" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/leadec-mono-light.png" alt="Leadec" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/lukov-mono-light.png" alt="Lukov" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mbtech-mono-light.png" alt="MBtech" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/md-elektronik-mono-light.png" alt="Md Elektronik" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/megatech-mono-light.png" alt="Megatech" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/membrain-mono-light.png" alt="Membrain" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/phillips-medisize-mono-light.png" alt="Phillips Medisize" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/pmp-pal-mono-light.png" alt="PMP PAL" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/prazska-strojirna-mono-light.png" alt="Pražská Strojírna" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/schneider-mono-light.png" alt="Schneider" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/tech-data-mono-light.png" alt="Tech Data" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/tristone-mono-light.png" alt="Tristone" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/volke-mb-mono-light.png" alt="Volke MB" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/vuz-mono-light.png" alt="Výzkumný ústav železniční" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/amtek-mono-light.png" alt="Amtek" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/apag-mono-light.png" alt="Apag" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/aufeerdesign-mono-light.png" alt="Aufeerdesign" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/autometal-mono-light.png" alt="Autometal" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/certicon-mono-light.png" alt="Certicon" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/cikautxo-mono-light.png" alt="Cikautxo" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/draka-mono-light.png" alt="Draka" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/draka-prismian-mono-light.png" alt="Draka - Prismian" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/dtz-mono-light.png" alt="Dtz" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/fresh-revolution-mono-light.png" alt="Fresh Revolution" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/fuji-koyo-mono-light.png" alt="Fuji Koyo" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/gtw-mono-light.png" alt="Gtw" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/hls-mono-light.png" alt="Hls" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/hud-mono-light.png" alt="Hud" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/impact-industry-brno-mono-light.png" alt="Impact Industry Brno" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/jansen-display-mono-light.png" alt="Jansen Display" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/kdk-automotive-mono-light.png" alt="KDK Automotive" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/kiswire-mono-light.png" alt="Kiswire" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mas-mono-light.png" alt="Mas" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/moravia-propag-mono-light.png" alt="Moravia Propag" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/olbrich-mono-light.png" alt="Olbrich" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/parfums-mono-light.png" alt="Parfums" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/redtoo-mono-light.png" alt="Redtoo" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/spofadental-mono-light.png" alt="SpofaDental" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/trcz-mono-light.png" alt="Trcz" loading="lazy" /></span></div><div class="mq-group"><span class="logo-slot"><img src="../assets/logos/processed/mono-light/aisan-mono-light.svg" alt="Aisan Industry" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/alstom-mono-light.svg" alt="Alstom" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/edwards-mono-light.svg" alt="Edwards" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/nestle-mono-light.svg" alt="Nestlé" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/panasonic-mono-light.svg" alt="Panasonic" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/safran-cabin-mono-light.svg" alt="Safran Cabin" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/siemens-energy-mono-light.svg" alt="Siemens Energy" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/winning-group-mono-light.svg" alt="Winning Group" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/linet-mono-light.png" alt="LINET" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/secheron-hasler-mono-light.png" alt="Sécheron Hasler" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/vitesco-mono-light.svg" alt="Vitesco Technologies" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/zf-mono-light.svg" alt="ZF" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/adp-mono-light.png" alt="Adp" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/aero-vodochody-mono-light.png" alt="Aero Vodochody" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/alldest-mono-light.png" alt="Alldest" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/araymond-mono-light.png" alt="Araymond" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/automotive-lighting-mono-light.png" alt="Automotive Lighting" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/benteler-mono-light.png" alt="Benteler" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/best-mono-light.png" alt="Best" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/bombardier-mono-light.png" alt="Bombardier" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/bosch-mono-light.png" alt="Bosch" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/bronswerk-mono-light.png" alt="Bronswerk" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/bull-mono-light.png" alt="Bull" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/busch-vyroba-mono-light.png" alt="Busch Výroba" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/comap-mono-light.png" alt="Comap" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/continental-mono-light.png" alt="Continental" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/coorstek-mono-light.png" alt="Coorstek" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/crystalex-mono-light.png" alt="Crystalex" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/csad-mono-light.png" alt="CSAD" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/daiho-mono-light.png" alt="Daiho" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/daikin-mono-light.png" alt="Daikin" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/danzer-mono-light.png" alt="Danzer" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/durr-mono-light.png" alt="Durr" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/egston-mono-light.png" alt="Egston" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/era-mono-light.png" alt="Era" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/explosia-mono-light.png" alt="Explosia" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/foxconn-mono-light.png" alt="Foxconn" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/fte-mono-light.png" alt="Fte" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/gebauer-griller-mono-light.png" alt="Gebauer Griller" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/gerresheimer-mono-light.png" alt="Gerresheimer" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/glenmark-mono-light.png" alt="Glenmark" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/grammer-mono-light.png" alt="Grammer" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/hyundai-mobis-mono-light.png" alt="Hyundai Mobis" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/ideal-automotive-mono-light.png" alt="Ideal Automotive" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/interkov-mono-light.png" alt="Interkov" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/inteva-mono-light.png" alt="Inteva" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/jablotron-mono-light.png" alt="Jablotron" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/jtekt-mono-light.png" alt="Jtekt" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/kermi-mono-light.png" alt="Kermi" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/konplan-mono-light.png" alt="Konplan" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/lactalis-mlekarna-klatovy-mono-light.png" alt="Lactalis - Mlékárna Klatovy" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/leoni-mono-light.png" alt="Leoni" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/madeta-mono-light.png" alt="Madeta" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/magna-mono-light.png" alt="Magna" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mahle-mono-light.png" alt="Mahle" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mann-hummel-mono-light.png" alt="Mann Hummel" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mea-mono-light.png" alt="Mea" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/meopta-mono-light.png" alt="Meopta" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mobis-czech-mono-light.png" alt="Mobis Czech" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mssl-mono-light.png" alt="Mssl" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mubea-mono-light.png" alt="Mubea" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mz-liberec-mono-light.png" alt="MZ Liberec" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/notino-mono-light.png" alt="Notino" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/omega-optics-mono-light.png" alt="Omega Optics" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/openmatics-mono-light.png" alt="Openmatics" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/pekm-cvg-mono-light.png" alt="Pekm - Cvg" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/prysmian-group-mono-light.png" alt="Prysmian Group" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/rs-automotive-mono-light.png" alt="Rs Automotive" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/sanborn-mono-light.png" alt="Sanborn" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/png/sitel-400x160.png" alt="SITEL" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/skalican-mono-light.png" alt="Skaličan" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/ssi-schafer-mono-light.png" alt="SSI Schäfer" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/swoboda-stamping-mono-light.png" alt="Swoboda-stamping" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/skoda-mono-light.png" alt="Škoda" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/technistone-mono-light.png" alt="Technistone" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/tgs-mono-light.png" alt="Tgs" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/tkd-epcos-mono-light.png" alt="TKD - Epcos" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/trw-mono-light.png" alt="Trw" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/voith-mono-light.png" alt="Voith" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/wanzl-mono-light.png" alt="Wanzl" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/zodiac-mono-light.png" alt="Zodiac" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/akt-mono-light.png" alt="Akt" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/astos-machinery-mono-light.png" alt="Astos Machinery" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/cd-telematika-mono-light.png" alt="Čd Telematika" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/erwin-junker-mono-light.png" alt="Erwin Junker" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/eurosoftware-mono-light.png" alt="Eurosoftware" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/gce-mono-light.png" alt="Gce" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/glanztoff-mono-light.png" alt="Glanztoff" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/gmc-mono-light.png" alt="Gmc" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/grupo-antolin-mono-light.png" alt="Grupo Antolin" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/itw-mono-light.png" alt="Itw" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/leadec-mono-light.png" alt="Leadec" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/lukov-mono-light.png" alt="Lukov" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mbtech-mono-light.png" alt="MBtech" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/md-elektronik-mono-light.png" alt="Md Elektronik" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/megatech-mono-light.png" alt="Megatech" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/membrain-mono-light.png" alt="Membrain" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/phillips-medisize-mono-light.png" alt="Phillips Medisize" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/pmp-pal-mono-light.png" alt="PMP PAL" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/prazska-strojirna-mono-light.png" alt="Pražská Strojírna" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/schneider-mono-light.png" alt="Schneider" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/tech-data-mono-light.png" alt="Tech Data" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/tristone-mono-light.png" alt="Tristone" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/volke-mb-mono-light.png" alt="Volke MB" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/vuz-mono-light.png" alt="Výzkumný ústav železniční" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/amtek-mono-light.png" alt="Amtek" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/apag-mono-light.png" alt="Apag" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/aufeerdesign-mono-light.png" alt="Aufeerdesign" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/autometal-mono-light.png" alt="Autometal" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/certicon-mono-light.png" alt="Certicon" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/cikautxo-mono-light.png" alt="Cikautxo" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/draka-mono-light.png" alt="Draka" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/draka-prismian-mono-light.png" alt="Draka - Prismian" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/dtz-mono-light.png" alt="Dtz" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/fresh-revolution-mono-light.png" alt="Fresh Revolution" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/fuji-koyo-mono-light.png" alt="Fuji Koyo" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/gtw-mono-light.png" alt="Gtw" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/hls-mono-light.png" alt="Hls" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/hud-mono-light.png" alt="Hud" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/impact-industry-brno-mono-light.png" alt="Impact Industry Brno" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/jansen-display-mono-light.png" alt="Jansen Display" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/kdk-automotive-mono-light.png" alt="KDK Automotive" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/kiswire-mono-light.png" alt="Kiswire" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/mas-mono-light.png" alt="Mas" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/moravia-propag-mono-light.png" alt="Moravia Propag" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/olbrich-mono-light.png" alt="Olbrich" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/parfums-mono-light.png" alt="Parfums" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/redtoo-mono-light.png" alt="Redtoo" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/spofadental-mono-light.png" alt="SpofaDental" loading="lazy" /></span><span class="logo-slot"><img src="../assets/logos/processed/mono-light/trcz-mono-light.png" alt="Trcz" loading="lazy" /></span></div></div>
+  </div>
+</section>
+
+<!-- ===================== 1 · PROBLÉM ===================== -->
+<section id="problem" class="block">
+  <div class="block-inner narrow">
+    <div class="kicker rv">The problem</div>
+    <h2 class="lead rv">When job ads are not working, <em>another ad will not help.</em></h2>
+    <p class="body rv">Most clients contact us after they have tried the usual channels and seen the active candidates. At that point, we do not post another ad. The people you need usually have a job, do not apply and do not appear through the usual channels. But they are willing to talk about the right offer.</p>
+  </div>
+  <div class="block-inner pull" style="margin-top:clamp(64px,8vw,110px)">
+    <p class="rv">The hardest person to find is rarely the director. Directors tend to be visible. The hardest is the specialist who has a job, is not looking and would probably ignore a standard offer. That is why they never answer a job ad.</p>
+  </div>
+</section>
+
+<!-- ===================== 2 · JINÝ DRUH PRÁCE ===================== -->
+<section id="trh" class="block panel-light">
+  <div class="block-inner tell">
+    <div>
+      <div class="kicker rv">A different kind of work</div>
+      <h2 class="lead rv">A typical agency works with whoever applies. <em>We work with the people who never would.</em></h2>
+    </div>
+    <div class="tell-body">
+      <p class="body rv" style="margin-top:0">The active part of the market is made up of people who are looking right now, answering ads or open to offers. We also work with people who have a job, do not apply and never appear through the usual channels. They have a strong profile not because they want a new job, but because they are good at the one they have. We approach them directly.</p>
+      <div class="mcite-rotor rv" data-mcite-rotor>
+        <div class="mcite active">
+          <blockquote>“The consultants identified exactly which companies were likely to employ a suitable candidate for the role.”</blockquote>
+          <div class="who"><strong>LINET</strong></div>
+        </div>
+        <div class="mcite">
+          <blockquote>“We use Sintera for its deep knowledge of the labour market and its wide reach across disciplines and positions.”</blockquote>
+          <div class="who"><strong>Výzkumný ústav železniční</strong></div>
+        </div>
+        <div class="mcite">
+          <blockquote>“In a very short time, we filled a position we had been trying to fill for a long while.”</blockquote>
+          <div class="who"><strong>Glanzstoff Bohemia</strong></div>
+        </div>
+        <div class="mcite">
+          <blockquote>“Even though the position was very specific, the vast majority of candidates met the minimum requirements we set in the brief.”</blockquote>
+          <div class="who"><strong>Aisan Industry Czech</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3 · ZADÁNÍ DO ŘEČI TRHU ===================== -->
+<section id="zadani" class="block panel-light">
+  <div class="block-inner tell">
+    <div>
+      <div class="kicker rv">Defining the role</div>
+      <h2 class="lead rv">Describe the role the wrong way <em>and the right people slip through the net.</em></h2>
+    </div>
+    <div class="tell-body">
+      <p class="body rv" style="margin-top:0">The market may use a different name for the role than the one you have in mind. One badly worded requirement is enough to lose a candidate who can do four of the five things you need. Not because they are unsuitable, but because the brief was aimed in the wrong place.</p>
+      <p class="body rv">So we start by clarifying who you really need: what the person must be able to do, what experience they must have, what environment they will work in and how you will know they are succeeding.</p>
+      <div class="mcite-rotor rv" data-mcite-rotor>
+        <div class="mcite active">
+          <blockquote>“A short call was enough to describe the position properly. Sintera understands the personality profile the candidate needs.”</blockquote>
+          <div class="who"><strong>Sécheron Hasler</strong></div>
+        </div>
+        <div class="mcite">
+          <blockquote>“A clearly structured approach reduced the delays caused by an unclear or misunderstood brief.”</blockquote>
+          <div class="who"><strong>Aisan Industry Czech</strong></div>
+        </div>
+        <div class="mcite">
+          <blockquote>“The candidate profiles matched the positions we were looking to fill with great accuracy.”</blockquote>
+          <div class="who"><strong>Výzkumný ústav železniční</strong></div>
+        </div>
+        <div class="mcite">
+          <blockquote>“The candidates recommended for interview matched our requirements in experience, knowledge and expectations for the role.”</blockquote>
+          <div class="who"><strong>LINET</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 4 · SEARCHOVÁ INFRASTRUKTURA ===================== -->
+<section id="infra" class="block">
+  <div class="block-inner">
+    <div class="kicker rv">Search infrastructure</div>
+    <h2 class="lead rv" style="max-width:13ch">Tools open doors. <em>Experience decides which ones to knock on.</em></h2>
+    <p class="body rv">We have our own search infrastructure: tools we largely build ourselves, our own methods and know-how developed over years. It is not rocket science. But not everyone can build it and use it well, day after day. Just as you have a production line for your product, we have a production line for finding your person.</p>
+    <div class="infra-figure rv">
+      <div class="infra-cell"><span class="n">01</span><div><div class="lbl">Market mapping</div><div class="sub">Who can actually do the job, including people outside job boards and databases.</div></div></div>
+      <div class="infra-cell"><span class="n">02</span><div><div class="lbl">Direct approach</div><div class="sub">Specific people, contacted directly, with an offer that fits them.</div></div></div>
+      <div class="infra-cell"><span class="n">03</span><div><div class="lbl">Assessment and context</div><div class="sub">The background that explains why a candidate is worth talking to.</div></div></div>
+      <div class="infra-cell"><span class="n">04</span><div><div class="lbl">Shortlist</div><div class="sub">Only candidates who are worth talking to.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 5 · PŘESNOST MÍSTO OBJEMU ===================== -->
+<section id="presnost" class="block panel-light">
+  <div class="block-inner tell">
+    <div>
+      <div class="kicker rv">Accuracy over volume</div>
+      <h2 class="lead rv">It is not about the number of CVs. <em>It is about how many are worth an interview.</em></h2>
+    </div>
+    <div class="tell-body">
+      <p class="body rv" style="margin-top:0">We do not send dozens of profiles and leave you to guess why they arrived. We present each candidate with context: why they match the brief, what is worth checking and why the conversation is worth having.</p>
+      <div class="rotor rv" id="presnost-rotor"><figure class="rotor-item active"><blockquote>“We present candidates with a clear reason to talk to them. Not profiles that leave you guessing why they were sent.”</blockquote></figure>
+<figure class="rotor-item"><blockquote>“When a search is precise, the company does not sort through a pile of irrelevant CVs. It talks to people who make sense.”</blockquote></figure>
+<figure class="rotor-item"><blockquote>“Sometimes the goal is not more applications. It is finding people who never appear, because they already have a job.”</blockquote></figure>
+<figure class="rotor-item"><blockquote>“A candidate should not be just somewhere near the brief. There should be a clear reason why they are worth an interview.”</blockquote></figure>
+<figure class="rotor-item"><blockquote>“A good search delivers more than CVs. It delivers context that helps the company decide faster and on the facts.”</blockquote></figure></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 6 · CASE STUDIES ===================== -->
+<section id="cases" class="block">
+  <div class="block-inner">
+    <div class="sect-head" style="padding-bottom:clamp(40px,5vw,56px)">
+      <div class="kicker rv">Case studies</div>
+      <h2 class="rv">When the usual channels were not enough</h2>
+    </div>
+    <div class="cases-grid" id="cases-grid"><article class="case-card rv" data-id="case_uchazeci_kteri_na_trhu_pusobili_jako_nedostupni" role="button" tabindex="0" aria-label="Story: Candidates who had seemed unreachable"><div class="case-meta">Technical roles for a data centre and emergency response · Systems integrator · Prague</div><p class="case-hook">Specialised technical roles in a narrow field, where the usual channels do not bring enough relevant candidates.</p><span class="case-more">Read the story →</span></article>
+<article class="case-card rv" data-id="case_presnost_misto_objemu_99_kandidatu_na_pohovor" role="button" tabindex="0" aria-label="Story: Accuracy over volume: 99% of candidates go to interview"><div class="case-meta">Quality managers and quality engineers · Manufacturer of automotive safety systems · Czech Republic</div><p class="case-hook">For quality roles, there is no point in wasting time sorting through irrelevant CVs.</p><span class="case-more">Read the story →</span></article>
+<article class="case-card rv" data-id="case_specificke_pozice_za_kratkou_dobu" role="button" tabindex="0" aria-label="Story: Specific positions in a short time"><div class="case-meta">Management and specialist positions · Aerospace and defence · Czech Republic</div><p class="case-hook">Demanding and specific roles in a tightly regulated industry.</p><span class="case-more">Read the story →</span></article>
+<article class="case-card rv" data-id="case_mezinarodni_manazer_pred_planovanym_terminem" role="button" tabindex="0" aria-label="Story: An international manager ahead of schedule"><div class="case-meta">Country Manager India and strategic management roles · Medical device manufacturer · Central Bohemia</div><p class="case-hook">Demanding international roles that had been difficult to fill in the past.</p><span class="case-more">Read the story →</span></article>
+<article class="case-card rv" data-id="case_role_kde_rozhodlo_spravne_prelozene_zadani" role="button" tabindex="0" aria-label="Story: Roles where a well-defined brief made the difference"><div class="case-meta">Mould maintenance specialist, design engineer · Automotive and automation · Czech Republic</div><p class="case-hook">Very specific technical positions can be slowed down by an unclear brief.</p><span class="case-more">Read the story →</span></article>
+<article class="case-card rv" data-id="case_pozice_kterou_trh_dlouho_nenabidl" role="button" tabindex="0" aria-label="Story: A position the market had not offered for a long time"><div class="case-meta">Textile specialist · Manufacturer of viscose and technical fibres · Lovosice area</div><p class="case-hook">The position had been open for a long time and could not be filled.</p><span class="case-more">Read the story →</span></article></div>
+    
+  </div>
+</section>
+
+<!-- ===================== 7 · REFERENCE ===================== -->
+<section id="reference" class="block panel-light">
+  <div class="block-inner">
+    <div class="sect-head" style="padding-bottom:clamp(40px,5vw,56px)">
+      <div class="kicker rv">References</div>
+      <h2 class="rv">References that keep coming</h2>
+    </div>
+    <div class="refs-grid" id="refs-grid"><article class="ref-card rv" data-id="ref_zf_passive_safety" role="button" tabindex="0" aria-label="Reference: ZF Passive Safety"><div class="ref-logo"><img src="../assets/logos/processed/mono-light/zf-mono-light.svg" alt="ZF Passive Safety" loading="lazy"></div><blockquote>“99% of the candidates presented go straight to interview.”</blockquote><div class="who"><strong>ZF Passive Safety</strong><span>Quality managers and quality engineers</span></div><span class="ref-more">Read in full →</span></article>
+<article class="ref-card rv" data-id="ref_sitel" role="button" tabindex="0" aria-label="Reference: SITEL"><div class="ref-logo"><img src="../assets/logos/processed/png/sitel-400x160.png" alt="SITEL" loading="lazy"></div><blockquote>“We also received candidates who had seemed unreachable on the market.”</blockquote><div class="who"><strong>SITEL</strong><span>Data centre technician, field response technician, site manager</span></div><span class="ref-more">Read in full →</span></article>
+<article class="ref-card rv" data-id="ref_alstom" role="button" tabindex="0" aria-label="Reference: ALSTOM"><div class="ref-logo"><img src="../assets/logos/processed/mono-light/alstom-mono-light.svg" alt="ALSTOM" loading="lazy"></div><blockquote>“Not a single candidate presented was outside the scope of the role.”</blockquote><div class="who"><strong>ALSTOM</strong><span>Specialist roles in procurement</span></div><span class="ref-more">Read in full →</span></article>
+<article class="ref-card rv" data-id="ref_windmoller_holscher" role="button" tabindex="0" aria-label="Reference: Windmöller &amp; Hölscher"><div class="ref-logo"><span class="ref-logo-name">Windmöller &amp; Hölscher</span></div><blockquote>“The candidate notes include Sintera's comments and the candidate's salary expectations.”</blockquote><div class="who"><strong>Windmöller &amp; Hölscher</strong><span>Management and specialist technical positions</span></div><span class="ref-more">Read in full →</span></article>
+<article class="ref-card rv" data-id="ref_jtekt_czech_republic" role="button" tabindex="0" aria-label="Reference: JTEKT Czech Republic"><div class="ref-logo"><img src="../assets/logos/processed/mono-light/jtekt-mono-light.png" alt="JTEKT Czech Republic" loading="lazy"></div><blockquote>“Several candidates often move on to the next rounds.”</blockquote><div class="who"><strong>JTEKT Czech Republic</strong><span>Specialist and technical positions</span></div><span class="ref-more">Read in full →</span></article>
+<article class="ref-card rv" data-id="ref_nestle_cesko" role="button" tabindex="0" aria-label="Reference: Nestlé Česko"><div class="ref-logo"><img src="../assets/logos/processed/mono-light/nestle-mono-light.svg" alt="Nestlé Česko" loading="lazy"></div><blockquote>“The profiles matched the agreed brief very closely.”</blockquote><div class="who"><strong>Nestlé Česko</strong><span>Product and process specialist, safety technician</span></div><span class="ref-more">Read in full →</span></article>
+<article class="ref-card rv" data-id="ref_aisan_industry" role="button" tabindex="0" aria-label="Reference: Aisan Industry"><div class="ref-logo"><img src="../assets/logos/processed/mono-light/aisan-mono-light.svg" alt="Aisan Industry" loading="lazy"></div><blockquote>“The selection process ended sooner than expected.”</blockquote><div class="who"><strong>Aisan Industry</strong><span>Mould maintenance specialist</span></div><span class="ref-more">Read in full →</span></article>
+<article class="ref-card rv" data-id="ref_siemens_energy" role="button" tabindex="0" aria-label="Reference: Siemens Energy"><div class="ref-logo"><img src="../assets/logos/processed/mono-light/siemens-energy-mono-light.svg" alt="Siemens Energy" loading="lazy"></div><blockquote>“The notes on the candidates were used directly in the interviews.”</blockquote><div class="who"><strong>Siemens Energy</strong><span>Tax Specialist</span></div><span class="ref-more">Read in full →</span></article>
+<article class="ref-card rv" data-id="ref_trw_carr" role="button" tabindex="0" aria-label="Reference: TRW Carr"><div class="ref-logo"><img src="../assets/logos/processed/mono-light/trw-mono-light.png" alt="TRW Carr" loading="lazy"></div><blockquote>“The consultants ask about the real content of the role in detail.”</blockquote><div class="who"><strong>TRW Carr</strong><span>Quality engineers and electrical roles</span></div><span class="ref-more">Read in full →</span></article></div>
+    <div class="ref-archive rv">
+      <div class="ref-archive__text">
+        <strong>An archive of more than 100 references</strong>
+        <span>Specific situations, roles and results. Ask us and we will send you a wider selection. The client quotes on this page are translated from Czech.</span>
+      </div>
+      <a class="btn btn-primary" href="#kontakt">Ask for references</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 8 · SEARCH VEDE ČLOVĚK ===================== -->
+<section id="clovek" class="block">
+  <div class="block-inner">
+    <div class="person-grid">
+      <div class="person-copy">
+        <div class="kicker rv">Led by a person</div>
+        <h2 class="lead rv">A search is not run by a form. <em>It is run by a person who knows the market.</em></h2>
+        <p class="body rv">Every search is led by a person who knows why they are sending you a candidate. You are not waiting on an anonymous process. For each assignment, you know who is running it, why the search is going in this direction and what is happening in the market.</p>
+      </div>
+      <div class="video-slot rv" role="img" aria-label="Video coming soon">
+        <div class="video-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3.5v17l15-8.5z"></path></svg></div>
+        <span class="video-cap">Video coming soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 9 · AKTUÁLNÍ POZICE ===================== -->
+<section id="pozice" class="block panel-light">
+  <div class="block-inner">
+    <div class="sect-head" style="padding-bottom:36px">
+      <div class="kicker rv">Open positions</div>
+      <h2 class="rv">What we are working on now</h2>
+    </div>
+    <p class="positions-lead rv">Our job ads are published in Czech, because the people we approach work in the Czech Republic. They show the range of roles we fill: machine setters, CNC programmers, maintenance technicians, quality and design engineers, buyers and production managers. We do not publish every search.</p>
+    
+    
+    <div class="positions-cta rv" style="margin-top:clamp(36px,4vw,52px)"><a class="btn btn-line" href="../pozice/" hreflang="cs">See open positions (in Czech)</a></div>
+  </div>
+</section>
+
+<!-- ===================== 10 · ZÁVĚREČNÉ CTA ===================== -->
+<section id="kontakt" class="cta">
+  <h2 class="rv">Do you have a role <em>you cannot fill?</em></h2>
+  <p class="rv">Send us the job description or a few sentences about the role. We will get back to you and explain exactly how we would approach it. You are welcome to write in English.</p>
+  <div class="cta-form rv">
+    <form class="apply-form" novalidate data-action="inquiry" data-subject="Enquiry from the website: a role to fill" data-ok="Thank you, your enquiry has reached us. We will get back to you.">
+      <span class="af-title">Send us the role</span>
+      <input type="text" name="company" placeholder="Company" autocomplete="organization" aria-label="Company" required data-msg="Please enter your company name." />
+      <input type="text" name="name" placeholder="Full name" autocomplete="name" aria-label="Full name" />
+      <input type="text" name="contact" placeholder="Email or phone" autocomplete="email" aria-label="Email or phone" required data-msg="Please enter an email address or phone number so we can get back to you." />
+      <textarea name="note" placeholder="A few sentences about the role, or the full job description. A rough idea is enough: what the person will do, where, and why the role is hard to fill." aria-label="Role description"></textarea>
+      <div class="af-hp" aria-hidden="true"><label>Web<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+      <button type="submit" class="btn btn-primary btn-big">Send the role</button>
+      <p class="af-msg" role="status" aria-live="polite" hidden></p>
+      <span class="af-note">We will reply within two working days. Need it sooner? Call us on <a href="tel:+420499599861">+420 499 599 861</a>.</span>
+      <span class="af-note af-gdpr">We will use your contact details only to handle this enquiry and to arrange further cooperation. The data controller is Sintera Czech s.r.o., Company ID 29130336, Uhelná 160/24, Hradec Králové, Czech Republic. You can ask us to correct or delete your details at any time at info@sintera.cz.</span>
+    </form>
+  </div>
+</section>
+</main>
+
+<!-- ===================== PATIČKA ===================== -->
+<footer>
+  <a class="nav-logo nav-wordmark" href="#top">Sintera<span>.</span></a>
+  <div class="foot-col">
+    <strong>Contact</strong>
+    Uhelná 160/24, Hradec Králové<br>Czech Republic<br>
+    <a href="tel:+420499599861">+420 499 599 861</a><br>
+    <a href="mailto:info@sintera.cz">info@sintera.cz</a>
+  </div>
+  <div class="foot-col">
+    <strong>Follow us</strong>
+    <a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+  <div class="foot-col"><strong>In Czech</strong><a href="../index.html" hreflang="cs">Czech website</a><br><a href="../pozice/" hreflang="cs">Open positions</a></div>
+  <span class="copy">© <span id="yr">2026</span> Sintera Czech s.r.o. · <a href="../ochrana-osobnich-udaju/" hreflang="cs">Privacy policy (in Czech)</a></span>
+  <div class="foot-legal">
+    <span>Sintera Czech s.r.o.</span><span>Company ID 29130336</span><span>Uhelná 160/24, Hradec Králové</span><span>+420 499 599 861</span><span>info@sintera.cz</span>
+  </div>
+</footer>
+
+<div class="case-modal" id="case-modal" hidden>
+  <div class="case-modal-backdrop" data-close></div>
+  <div class="case-modal-card" role="dialog" aria-modal="true" aria-label="Detail">
+    <button class="case-modal-x" type="button" data-close aria-label="Close">✕</button>
+    <div class="case-modal-body" id="case-modal-body"></div>
+  </div>
+</div>
+
+<script src="../assets/data/reference-data.en.js"></script>
+<script src="../assets/js/apply-form.js"></script>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>
