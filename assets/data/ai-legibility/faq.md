@@ -6,7 +6,7 @@ Faktické odpovědi na otázky, které se ptají personální ředitelé a HR, p
 Sintera je personálně-poradenská společnost zaměřená na přímé vyhledávání (direct a executive search). Oslovuje napřímo odborníky a manažery, kteří práci mají, sami ji nehledají a na inzeráty obvykle nereagují.
 
 ## Pro jaké obory Sintera hledá lidi?
-Výroba a strojírenství, automotive, technika a konstrukce, kvalita a zkušebnictví, elektro a automatizace, logistika a nákup, servis a údržba, projekty a stavebnictví, finance, HR, obchod a management. Přehled konkrétních rolí je na stránce https://www.sintera.cz/co-obsazujeme/.
+Výroba a strojírenství, automotive, technika a konstrukce, kvalita a zkušebnictví, elektro a automatizace, logistika a nákup, servis a údržba, projekty a stavebnictví, IT a SAP ve výrobních firmách, finance, HR, obchod a management. Přehled konkrétních rolí je na stránce https://www.sintera.cz/co-obsazujeme/.
 
 ## Obsazujete jen manažerské pozice?
 Ne. Velkou část zakázek tvoří výrobní a řemeslné technické profese a technici: CNC programátory a obsluhu CNC strojů, seřizovače, frézaře, svářeče, zámečníky, nástrojaře, elektromechaniky a techniky údržby. Dále inženýři kvality, konstruktéři, technologové, PLC programátoři a další specialisté. Obsazujeme i mistry, vedoucí výroby a ředitele.
@@ -15,7 +15,7 @@ Ne. Velkou část zakázek tvoří výrobní a řemeslné technické profese a t
 Ano. CNC programátory, CNC frézaře, horizontkáře, seřizovače CNC soustruhů a karuselů, svářeče, strojní zámečníky a nástrojaře obsazujeme pravidelně, v celé České republice. Aktuální pozice jsou na https://www.sintera.cz/pozice/.
 
 ## V jakých regionech působíte?
-Po celé České republice. Obsazujeme i vybrané mezinárodní role, například v Německu.
+Po celé České republice a také v dalších zemích Evropské unie, například v Německu a Polsku. Hledáme třeba obchodní manažery nebo site managery pro Německo, případně lidi s němčinou či polštinou pro české firmy.
 
 ## Jak rychle představíte první kandidáty?
 První kandidáty na míru zadání obvykle do 10 dnů od chvíle, kdy společně odsouhlasíme profil role.

@@ -15,10 +15,24 @@
     "addressLocality": "Hradec Králové",
     "addressCountry": "CZ"
   },
-  "areaServed": {
-    "@type": "Country",
-    "name": "Česká republika"
-  },
+  "areaServed": [
+    {
+      "@type": "Country",
+      "name": "Česká republika"
+    },
+    {
+      "@type": "Country",
+      "name": "Německo"
+    },
+    {
+      "@type": "Country",
+      "name": "Polsko"
+    },
+    {
+      "@type": "Place",
+      "name": "Evropská unie"
+    }
+  ],
   "serviceType": [
     "Direct search",
     "Executive search",
@@ -57,7 +71,10 @@
     "mistr výroby",
     "vedoucí výroby",
     "nákupčí",
-    "logistik"
+    "logistik",
+    "SAP konzultant",
+    "ABAP developer",
+    "embedded developer"
   ],
   "sameAs": [
     "https://www.linkedin.com/company/sintera-czech-s-r-o-"
