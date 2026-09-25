@@ -27,7 +27,7 @@
     "<a href=\"#reference\">Reference</a>": "<a href=\"#reference\">References</a>",
     "<a href=\"pozice/\">Volné pozice</a>": "<a href=\"#pozice\">Open positions</a>",
     "<a href=\"#kontakt\">Kontakt</a>": "<a href=\"#kontakt\">Contact</a>",
-    "<a class=\"nav-cta\" href=\"#kontakt\">Marně hledáte lidi?</a>": "<a class=\"nav-cta\" href=\"#kontakt\">Can't find the right people?</a>",
+    "<a class=\"nav-cta\" href=\"#kontakt\">Marně hledáte lidi?</a>": "<a class=\"nav-cta\" href=\"#kontakt\">Hard-to-fill role?</a>",
     "<a class=\"nav-lang\" href=\"en/\" hreflang=\"en\" lang=\"en\" aria-label=\"English version\">EN</a>": "<a class=\"nav-lang\" href=\"index.html\" hreflang=\"cs\" lang=\"cs\" aria-label=\"Česká verze\">CZ</a>",
     "<span class=\"nl-role\">Vedoucí údržby</span><span class=\"nl-meta\">Královéhradecký kraj · práci má</span>": "<span class=\"nl-role\">Maintenance Manager</span><span class=\"nl-meta\">Hradec Králové Region · employed</span>",
     "<span class=\"nl-role\">Technolog</span><span class=\"nl-meta\">Liberecký kraj · dává smysl oslovit</span>": "<span class=\"nl-role\">Process Engineer</span><span class=\"nl-meta\">Liberec Region · worth approaching</span>",
@@ -440,7 +440,7 @@
         "Contact"
       ]
     ],
-    "navCta": "Can't find the right people?",
+    "navCta": "Hard-to-fill role?",
     "footer": {
       "contact": "Contact",
       "country": "Czech Republic",
