@@ -124,7 +124,8 @@
       "<div><dt>Situace</dt><dd>" + esc(c.situ) + "</dd></div>" +
       "<div><dt>Proč běžný nábor nestačil</dt><dd>" + esc(c.why) + "</dd></div>" +
       "<div><dt>Co jsme změnili</dt><dd>" + esc(c.change) + "</dd></div>" +
-      '<div><dt>Výsledek</dt><dd class="win">' + esc(c.win) + "</dd></div></dl>";
+      '<div><dt>Výsledek</dt><dd class="win">' + esc(c.win) + "</dd></div></dl>" +
+      (c.id ? '<p style="margin-top:28px"><a class="btn btn-line" href="case-studies/' + esc(String(c.id).replace(/^case_/, "").replace(/_/g, "-")) + '/">Celý příběh a související obory →</a></p>' : "");
   }
   function refDetailHTML(r) {
     var tags = (r.tags || "").split(";").map(function (t) { return t.trim(); }).filter(Boolean);

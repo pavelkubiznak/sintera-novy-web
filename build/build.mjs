@@ -575,11 +575,7 @@ ${applyFormHTML(p, loc)}
   </div>
 </section>
 </main>
-<footer>
-  <a class="nav-logo nav-wordmark" href="../index.html">Sintera<span>.</span></a>
-  <div class="foot-col"><strong>Kontakt</strong>Uhelná 160/24, Hradec Králové<br><a href="tel:+420499599861">+420 499 599 861</a><br><a href="mailto:info@sintera.cz">info@sintera.cz</a></div>
-  <span class="copy">© ${new Date().getFullYear()} Sintera Czech s.r.o. · IČ 29130336 · <a href="../faq/">Časté dotazy</a> · <a href="../ochrana-osobnich-udaju/">Ochrana osobních údajů</a></span>
-</footer>
+${footerHTML("../")}
 <script src="../assets/js/apply-form.js"></script>
 </body>
 </html>
@@ -598,6 +594,7 @@ function prerender(site, labels) {
     "<!--JSONLD-->": itemListLD(site.positions),
     "<!--ORG-->": ORG_LD,
     "<!--ANALYTICS-->": ANALYTICS,
+    "<!--FOOT_OBORY-->": OBORY_STRANKY.map(o => `<a href="obory/${o.slug}/">${esc(o.nazev)}</a>`).join("<br>"),
   };
   for (const [marker, content] of Object.entries(repl)) html = html.replace(marker, content);
   html = html.split("%%BASE%%").join(BASE); // canonical/og/JSON-LD se odvodí z baseUrl (github.io teď, sintera.cz po Fázi 2)
@@ -616,8 +613,8 @@ function writeDetailPages(positions, labels) {
 }
 
 /* ---------- SEO výstupy ---------- */
-function writeSitemap(positions) {
-  const sections = ["/", "/pozice/", "/faq/", "/reference-info/"]; // bez #kotev — vyhledávače fragmenty v sitemap ignorují
+function writeSitemap(positions, extra = []) {
+  const sections = ["/", "/pozice/", "/faq/", "/reference-info/", ...extra]; // bez #kotev — vyhledávače fragmenty v sitemap ignorují
   const jobs = positions.map(p => `/pozice/${p.id}.html`);
   const urls = sections.concat(jobs).map(u => `  <url><loc>${BASE}${u}</loc><changefreq>weekly</changefreq></url>`).join("\n");
   fs.writeFileSync(path.join(ROOT, "sitemap.xml"),
@@ -755,20 +752,7 @@ ${items}
     </section>
   </main>
 
-  <footer>
-    <a class="nav-logo nav-wordmark" href="../index.html">Sintera<span>.</span></a>
-    <div class="foot-col">
-      <strong>Kontakt</strong>
-      Uhelná 160/24, Hradec Králové<br>
-      <a href="tel:+420499599861">+420 499 599 861</a><br>
-      <a href="mailto:info@sintera.cz">info@sintera.cz</a>
-    </div>
-    <div class="foot-col">
-      <strong>Sledujte nás</strong>
-      <a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
-    <span class="copy">© <span id="yr">${new Date().getFullYear()}</span> Sintera Czech s.r.o. · <a href="../faq/">Časté dotazy</a> · <a href="../ochrana-osobnich-udaju/">Ochrana osobních údajů</a></span>
-  </footer>
+${footerHTML("../")}
 
   <script src="../assets/js/app.js"></script>
 </body>
@@ -786,13 +770,15 @@ const newestFirst = positions => positions.slice().sort((a, b) => b.id - a.id);
 
 // llms.txt = ručně psaný úvod (AILEG) + aktuální seznam pozic ze Sheetu. AI asistenti (ChatGPT, Claude,
 // Perplexity) nespouštějí JavaScript, takže potřebují seznam pozic jako prostý text s odkazy.
-function writeLlmsTxt(positions, labels) {
+function writeLlmsTxt(positions, labels, site) {
   const intro = fs.readFileSync(path.join(AILEG, "llms.txt"), "utf8").trimEnd();
   const rows = newestFirst(positions).map(p => {
     const meta = [labels.OBORY[p.o], labels.SENIORITY[p.s], (p.k || []).join(", ")].filter(Boolean).join(" · ");
     return `- [${p.t}](${BASE}/pozice/${p.id}.html): ${meta}`;
   });
-  const out = `${intro}\n\n## Aktuální volné pozice (${positions.length})\n` +
+  const obory = OBORY_STRANKY.map(o => `- [${o.h1}](${BASE}/obory/${o.slug}/): ${o.lead}`).join("\n");
+  const cases = site.cases.map(c => `- [${c.name}](${BASE}/case-studies/${caseSlug(c.id)}/): ${c.meta}. ${c.win}`).join("\n");
+  const out = `${intro}\n\n## Obory\n${obory}\n\n## Case studies\n${cases}\n\n## Aktuální volné pozice (${positions.length})\n` +
     `Každá pozice má vlastní stránku s popisem a formulářem pro reakci. Úplný přehled s filtry: ${BASE}/pozice/\n\n` +
     rows.join("\n") + "\n";
   fs.writeFileSync(path.join(ROOT, "llms.txt"), out);
@@ -818,6 +804,10 @@ function writePoziceIndex(positions, labels) {
   const ld = `<!--POZICE_LD_START-->\n${itemListLD(positions)}\n<!--POZICE_LD_END-->`;
   const ldRe = /<!--POZICE_LD_START-->[\s\S]*?<!--POZICE_LD_END-->/;
   html = ldRe.test(html) ? html.replace(ldRe, () => ld) : html.replace("</head>", `${ld}\n</head>`);
+  const oboryLinks = `<!--POZICE_OBORY_START-->\n        <p class="positions-lead" style="margin:40px 0 0">Podle oboru: ${OBORY_STRANKY.map(o => `<a href="../obory/${o.slug}/">${esc(o.nazev)}</a>`).join(" · ")}</p>\n        <!--POZICE_OBORY_END-->`;
+  const obRe = /<!--POZICE_OBORY_START-->[\s\S]*?<!--POZICE_OBORY_END-->/;
+  html = obRe.test(html) ? html.replace(obRe, () => oboryLinks)
+    : html.replace('<div class="pos-empty" id="pos-all-empty"', () => oboryLinks + '\n        <div class="pos-empty" id="pos-all-empty"');
   fs.writeFileSync(fp, html);
   console.log(`  ✓ pozice/index.html (${positions.length} pozic přímo v HTML + ItemList)`);
 }
@@ -843,6 +833,232 @@ function injectIntoStatic(relFiles) {
   }
   console.log(`  ✓ Org JSON-LD + měření do statických stránek (${n})`);
 }
+
+/* ---------- Stránky oborů /obory/<slug>/ a case studies /case-studies/<slug>/ ----------
+   Proč: AI asistenti (ChatGPT, Gemini, Claude) i vyhledávače odpovídají na konkrétní dotazy
+   („direct search strojírenství", „kdo sežene PLC programátora"). Potřebují stránku, která na ten
+   dotaz odpovídá celá, s důkazy (case studies, reference) a aktuálními pozicemi. Texty oborů jsou
+   v assets/data/obory-stranky.json (píše člověk), zbytek build doplní z dat ze Sheetu. */
+const OBORY_STRANKY = JSON.parse(fs.readFileSync(path.join(DATA, "obory-stranky.json"), "utf8")).stranky;
+const caseSlug = id => String(id).replace(/^case_/, "").replace(/_/g, "-");
+const KROKY = [
+  "Zadání převedeme do řeči trhu: skutečná náplň práce, tým, podmínky a co roli dělá zajímavou.",
+  "Zmapujeme firmy a pozice, kde vhodní lidé dnes pracují.",
+  "Oslovíme je napřímo, včetně lidí, kteří práci aktivně nehledají.",
+  "Představíme užší výběr s komentářem ke každému kandidátovi: proč odpovídá, motivace, dostupnost a očekávání.",
+];
+
+function footerHTML(rel) {
+  const obory = OBORY_STRANKY.map(o => `<a href="${rel}obory/${o.slug}/">${esc(o.nazev)}</a>`).join("<br>");
+  return `<footer>
+  <a class="nav-logo nav-wordmark" href="${rel}index.html">Sintera<span>.</span></a>
+  <div class="foot-col"><strong>Kontakt</strong>Uhelná 160/24, Hradec Králové<br><a href="tel:+420499599861">+420 499 599 861</a><br><a href="mailto:info@sintera.cz">info@sintera.cz</a></div>
+  <div class="foot-col"><strong>Obory</strong>${obory}</div>
+  <div class="foot-col"><strong>Více</strong><a href="${rel}pozice/">Volné pozice</a><br><a href="${rel}case-studies/">Case studies</a><br><a href="${rel}faq/">Časté dotazy</a><br><a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a></div>
+  <span class="copy">© ${new Date().getFullYear()} Sintera Czech s.r.o. · IČ 29130336 · <a href="${rel}ochrana-osobnich-udaju/">Ochrana osobních údajů</a></span>
+</footer>`;
+}
+
+function pageShell({ rel, title, desc, url, ld = [], body }) {
+  return `<!DOCTYPE html>
+<html lang="cs" data-theme="dark" data-motion="plne" data-reading="pasy">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${esc(title)}</title>
+  <meta name="description" content="${esc(desc)}" />
+  <link rel="canonical" href="${url}" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0e1230" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="cs_CZ" />
+  <meta property="og:site_name" content="Sintera Czech" />
+  <meta property="og:title" content="${esc(title)}" />
+  <meta property="og:description" content="${esc(desc)}" />
+  <meta property="og:url" content="${url}" />
+  <meta property="og:image" content="${BASE}/assets/img/og-cover.jpg" />
+  <link rel="icon" href="${rel}assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="${rel}assets/css/fonts.css" />
+  <link rel="stylesheet" href="${rel}assets/css/styles.css" />
+  ${ORG_LD}
+  ${ld.map(ldScript).join("\n  ")}
+  ${ANALYTICS}
+</head>
+<body>
+  <a class="skip-link" href="#obsah">Přeskočit na obsah</a>
+  <div class="grain" aria-hidden="true"></div>
+  <nav id="nav" class="scrolled">
+    <a class="nav-logo nav-wordmark" href="${rel}index.html">Sintera<span>.</span></a>
+    <div class="nav-links">
+      <a href="${rel}index.html#trh">Jak pracujeme</a>
+      <a href="${rel}case-studies/">Case studies</a>
+      <a href="${rel}index.html#reference">Reference</a>
+      <a href="${rel}pozice/">Volné pozice</a>
+      <a href="${rel}index.html#kontakt">Kontakt</a>
+    </div>
+    <a class="nav-cta" href="${rel}index.html#kontakt">Marně hledáte lidi?</a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
+  </nav>
+  <main>
+    <section class="block" id="obsah" style="padding-top:clamp(140px,16vw,180px)">
+      <div class="block-inner narrow">
+${body}
+      </div>
+    </section>
+  </main>
+${footerHTML(rel)}
+  <script src="${rel}assets/js/app.js"></script>
+</body>
+</html>
+`;
+}
+
+const breadcrumbLD = items => ({ "@context": "https://schema.org", "@type": "BreadcrumbList",
+  itemListElement: items.map(([name, item], i) => ({ "@type": "ListItem", position: i + 1, name, item })) });
+const faqLD = faq => ({ "@context": "https://schema.org", "@type": "FAQPage",
+  mainEntity: faq.map(x => ({ "@type": "Question", name: x.q, acceptedAnswer: { "@type": "Answer", text: x.a } })) });
+
+function ctaHTML(rel) {
+  return `        <h2 class="page-h2">Máte roli, kterou se nedaří obsadit?</h2>
+        <p class="body">Pošlete nám job description nebo pár vět k roli. Ozveme se a navrhneme, jak ji konkrétně uchopit.</p>
+        <div class="hero-ctas" style="margin-top:24px;flex-wrap:wrap">
+          <a class="btn btn-primary" href="${rel}index.html#kontakt">Pošlete nám pozici</a>
+          <a class="btn btn-line" href="tel:+420499599861">Zavolejte nám · +420 499 599 861</a>
+        </div>`;
+}
+function caseRowsHTML(cases, rel) {
+  return `<div class="link-list">` + cases.map(c =>
+    `<a class="link-row" href="${rel}case-studies/${caseSlug(c.id)}/"><span class="t">${esc(c.name)}</span>` +
+    `<span class="m">${esc(c.meta)}</span><span class="arr" aria-hidden="true">→</span></a>`).join("\n") + `</div>`;
+}
+function posRowsHTML(positions, labels, rel) {
+  return `<div class="pos-list">` + positions.map(p =>
+    `<a class="pos-row" href="${rel}pozice/${esc(p.id)}.html">` +
+    `<span class="t">${esc(p.t)}${bonusChip(p.bonus)}</span>` +
+    `<span class="m field">${esc(labels.OBORY[p.o] || p.o)}</span>` +
+    `<span class="m level">${esc(labels.SENIORITY[p.s] || p.s)}</span>` +
+    `<span class="m loc">${esc((p.k || []).join(" / "))}</span>` +
+    `<span class="arr" aria-hidden="true">→</span></a>`).join("\n") + `</div>`;
+}
+function oborPositions(o, positions) {
+  return newestFirst(positions).filter(p =>
+    (!o.obory.length || o.obory.includes(p.o)) && (!o.seniority || o.seniority.includes(p.s)) && (o.obory.length || o.seniority));
+}
+
+function oborPage(o, site, labels) {
+  const rel = "../../", url = `${BASE}/obory/${o.slug}/`;
+  const cases = o.cases.map(id => site.cases.find(c => c.id === id)).filter(Boolean);
+  const refs = o.refs.map(id => site.references.find(r => r.id === id)).filter(Boolean);
+  const pos = oborPositions(o, site.positions);
+  const role = [...new Set(pos.map(p => p.t.replace(/\s*[|–-]\s.*$/, "").trim()))].slice(0, 18);
+  const kraje = [...new Set(pos.flatMap(p => p.k || []))];
+  const parts = [];
+  parts.push(`        <a class="ref-more" href="../" style="display:inline-flex;margin-bottom:28px">← Všechny obory</a>
+        <div class="kicker">Obory · ${esc(o.nazev)}</div>
+        <h1 class="lead">${esc(o.h1)}</h1>
+        <div class="body"><p>${esc(o.lead)}</p></div>`);
+  parts.push(`        <h2 class="page-h2">Proč se tyhle role obsazují těžko</h2>
+        <div class="body">${o.proc.map(t => `<p>${esc(t)}</p>`).join("")}</div>`);
+  parts.push(`        <h2 class="page-h2">Jak na to jdeme</h2>
+        <div class="body"><p>${esc(o.jak)}</p><ol class="steps">${KROKY.map(k => `<li>${esc(k)}</li>`).join("")}</ol>
+        <p>První kandidáty na míru zadání představujeme obvykle do 10 dnů od chvíle, kdy společně odsouhlasíme profil role. Za každým zadáním stojí konkrétní konzultant.</p></div>`);
+  if (role.length) parts.push(`        <h2 class="page-h2">Role, které v tomto oboru obsazujeme</h2>
+        <div class="pos-tags">${role.map(r => `<span>${esc(r)}</span>`).join("")}</div>`);
+  if (pos.length) {
+    const shown = pos.slice(0, 12);
+    parts.push(`        <h2 class="page-h2">Aktuálně otevřené pozice (${pos.length})</h2>
+        <div class="body"><p>Právě hledáme lidi v těchto lokalitách: ${esc(kraje.join(", "))}. Každá pozice má vlastní stránku s popisem a formulářem pro reakci.</p></div>
+        ${posRowsHTML(shown, labels, rel)}
+        <p style="margin-top:24px"><a class="btn btn-line" href="${rel}pozice/">${pos.length > shown.length ? `Zobrazit všech ${pos.length} pozic` : "Všechny volné pozice"} →</a></p>`);
+  } else if (o.souvisejici) {
+    const rel2 = o.souvisejici.map(s => OBORY_STRANKY.find(x => x.slug === s)).filter(Boolean);
+    parts.push(`        <h2 class="page-h2">Aktuálně otevřené pozice</h2>
+        <div class="body"><p>Pozice pro automotive najdete podle oboru: ${rel2.map(x => `<a href="../${x.slug}/">${esc(x.nazev)}</a>`).join(", ")}, nebo v <a href="${rel}pozice/">přehledu všech volných pozic</a>.</p></div>`);
+  }
+  if (cases.length) parts.push(`        <h2 class="page-h2">Z praxe</h2>
+        ${caseRowsHTML(cases, rel)}`);
+  if (refs.length) parts.push(`        <h2 class="page-h2">Reference</h2>
+        <div class="quote-list">${refs.map(r => `<figure class="ref-quote"><blockquote>„${esc(r.long || r.quote)}“</blockquote><figcaption><strong>${esc(r.company)}</strong>${esc(r.role || "")}</figcaption></figure>`).join("\n")}</div>`);
+  if (o.faq.length) parts.push(`        <h2 class="page-h2">Časté dotazy</h2>
+        <div class="faq-list">${o.faq.map(x => `<div class="faq-item"><h3 class="faq-q">${esc(x.q)}</h3><p class="faq-a">${esc(x.a)}</p></div>`).join("\n")}</div>`);
+  parts.push(ctaHTML(rel));
+  const ld = [
+    { "@context": "https://schema.org", "@type": "Service", name: o.h1, serviceType: ["Direct search", "Executive search"], description: o.desc,
+      url, areaServed: { "@type": "Country", name: "Česká republika" }, provider: { "@type": "ProfessionalService", name: "Sintera Czech s.r.o.", url: BASE + "/" } },
+    breadcrumbLD([["Sintera", BASE + "/"], ["Obory", BASE + "/obory/"], [o.nazev, url]]),
+  ];
+  if (o.faq.length) ld.push(faqLD(o.faq));
+  return pageShell({ rel, title: `${o.h1} · Sintera Czech`, desc: o.desc, url, ld, body: parts.join("\n") });
+}
+
+function oboryIndexPage(site) {
+  const rel = "../", url = `${BASE}/obory/`;
+  const rows = `<div class="link-list">` + OBORY_STRANKY.map(o => {
+    const n = oborPositions(o, site.positions).length;
+    return `<a class="link-row" href="${o.slug}/"><span class="t">${esc(o.nazev)}</span><span class="m">${esc(o.lead)}${n ? ` Otevřených pozic: ${n}.` : ""}</span><span class="arr" aria-hidden="true">→</span></a>`;
+  }).join("\n") + `</div>`;
+  const body = `        <div class="kicker">Obory</div>
+        <h1 class="lead">Obory, ve kterých hledáme lidi</h1>
+        <div class="body"><p>Sintera obsazuje odborné a manažerské role přímým vyhledáváním (direct a executive search), hlavně ve výrobních a technických firmách po celé České republice. Vyberte obor a uvidíte, jak v něm postupujeme, s jakými rolemi máme zkušenost a jaké pozice jsou právě otevřené.</p></div>
+        <div style="margin-top:40px">${rows}</div>
+${ctaHTML(rel)}`;
+  const ld = [breadcrumbLD([["Sintera", BASE + "/"], ["Obory", url]])];
+  return pageShell({ rel, title: "Obory · Sintera Czech", desc: "Direct a executive search podle oboru: strojírenství a výroba, automotive, kvalita, elektro a automatizace, technika a vývoj, servis a údržba, management, logistika a nákup.", url, ld, body });
+}
+
+function casePage(c, site) {
+  const rel = "../../", url = `${BASE}/case-studies/${caseSlug(c.id)}/`;
+  const obory = OBORY_STRANKY.filter(o => o.cases.includes(c.id));
+  const dalsi = site.cases.filter(x => x.id !== c.id).slice(0, 4);
+  const body = `        <a class="ref-more" href="../" style="display:inline-flex;margin-bottom:28px">← Všechny case studies</a>
+        <div class="kicker">Case study</div>
+        <h1 class="lead">${esc(c.name)}</h1>
+        <div class="case-modal-meta" style="margin-top:22px">${esc(c.meta)}</div>
+        <dl class="case-dl" style="margin-top:12px">
+          <div><dt>Situace</dt><dd>${esc(c.situ)}</dd></div>
+          <div><dt>Proč běžný nábor nestačil</dt><dd>${esc(c.why)}</dd></div>
+          <div><dt>Co jsme udělali</dt><dd>${esc(c.change)}</dd></div>
+          <div><dt>Výsledek</dt><dd class="win">${esc(c.win)}</dd></div>
+        </dl>
+        <div class="body" style="margin-top:32px"><p>Příběh vychází z reference klienta. Název firmy neuvádíme, obor, typ rolí a region odpovídají skutečnosti.</p></div>
+${obory.length ? `        <h2 class="page-h2">Související obory</h2>
+        <div class="pos-tags">${obory.map(o => `<a href="${rel}obory/${o.slug}/"><span>${esc(o.nazev)}</span></a>`).join("")}</div>` : ""}
+        <h2 class="page-h2">Další příběhy</h2>
+        ${caseRowsHTML(dalsi, rel)}
+${ctaHTML(rel)}`;
+  const ld = [
+    { "@context": "https://schema.org", "@type": "Article", headline: c.name, description: `${c.situ} ${c.win}`, about: c.meta, inLanguage: "cs",
+      url, mainEntityOfPage: url, author: { "@type": "Organization", name: "Sintera Czech s.r.o.", url: BASE + "/" },
+      publisher: { "@type": "Organization", name: "Sintera Czech s.r.o.", logo: { "@type": "ImageObject", url: BASE + "/assets/img/logo-color.png" } } },
+    breadcrumbLD([["Sintera", BASE + "/"], ["Case studies", BASE + "/case-studies/"], [c.name, url]]),
+  ];
+  return pageShell({ rel, title: `${c.name} · Case study · Sintera Czech`, desc: `${c.meta}. ${c.win}`, url, ld, body });
+}
+
+function casesIndexPage(site) {
+  const rel = "../", url = `${BASE}/case-studies/`;
+  const body = `        <div class="kicker">Case studies</div>
+        <h1 class="lead">Když běžné cesty nestačily</h1>
+        <div class="body"><p>Příběhy z reálných search projektů: jaká byla výchozí situace, proč inzerce nestačila, co jsme udělali jinak a jak to dopadlo. Vycházejí z referencí klientů, názvy firem neuvádíme.</p></div>
+        <div style="margin-top:40px">${caseRowsHTML(site.cases, rel)}</div>
+${ctaHTML(rel)}`;
+  const ld = [breadcrumbLD([["Sintera", BASE + "/"], ["Case studies", url]]),
+    { "@context": "https://schema.org", "@type": "ItemList", itemListElement: site.cases.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, url: `${BASE}/case-studies/${caseSlug(c.id)}/` })) }];
+  return pageShell({ rel, title: "Case studies · Sintera Czech", desc: "Příběhy z reálných search projektů ve výrobě, automotive, kvalitě, technice a managementu: situace, postup a výsledek.", url, ld, body });
+}
+
+function writeOboryACases(site, labels) {
+  for (const dir of ["obory", "case-studies"]) fs.rmSync(path.join(ROOT, dir), { recursive: true, force: true }); // plně generované
+  const write = (rel, html) => { const fp = path.join(ROOT, rel, "index.html"); fs.mkdirSync(path.dirname(fp), { recursive: true }); fs.writeFileSync(fp, withCsp(html)); };
+  write("obory", oboryIndexPage(site));
+  for (const o of OBORY_STRANKY) write(`obory/${o.slug}`, oborPage(o, site, labels));
+  write("case-studies", casesIndexPage(site));
+  for (const c of site.cases) write(`case-studies/${caseSlug(c.id)}`, casePage(c, site));
+  const chybi = OBORY_STRANKY.flatMap(o => [...o.cases.filter(id => !site.cases.some(c => c.id === id)), ...o.refs.filter(id => !site.references.some(r => r.id === id))]);
+  if (chybi.length) console.log(`  ! obory-stranky.json odkazuje na neexistující id: ${[...new Set(chybi)].join(", ")}`);
+  console.log(`  ✓ obory/ (${OBORY_STRANKY.length} stránek) + case-studies/ (${site.cases.length} stránek)`);
+}
+const extraSitemapUrls = site => ["/obory/", ...OBORY_STRANKY.map(o => `/obory/${o.slug}/`), "/case-studies/", ...site.cases.map(c => `/case-studies/${caseSlug(c.id)}/`)];
 
 /* ---------- main ---------- */
 async function main() {
@@ -907,11 +1123,12 @@ async function main() {
 
   prerender(site, labels);
   writeDetailPages(site.positions, labels);
-  writeSitemap(site.positions);
+  writeSitemap(site.positions, extraSitemapUrls(site));
   ulozDataPublikace();   // stálé datePosted (viz jobPosting)
   writeRedirects(site.positions);
   writeFaqPage();
-  writeLlmsTxt(site.positions, labels);
+  writeLlmsTxt(site.positions, labels, site);
+  writeOboryACases(site, labels);
   writePoziceIndex(site.positions, labels);
   injectIntoStatic(["pozice/index.html", "reference-info/index.html", "ochrana-osobnich-udaju/index.html", "reference/reference-2026-c5219413a491/index.html"]);
   console.log(`Hotovo: ${site.positions.length} pozic, ${site.references.length} referencí, ${site.cases.length} cases, ${site.clients.length} klientů, ${site.rotor.length} rotor vět.`);

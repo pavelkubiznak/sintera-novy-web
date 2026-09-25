@@ -1147,3 +1147,22 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .pos-row:focus-vis
 .pos-detail { position: relative; z-index: 1; background: var(--panel); }
 .panel-light .pos-detail .apply-form input,
 .panel-light .pos-detail .apply-form textarea { background: color-mix(in oklab, var(--panel) 90%, var(--ink)); }
+
+/* ---------- stránky oborů a case studies (/obory/, /case-studies/) ---------- */
+.page-h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 2.8vw, 38px); line-height: 1.15; letter-spacing: -0.005em; margin: clamp(56px, 6vw, 80px) 0 22px; color: var(--ink); }
+.steps { margin: 18px 0 0; padding-left: 1.3em; }
+.steps li { margin: 8px 0; }
+.link-list { border-top: 1px solid var(--line); }
+.link-row { display: grid; grid-template-columns: 1fr 40px; gap: 6px 24px; align-items: center; padding: 22px 8px; border-bottom: 1px solid var(--line); transition: padding 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s; }
+.link-row:hover { background: color-mix(in oklab, var(--panel) 70%, transparent); padding-left: 24px; padding-right: 16px; }
+.link-row .t { font-size: 20px; font-weight: 500; }
+.link-row .m { grid-column: 1; font-size: 14.5px; line-height: 1.55; color: var(--dim); }
+.link-row .arr { grid-row: 1 / span 2; grid-column: 2; color: var(--accent); font-size: 22px; text-align: right; }
+.quote-list { display: grid; gap: 18px; }
+.ref-quote { margin: 0; padding: 26px 28px; background: var(--panel); border: 1px solid var(--line); }
+.ref-quote blockquote { margin: 0 0 14px; font-size: 17px; line-height: 1.6; text-wrap: pretty; }
+.ref-quote figcaption { font-size: 13.5px; color: var(--dim); letter-spacing: 0.04em; display: flex; flex-direction: column; gap: 4px; }
+.ref-quote figcaption strong { color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; }
+.pos-tags a { text-decoration: none; }
+footer { flex-wrap: wrap; row-gap: 40px; }
+.foot-col a { white-space: nowrap; }

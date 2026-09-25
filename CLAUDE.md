@@ -67,6 +67,10 @@ Google Sheets (4 listy) → `build/build.mjs` → JSON v `assets/data/` + preren
   do HTML (markery `POZICE_LIST_*`), `llms.txt` = úvod z `assets/data/ai-legibility/llms.txt`
   + seznam pozic generovaný buildem. Po deployi `build/indexnow.mjs` ohlásí změněné stránky
   Bingu/Seznamu (klíč = soubor `<hex>.txt` v kořeni, nemazat).
+- Stránky oborů `/obory/<slug>/` a case studies `/case-studies/<slug>/` generuje build
+  (`writeOboryACases`). Texty oborů = `assets/data/obory-stranky.json` (ručně, pravidla obsahu
+  platí); role, otevřené pozice, kraje, case studies a reference doplní build ze Sheetu.
+  Case studies se berou z listu case_studies, slug = id bez `case_`. Složky jsou plně generované.
 - Apps Script: každý text od návštěvníka do tabulky přes `bunka_()` (jinak `=…` spustí vzorec).
 
 ## Build

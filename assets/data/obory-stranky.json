@@ -1,0 +1,159 @@
+{
+  "_README": "Obsah stránek /obory/<slug>/ (build/build.mjs → writeOboryPages). Texty píše člověk; seznam rolí, otevřené pozice, kraje, case studies a reference doplní build z dat ze Sheetu. obory = kódy z OBORY (pozice-data.js), seniority = filtr pozic (volitelné), cases/refs = id ze Sheetu. Pravidla obsahu: assets/data/CLAUDE.md (bez „—“, bez vymyšlených čísel).",
+  "stranky": [
+    {
+      "slug": "strojirenstvi-a-vyroba",
+      "nazev": "Strojírenství a výroba",
+      "h1": "Direct search ve strojírenství a výrobě",
+      "desc": "Seřizovače, CNC programátory, technology, mistry i vedoucí výroby hledáme přímým oslovením. Dobří lidé z výroby práci mají a inzeráty nečtou.",
+      "lead": "Hledáme seřizovače, CNC programátory, svářeče, technology, mistry i vedoucí výroby. Oslovujeme je napřímo, protože dobří lidé z výroby práci mají a inzeráty nečtou.",
+      "proc": [
+        "Zkušený seřizovač nebo CNC programátor bývá ve firmě těžko postradatelný. Práci aktivně nehledá, a když už změnu zvažuje, rozhoduje se podle konkrétních strojů, směnnosti, dojezdu a lidí, se kterými bude pracovat. Obecný inzerát „hledáme CNC operátora“ ho neosloví.",
+        "U vedoucích rolí ve výrobě je to podobné. Mistr nebo vedoucí výroby, který umí vést lidi a zároveň rozumí technologii, se na trhu objevuje zřídka. Takové lidi je potřeba najít, oslovit a vysvětlit jim, proč má změna smysl."
+      ],
+      "jak": "Zadání překládáme do řeči trhu: jaké stroje a řídicí systémy, jaký typ výroby (kusová, nebo sériová), jaké přesnosti a jaká směnnost. Podle toho hledáme ve firmách, kde se stejná práce skutečně dělá, a kandidátům říkáme konkrétní důvody, proč s vámi mluvit.",
+      "obory": ["stroj", "prumysl"],
+      "cases": ["case_role_kde_rozhodlo_spravne_prelozene_zadani", "case_pozice_kterou_trh_dlouho_nenabidl"],
+      "refs": ["ref_aisan_industry", "ref_sanborn", "ref_windmoller_holscher", "ref_jtekt_czech_republic", "ref_r_s_automotive"],
+      "faq": [
+        { "q": "Hledáte i technické profese, nebo jen management?", "a": "Obojí. Většina rolí, které ve výrobě obsazujeme, jsou specialisté a technici: seřizovači, CNC programátoři, svářeči, technologové a zámečníci. Hledáme ale i mistry, vedoucí výroby a výrobní ředitele." },
+        { "q": "Jak rychle představíte první kandidáty?", "a": "První kandidáty na míru zadání obvykle do 10 dnů od chvíle, kdy společně odsouhlasíme profil role." }
+      ]
+    },
+    {
+      "slug": "automotive",
+      "nazev": "Automotive",
+      "h1": "Direct search pro automotive",
+      "desc": "Inženýry kvality, procesní a výrobní specialisty, údržbu, konstruktéry i management pro dodavatele automotive hledáme přímým oslovením.",
+      "lead": "Pro dodavatele automobilového průmyslu hledáme inženýry kvality, procesní a výrobní specialisty, údržbu, konstruktéry i management. S automotive firmami spolupracujeme dlouhodobě.",
+      "proc": [
+        "Automotive stojí na normách, auditech a přesných procesech. Inženýr kvality obvykle potřebuje zkušenost s IATF 16949 a nástroji jako FMEA nebo 8D, procesní inženýr zase s konkrétní technologií linky. Lidé s takovou kombinací pracují u jiných dodavatelů a na inzeráty nereagují.",
+        "Druhá past je objem. Když inzerát přinese desítky životopisů, které nesplňují požadavky, tým kvality nebo výroby ztrácí čas tříděním místo vlastní práce."
+      ],
+      "jak": "Hledáme ve firmách se stejným typem výroby a zákazníků. Ke každému kandidátovi dodáváme komentář: co umí, proč o změnu uvažuje, kdy může nastoupit a jaká má mzdová očekávání.",
+      "obory": [],
+      "souvisejici": ["kvalita-a-zkusebnictvi", "strojirenstvi-a-vyroba", "elektro-a-automatizace"],
+      "cases": ["case_presnost_misto_objemu_99_kandidatu_na_pohovor", "case_search_rizeny_detailnim_briefem", "case_role_kde_rozhodlo_spravne_prelozene_zadani", "case_dlouhodobe_partnerstvi_napric_obory"],
+      "refs": ["ref_zf_passive_safety", "ref_zf_electronics_klasterec", "ref_trw_carr", "ref_vitesco_technologies", "ref_aisan_industry", "ref_r_s_automotive"],
+      "faq": [
+        { "q": "Máte zkušenost s dodavateli automotive?", "a": "Ano. Mezi klienty Sintery jsou například ZF, JTEKT, Vitesco Technologies, Aisan Industry a R+S Automotive. Obsazujeme role v kvalitě, výrobě, údržbě, vývoji i managementu." },
+        { "q": "Kolik kandidátů od vás dostaneme?", "a": "Užší výběr lidí, kteří odpovídají zadání, ne hromadu životopisů. U kvalitářských rolí jednoho z automotive klientů míří na pohovor 99 % nabídnutých kandidátů." }
+      ]
+    },
+    {
+      "slug": "kvalita-a-zkusebnictvi",
+      "nazev": "Kvalita a zkušebnictví",
+      "h1": "Direct search v kvalitě a zkušebnictví",
+      "desc": "Inženýry kvality, dodavatelskou kvalitu (SQE), zkušební a testovací techniky i manažery kvality a laboratoří hledáme přímým oslovením.",
+      "lead": "Hledáme inženýry kvality, specialisty dodavatelské kvality (SQE), zkušební a testovací techniky i manažery kvality a laboratoří.",
+      "proc": [
+        "Dobrý kvalitář je ve firmě vidět hlavně tehdy, když chybí. Lidé, kteří zvládají audity, reklamace u zákazníka a práci s dodavateli, jsou v provozu vytížení a změnu přes pracovní portály neřeší.",
+        "Kvalita se navíc v každém oboru dělá jinak. Zkušebna kolejových vozidel má málo společného s kontrolou vstřikovaných dílů, a stejný název pozice tak znamená úplně jiného člověka."
+      ],
+      "jak": "Na začátku si ujasníme, jestli hledáte systémovou kvalitu, dodavatelskou kvalitu, nebo kvalitu přímo ve výrobě, a jaké normy a zákazníci jsou ve hře. Podle toho mapujeme firmy, kde se stejná práce dělá.",
+      "obory": ["kvalita"],
+      "cases": ["case_presnost_misto_objemu_99_kandidatu_na_pohovor", "case_search_rizeny_detailnim_briefem", "case_dlouhodobe_partnerstvi_napric_obory"],
+      "refs": ["ref_zf_passive_safety", "ref_trw_carr", "ref_vyzkumny_ustav_zeleznicni"],
+      "faq": [
+        { "q": "Hledáte i zkušební techniky a laboratoře?", "a": "Ano. Kromě inženýrů a manažerů kvality obsazujeme zkušební a testovací techniky, zkušební specialisty i vedoucí laboratoří, například ve zkušebnictví a certifikaci." },
+        { "q": "Jak zajistíte, že kandidát opravdu odpovídá zadání?", "a": "Konzultant se doptá na skutečnou náplň role, tým a zákazníky a kandidáty posuzuje proti tomu, ne jen podle názvu pozice. Ke každému dodá komentář, proč má smysl s ním mluvit." }
+      ]
+    },
+    {
+      "slug": "elektro-a-automatizace",
+      "nazev": "Elektro a automatizace",
+      "h1": "Direct search v elektrotechnice a automatizaci",
+      "desc": "Elektroprojektanty, PLC specialisty, programátory robotů, elektroinženýry i elektromechaniky hledáme přímým oslovením.",
+      "lead": "Hledáme elektroprojektanty, elektroinženýry, PLC specialisty, programátory robotů, elektromechaniky i inženýry pro výkonovou elektroniku.",
+      "proc": [
+        "Programátorů PLC a robotů je na trhu málo a často pracují na projektech, od kterých se v půlce neodchází. Elektroprojektant zase potřebuje znát konkrétní normy, software a typ zakázek.",
+        "Rozdíl mezi elektrikářem a člověkem, který navrhuje rozvaděče a řízení strojů, běžný inzerát nezachytí. Proto na něj reagují hlavně lidé, kteří roli neodpovídají."
+      ],
+      "jak": "Vyjasníme si řídicí systémy, roboty, software a podíl práce na montážích nebo u zákazníka. Oslovujeme lidi od integrátorů, výrobců strojů i z provozů, kde se stejná technologie používá.",
+      "obory": ["elektro"],
+      "cases": ["case_role_kde_rozhodlo_spravne_prelozene_zadani", "case_uchazeci_kteri_na_trhu_pusobili_jako_nedostupni"],
+      "refs": ["ref_konplan", "ref_m_a_s_automation", "ref_trw_carr", "ref_zf_electronics_klasterec"],
+      "faq": [
+        { "q": "Obsazujete i role pro integrátory a výrobce strojů?", "a": "Ano. Mezi klienty jsou výrobci strojů, integrátoři i výrobní firmy, například M.A.S. Automation nebo Konplan, pro které jsme hledali konstruktéry, PLC programátory a vedoucí projektů." },
+        { "q": "Jak rychle představíte první kandidáty?", "a": "První kandidáty na míru zadání obvykle do 10 dnů od chvíle, kdy společně odsouhlasíme profil role." }
+      ]
+    },
+    {
+      "slug": "technika-vyvoj-a-konstrukce",
+      "nazev": "Technika, vývoj a konstrukce",
+      "h1": "Direct search v technice, vývoji a konstrukci",
+      "desc": "Konstruktéry, vývojáře, technology, technické projektové manažery i vedoucí vývojových center hledáme přímým oslovením.",
+      "lead": "Hledáme konstruktéry, vývojáře, technology, technické projektové manažery i vedoucí vývojových a testovacích center.",
+      "proc": [
+        "Konstruktér nebo technolog s praxí v konkrétním oboru se zaučuje dlouho a firma si ho drží. Na trhu je vidět málo.",
+        "Když změnu zvažuje, rozhoduje se podle obsahu práce: jaké produkty, jaký CAD, kolik je vlastního vývoje oproti úpravám stávajících řešení. Inzerát, který tohle neřekne, ho nezaujme."
+      ],
+      "jak": "Zadání rozebereme do detailu: produkt, software, podíl vývoje a výroby, práce s dokumentací a jazyk. Pak hledáme lidi, kteří totéž dělají jinde, a kandidátovi umíme konkrétně říct, v čem je role zajímavá.",
+      "obory": ["technika"],
+      "cases": ["case_role_kde_rozhodlo_spravne_prelozene_zadani", "case_search_rizeny_detailnim_briefem"],
+      "refs": ["ref_m_a_s_automation", "ref_konplan", "ref_jtekt_czech_republic", "ref_nestle_cesko"],
+      "faq": [
+        { "q": "Hledáte i vývojové a R&D manažery?", "a": "Ano. Obsazujeme specialisty i vedoucí role, například technické projektové manažery R&D nebo vedoucí vývojových a testovacích center." },
+        { "q": "Co když se zadání během hledání změní?", "a": "Konzultant search upraví podle nového profilu. Pružná reakce na změnu zadání za pochodu je součást práce, ne výjimka." }
+      ]
+    },
+    {
+      "slug": "servis-a-udrzba",
+      "nazev": "Servis a údržba",
+      "h1": "Direct search pro servis a údržbu",
+      "desc": "Techniky údržby, specialisty elektroúdržby, servisní techniky u zákazníků i servisní manažery hledáme přímým oslovením.",
+      "lead": "Hledáme techniky údržby, specialisty elektroúdržby, specialisty údržby výrobních linek, servisní techniky u zákazníků i servisní manažery.",
+      "proc": [
+        "Údržbář, který rozumí elektrice, mechanice i řízení linky, je pro provoz klíčový a firma ho nepustí. Změnu hledá jen výjimečně.",
+        "Servisní technik u zákazníka navíc potřebuje technické znalosti, řidičák, často jazyk a ochotu cestovat. Takovou kombinaci inzerát sbírá těžko."
+      ],
+      "jak": "Upřesníme typ zařízení, směnnost, podíl elektro a strojní práce a rozsah cestování. Oslovujeme lidi z provozů a servisních organizací, kde se o stejná zařízení starají.",
+      "obory": ["servis"],
+      "cases": ["case_uchazeci_kteri_na_trhu_pusobili_jako_nedostupni", "case_role_kde_rozhodlo_spravne_prelozene_zadani"],
+      "refs": ["ref_aisan_industry", "ref_sitel", "ref_nestle_cesko"],
+      "faq": [
+        { "q": "Hledáte údržbu ve výrobě i servis u zákazníka?", "a": "Ano. Obsazujeme údržbu ve výrobě, elektro i strojní, a také servisní techniky a manažery, kteří jezdí k zákazníkům v Česku i v Německu." },
+        { "q": "Jak rychle představíte první kandidáty?", "a": "První kandidáty na míru zadání obvykle do 10 dnů od chvíle, kdy společně odsouhlasíme profil role." }
+      ]
+    },
+    {
+      "slug": "management-a-executive-search",
+      "nazev": "Management a executive search",
+      "h1": "Executive search: management a vedoucí role",
+      "desc": "Vedoucí výroby, provozní a obchodní ředitele, manažery kvality, nákupu a projektů i mezinárodní manažery hledáme diskrétním přímým oslovením.",
+      "lead": "Obsazujeme vedoucí výroby, provozní a obchodní ředitele, manažery kvality, nákupu a projektů i mezinárodní manažerské role.",
+      "proc": [
+        "Manažer, který dnes úspěšně vede tým, nemá důvod odpovídat na inzeráty. Změnu zváží, když ho někdo osloví osobně a s nabídkou, která dává smysl pro jeho další kariéru.",
+        "U mezinárodních a strategických rolí je navíc okruh vhodných lidí malý. Nestačí čekat, kdo se ozve. Je potřeba vědět, kde tito lidé pracují."
+      ],
+      "jak": "Nejdřív zmapujeme firmy a pozice, kde se vhodní lidé nacházejí. Oslovujeme je osobně. Klient dostane užší výběr s komentářem k motivaci, dostupnosti a očekáváním každého kandidáta.",
+      "obory": [],
+      "seniority": ["man", "top"],
+      "cases": ["case_mezinarodni_manazer_pred_planovanym_terminem", "case_specificke_pozice_za_kratkou_dobu", "case_dlouhodobe_partnerstvi_napric_obory"],
+      "refs": ["ref_linet", "ref_windmoller_holscher", "ref_vyzkumny_ustav_zeleznicni", "ref_vitesco_technologies"],
+      "faq": [
+        { "q": "Je executive search totéž co headhunting?", "a": "V podstatě ano. Headhunting je hovorový název pro přímé oslovování kandidátů, executive search je jeho podoba pro vedoucí a strategické role. Sintera vhodné lidi vyhledává a oslovuje napřímo, místo aby čekala na reakce z inzerce." },
+        { "q": "Obsazujete i mezinárodní role?", "a": "Ano. Například Country Managera pro Indii pro výrobce zdravotnických pomůcek nebo projektové, servisní a obchodní role v Německu." }
+      ]
+    },
+    {
+      "slug": "logistika-a-nakup",
+      "nazev": "Logistika a nákup",
+      "h1": "Direct search v logistice a nákupu",
+      "desc": "Nákupčí a procurement manažery, category manažery, logistické specialisty, dispečery i analytiky hledáme přímým oslovením.",
+      "lead": "Hledáme nákupčí a procurement manažery, projektové nákupčí, category manažery, logistické specialisty, dispečery i analytiky logistických procesů.",
+      "proc": [
+        "Dobrý nákupčí zná dodavatelský trh, umí vyjednávat a často mluví dalším jazykem. Firma si ho drží, protože má v rukou náklady.",
+        "V logistice rozhoduje znalost konkrétních procesů a systémů. Obecný profil „nákupčí“ nebo „logistik“ přitom zahrnuje úplně odlišné práce, a inzerát proto přitáhne hlavně nepřesné reakce."
+      ],
+      "jak": "Upřesníme, jestli jde o strategický, operativní, nebo projektový nákup, jakou kategorii materiálu, jaký jazyk a jaké systémy. Hledáme ve firmách s podobným typem nákupu a dodavatelů.",
+      "obory": ["doprava", "nakup"],
+      "cases": [],
+      "refs": ["ref_alstom", "ref_vitesco_technologies"],
+      "faq": [
+        { "q": "Obsazujete strategický i projektový nákup?", "a": "Ano. Hledáme procurement specialisty a manažery, projektové nákupčí i category manažery, například pro facility management." },
+        { "q": "Jak rychle představíte první kandidáty?", "a": "První kandidáty na míru zadání obvykle do 10 dnů od chvíle, kdy společně odsouhlasíme profil role." }
+      ]
+    }
+  ]
+}
