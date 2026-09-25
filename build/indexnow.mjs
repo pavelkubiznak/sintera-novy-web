@@ -19,7 +19,7 @@ const HOST = new URL(BASE).host;
 // soubor v repu → veřejná URL (jen to, co má smysl indexovat)
 function toUrl(f) {
   if (f === "index.html") return BASE + "/";
-  if (f === "llms.txt") return BASE + "/llms.txt";
+  if (f === "llms.txt" || f === "en/llms.txt") return BASE + "/" + f;
   if (/^(pozice|faq|reference-info|ochrana-osobnich-udaju|co-obsazujeme|obory|case-studies)\/index\.html$/.test(f)) return BASE + "/" + f.replace(/index\.html$/, "");
   if (/^en\/([^/]+\/)*index\.html$/.test(f)) return BASE + "/" + f.replace(/index\.html$/, "");   // anglická verze /en/
   if (/^(obory|case-studies)\/([^/]+\/)?index\.html$/.test(f)) return BASE + "/" + f.replace(/index\.html$/, "");

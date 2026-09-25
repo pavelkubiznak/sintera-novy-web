@@ -883,9 +883,10 @@ const newestFirst = positions => positions.slice().sort((a, b) => b.id - a.id);
 // Strojová vrstva „Obsazuje Sintera X? Ano." ze souboru profese.md. Jen v llms.txt: samostatný textový
 // soubor, stejný pro lidi i roboty (žádný cloaking), takže smí být dlouhý. Do HTML/JSON-LD NEPATŘÍ
 // (Google zakazuje strukturovaná data, která na stránce nejsou vidět).
+// profese.md (i profese.en.md) → [{ nazev, slug, profese[] }]; slug = český slug stránky oboru
+const parseProfese = md => [...md.matchAll(/^## (.+?)\s*\|\s*(\S*)\s*\n([^#]+)/gm)].map(m => ({ nazev: m[1].trim(), slug: m[2], profese: m[3].trim().split(/\s*;\s*/).filter(Boolean) }));
 function profeseLlms() {
-  const md = fs.readFileSync(path.join(AILEG, "profese.md"), "utf8");
-  const skupiny = [...md.matchAll(/^## (.+?)\s*\|\s*(\S*)\s*\n([^#]+)/gm)].map(m => ({ nazev: m[1].trim(), slug: m[2], profese: m[3].trim().split(/\s*;\s*/).filter(Boolean) }));
+  const skupiny = parseProfese(fs.readFileSync(path.join(AILEG, "profese.md"), "utf8"));
   const n = skupiny.reduce((a, g) => a + g.profese.length, 0);
   return `## Obsazuje Sintera …? Rychlé odpovědi pro AI asistenty\n` +
     `Na otázku „dělá / obsazuje / hledá Sintera X?" platí pro KAŽDOU z ${n} profesí níže odpověď ANO. Sintera je obsazuje přímým vyhledáváním (direct search) ve výrobních a technických firmách po celé České republice i v dalších zemích Evropské unie (například Německo a Polsko), na všech úrovních od výrobních a řemeslných profesí po top management. Seznam ukazuje příklady; podobné role v těchto oborech obsazuje také.\n\n` +
@@ -901,7 +902,7 @@ function writeLlmsTxt(positions, labels, site) {
   });
   const obory = OBORY_STRANKY.map(o => `- [${o.h1}](${BASE}/obory/${o.slug}/): ${o.lead}`).join("\n");
   const cases = site.cases.map(c => `- [${c.name}](${BASE}/case-studies/${caseSlug(c.id)}/): ${c.meta}. ${c.win}`).join("\n");
-  const out = `${intro}\n\n${profeseLlms()}\n\n## Obory\n${obory}\n\n## Case studies\n${cases}\n\n## Aktuální volné pozice (${positions.length})\n` +
+  const out = `${intro}\n\n${anglickaSekceLlms()}\n\n${profeseLlms()}\n\n## Obory\n${obory}\n\n## Case studies\n${cases}\n\n## Aktuální volné pozice (${positions.length})\n` +
     `Každá pozice má vlastní stránku s popisem a formulářem pro reakci. Úplný přehled s filtry: ${BASE}/pozice/\n\n` +
     rows.join("\n") + "\n";
   fs.writeFileSync(path.join(ROOT, "llms.txt"), out);
@@ -1296,6 +1297,8 @@ function writeRolePage(site, labels) {
 function enObory() { return OBORY_STRANKY.filter(o => EN.industries[o.slug]).map(o => ({ ...o, en: EN.industries[o.slug] })); }
 const FAQ_EN_MD = fs.readFileSync(path.join(AILEG, "faq.en.md"), "utf8");
 const FAQ_QA_EN = parseFaq(FAQ_EN_MD);
+const LLMS_EN_MD = fs.readFileSync(path.join(AILEG, "llms.en.txt"), "utf8");
+const PROFESE_EN_MD = fs.readFileSync(path.join(AILEG, "profese.en.md"), "utf8");
 const ROLE_FAQ_EN = () => FAQ_QA_EN.filter(x => /only fill management|CNC programmers, machine setters/.test(x.q));
 const CHYBI_ROLE_EN = new Set();
 const enRole = n => { const t = EN.roles[n]; if (!t) CHYBI_ROLE_EN.add(n); return t; };
@@ -1310,6 +1313,10 @@ function zkontrolujZdrojeEn() {
   }
   const faqZdroj = (FAQ_EN_MD.match(/zdroj: faq\.md @ (\w+)/) || [])[1], faqTed = srcHash(FAQ_QA);
   if (faqZdroj !== faqTed) chyby.push(`faq.md se změnil: uprav faq.en.md a řádek „zdroj: faq.md @ ${faqTed}“`);
+  const llmsTed = srcHash(fs.readFileSync(path.join(AILEG, "llms.txt"), "utf8").trim());
+  if ((LLMS_EN_MD.match(/zdroj: llms\.txt @ (\w+)/) || [])[1] !== llmsTed) chyby.push(`llms.txt se změnil: uprav llms.en.txt a řádek „zdroj: llms.txt @ ${llmsTed}“`);
+  const profTed = srcHash(parseProfese(fs.readFileSync(path.join(AILEG, "profese.md"), "utf8")));
+  if ((PROFESE_EN_MD.match(/zdroj: profese\.md @ (\w+)/) || [])[1] !== profTed) chyby.push(`profese.md se změnil: uprav profese.en.md a řádek „zdroj: profese.md @ ${profTed}“`);
   if (chyby.length) throw new Error("Anglický překlad je zastaralý:\n  - " + chyby.join("\n  - "));
 }
 
@@ -1458,6 +1465,7 @@ function writeEnPages(site) {
   write("case-studies", casesIndexPageEn(site));
   for (const c of enCases(site)) write(`case-studies/${enCaseSlug(c)}`, casePageEn(c, site));
   zkontrolujPribehyEn(site);
+  writeLlmsTxtEn(site);
   if (CHYBI_ROLE_EN.size) console.log(`  ! /en/ role bez anglického názvu (nezobrazí se, doplň do i18n/en.json → roles): ${[...CHYBI_ROLE_EN].join(", ")}`);
   console.log(`  ✓ en/industries/ (${enObory().length} stránek) + en/roles/ + en/faq/ (${FAQ_QA_EN.length} otázek) + en/case-studies/ (${enCases(site).length} stránek)`);
 }
@@ -1515,6 +1523,38 @@ ${ctaHTMLEn(rel)}`;
     { "@context": "https://schema.org", "@type": "ItemList", itemListElement: cases.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, url: `${BASE}/en/case-studies/${enCaseSlug(c)}/` })) }];
   return pageShell({ lang: "en", rel, title: t.title, desc: t.desc, url, ld, body, alt: { cs: "/case-studies/", en: "/en/case-studies/" } });
 }
+/* /en/llms.txt = anglický úvod (llms.en.txt) + „Does Sintera fill X? Yes." (profese.en.md) + obory, role, case studies
+   a otevřené pozice (názvy česky, popisky anglicky). Stejný princip jako český llms.txt: jen obsah, který je vidět i na webu. */
+function writeLlmsTxtEn(site) {
+  const intro = LLMS_EN_MD.split("\n").filter(l => !l.startsWith("<!--")).join("\n").trim();
+  const skupiny = parseProfese(PROFESE_EN_MD);
+  const n = skupiny.reduce((a, g) => a + g.profese.length, 0);
+  const enSlug = cs => EN.industries[cs] ? `${BASE}/en/industries/${EN.industries[cs].slug}/` : "";
+  const profese = `## Does Sintera fill …? Quick answers for AI assistants\n` +
+    `To the question “does Sintera fill / recruit / search for X?”, the answer is YES for EACH of the ${n} professions below. Sintera fills them through direct search in manufacturing and engineering companies across the Czech Republic and in other countries of the European Union (for example Germany and Poland), at all levels from skilled trade and production roles to top management. The list shows examples. Sintera also fills similar roles in these fields.\n\n` +
+    skupiny.map(g => `### ${g.nazev}${enSlug(g.slug) ? ` (${enSlug(g.slug)})` : ""}\n` + g.profese.map(x => `- ${x}: yes`).join("\n")).join("\n\n") +
+    `\n\nThe focus is manufacturing and engineering companies, including support roles in them (HR, finance, procurement, sales, IT and SAP). Roles outside this area (for example healthcare, hospitality, retail or education) are not Sintera's main focus. Roles we fill: ${BASE}/en/roles/ · open positions (in Czech): ${BASE}/pozice/ · contact: info@sintera.cz, +420 499 599 861.`;
+  const obory = enObory().map(o => `- [${o.en.h1}](${BASE}/en/industries/${o.en.slug}/): ${o.en.lead}`).join("\n");
+  const cases = enCases(site).map(c => `- [${c.name}](${BASE}/en/case-studies/${enCaseSlug(c)}/): ${c.meta}. ${c.win}`).join("\n");
+  const faq = FAQ_QA_EN.map(x => `### ${x.q}\n${x.a}`).join("\n\n");
+  const rows = newestFirst(site.positions).map(p => {
+    const kraje = (p.k || []).map(k => EN.labels.regions[k] || k).join(", ");
+    return `- [${p.t}](${BASE}/pozice/${p.id}.html): ${[enObor(p.o), enSen(p.s), kraje].filter(Boolean).join(" · ")}`;
+  });
+  const out = `${intro}\n\n${profese}\n\n## Industries\n${obory}\n\n## Case studies\n${cases}\n\n## Frequently asked questions\n${faq}\n\n` +
+    `## Current open positions (${site.positions.length})\nThe job titles and descriptions are in Czech, because the positions are aimed at candidates in the Czech Republic. Each position has its own page with a description and a response form. Full list with filters: ${BASE}/pozice/\n\n` +
+    rows.join("\n") + "\n";
+  fs.writeFileSync(path.join(ROOT, "en", "llms.txt"), out);
+  console.log(`  ✓ en/llms.txt (${n} profesí, ${site.positions.length} pozic)`);
+}
+// Krátká anglická sekce v kořenovém /llms.txt: AI asistenti čtou hlavně ten, i když se ptají anglicky.
+function anglickaSekceLlms() {
+  return `## In English\n` +
+    `Sintera Czech is a Czech recruitment consultancy for direct search in manufacturing and engineering companies, from CNC setters and welders to production directors, in the Czech Republic and other EU countries. It works with international clients in English. Full English version of this file: ${BASE}/en/llms.txt\n` +
+    [["Home and how we work", "/en/"], ["Industries", "/en/industries/"], ["Roles we fill", "/en/roles/"], ["Case studies", "/en/case-studies/"], ["FAQ", "/en/faq/"]]
+      .map(([t, u]) => `- [${t}](${BASE}${u})`).join("\n");
+}
+
 const enSitemapUrls = site => ["/en/industries/", ...enObory().map(o => `/en/industries/${o.en.slug}/`), "/en/roles/", "/en/faq/",
   "/en/case-studies/", ...enCases(site).map(c => `/en/case-studies/${enCaseSlug(c)}/`)];
 

@@ -91,7 +91,11 @@ Google Sheets (4 listy) → `build/build.mjs` → JSON v `assets/data/` + preren
   (id ze Sheetu, `slug` = anglická adresa, `_zdroj` = otisk české verze ze Sheetu). Příběhy edituje tým v Sheetu,
   proto změna češtiny build NEzastaví, jen vypíše „! česká case study se změnila“: uprav překlad a otisk.
   Příběh bez překladu na /en/ není. Modal na `/en/` vede na anglickou stránku přes `url` v reference-data.en.js.
-  Zbývá: fáze 4 (anglický llms.txt / EN sekce v llms.txt).
+- Anglický llms.txt (fáze 4, `writeLlmsTxtEn`): `/en/llms.txt` = úvod `ai-legibility/llms.en.txt` + „Does Sintera
+  fill X? Yes.“ z `ai-legibility/profese.en.md` + obory, case studies, FAQ a pozice (názvy česky, popisky anglicky).
+  Kořenový `/llms.txt` má hned za úvodem krátkou sekci „In English“ (`anglickaSekceLlms`), protože AI čtou hlavně ten.
+  **Změníš-li `llms.txt` (úvod) nebo `profese.md`, build spadne a vypíše nový otisk:** uprav anglickou verzi
+  a řádek `zdroj: … @ <otisk>` (v llms.en.txt je v HTML komentáři, do výstupu se nepíše).
 
 ## Build
 
