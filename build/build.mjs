@@ -630,17 +630,39 @@ function translateTemplate(html, dict, allow) {
   const missing = keys.filter(k => !html.includes(k));
   if (missing.length) throw new Error("i18n/en.json: tyto české texty už v šabloně nejsou (česká verze se změnila, uprav překlad):\n  - " + missing.map(k => k.slice(0, 120)).join("\n  - "));
   for (const k of keys) html = html.split(k).join(dict[k]);
-  // zbylá čeština: viditelný text a čitelné atributy, bez komentářů a skriptů
-  let probe = html.replace(/<!--[\s\S]*?-->/g, "").replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<style[\s\S]*?<\/style>/gi, "");
+  return hlidejCestinu(html, allow, "Anglická stránka");
+}
+// Zbylá čeština v anglické stránce = build exit 1. Kontroluje viditelný text a čitelné atributy, bez komentářů
+// a skriptů. Prvky s lang="cs" jsou česky záměrně (názvy pozic, přepínač CZ) a translate="no" jsou vlastní
+// jména ze Sheetu (firmy v referencích), proto se přeskočí.
+function hlidejCestinu(html, allow, kde) {
+  let probe = html.replace(/<!--[\s\S]*?-->/g, "").replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<(\w+)\b[^>]*\b(?:lang="cs"|translate="no")[^>]*>[\s\S]*?<\/\1>/g, "");
   for (const a of allow) probe = probe.split(a).join("");
   const texty = [...probe.matchAll(/>([^<]+)</g)].map(m => m[1])
     .concat([...probe.matchAll(/\b(?:alt|title|placeholder|aria-label|content|data-msg|data-ok|data-subject)="([^"]*)"/g)].map(m => m[1]));
   const zbytek = texty.filter(t => CZ_CHARS.test(t)).map(t => t.trim().slice(0, 100));
-  if (zbytek.length) throw new Error("Anglická stránka obsahuje nepřeloženou češtinu (doplň do assets/data/i18n/en.json):\n  - " + zbytek.join("\n  - "));
+  if (zbytek.length) throw new Error(`${kde} obsahuje nepřeloženou češtinu (doplň do assets/data/i18n/en.json):\n  - ` + zbytek.join("\n  - "));
   return html;
 }
-// relativní odkazy z /en/ míří o úroveň výš (assets, české stránky); kotvy, absolutní a tel/mailto beze změny
-const upLevel = html => html.replace(/\b(href|src)="(?!https?:|#|mailto:|tel:|\.\.\/|\/|%%BASE%%|data:)([^"]*)"/g, '$1="../$2"');
+// relativní odkazy z /en/ míří o úroveň výš (assets, české stránky); kotvy, absolutní, tel/mailto a „./“ (odkaz
+// na jinou anglickou stránku, např. ./roles/) beze změny
+const upLevel = html => html.replace(/\b(href|src)="(?!https?:|#|mailto:|tel:|\.\.\/|\.\/|\/|%%BASE%%|data:)([^"]*)"/g, '$1="../$2"');
+
+// Organization JSON-LD pro anglické stránky: česká předloha + anglické popisy z en.json
+const ORG_LD_EN = (() => {
+  const org = JSON.parse(ORG_LD.replace(/^<script[^>]*>\n|\n<\/script>$/g, ""));
+  for (const k of ["description", "areaServed", "serviceType", "knowsAbout"]) if (EN.organization[k]) org[k] = EN.organization[k];
+  return ldScript(org);
+})();
+// Otisk české předlohy: anglický překlad si ho pamatuje, a když se čeština změní, build spadne (překlad je zastaralý).
+const srcHash = obj => crypto.createHash("sha256").update(JSON.stringify(obj)).digest("hex").slice(0, 12);
+const oborZdroj = o => srcHash({ nazev: o.nazev, h1: o.h1, desc: o.desc, lead: o.lead, proc: o.proc, jak: o.jak, faq: o.faq });
+// popisky u pozic na anglických stránkách (názvy pozic zůstávají česky, lang="cs")
+const enObor = c => EN.labels.obory[c] || c;
+const enSen = s => EN.labels.seniority[s] || s;
+const enKraj = k => EN.labels.regions[k] ? esc(EN.labels.regions[k]) : `<span lang="cs">${esc(k)}</span>`;
+const fmt = (s, vars) => String(s).replace(/\{(\w+)\}/g, (_, k) => vars[k]);
 
 function enContent(site) {
   const tag = t => EN.tags[t.trim()] || t.trim();
@@ -662,8 +684,6 @@ function enContent(site) {
 function prerenderEn(site) {
   const { refs, cases, rotor } = enContent(site);
   const up = o => ({ ...o, logo: o.logo ? "../" + o.logo : o.logo });
-  const org = JSON.parse(ORG_LD.replace(/^<script[^>]*>\n|\n<\/script>$/g, ""));
-  for (const k of ["description", "areaServed", "serviceType", "knowsAbout"]) if (EN.organization[k]) org[k] = EN.organization[k];
   let html = translateTemplate(fs.readFileSync(TPL, "utf8"), EN.homepage, EN._allow || []);
   html = fillMarkers(html, {
     "<!--ROTOR-->": rotorHTML(rotor).replace(/„/g, "“").replace(/“<\/blockquote>/g, "”</blockquote>"),
@@ -671,9 +691,10 @@ function prerenderEn(site) {
     "<!--REFS-->": refsHTML(refs, 9, CARD_UI.en).replace(/<blockquote>„/g, "<blockquote>“").replace(/“<\/blockquote>/g, "”</blockquote>"),
     "<!--MARQUEE-->": marqueeHTML(site.clients),
     "<!--JSONLD-->": "",
-    "<!--ORG-->": ldScript(org),
+    "<!--ORG-->": ORG_LD_EN,
     "<!--ANALYTICS-->": ANALYTICS,
     "<!--HREFLANG-->": HREFLANG,
+    "<!--FOOT_OBORY-->": enObory().map(o => `<a href="./industries/${o.en.slug}/">${esc(o.en.nazev)}</a>`).join("<br>"),
   });
   const dir = path.join(ROOT, "en");
   fs.mkdirSync(dir, { recursive: true });
@@ -699,9 +720,13 @@ function writeDetailPages(positions, labels) {
 function writeSitemap(positions, extra = []) {
   const sections = ["/", "/en/", "/pozice/", "/faq/", "/reference-info/", ...extra]; // bez #kotev — vyhledávače fragmenty v sitemap ignorují
   const jobs = positions.map(p => `/pozice/${p.id}.html`);
-  const urls = sections.concat(jobs).map(u => `  <url><loc>${BASE}${u}</loc><changefreq>weekly</changefreq></url>`).join("\n");
+  // jazykové protějšky cs ↔ en jako xhtml:link (Google tak páruje verze i bez čtení <head>)
+  const pary = new Map();
+  for (const [cs, en] of jazykovePary()) { pary.set(cs, [cs, en]); pary.set(en, [cs, en]); }
+  const alt = u => pary.has(u) ? pary.get(u).map((x, i) => `<xhtml:link rel="alternate" hreflang="${i ? "en" : "cs"}" href="${BASE}${x}"/>`).join("") : "";
+  const urls = sections.concat(jobs).map(u => `  <url><loc>${BASE}${u}</loc>${alt(u)}<changefreq>weekly</changefreq></url>`).join("\n");
   fs.writeFileSync(path.join(ROOT, "sitemap.xml"),
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`);
   fs.writeFileSync(path.join(ROOT, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /reference/\nDisallow: /assets/reference-wall/\nSitemap: ${BASE}/sitemap.xml\n`);
   fs.writeFileSync(path.join(ROOT, ".nojekyll"), "");
   console.log("  ✓ sitemap.xml, robots.txt, .nojekyll");
@@ -783,6 +808,7 @@ function faqPage() {
   <title>${title}</title>
   <meta name="description" content="${esc(desc)}" />
   <link rel="canonical" href="${url}" />
+  ${hreflangLinks({ cs: "/faq/", en: "/en/faq/" })}
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0e1230" />
   <meta property="og:type" content="website" />
@@ -812,6 +838,7 @@ function faqPage() {
       <a href="../index.html#kontakt">Kontakt</a>
     </div>
     <a class="nav-cta" href="../index.html#kontakt">Marně hledáte lidi?</a>
+    <a class="nav-lang" href="../en/faq/" hreflang="en" lang="en" aria-label="English version">EN</a>
     <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
       <i></i><i></i><i></i>
     </button>
@@ -955,19 +982,52 @@ function footerHTML(rel) {
 </footer>`;
 }
 
-function pageShell({ rel, title, desc, url, ld = [], body }) {
+// Anglická patička (stránky pod /en/). Pozice a zásady ochrany údajů jsou jen česky, proto „(in Czech)“.
+function footerHTMLEn(rel) {
+  const f = EN.ui.footer;
+  const obory = enObory().map(o => `<a href="${rel}en/industries/${o.en.slug}/">${esc(o.en.nazev)}</a>`).join("<br>");
+  return `<footer>
+  <a class="nav-logo nav-wordmark" href="${rel}en/">Sintera<span>.</span></a>
+  <div class="foot-col"><strong>${esc(f.contact)}</strong>Uhelná 160/24, Hradec Králové<br>${esc(f.country)}<br><a href="tel:+420499599861">+420 499 599 861</a><br><a href="mailto:info@sintera.cz">info@sintera.cz</a></div>
+  <div class="foot-col"><strong>${esc(f.industries)}</strong>${obory}</div>
+  <div class="foot-col"><strong>${esc(f.more)}</strong><a href="${rel}en/roles/">${esc(f.roles)}</a><br><a href="${rel}en/faq/">${esc(f.faq)}</a><br><a href="${rel}pozice/" hreflang="cs">${esc(f.positions)}</a><br><a href="${rel}index.html" hreflang="cs">${esc(f.czech)}</a><br><a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a></div>
+  <span class="copy">© ${new Date().getFullYear()} Sintera Czech s.r.o. · ${esc(f.companyId)} 29130336 · <a href="${rel}ochrana-osobnich-udaju/" hreflang="cs">${esc(f.privacy)}</a></span>
+</footer>`;
+}
+
+// Jazykové protějšky (cesty od kořene): hreflang v <head>, přepínač CZ/EN v navigaci a alternates v sitemap.xml.
+const hreflangLinks = alt => [
+  `<link rel="alternate" hreflang="cs" href="${BASE}${alt.cs}" />`,
+  `<link rel="alternate" hreflang="en" href="${BASE}${alt.en}" />`,
+  `<link rel="alternate" hreflang="x-default" href="${BASE}${alt.cs}" />`,
+].join("\n  ");
+function jazykovePary() {
+  return [["/", "/en/"], ["/obory/", "/en/industries/"], ...enObory().map(o => [`/obory/${o.slug}/`, `/en/industries/${o.en.slug}/`]),
+    ["/co-obsazujeme/", "/en/roles/"], ["/faq/", "/en/faq/"]];
+}
+
+/* Stránka mimo úvod (obory, role, FAQ…). lang="en" = anglická verze pod /en/ (texty z en.json → ui).
+   alt = { cs, en } cesty jazykových protějšků od kořene; bez něj vede přepínač na úvod druhé verze. */
+function pageShell({ rel, title, desc, url, ld = [], body, lang = "cs", alt }) {
+  const en = lang === "en";
+  const u = en ? EN.ui : null;
+  const nav = en ? u.nav : [["index.html#trh", "Jak pracujeme"], ["case-studies/", "Case studies"], ["index.html#reference", "Reference"], ["pozice/", "Volné pozice"], ["index.html#kontakt", "Kontakt"]];
+  const home = en ? "en/" : "index.html";
+  const langSwitch = en
+    ? `<a class="nav-lang" href="${rel}${alt ? alt.cs.slice(1) : ""}" hreflang="cs" lang="cs" aria-label="Česká verze">CZ</a>`
+    : `<a class="nav-lang" href="${rel}${alt ? alt.en.slice(1) : "en/"}" hreflang="en" lang="en" aria-label="English version">EN</a>`;
   return `<!DOCTYPE html>
-<html lang="cs" data-theme="dark" data-motion="plne" data-reading="pasy">
+<html lang="${en ? "en" : "cs"}" data-theme="dark" data-motion="plne" data-reading="pasy">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(desc)}" />
   <link rel="canonical" href="${url}" />
-  <meta name="robots" content="index,follow" />
+  ${alt ? hreflangLinks(alt) + "\n  " : ""}<meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0e1230" />
   <meta property="og:type" content="website" />
-  <meta property="og:locale" content="cs_CZ" />
+  <meta property="og:locale" content="${en ? "en_GB" : "cs_CZ"}" />
   <meta property="og:site_name" content="Sintera Czech" />
   <meta property="og:title" content="${esc(title)}" />
   <meta property="og:description" content="${esc(desc)}" />
@@ -976,24 +1036,20 @@ function pageShell({ rel, title, desc, url, ld = [], body }) {
   <link rel="icon" href="${rel}assets/img/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="${rel}assets/css/fonts.css" />
   <link rel="stylesheet" href="${rel}assets/css/styles.css" />
-  ${ORG_LD}
+  ${en ? ORG_LD_EN : ORG_LD}
   ${ld.map(ldScript).join("\n  ")}
   ${ANALYTICS}
 </head>
 <body>
-  <a class="skip-link" href="#obsah">Přeskočit na obsah</a>
+  <a class="skip-link" href="#obsah">${en ? esc(u.skip) : "Přeskočit na obsah"}</a>
   <div class="grain" aria-hidden="true"></div>
   <nav id="nav" class="scrolled">
-    <a class="nav-logo nav-wordmark" href="${rel}index.html">Sintera<span>.</span></a>
+    <a class="nav-logo nav-wordmark" href="${rel}${home}">Sintera<span>.</span></a>
     <div class="nav-links">
-      <a href="${rel}index.html#trh">Jak pracujeme</a>
-      <a href="${rel}case-studies/">Case studies</a>
-      <a href="${rel}index.html#reference">Reference</a>
-      <a href="${rel}pozice/">Volné pozice</a>
-      <a href="${rel}index.html#kontakt">Kontakt</a>
+${nav.map(([href, label]) => `      <a href="${rel}${href}">${esc(label)}</a>`).join("\n")}
     </div>
-    <a class="nav-cta" href="${rel}index.html#kontakt">Marně hledáte lidi?</a>
-    <a class="nav-lang" href="${rel}en/" hreflang="en" lang="en" aria-label="English version">EN</a>
+    <a class="nav-cta" href="${rel}${home}#kontakt">${en ? esc(u.navCta) : "Marně hledáte lidi?"}</a>
+    ${langSwitch}
     <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
   </nav>
   <main>
@@ -1003,7 +1059,7 @@ ${body}
       </div>
     </section>
   </main>
-${footerHTML(rel)}
+${en ? footerHTMLEn(rel) : footerHTML(rel)}
   <script src="${rel}assets/js/app.js"></script>
 </body>
 </html>
@@ -1085,7 +1141,9 @@ function oborPage(o, site, labels) {
     breadcrumbLD([["Sintera", BASE + "/"], ["Obory", BASE + "/obory/"], [o.nazev, url]]),
   ];
   if (o.faq.length) ld.push(faqLD(o.faq));
-  return pageShell({ rel, title: `${o.h1} · Sintera Czech`, desc: o.desc, url, ld, body: parts.join("\n") });
+  const en = EN.industries[o.slug];
+  return pageShell({ rel, title: `${o.h1} · Sintera Czech`, desc: o.desc, url, ld, body: parts.join("\n"),
+    alt: en ? { cs: `/obory/${o.slug}/`, en: `/en/industries/${en.slug}/` } : undefined });
 }
 
 function oboryIndexPage(site) {
@@ -1100,7 +1158,8 @@ function oboryIndexPage(site) {
         <div style="margin-top:40px">${rows}</div>
 ${ctaHTML(rel)}`;
   const ld = [breadcrumbLD([["Sintera", BASE + "/"], ["Obory", url]])];
-  return pageShell({ rel, title: "Obory · Sintera Czech", desc: "Direct a executive search podle oboru: strojírenství a výroba, automotive, kvalita, elektro a automatizace, technika a vývoj, servis a údržba, management, logistika a nákup.", url, ld, body });
+  return pageShell({ rel, title: "Obory · Sintera Czech", desc: "Direct a executive search podle oboru: strojírenství a výroba, automotive, kvalita, elektro a automatizace, technika a vývoj, servis a údržba, management, logistika a nákup.", url, ld, body,
+    alt: { cs: "/obory/", en: "/en/industries/" } });
 }
 
 function casePage(c, site) {
@@ -1155,7 +1214,7 @@ function writeOboryACases(site, labels) {
   if (chybi.length) console.log(`  ! obory-stranky.json odkazuje na neexistující id: ${[...new Set(chybi)].join(", ")}`);
   console.log(`  ✓ obory/ (${OBORY_STRANKY.length} stránek) + case-studies/ (${site.cases.length} stránek)`);
 }
-const extraSitemapUrls = site => ["/co-obsazujeme/", "/obory/", ...OBORY_STRANKY.map(o => `/obory/${o.slug}/`), "/case-studies/", ...site.cases.map(c => `/case-studies/${caseSlug(c.id)}/`)];
+const extraSitemapUrls = site => ["/co-obsazujeme/", "/obory/", ...OBORY_STRANKY.map(o => `/obory/${o.slug}/`), "/case-studies/", ...site.cases.map(c => `/case-studies/${caseSlug(c.id)}/`), ...enSitemapUrls()];
 
 /* ---------- /co-obsazujeme/: katalog rolí podle úrovně a oboru ----------
    Proč: klienti se AI ptali „dělá Sintera CNC?" a odpověď nenašli; z webu působilo, že
@@ -1217,7 +1276,8 @@ ${ctaHTML(rel)}`;
       hasOfferCatalog: { "@type": "OfferCatalog", name: "Obsazované role", itemListElement: kat.map(r => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: `Vyhledání: ${r.n}` } })) } }];
   if (faq.length) ld.push(faqLD(faq));
   return pageShell({ rel, title: "Jaké pozice obsazujeme: od CNC po management · Sintera Czech",
-    desc: "CNC programátoři, seřizovači, svářeči, zámečníci, technici údržby, inženýři kvality, konstruktéři i vedoucí výroby a ředitelé. Přehled rolí, které Sintera obsazuje.", url, ld, body });
+    desc: "CNC programátoři, seřizovači, svářeči, zámečníci, technici údržby, inženýři kvality, konstruktéři i vedoucí výroby a ředitelé. Přehled rolí, které Sintera obsazuje.", url, ld, body,
+    alt: { cs: "/co-obsazujeme/", en: "/en/roles/" } });
 }
 function writeRolePage(site, labels) {
   const dir = path.join(ROOT, "co-obsazujeme"); fs.mkdirSync(dir, { recursive: true });
@@ -1225,6 +1285,178 @@ function writeRolePage(site, labels) {
   const k = katalogRoli(site.positions);
   console.log(`  ✓ co-obsazujeme/ (${k.length} rolí: ${["remeslo", "technik", "vedeni"].map(u => k.filter(x => x.u === u).length).join(" / ")})`);
 }
+
+/* ---------- Anglické stránky /en/industries/, /en/roles/, /en/faq/ (fáze 2) ----------
+   Čtenář = klient (HR a management zahraničních firem, AI dotazy v angličtině). Texty: en.json (industries,
+   roles, labels, ui) a faq.en.md. Pozice se NEpřekládají: řádky vedou na české /pozice/<id>.html, název
+   pozice má lang="cs" a stránka říká „(in Czech)“. Zbylá čeština mimo lang="cs" = build exit 1. */
+function enObory() { return OBORY_STRANKY.filter(o => EN.industries[o.slug]).map(o => ({ ...o, en: EN.industries[o.slug] })); }
+const FAQ_EN_MD = fs.readFileSync(path.join(AILEG, "faq.en.md"), "utf8");
+const FAQ_QA_EN = parseFaq(FAQ_EN_MD);
+const ROLE_FAQ_EN = () => FAQ_QA_EN.filter(x => /only fill management|CNC programmers, machine setters/.test(x.q));
+const CHYBI_ROLE_EN = new Set();
+const enRole = n => { const t = EN.roles[n]; if (!t) CHYBI_ROLE_EN.add(n); return t; };
+
+// Česká předloha se změnila a překlad ne → zastavit build (stejný princip jako u úvodní stránky).
+function zkontrolujZdrojeEn() {
+  const chyby = [];
+  for (const o of OBORY_STRANKY) {
+    const en = EN.industries[o.slug];
+    if (!en) { console.log(`  ! /en/industries/ bez překladu oboru „${o.slug}“ (nezobrazí se, doplň do i18n/en.json → industries)`); continue; }
+    if (en._zdroj !== oborZdroj(o)) chyby.push(`obory-stranky.json „${o.slug}“ se změnil: uprav industries["${o.slug}"] v i18n/en.json a nastav _zdroj na "${oborZdroj(o)}"`);
+  }
+  const faqZdroj = (FAQ_EN_MD.match(/zdroj: faq\.md @ (\w+)/) || [])[1], faqTed = srcHash(FAQ_QA);
+  if (faqZdroj !== faqTed) chyby.push(`faq.md se změnil: uprav faq.en.md a řádek „zdroj: faq.md @ ${faqTed}“`);
+  if (chyby.length) throw new Error("Anglický překlad je zastaralý:\n  - " + chyby.join("\n  - "));
+}
+
+function posRowsEn(positions, rel) {
+  return `<div class="pos-list">` + positions.map(p =>
+    `<a class="pos-row" href="${rel}pozice/${esc(p.id)}.html" hreflang="cs">` +
+    `<span class="t" lang="cs">${esc(p.t)}</span>` +
+    `<span class="m field">${esc(enObor(p.o))}</span>` +
+    `<span class="m level">${esc(enSen(p.s))}</span>` +
+    `<span class="m loc">${(p.k || []).map(enKraj).join(" / ")}</span>` +
+    `<span class="arr" aria-hidden="true">→</span></a>`).join("\n") + `</div>`;
+}
+function ctaHTMLEn(rel) {
+  const c = EN.ui.cta;
+  return `        <h2 class="page-h2">${esc(c.h2)}</h2>
+        <p class="body">${esc(c.p)}</p>
+        <div class="hero-ctas" style="margin-top:24px;flex-wrap:wrap">
+          <a class="btn btn-primary" href="${rel}en/#kontakt">${esc(c.send)}</a>
+          <a class="btn btn-line" href="tel:+420499599861">${esc(c.call)} · +420 499 599 861</a>
+        </div>`;
+}
+const faqListHTML = faq => `<div class="faq-list">${faq.map(x => `<div class="faq-item"><h3 class="faq-q">${esc(x.q)}</h3><p class="faq-a">${esc(x.a)}</p></div>`).join("\n")}</div>`;
+const svcProvider = { "@type": "ProfessionalService", name: "Sintera Czech s.r.o.", url: BASE + "/en/" };
+
+function oborPageEn(o, site) {
+  const rel = "../../../", url = `${BASE}/en/industries/${o.en.slug}/`, e = o.en, t = EN.ui.industry;
+  // case studies zatím bez vlastní anglické stránky (fáze 3): příběh ve zkratce přímo tady
+  const cases = o.cases.map(id => site.cases.find(c => c.id === id)).filter(c => c && EN.cases[c.id]).map(c => ({ ...c, ...EN.cases[c.id] }));
+  const refs = o.refs.map(id => site.references.find(r => r.id === id)).filter(r => r && EN.references[r.id]).map(r => ({ ...r, ...EN.references[r.id] }));
+  const pos = oborPositions(o, site.positions);
+  const role = [...new Set(pos.map(p => enRole(cistyNazevRole(p.t))).filter(Boolean))].slice(0, 18);
+  const kraje = [...new Set(pos.flatMap(p => p.k || []))];
+  const parts = [];
+  parts.push(`        <a class="ref-more" href="../" style="display:inline-flex;margin-bottom:28px">${esc(t.back)}</a>
+        <div class="kicker">${esc(t.kicker)} · ${esc(e.nazev)}</div>
+        <h1 class="lead">${esc(e.h1)}</h1>
+        <div class="body"><p>${esc(e.lead)}</p></div>`);
+  parts.push(`        <h2 class="page-h2">${esc(t.why)}</h2>
+        <div class="body">${e.proc.map(x => `<p>${esc(x)}</p>`).join("")}</div>`);
+  parts.push(`        <h2 class="page-h2">${esc(t.how)}</h2>
+        <div class="body"><p>${esc(e.jak)}</p><ol class="steps">${EN.ui.steps.map(k => `<li>${esc(k)}</li>`).join("")}</ol>
+        <p>${esc(EN.ui.stepsNote)}</p></div>`);
+  if (role.length) parts.push(`        <h2 class="page-h2">${esc(t.roles)}</h2>
+        <div class="pos-tags">${role.map(r => `<span>${esc(r)}</span>`).join("")}</div>`);
+  if (pos.length) {
+    const shown = pos.slice(0, 12);
+    parts.push(`        <h2 class="page-h2">${esc(t.open)} (${pos.length})</h2>
+        <div class="body"><p>${fmt(esc(t.openNote), { regions: kraje.map(enKraj).join(", ") })}</p></div>
+        ${posRowsEn(shown, rel)}
+        <p style="margin-top:24px"><a class="btn btn-line" href="${rel}pozice/" hreflang="cs">${esc(pos.length > shown.length ? fmt(t.showAll, { n: pos.length }) : t.allPos)} →</a></p>`);
+  } else if (o.souvisejici) {
+    const links = o.souvisejici.map(s => EN.industries[s]).filter(Boolean).map(x => `<a href="../${x.slug}/">${esc(x.nazev)}</a>`).join(", ");
+    parts.push(`        <h2 class="page-h2">${esc(t.open)}</h2>
+        <div class="body"><p>${fmt(esc(t.related), { links, all: `<a href="${rel}pozice/" hreflang="cs">${esc(t.relatedAll)}</a>` })}</p></div>`);
+  }
+  if (cases.length) parts.push(`        <h2 class="page-h2">${esc(t.practice)}</h2>
+        <div class="faq-list">${cases.map(c => `<div class="faq-item"><h3 class="faq-q">${esc(c.name)}</h3><p class="case-modal-meta">${esc(c.meta)}</p><p class="faq-a">${esc(c.situ)} ${esc(c.change)}</p><p class="faq-a"><strong>${esc(t.result)}:</strong> ${esc(c.win)}</p></div>`).join("\n")}</div>`);
+  if (refs.length) parts.push(`        <h2 class="page-h2">${esc(t.refs)}</h2>
+        <div class="quote-list">${refs.map(r => `<figure class="ref-quote"><blockquote>“${esc(r.long || r.quote)}”</blockquote><figcaption><strong translate="no">${esc(r.company)}</strong>${esc(r.role || "")}</figcaption></figure>`).join("\n")}</div>`);
+  if (e.faq.length) parts.push(`        <h2 class="page-h2">${esc(t.faq)}</h2>
+        ${faqListHTML(e.faq)}`);
+  parts.push(ctaHTMLEn(rel));
+  const ld = [
+    { "@context": "https://schema.org", "@type": "Service", name: e.h1, serviceType: ["Direct search", "Executive search"], description: e.desc, inLanguage: "en",
+      url, areaServed: { "@type": "Country", name: "Czech Republic" }, provider: svcProvider },
+    breadcrumbLD([["Sintera", BASE + "/en/"], [t.kicker, BASE + "/en/industries/"], [e.nazev, url]]),
+  ];
+  if (e.faq.length) ld.push(faqLD(e.faq));
+  return pageShell({ lang: "en", rel, title: `${e.h1} · Sintera Czech`, desc: e.desc, url, ld, body: parts.join("\n"),
+    alt: { cs: `/obory/${o.slug}/`, en: `/en/industries/${e.slug}/` } });
+}
+
+function industriesIndexPageEn(site) {
+  const rel = "../../", url = `${BASE}/en/industries/`, t = EN.ui.industriesIndex;
+  const rows = `<div class="link-list">` + enObory().map(o => {
+    const n = oborPositions(o, site.positions).length;
+    return `<a class="link-row" href="${o.en.slug}/"><span class="t">${esc(o.en.nazev)}</span><span class="m">${esc(o.en.lead)}${n ? " " + esc(fmt(t.openCount, { n })) : ""}</span><span class="arr" aria-hidden="true">→</span></a>`;
+  }).join("\n") + `</div>`;
+  const body = `        <div class="kicker">${esc(t.kicker)}</div>
+        <h1 class="lead">${esc(t.h1)}</h1>
+        <div class="body"><p>${esc(t.p)}</p></div>
+        <div style="margin-top:40px">${rows}</div>
+${ctaHTMLEn(rel)}`;
+  const ld = [breadcrumbLD([["Sintera", BASE + "/en/"], [t.kicker, url]])];
+  return pageShell({ lang: "en", rel, title: t.title, desc: t.desc, url, ld, body, alt: { cs: "/obory/", en: "/en/industries/" } });
+}
+
+function rolePageEn(site) {
+  const rel = "../../", url = `${BASE}/en/roles/`, t = EN.ui.rolesPage;
+  // anglické názvy rolí; víc českých názvů může mít stejný anglický (Procesní inženýr = Process Engineer)
+  const seen = new Set(), kat = [];
+  for (const r of katalogRoli(site.positions)) {
+    const n = enRole(r.n); if (!n || seen.has(n.toLowerCase())) continue;
+    seen.add(n.toLowerCase()); kat.push({ ...r, n });
+  }
+  kat.sort((a, b) => a.n.localeCompare(b.n, "en"));
+  const tags = arr => `<div class="pos-tags">${arr.map(r => `<span>${esc(r.n)}</span>`).join("")}</div>`;
+  const podleOboru = Object.keys(EN.labels.obory).map(code => {
+    const r = kat.filter(x => x.o === code); if (!r.length) return "";
+    const st = enObory().find(o => o.obory.includes(code));
+    return `<div class="faq-item"><h3 class="faq-q">${st ? `<a href="../industries/${st.en.slug}/">${esc(enObor(code))} →</a>` : esc(enObor(code))}</h3>${tags(r)}</div>`;
+  }).join("\n");
+  const faq = ROLE_FAQ_EN();
+  const body = `        <div class="kicker">${esc(t.kicker)}</div>
+        <h1 class="lead">${esc(t.h1)}</h1>
+        <div class="body"><p>${esc(t.p)}</p></div>
+${t.levels.map(([k, h, p]) => { const r = kat.filter(x => x.u === k); return r.length ? `        <h2 class="page-h2">${esc(h)}</h2>
+        <div class="body"><p>${esc(p)}</p></div>
+        ${tags(r)}` : ""; }).join("\n")}
+        <h2 class="page-h2">${esc(t.byField)}</h2>
+        <div class="faq-list">${podleOboru}</div>
+        <div class="body" style="margin-top:28px"><p>${esc(t.notListed)}</p></div>
+${faq.length ? `        <h2 class="page-h2">${esc(t.faq)}</h2>
+        ${faqListHTML(faq)}` : ""}
+        <p style="margin-top:32px"><a class="btn btn-line" href="${rel}pozice/" hreflang="cs">${esc(t.positions)}</a></p>
+${ctaHTMLEn(rel)}`;
+  const ld = [breadcrumbLD([["Sintera", BASE + "/en/"], [t.kicker, url]]),
+    { "@context": "https://schema.org", "@type": "Service", name: t.ldName, serviceType: "Direct search", url, description: t.ldDesc, inLanguage: "en",
+      provider: svcProvider, areaServed: { "@type": "Country", name: "Czech Republic" },
+      hasOfferCatalog: { "@type": "OfferCatalog", name: t.ldCatalog, itemListElement: kat.map(r => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: fmt(t.ldOffer, { role: r.n }) } })) } }];
+  if (faq.length) ld.push(faqLD(faq));
+  return pageShell({ lang: "en", rel, title: t.title, desc: t.desc, url, ld, body, alt: { cs: "/co-obsazujeme/", en: "/en/roles/" } });
+}
+
+function faqPageEn() {
+  const rel = "../../", url = `${BASE}/en/faq/`, t = EN.ui.faqPage;
+  const body = `        <div class="kicker">${esc(t.kicker)}</div>
+        <h1 class="lead">${esc(t.h1)}</h1>
+        <div class="body"><p>${esc(t.p)}</p></div>
+        <div style="margin-top:40px">${faqListHTML(FAQ_QA_EN)}</div>
+        <p style="margin-top:40px"><a class="btn btn-line" href="${rel}en/#kontakt">${esc(t.more)}</a></p>`;
+  const ld = [faqLD(FAQ_QA_EN), breadcrumbLD([["Sintera", BASE + "/en/"], [t.kicker, url]])];
+  return pageShell({ lang: "en", rel, title: t.title, desc: t.desc, url, ld, body, alt: { cs: "/faq/", en: "/en/faq/" } });
+}
+
+function writeEnPages(site) {
+  zkontrolujZdrojeEn();
+  for (const dir of ["industries", "roles", "faq"]) fs.rmSync(path.join(ROOT, "en", dir), { recursive: true, force: true }); // plně generované
+  const write = (rel, html) => {
+    const fp = path.join(ROOT, "en", rel, "index.html"); fs.mkdirSync(path.dirname(fp), { recursive: true });
+    fs.writeFileSync(fp, withCsp(hlidejCestinu(html, EN._allow || [], `/en/${rel}/`)));
+  };
+  write("industries", industriesIndexPageEn(site));
+  for (const o of enObory()) write(`industries/${o.en.slug}`, oborPageEn(o, site));
+  write("roles", rolePageEn(site));
+  write("faq", faqPageEn());
+  if (CHYBI_ROLE_EN.size) console.log(`  ! /en/ role bez anglického názvu (nezobrazí se, doplň do i18n/en.json → roles): ${[...CHYBI_ROLE_EN].join(", ")}`);
+  console.log(`  ✓ en/industries/ (${enObory().length} stránek) + en/roles/ + en/faq/ (${FAQ_QA_EN.length} otázek)`);
+}
+const enSitemapUrls = () => ["/en/industries/", ...enObory().map(o => `/en/industries/${o.en.slug}/`), "/en/roles/", "/en/faq/"];
 
 /* ---------- main ---------- */
 async function main() {
@@ -1297,6 +1529,7 @@ async function main() {
   writeLlmsTxt(site.positions, labels, site);
   writeOboryACases(site, labels);
   writeRolePage(site, labels);
+  writeEnPages(site);
   writePoziceIndex(site.positions, labels);
   injectIntoStatic(["pozice/index.html", "reference-info/index.html", "ochrana-osobnich-udaju/index.html", "reference/reference-2026-c5219413a491/index.html"]);
   console.log(`Hotovo: ${site.positions.length} pozic, ${site.references.length} referencí, ${site.cases.length} cases, ${site.clients.length} klientů, ${site.rotor.length} rotor vět.`);

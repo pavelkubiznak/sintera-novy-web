@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.sintera.cz/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/en/</loc><changefreq>weekly</changefreq></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://www.sintera.cz/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/en/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/"/><changefreq>weekly</changefreq></url>
   <url><loc>https://www.sintera.cz/pozice/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/faq/</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/faq/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/faq/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/faq/"/><changefreq>weekly</changefreq></url>
   <url><loc>https://www.sintera.cz/reference-info/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/co-obsazujeme/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/obory/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/obory/strojirenstvi-a-vyroba/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/obory/automotive/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/obory/kvalita-a-zkusebnictvi/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/obory/elektro-a-automatizace/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/obory/technika-vyvoj-a-konstrukce/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/obory/servis-a-udrzba/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/obory/management-a-executive-search/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.sintera.cz/obory/logistika-a-nakup/</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/co-obsazujeme/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/co-obsazujeme/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/roles/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/obory/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/obory/strojirenstvi-a-vyroba/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/strojirenstvi-a-vyroba/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/manufacturing-and-mechanical-engineering/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/obory/automotive/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/automotive/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/automotive/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/obory/kvalita-a-zkusebnictvi/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/kvalita-a-zkusebnictvi/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/quality-and-testing/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/obory/elektro-a-automatizace/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/elektro-a-automatizace/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/electrical-engineering-and-automation/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/obory/technika-vyvoj-a-konstrukce/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/technika-vyvoj-a-konstrukce/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/engineering-rd-and-design/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/obory/servis-a-udrzba/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/servis-a-udrzba/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/service-and-maintenance/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/obory/management-a-executive-search/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/management-a-executive-search/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/management-and-executive-search/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/obory/logistika-a-nakup/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/logistika-a-nakup/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/logistics-and-procurement/"/><changefreq>weekly</changefreq></url>
   <url><loc>https://www.sintera.cz/case-studies/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://www.sintera.cz/case-studies/uchazeci-kteri-na-trhu-pusobili-jako-nedostupni/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://www.sintera.cz/case-studies/presnost-misto-objemu-99-kandidatu-na-pohovor/</loc><changefreq>weekly</changefreq></url>
@@ -24,6 +24,17 @@
   <url><loc>https://www.sintera.cz/case-studies/pozice-kterou-trh-dlouho-nenabidl/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://www.sintera.cz/case-studies/dlouhodobe-partnerstvi-napric-obory/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://www.sintera.cz/case-studies/search-rizeny-detailnim-briefem/</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/en/industries/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/en/industries/manufacturing-and-mechanical-engineering/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/strojirenstvi-a-vyroba/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/manufacturing-and-mechanical-engineering/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/en/industries/automotive/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/automotive/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/automotive/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/en/industries/quality-and-testing/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/kvalita-a-zkusebnictvi/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/quality-and-testing/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/en/industries/electrical-engineering-and-automation/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/elektro-a-automatizace/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/electrical-engineering-and-automation/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/en/industries/engineering-rd-and-design/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/technika-vyvoj-a-konstrukce/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/engineering-rd-and-design/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/en/industries/service-and-maintenance/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/servis-a-udrzba/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/service-and-maintenance/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/en/industries/management-and-executive-search/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/management-a-executive-search/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/management-and-executive-search/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/en/industries/logistics-and-procurement/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/obory/logistika-a-nakup/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/industries/logistics-and-procurement/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/en/roles/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/co-obsazujeme/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/roles/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.sintera.cz/en/faq/</loc><xhtml:link rel="alternate" hreflang="cs" href="https://www.sintera.cz/faq/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.sintera.cz/en/faq/"/><changefreq>weekly</changefreq></url>
   <url><loc>https://www.sintera.cz/pozice/891.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://www.sintera.cz/pozice/889.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://www.sintera.cz/pozice/887.html</loc><changefreq>weekly</changefreq></url>

@@ -78,6 +78,16 @@ Google Sheets (4 listy) → `build/build.mjs` → JSON v `assets/data/` + preren
   Build spadne i při zbylé češtině v EN stránce (výjimky `_allow`). Reference/case studies ze Sheetu se
   překládají podle id; nepřeložené se na `/en/` nezobrazí (build vypíše „! /en/ bez anglického textu").
   JS texty: `T` v app.js a `EN` v apply-form.js podle `<html lang>`.
+- Anglické podstránky (fáze 2, `writeEnPages`): `/en/industries/` + 8 oborů, `/en/roles/`, `/en/faq/`, přes
+  `pageShell({ lang: "en", alt })`. Texty v `en.json`: `industries` (klíč = český slug, `_zdroj` = otisk české
+  předlohy v obory-stranky.json), `roles` (anglické názvy rolí z katalogu /co-obsazujeme/; bez překladu se role
+  nezobrazí a build ji vypíše), `labels` (obory, úrovně, kraje u pozic), `ui` (nav, patička, nadpisy). FAQ =
+  `assets/data/ai-legibility/faq.en.md` (řádek `zdroj: faq.md @ <otisk>`). **Změníš-li českou předlohu oboru
+  nebo faq.md, build spadne a vypíše nový otisk:** uprav překlad a otisk. Názvy pozic zůstávají česky
+  s `lang="cs"`, firmy v referencích mají `translate="no"`: obojí kontrola zbylé češtiny přeskočí.
+  Jazykové páry (`jazykovePary`) řídí hreflang v `<head>`, přepínač CZ/EN i `xhtml:link` v sitemap.xml.
+  Odkaz na jinou EN stránku z `/en/` úvodu piš jako `./roles/` (upLevel ho nepřepíše).
+  Zbývá: fáze 3 (EN stránky case studies), fáze 4 (anglický llms.txt / EN sekce v llms.txt).
 
 ## Build
 
