@@ -700,7 +700,7 @@ function prerenderEn(site) {
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, "index.html"), withCsp(upLevel(html)));
   // data pro app.js na /en/ (znovu vykresluje reference, case studies a rotor; loga o úroveň výš)
-  const data = { references: refs.map(up), cases, rotor, clients: site.clients.map(up) };
+  const data = { references: refs.map(up), cases: cases.map(c => ({ ...c, url: `case-studies/${enCaseSlug(c)}/` })), rotor, clients: site.clients.map(up) };
   fs.writeFileSync(path.join(DATA, "reference-data.en.js"),
     "/* AUTO-GENEROVÁNO buildem (build/build.mjs) z i18n/en.json + Sheetu. Needituj ručně. */\nwindow.SINTERA_DATA = " + JSON.stringify(stripInternal(data), null, 2) + ";\n");
   console.log(`  ✓ en/index.html (${refs.length} referencí, ${cases.length} case studies)`);
@@ -717,12 +717,12 @@ function writeDetailPages(positions, labels) {
 }
 
 /* ---------- SEO výstupy ---------- */
-function writeSitemap(positions, extra = []) {
+function writeSitemap(positions, extra = [], site) {
   const sections = ["/", "/en/", "/pozice/", "/faq/", "/reference-info/", ...extra]; // bez #kotev — vyhledávače fragmenty v sitemap ignorují
   const jobs = positions.map(p => `/pozice/${p.id}.html`);
   // jazykové protějšky cs ↔ en jako xhtml:link (Google tak páruje verze i bez čtení <head>)
   const pary = new Map();
-  for (const [cs, en] of jazykovePary()) { pary.set(cs, [cs, en]); pary.set(en, [cs, en]); }
+  for (const [cs, en] of jazykovePary(site)) { pary.set(cs, [cs, en]); pary.set(en, [cs, en]); }
   const alt = u => pary.has(u) ? pary.get(u).map((x, i) => `<xhtml:link rel="alternate" hreflang="${i ? "en" : "cs"}" href="${BASE}${x}"/>`).join("") : "";
   const urls = sections.concat(jobs).map(u => `  <url><loc>${BASE}${u}</loc>${alt(u)}<changefreq>weekly</changefreq></url>`).join("\n");
   fs.writeFileSync(path.join(ROOT, "sitemap.xml"),
@@ -990,7 +990,7 @@ function footerHTMLEn(rel) {
   <a class="nav-logo nav-wordmark" href="${rel}en/">Sintera<span>.</span></a>
   <div class="foot-col"><strong>${esc(f.contact)}</strong>Uhelná 160/24, Hradec Králové<br>${esc(f.country)}<br><a href="tel:+420499599861">+420 499 599 861</a><br><a href="mailto:info@sintera.cz">info@sintera.cz</a></div>
   <div class="foot-col"><strong>${esc(f.industries)}</strong>${obory}</div>
-  <div class="foot-col"><strong>${esc(f.more)}</strong><a href="${rel}en/roles/">${esc(f.roles)}</a><br><a href="${rel}en/faq/">${esc(f.faq)}</a><br><a href="${rel}pozice/" hreflang="cs">${esc(f.positions)}</a><br><a href="${rel}index.html" hreflang="cs">${esc(f.czech)}</a><br><a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a></div>
+  <div class="foot-col"><strong>${esc(f.more)}</strong><a href="${rel}en/roles/">${esc(f.roles)}</a><br><a href="${rel}en/case-studies/">${esc(f.cases)}</a><br><a href="${rel}en/faq/">${esc(f.faq)}</a><br><a href="${rel}pozice/" hreflang="cs">${esc(f.positions)}</a><br><a href="${rel}index.html" hreflang="cs">${esc(f.czech)}</a><br><a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a></div>
   <span class="copy">© ${new Date().getFullYear()} Sintera Czech s.r.o. · ${esc(f.companyId)} 29130336 · <a href="${rel}ochrana-osobnich-udaju/" hreflang="cs">${esc(f.privacy)}</a></span>
 </footer>`;
 }
@@ -1001,9 +1001,10 @@ const hreflangLinks = alt => [
   `<link rel="alternate" hreflang="en" href="${BASE}${alt.en}" />`,
   `<link rel="alternate" hreflang="x-default" href="${BASE}${alt.cs}" />`,
 ].join("\n  ");
-function jazykovePary() {
+function jazykovePary(site_) {
   return [["/", "/en/"], ["/obory/", "/en/industries/"], ...enObory().map(o => [`/obory/${o.slug}/`, `/en/industries/${o.en.slug}/`]),
-    ["/co-obsazujeme/", "/en/roles/"], ["/faq/", "/en/faq/"]];
+    ["/co-obsazujeme/", "/en/roles/"], ["/faq/", "/en/faq/"],
+    ["/case-studies/", "/en/case-studies/"], ...enCases(site_).map(c => [`/case-studies/${caseSlug(c.id)}/`, `/en/case-studies/${enCaseSlug(c)}/`])];
 }
 
 /* Stránka mimo úvod (obory, role, FAQ…). lang="en" = anglická verze pod /en/ (texty z en.json → ui).
@@ -1188,7 +1189,8 @@ ${ctaHTML(rel)}`;
       publisher: { "@type": "Organization", name: "Sintera Czech s.r.o.", logo: { "@type": "ImageObject", url: BASE + "/assets/img/logo-color.png" } } },
     breadcrumbLD([["Sintera", BASE + "/"], ["Case studies", BASE + "/case-studies/"], [c.name, url]]),
   ];
-  return pageShell({ rel, title: `${c.name} · Case study · Sintera Czech`, desc: `${c.meta}. ${c.win}`, url, ld, body });
+  return pageShell({ rel, title: `${c.name} · Case study · Sintera Czech`, desc: `${c.meta}. ${c.win}`, url, ld, body,
+    alt: EN.cases[c.id] ? { cs: `/case-studies/${caseSlug(c.id)}/`, en: `/en/case-studies/${enCaseSlug({ ...c, ...EN.cases[c.id] })}/` } : undefined });
 }
 
 function casesIndexPage(site) {
@@ -1200,7 +1202,8 @@ function casesIndexPage(site) {
 ${ctaHTML(rel)}`;
   const ld = [breadcrumbLD([["Sintera", BASE + "/"], ["Case studies", url]]),
     { "@context": "https://schema.org", "@type": "ItemList", itemListElement: site.cases.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, url: `${BASE}/case-studies/${caseSlug(c.id)}/` })) }];
-  return pageShell({ rel, title: "Case studies · Sintera Czech", desc: "Příběhy z reálných search projektů ve výrobě, automotive, kvalitě, technice a managementu: situace, postup a výsledek.", url, ld, body });
+  return pageShell({ rel, title: "Case studies · Sintera Czech", desc: "Příběhy z reálných search projektů ve výrobě, automotive, kvalitě, technice a managementu: situace, postup a výsledek.", url, ld, body,
+    alt: { cs: "/case-studies/", en: "/en/case-studies/" } });
 }
 
 function writeOboryACases(site, labels) {
@@ -1214,7 +1217,7 @@ function writeOboryACases(site, labels) {
   if (chybi.length) console.log(`  ! obory-stranky.json odkazuje na neexistující id: ${[...new Set(chybi)].join(", ")}`);
   console.log(`  ✓ obory/ (${OBORY_STRANKY.length} stránek) + case-studies/ (${site.cases.length} stránek)`);
 }
-const extraSitemapUrls = site => ["/co-obsazujeme/", "/obory/", ...OBORY_STRANKY.map(o => `/obory/${o.slug}/`), "/case-studies/", ...site.cases.map(c => `/case-studies/${caseSlug(c.id)}/`), ...enSitemapUrls()];
+const extraSitemapUrls = site => ["/co-obsazujeme/", "/obory/", ...OBORY_STRANKY.map(o => `/obory/${o.slug}/`), "/case-studies/", ...site.cases.map(c => `/case-studies/${caseSlug(c.id)}/`), ...enSitemapUrls(site)];
 
 /* ---------- /co-obsazujeme/: katalog rolí podle úrovně a oboru ----------
    Proč: klienti se AI ptali „dělá Sintera CNC?" a odpověď nenašli; z webu působilo, že
@@ -1333,8 +1336,7 @@ const svcProvider = { "@type": "ProfessionalService", name: "Sintera Czech s.r.o
 
 function oborPageEn(o, site) {
   const rel = "../../../", url = `${BASE}/en/industries/${o.en.slug}/`, e = o.en, t = EN.ui.industry;
-  // case studies zatím bez vlastní anglické stránky (fáze 3): příběh ve zkratce přímo tady
-  const cases = o.cases.map(id => site.cases.find(c => c.id === id)).filter(c => c && EN.cases[c.id]).map(c => ({ ...c, ...EN.cases[c.id] }));
+  const cases = o.cases.map(id => enCases(site).find(c => c.id === id)).filter(Boolean);
   const refs = o.refs.map(id => site.references.find(r => r.id === id)).filter(r => r && EN.references[r.id]).map(r => ({ ...r, ...EN.references[r.id] }));
   const pos = oborPositions(o, site.positions);
   const role = [...new Set(pos.map(p => enRole(cistyNazevRole(p.t))).filter(Boolean))].slice(0, 18);
@@ -1363,7 +1365,7 @@ function oborPageEn(o, site) {
         <div class="body"><p>${fmt(esc(t.related), { links, all: `<a href="${rel}pozice/" hreflang="cs">${esc(t.relatedAll)}</a>` })}</p></div>`);
   }
   if (cases.length) parts.push(`        <h2 class="page-h2">${esc(t.practice)}</h2>
-        <div class="faq-list">${cases.map(c => `<div class="faq-item"><h3 class="faq-q">${esc(c.name)}</h3><p class="case-modal-meta">${esc(c.meta)}</p><p class="faq-a">${esc(c.situ)} ${esc(c.change)}</p><p class="faq-a"><strong>${esc(t.result)}:</strong> ${esc(c.win)}</p></div>`).join("\n")}</div>`);
+        ${caseRowsHTMLEn(cases, rel)}`);
   if (refs.length) parts.push(`        <h2 class="page-h2">${esc(t.refs)}</h2>
         <div class="quote-list">${refs.map(r => `<figure class="ref-quote"><blockquote>“${esc(r.long || r.quote)}”</blockquote><figcaption><strong translate="no">${esc(r.company)}</strong>${esc(r.role || "")}</figcaption></figure>`).join("\n")}</div>`);
   if (e.faq.length) parts.push(`        <h2 class="page-h2">${esc(t.faq)}</h2>
@@ -1444,7 +1446,7 @@ function faqPageEn() {
 
 function writeEnPages(site) {
   zkontrolujZdrojeEn();
-  for (const dir of ["industries", "roles", "faq"]) fs.rmSync(path.join(ROOT, "en", dir), { recursive: true, force: true }); // plně generované
+  for (const dir of ["industries", "roles", "faq", "case-studies"]) fs.rmSync(path.join(ROOT, "en", dir), { recursive: true, force: true }); // plně generované
   const write = (rel, html) => {
     const fp = path.join(ROOT, "en", rel, "index.html"); fs.mkdirSync(path.dirname(fp), { recursive: true });
     fs.writeFileSync(fp, withCsp(hlidejCestinu(html, EN._allow || [], `/en/${rel}/`)));
@@ -1453,10 +1455,68 @@ function writeEnPages(site) {
   for (const o of enObory()) write(`industries/${o.en.slug}`, oborPageEn(o, site));
   write("roles", rolePageEn(site));
   write("faq", faqPageEn());
+  write("case-studies", casesIndexPageEn(site));
+  for (const c of enCases(site)) write(`case-studies/${enCaseSlug(c)}`, casePageEn(c, site));
+  zkontrolujPribehyEn(site);
   if (CHYBI_ROLE_EN.size) console.log(`  ! /en/ role bez anglického názvu (nezobrazí se, doplň do i18n/en.json → roles): ${[...CHYBI_ROLE_EN].join(", ")}`);
-  console.log(`  ✓ en/industries/ (${enObory().length} stránek) + en/roles/ + en/faq/ (${FAQ_QA_EN.length} otázek)`);
+  console.log(`  ✓ en/industries/ (${enObory().length} stránek) + en/roles/ + en/faq/ (${FAQ_QA_EN.length} otázek) + en/case-studies/ (${enCases(site).length} stránek)`);
 }
-const enSitemapUrls = () => ["/en/industries/", ...enObory().map(o => `/en/industries/${o.en.slug}/`), "/en/roles/", "/en/faq/"];
+/* Case studies anglicky: text ze Sheetu přeložený v en.json → cases (podle id). Slug je anglický (cases[id].slug).
+   Příběhy edituje tým v Sheetu, proto změna češtiny build NEzastaví (denní cron by spadl), jen vypíše varování. */
+const enCaseSlug = c => c.slug || String(c.name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const caseZdroj = c => srcHash({ name: c.name, meta: c.meta, situ: c.situ, why: c.why, change: c.change, win: c.win });
+const enCases = site => site.cases.filter(c => EN.cases[c.id]).map(c => ({ ...c, ...EN.cases[c.id], cs: c }));
+function zkontrolujPribehyEn(site) {
+  const zmenene = enCases(site).filter(c => c._zdroj && c._zdroj !== caseZdroj(c.cs)).map(c => `${c.id} (nový otisk ${caseZdroj(c.cs)})`);
+  if (zmenene.length) console.log("  ! česká case study se změnila, zkontroluj překlad v i18n/en.json → cases: " + zmenene.join(", "));
+}
+function caseRowsHTMLEn(cases, rel) {
+  return `<div class="link-list">` + cases.map(c =>
+    `<a class="link-row" href="${rel}en/case-studies/${enCaseSlug(c)}/"><span class="t">${esc(c.name)}</span>` +
+    `<span class="m">${esc(c.meta)}</span><span class="arr" aria-hidden="true">→</span></a>`).join("\n") + `</div>`;
+}
+function casePageEn(c, site) {
+  const rel = "../../../", slug = enCaseSlug(c), url = `${BASE}/en/case-studies/${slug}/`, t = EN.ui.cases;
+  const obory = enObory().filter(o => o.cases.includes(c.id));
+  const dalsi = enCases(site).filter(x => x.id !== c.id).slice(0, 4);
+  const body = `        <a class="ref-more" href="../" style="display:inline-flex;margin-bottom:28px">${esc(t.back)}</a>
+        <div class="kicker">${esc(t.pageKicker)}</div>
+        <h1 class="lead">${esc(c.name)}</h1>
+        <div class="case-modal-meta" style="margin-top:22px">${esc(c.meta)}</div>
+        <dl class="case-dl" style="margin-top:12px">
+          <div><dt>${esc(t.situ)}</dt><dd>${esc(c.situ)}</dd></div>
+          <div><dt>${esc(t.why)}</dt><dd>${esc(c.why)}</dd></div>
+          <div><dt>${esc(t.change)}</dt><dd>${esc(c.change)}</dd></div>
+          <div><dt>${esc(t.win)}</dt><dd class="win">${esc(c.win)}</dd></div>
+        </dl>
+        <div class="body" style="margin-top:32px"><p>${esc(t.note)}</p></div>
+${obory.length ? `        <h2 class="page-h2">${esc(t.related)}</h2>
+        <div class="pos-tags">${obory.map(o => `<a href="${rel}en/industries/${o.en.slug}/"><span>${esc(o.en.nazev)}</span></a>`).join("")}</div>` : ""}
+        <h2 class="page-h2">${esc(t.more)}</h2>
+        ${caseRowsHTMLEn(dalsi, rel)}
+${ctaHTMLEn(rel)}`;
+  const ld = [
+    { "@context": "https://schema.org", "@type": "Article", headline: c.name, description: `${c.situ} ${c.win}`, about: c.meta, inLanguage: "en",
+      url, mainEntityOfPage: url, author: { "@type": "Organization", name: "Sintera Czech s.r.o.", url: BASE + "/en/" },
+      publisher: { "@type": "Organization", name: "Sintera Czech s.r.o.", logo: { "@type": "ImageObject", url: BASE + "/assets/img/logo-color.png" } } },
+    breadcrumbLD([["Sintera", BASE + "/en/"], [t.kicker, BASE + "/en/case-studies/"], [c.name, url]]),
+  ];
+  return pageShell({ lang: "en", rel, title: `${c.name} · ${t.titleSuffix} · Sintera Czech`, desc: `${c.meta}. ${c.win}`, url, ld, body,
+    alt: { cs: `/case-studies/${caseSlug(c.id)}/`, en: `/en/case-studies/${slug}/` } });
+}
+function casesIndexPageEn(site) {
+  const rel = "../../", url = `${BASE}/en/case-studies/`, t = EN.ui.cases, cases = enCases(site);
+  const body = `        <div class="kicker">${esc(t.kicker)}</div>
+        <h1 class="lead">${esc(t.h1)}</h1>
+        <div class="body"><p>${esc(t.p)}</p></div>
+        <div style="margin-top:40px">${caseRowsHTMLEn(cases, rel)}</div>
+${ctaHTMLEn(rel)}`;
+  const ld = [breadcrumbLD([["Sintera", BASE + "/en/"], [t.kicker, url]]),
+    { "@context": "https://schema.org", "@type": "ItemList", itemListElement: cases.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, url: `${BASE}/en/case-studies/${enCaseSlug(c)}/` })) }];
+  return pageShell({ lang: "en", rel, title: t.title, desc: t.desc, url, ld, body, alt: { cs: "/case-studies/", en: "/en/case-studies/" } });
+}
+const enSitemapUrls = site => ["/en/industries/", ...enObory().map(o => `/en/industries/${o.en.slug}/`), "/en/roles/", "/en/faq/",
+  "/en/case-studies/", ...enCases(site).map(c => `/en/case-studies/${enCaseSlug(c)}/`)];
 
 /* ---------- main ---------- */
 async function main() {
@@ -1522,7 +1582,7 @@ async function main() {
   prerender(site, labels);
   prerenderEn(site);
   writeDetailPages(site.positions, labels);
-  writeSitemap(site.positions, extraSitemapUrls(site));
+  writeSitemap(site.positions, extraSitemapUrls(site), site);
   ulozDataPublikace();   // stálé datePosted (viz jobPosting)
   writeRedirects(site.positions);
   writeFaqPage();

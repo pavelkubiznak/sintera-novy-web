@@ -87,7 +87,11 @@ Google Sheets (4 listy) → `build/build.mjs` → JSON v `assets/data/` + preren
   s `lang="cs"`, firmy v referencích mají `translate="no"`: obojí kontrola zbylé češtiny přeskočí.
   Jazykové páry (`jazykovePary`) řídí hreflang v `<head>`, přepínač CZ/EN i `xhtml:link` v sitemap.xml.
   Odkaz na jinou EN stránku z `/en/` úvodu piš jako `./roles/` (upLevel ho nepřepíše).
-  Zbývá: fáze 3 (EN stránky case studies), fáze 4 (anglický llms.txt / EN sekce v llms.txt).
+- Anglické case studies (fáze 3): `/en/case-studies/` + stránka na příběh (`casePageEn`), text = `en.json → cases[id]`
+  (id ze Sheetu, `slug` = anglická adresa, `_zdroj` = otisk české verze ze Sheetu). Příběhy edituje tým v Sheetu,
+  proto změna češtiny build NEzastaví, jen vypíše „! česká case study se změnila“: uprav překlad a otisk.
+  Příběh bez překladu na /en/ není. Modal na `/en/` vede na anglickou stránku přes `url` v reference-data.en.js.
+  Zbývá: fáze 4 (anglický llms.txt / EN sekce v llms.txt).
 
 ## Build
 

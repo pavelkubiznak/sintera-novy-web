@@ -13,9 +13,9 @@
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
   var DATA = window.SINTERA_DATA || { references: [], cases: [], rotor: [], clients: [] };
-  // texty, které skládá JS (anglická verze /en/ má <html lang="en">); caseLink null = bez odkazu na českou case study
+  // texty, které skládá JS (anglická verze /en/ má <html lang="en">); odkaz z modalu na stránku příběhu = c.url (EN), jinak česká case-studies/<slug>/
   var T = docEl.lang === "en"
-    ? { refMore: "Read in full →", story: "Story: ", storyMore: "Read the story →", situ: "Situation", why: "Why standard recruitment was not enough", change: "What we changed", win: "Result", caseLink: null, q1: "“", q2: "”" }
+    ? { refMore: "Read in full →", story: "Story: ", storyMore: "Read the story →", situ: "Situation", why: "Why standard recruitment was not enough", change: "What we changed", win: "Result", caseLink: "Full story and related industries →", q1: "“", q2: "”" }
     : { refMore: "Číst celé →", story: "Příběh: ", storyMore: "Číst příběh →", situ: "Situace", why: "Proč běžný nábor nestačil", change: "Co jsme změnili", win: "Výsledek", caseLink: "Celý příběh a související obory →", q1: "„", q2: "“" };
   // Formulář reakce na pozici (markup i odesílání) žije v assets/js/apply-form.js → window.SINTERA_APPLY.
 
@@ -129,7 +129,7 @@
       "<div><dt>" + T.why + "</dt><dd>" + esc(c.why) + "</dd></div>" +
       "<div><dt>" + T.change + "</dt><dd>" + esc(c.change) + "</dd></div>" +
       '<div><dt>' + T.win + '</dt><dd class="win">' + esc(c.win) + "</dd></div></dl>" +
-      (c.id && T.caseLink ? '<p style="margin-top:28px"><a class="btn btn-line" href="case-studies/' + esc(String(c.id).replace(/^case_/, "").replace(/_/g, "-")) + '/">' + T.caseLink + '</a></p>' : "");
+      (c.id && T.caseLink ? '<p style="margin-top:28px"><a class="btn btn-line" href="' + esc(c.url || "case-studies/" + String(c.id).replace(/^case_/, "").replace(/_/g, "-") + "/") + '">' + T.caseLink + '</a></p>' : "");
   }
   function refDetailHTML(r) {
     var tags = (r.tags || "").split(";").map(function (t) { return t.trim(); }).filter(Boolean);

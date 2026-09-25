@@ -172,7 +172,9 @@ window.SINTERA_DATA = {
       "why": "Some of the people the role needed looked, from the company's side, as if they did not exist on the market.",
       "change": "Sintera ran a targeted search based on the company's specific needs, required expertise and budget.",
       "win": "Within a very short time, a large number of strong candidates came forward.",
-      "id": "case_uchazeci_kteri_na_trhu_pusobili_jako_nedostupni"
+      "id": "case_uchazeci_kteri_na_trhu_pusobili_jako_nedostupni",
+      "slug": "candidates-who-had-seemed-unreachable",
+      "url": "case-studies/candidates-who-had-seemed-unreachable/"
     },
     {
       "meta": "Quality managers and quality engineers · Manufacturer of automotive safety systems · Czech Republic",
@@ -181,7 +183,9 @@ window.SINTERA_DATA = {
       "why": "In these roles, precise targeting is what counts. A high volume of CVs does not help if the candidates do not meet the requirements.",
       "change": "Sintera presents candidates who meet the requirements of the role.",
       "win": "99% of the candidates presented go on to interview, and most positions are filled through Sintera.",
-      "id": "case_presnost_misto_objemu_99_kandidatu_na_pohovor"
+      "id": "case_presnost_misto_objemu_99_kandidatu_na_pohovor",
+      "slug": "accuracy-over-volume-99-percent-to-interview",
+      "url": "case-studies/accuracy-over-volume-99-percent-to-interview/"
     },
     {
       "meta": "Management and specialist positions · Aerospace and defence · Czech Republic",
@@ -190,7 +194,9 @@ window.SINTERA_DATA = {
       "why": "The pool of candidates with the specific qualifications is limited, and they rarely apply on their own.",
       "change": "Sintera delivers enough candidates in a short time, even for specific positions, together with the information needed about each of them.",
       "win": "The cooperation has lasted several years, and candidates arrive with a good understanding of the position and the company.",
-      "id": "case_specificke_pozice_za_kratkou_dobu"
+      "id": "case_specificke_pozice_za_kratkou_dobu",
+      "slug": "specific-positions-in-a-short-time",
+      "url": "case-studies/specific-positions-in-a-short-time/"
     },
     {
       "meta": "Country Manager India and strategic management roles · Medical device manufacturer · Central Bohemia",
@@ -199,7 +205,9 @@ window.SINTERA_DATA = {
       "why": "Earlier attempts to fill these positions had run into difficulties.",
       "change": "The consultants identified exactly which companies were likely to employ a suitable candidate.",
       "win": "The position was filled ahead of the planned date.",
-      "id": "case_mezinarodni_manazer_pred_planovanym_terminem"
+      "id": "case_mezinarodni_manazer_pred_planovanym_terminem",
+      "slug": "international-manager-ahead-of-schedule",
+      "url": "case-studies/international-manager-ahead-of-schedule/"
     },
     {
       "meta": "Mould maintenance specialist, design engineer · Automotive and automation · Czech Republic",
@@ -208,7 +216,9 @@ window.SINTERA_DATA = {
       "why": "A standard job ad rarely brings a highly specialised profile. On top of that, one imprecise brief is enough to slow the whole process down.",
       "change": "Sintera structures the brief, asks follow-up questions and turns the profile into a concrete search plan.",
       "win": "The selection ended sooner than expected, and further positions were filled in a short time.",
-      "id": "case_role_kde_rozhodlo_spravne_prelozene_zadani"
+      "id": "case_role_kde_rozhodlo_spravne_prelozene_zadani",
+      "slug": "roles-where-a-well-defined-brief-made-the-difference",
+      "url": "case-studies/roles-where-a-well-defined-brief-made-the-difference/"
     },
     {
       "meta": "Textile specialist · Manufacturer of viscose and technical fibres · Lovosice area",
@@ -217,7 +227,9 @@ window.SINTERA_DATA = {
       "why": "The search had already taken a long time. The standard channels did not produce a candidate.",
       "change": "Sintera ran a targeted search and provided regular reporting.",
       "win": "The position was filled in a very short time, and the cooperation extended to further roles.",
-      "id": "case_pozice_kterou_trh_dlouho_nenabidl"
+      "id": "case_pozice_kterou_trh_dlouho_nenabidl",
+      "slug": "a-position-the-market-had-not-offered",
+      "url": "case-studies/a-position-the-market-had-not-offered/"
     },
     {
       "meta": "Management positions and specialists · Certification, testing and automotive · Prague and other regions",
@@ -226,7 +238,9 @@ window.SINTERA_DATA = {
       "why": "Narrow expertise requires knowledge of the company, the industry and the candidate market.",
       "change": "Sintera keeps a stable team of consultants and maintains its knowledge of the company over the long term.",
       "win": "The references confirm long-term cooperation, accurate profiles and filled senior positions.",
-      "id": "case_dlouhodobe_partnerstvi_napric_obory"
+      "id": "case_dlouhodobe_partnerstvi_napric_obory",
+      "slug": "long-term-partnership-across-fields",
+      "url": "case-studies/long-term-partnership-across-fields/"
     },
     {
       "meta": "Quality engineers and technical roles · Automotive · Central Bohemia",
@@ -235,7 +249,9 @@ window.SINTERA_DATA = {
       "why": "Without a detailed understanding of the role, the search risks poor targeting and unnecessary rounds of irrelevant candidates.",
       "change": "The consultants ask about the content of the work, the team and any changes to the brief, and adjust the search accordingly.",
       "win": "Better identification of candidates and a flexible response when the profile changes along the way.",
-      "id": "case_search_rizeny_detailnim_briefem"
+      "id": "case_search_rizeny_detailnim_briefem",
+      "slug": "search-driven-by-a-detailed-brief",
+      "url": "case-studies/search-driven-by-a-detailed-brief/"
     }
   ],
   "rotor": [
