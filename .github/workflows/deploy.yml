@@ -21,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 50      # IndexNow porovnává s revizí před pushem
 
       - uses: actions/setup-node@v5
         with:
@@ -30,6 +32,7 @@ jobs:
         run: node build/build.mjs
 
       - name: Commit & push, jen když se výstup změnil
+        id: commit
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -39,5 +42,18 @@ jobs:
           else
             git commit -m "chore: rebuild webu ze Sheetu [skip ci]"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "Výstup aktualizován a publikován přes GitHub Pages."
           fi
+
+      # Ohlásí změněné stránky Bingu/Seznamu (Bing = zdroj vyhledávání ChatGPT). Nikdy neshodí deploy.
+      - name: Ohlásit změny vyhledávačům (IndexNow)
+        if: github.event_name == 'push' || steps.commit.outputs.changed == 'true'
+        continue-on-error: true
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          sleep 60   # ať GitHub Pages stihne publikovat, než si Bing stránky stáhne
+          SINCE="HEAD~1"
+          if [ -n "$BEFORE" ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then SINCE="$BEFORE"; fi
+          node build/indexnow.mjs "$SINCE"

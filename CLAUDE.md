@@ -63,6 +63,11 @@ Google Sheets (4 listy) → `build/build.mjs` → JSON v `assets/data/` + preren
   domény, inline `<script>` bloky jen s hashem, který build spočítá sám. Nový inline skript nebo
   nový externí zdroj (CDN, obrázky z cizí domény, fetch na jiný server) bez úpravy `withCsp`
   v `build/build.mjs` prohlížeč zablokuje. Po ruční úpravě HTML spusť build.
+- AI viditelnost (ChatGPT/Claude/Perplexity nespouštějí JS): výpis `/pozice/` build vkládá přímo
+  do HTML (markery `POZICE_LIST_*`), `llms.txt` = úvod z `assets/data/ai-legibility/llms.txt`
+  + seznam pozic generovaný buildem. Po deployi `build/indexnow.mjs` ohlásí změněné stránky
+  Bingu/Seznamu (klíč = soubor `<hex>.txt` v kořeni, nemazat).
+- Apps Script: každý text od návštěvníka do tabulky přes `bunka_()` (jinak `=…` spustí vzorec).
 
 ## Build
 
