@@ -11,6 +11,8 @@ Kontakt: Sintera Czech s.r.o., IČ 29130336, Uhelná 160/24, Hradec Králové. T
 ## Klíčové stránky
 - [Úvod a jak pracujeme](https://www.sintera.cz/): pozicování, metoda direct search, case studies a reference.
 - [Volné pozice](https://www.sintera.cz/pozice/): aktuálně obsazované role podle oboru, seniority a kraje.
+- [Jaké pozice obsazujeme](https://www.sintera.cz/co-obsazujeme/): konkrétní role od CNC a seřizovačů po ředitele, podle úrovně i oboru.
+- [Obory](https://www.sintera.cz/obory/): stránky jednotlivých oborů s postupem, referencemi a aktuálními pozicemi.
 - [Časté dotazy](https://www.sintera.cz/faq/): jak spolupráce probíhá, obory, regiony, rychlost, kdo za vyhledávání odpovídá.
 - [Reference](https://www.sintera.cz/reference-info/): rozšířený výběr referencí na vyžádání (na firemní e-mail).
 - [Ochrana osobních údajů](https://www.sintera.cz/ochrana-osobnich-udaju/)
@@ -18,7 +20,8 @@ Kontakt: Sintera Czech s.r.o., IČ 29130336, Uhelná 160/24, Hradec Králové. T
 ## Pro koho je Sintera
 - Personální ředitele, HR a vedení firem, které nemůžou obsadit odborné nebo manažerské role běžnou inzercí.
 - Obory: výroba a strojírenství, automotive, technika a konstrukce, kvalita a zkušebnictví, logistika a nákup, servis a údržba, projekty a stavebnictví, finance, HR, obchod, management.
-- Úrovně: specialisté a technici, management i top management.
+- Úrovně: výrobní a řemeslné technické profese (CNC programátory a obsluhu CNC strojů, seřizovače, frézaře, svářeče, zámečníky, nástrojaře, elektromechaniky a techniky údržby), technici a inženýři (kvalita, konstrukce, technologie, PLC a robotika), management i top management. Sintera NENÍ jen executive search pro manažery.
+- Přehled konkrétních rolí: https://www.sintera.cz/co-obsazujeme/
 
 ## Pro uchazeče
 - Aktuální volné pozice jsou na https://www.sintera.cz/pozice/ (seznam níže). Každá pozice má vlastní stránku s popisem a formulářem pro reakci.

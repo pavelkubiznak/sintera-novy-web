@@ -20,7 +20,7 @@ const HOST = new URL(BASE).host;
 function toUrl(f) {
   if (f === "index.html") return BASE + "/";
   if (f === "llms.txt") return BASE + "/llms.txt";
-  if (/^(pozice|faq|reference-info|ochrana-osobnich-udaju)\/index\.html$/.test(f)) return BASE + "/" + f.replace(/index\.html$/, "");
+  if (/^(pozice|faq|reference-info|ochrana-osobnich-udaju|co-obsazujeme|obory|case-studies)\/index\.html$/.test(f)) return BASE + "/" + f.replace(/index\.html$/, "");
   if (/^(obory|case-studies)\/([^/]+\/)?index\.html$/.test(f)) return BASE + "/" + f.replace(/index\.html$/, "");
   if (/^pozice\/\d+\.html$/.test(f)) return BASE + "/" + f;   // i smazané (uzavřené pozice): IndexNow tím hlásí 404
   return null;

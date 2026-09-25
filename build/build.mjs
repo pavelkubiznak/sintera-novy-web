@@ -854,7 +854,7 @@ function footerHTML(rel) {
   <a class="nav-logo nav-wordmark" href="${rel}index.html">Sintera<span>.</span></a>
   <div class="foot-col"><strong>Kontakt</strong>Uhelná 160/24, Hradec Králové<br><a href="tel:+420499599861">+420 499 599 861</a><br><a href="mailto:info@sintera.cz">info@sintera.cz</a></div>
   <div class="foot-col"><strong>Obory</strong>${obory}</div>
-  <div class="foot-col"><strong>Více</strong><a href="${rel}pozice/">Volné pozice</a><br><a href="${rel}case-studies/">Case studies</a><br><a href="${rel}faq/">Časté dotazy</a><br><a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a></div>
+  <div class="foot-col"><strong>Více</strong><a href="${rel}co-obsazujeme/">Jaké pozice obsazujeme</a><br><a href="${rel}pozice/">Volné pozice</a><br><a href="${rel}case-studies/">Case studies</a><br><a href="${rel}faq/">Časté dotazy</a><br><a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a></div>
   <span class="copy">© ${new Date().getFullYear()} Sintera Czech s.r.o. · IČ 29130336 · <a href="${rel}ochrana-osobnich-udaju/">Ochrana osobních údajů</a></span>
 </footer>`;
 }
@@ -1058,7 +1058,76 @@ function writeOboryACases(site, labels) {
   if (chybi.length) console.log(`  ! obory-stranky.json odkazuje na neexistující id: ${[...new Set(chybi)].join(", ")}`);
   console.log(`  ✓ obory/ (${OBORY_STRANKY.length} stránek) + case-studies/ (${site.cases.length} stránek)`);
 }
-const extraSitemapUrls = site => ["/obory/", ...OBORY_STRANKY.map(o => `/obory/${o.slug}/`), "/case-studies/", ...site.cases.map(c => `/case-studies/${caseSlug(c.id)}/`)];
+const extraSitemapUrls = site => ["/co-obsazujeme/", "/obory/", ...OBORY_STRANKY.map(o => `/obory/${o.slug}/`), "/case-studies/", ...site.cases.map(c => `/case-studies/${caseSlug(c.id)}/`)];
+
+/* ---------- /co-obsazujeme/: katalog rolí podle úrovně a oboru ----------
+   Proč: klienti se AI ptali „dělá Sintera CNC?" a odpověď nenašli; z webu působilo, že
+   Sintera dělá jen management. Stránka vyjmenuje skutečné role (aktuální pozice + registr
+   všech dosud zveřejněných názvů), rozdělené na výrobní/řemeslné profese, techniky a management. */
+const ACRO = { cnc: "CNC", plc: "PLC", sap: "SAP", "r&d": "R&D", hr: "HR", it: "IT", smt: "SMT", cam: "CAM", b2b: "B2B", aj: "AJ", nj: "NJ" };
+function cistyNazevRole(t) {
+  let s = String(t || "").replace(/\s*[|–]\s.*$/, "").replace(/\s*\([^)]*\)\s*$/, "").replace(/\s+senior\/junior$/i, "").trim();
+  s = s.replace(/[A-Za-zÀ-ž&]+/g, w => ACRO[w.toLowerCase()] || w);
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+const REMESLO = /\bcnc\b|udrzb|serizov|frez|soustruz|horizontk|karusel|svar|zamecn|nastroj|elektromech|sklad|operator|obsluh|montazn|brus|lakyr|elektrikar|udrzbar/;
+function urovenRole(nazev, s) {
+  if (s === "man" || s === "top" || /^(vedouci|mistr|manazer|manager|reditel)|director|leader|head of/.test(deburr(nazev))) return "vedeni";
+  return REMESLO.test(deburr(nazev)) ? "remeslo" : "technik";
+}
+function katalogRoli(positions) {
+  const map = new Map(); // klíč = seřazená slova názvu, takže „CNC programátor" = „Programátor CNC"
+  const add = (t, o, s) => { const n = cistyNazevRole(t); const k = deburr(n).split(/\s+/).sort().join(" "); if (!n || map.has(k)) return; map.set(k, { n, o, u: urovenRole(n, s) }); };
+  for (const p of newestFirst(positions)) add(p.t, p.o, p.s);
+  for (const k of ID_REG.keys()) add(k, classifyObor("", k), /manaz|manager|reditel|vedouci|mistr|director|leader/.test(deburr(k)) ? "man" : "spec");
+  return [...map.values()].sort((a, b) => a.n.localeCompare(b.n, "cs"));
+}
+const ROLE_FAQ = () => FAQ_QA.filter(x => /jen manažerské|CNC programátory, seřizovače/.test(x.q));
+
+function rolePage(site, labels) {
+  const rel = "../", url = `${BASE}/co-obsazujeme/`;
+  const kat = katalogRoli(site.positions);
+  const tags = arr => `<div class="pos-tags">${arr.map(r => `<span>${esc(r.n)}</span>`).join("")}</div>`;
+  const urovne = [
+    ["remeslo", "Výrobní a řemeslné profese", "Seřizovače, CNC programátory a frézaře, svářeče, zámečníky, nástrojaře nebo elektromechaniky hledáme stejně pečlivě jako manažery. Právě tihle lidé práci mají, firmy si je drží a na inzeráty neodpovídají."],
+    ["technik", "Technici, inženýři a specialisté", "Inženýry kvality, konstruktéry, technology, PLC programátory, servisní techniky, nákupčí, logistiky, controllery i HR specialisty."],
+    ["vedeni", "Mistři, management a vedení", "Mistry a vedoucí výroby, manažery kvality, nákupu, servisu a projektů, provozní a obchodní ředitele i mezinárodní manažerské role."],
+  ];
+  const oborStranka = code => OBORY_STRANKY.find(o => o.obory.includes(code));
+  const podleOboru = Object.keys(labels.OBORY).map(code => {
+    const r = kat.filter(x => x.o === code); if (!r.length) return "";
+    const st = oborStranka(code);
+    return `<div class="faq-item"><h3 class="faq-q">${st ? `<a href="${rel}obory/${st.slug}/">${esc(labels.OBORY[code])} →</a>` : esc(labels.OBORY[code])}</h3>${tags(r)}</div>`;
+  }).join("\n");
+  const faq = ROLE_FAQ();
+  const body = `        <div class="kicker">Co obsazujeme</div>
+        <h1 class="lead">Od seřizovačů a CNC programátorů po výrobní ředitele</h1>
+        <div class="body"><p>Sintera nehledá jen manažery. Přímé oslovení (direct search) má smysl u každé role, kterou inzerát nepřinese, a ve výrobě a technice je takových rolí většina. Níže jsou pozice, které jsme obsazovali nebo právě obsazujeme, podle úrovně a podle oboru.</p></div>
+${urovne.map(([k, h, t]) => { const r = kat.filter(x => x.u === k); return r.length ? `        <h2 class="page-h2">${esc(h)}</h2>
+        <div class="body"><p>${esc(t)}</p></div>
+        ${tags(r)}` : ""; }).join("\n")}
+        <h2 class="page-h2">Podle oboru</h2>
+        <div class="faq-list">${podleOboru}</div>
+        <div class="body" style="margin-top:28px"><p>Hledáte roli, která v seznamu není? Pošlete nám ji. Seznam ukazuje příklady, ne hranice toho, co umíme.</p></div>
+${faq.length ? `        <h2 class="page-h2">Časté dotazy</h2>
+        <div class="faq-list">${faq.map(x => `<div class="faq-item"><h3 class="faq-q">${esc(x.q)}</h3><p class="faq-a">${esc(x.a)}</p></div>`).join("\n")}</div>` : ""}
+        <p style="margin-top:32px"><a class="btn btn-line" href="${rel}pozice/">Aktuální volné pozice →</a></p>
+${ctaHTML(rel)}`;
+  const ld = [breadcrumbLD([["Sintera", BASE + "/"], ["Jaké pozice obsazujeme", url]]),
+    { "@context": "https://schema.org", "@type": "Service", name: "Direct search pro výrobní, technické i manažerské pozice", serviceType: "Direct search", url,
+      description: "Obsazujeme výrobní a řemeslné profese (CNC, seřizovači, svářeči, zámečníci, nástrojaři), techniky a inženýry i management a vedení ve výrobních a technických firmách po celé ČR.",
+      provider: { "@type": "ProfessionalService", name: "Sintera Czech s.r.o.", url: BASE + "/" }, areaServed: { "@type": "Country", name: "Česká republika" },
+      hasOfferCatalog: { "@type": "OfferCatalog", name: "Obsazované role", itemListElement: kat.map(r => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: `Vyhledání: ${r.n}` } })) } }];
+  if (faq.length) ld.push(faqLD(faq));
+  return pageShell({ rel, title: "Jaké pozice obsazujeme: od CNC po management · Sintera Czech",
+    desc: "CNC programátoři, seřizovači, svářeči, zámečníci, technici údržby, inženýři kvality, konstruktéři i vedoucí výroby a ředitelé. Přehled rolí, které Sintera obsazuje.", url, ld, body });
+}
+function writeRolePage(site, labels) {
+  const dir = path.join(ROOT, "co-obsazujeme"); fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, "index.html"), withCsp(rolePage(site, labels)));
+  const k = katalogRoli(site.positions);
+  console.log(`  ✓ co-obsazujeme/ (${k.length} rolí: ${["remeslo", "technik", "vedeni"].map(u => k.filter(x => x.u === u).length).join(" / ")})`);
+}
 
 /* ---------- main ---------- */
 async function main() {
@@ -1129,6 +1198,7 @@ async function main() {
   writeFaqPage();
   writeLlmsTxt(site.positions, labels, site);
   writeOboryACases(site, labels);
+  writeRolePage(site, labels);
   writePoziceIndex(site.positions, labels);
   injectIntoStatic(["pozice/index.html", "reference-info/index.html", "ochrana-osobnich-udaju/index.html", "reference/reference-2026-c5219413a491/index.html"]);
   console.log(`Hotovo: ${site.positions.length} pozic, ${site.references.length} referencí, ${site.cases.length} cases, ${site.clients.length} klientů, ${site.rotor.length} rotor vět.`);

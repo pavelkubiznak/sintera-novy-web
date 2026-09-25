@@ -1166,3 +1166,5 @@ a:focus-visible, button:focus-visible, summary:focus-visible, .pos-row:focus-vis
 .pos-tags a { text-decoration: none; }
 footer { flex-wrap: wrap; row-gap: 40px; }
 .foot-col a { white-space: nowrap; }
+.hero-sub a { color: inherit; border-bottom: 1px solid color-mix(in oklab, var(--accent) 70%, transparent); transition: color 0.25s; }
+.hero-sub a:hover { color: var(--accent); }

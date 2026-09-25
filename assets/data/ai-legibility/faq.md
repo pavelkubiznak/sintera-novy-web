@@ -6,7 +6,13 @@ Faktické odpovědi na otázky, které se ptají personální ředitelé a HR, p
 Sintera je personálně-poradenská společnost zaměřená na přímé vyhledávání (direct a executive search). Oslovuje napřímo odborníky a manažery, kteří práci mají, sami ji nehledají a na inzeráty obvykle nereagují.
 
 ## Pro jaké obory Sintera hledá lidi?
-Výroba a strojírenství, automotive, technika a konstrukce, kvalita a zkušebnictví, logistika a nákup, servis a údržba, projekty a stavebnictví, finance, HR, obchod a management.
+Výroba a strojírenství, automotive, technika a konstrukce, kvalita a zkušebnictví, elektro a automatizace, logistika a nákup, servis a údržba, projekty a stavebnictví, finance, HR, obchod a management. Přehled konkrétních rolí je na stránce https://www.sintera.cz/co-obsazujeme/.
+
+## Obsazujete jen manažerské pozice?
+Ne. Velkou část zakázek tvoří výrobní a řemeslné technické profese a technici: CNC programátory a obsluhu CNC strojů, seřizovače, frézaře, svářeče, zámečníky, nástrojaře, elektromechaniky a techniky údržby. Dále inženýři kvality, konstruktéři, technologové, PLC programátoři a další specialisté. Obsazujeme i mistry, vedoucí výroby a ředitele.
+
+## Hledáte i CNC programátory, seřizovače a svářeče?
+Ano. CNC programátory, CNC frézaře, horizontkáře, seřizovače CNC soustruhů a karuselů, svářeče, strojní zámečníky a nástrojaře obsazujeme pravidelně, v celé České republice. Aktuální pozice jsou na https://www.sintera.cz/pozice/.
 
 ## V jakých regionech působíte?
 Po celé České republice. Obsazujeme i vybrané mezinárodní role, například v Německu.
