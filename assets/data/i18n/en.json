@@ -14,13 +14,13 @@
   "homepage": {
     "<html lang=\"cs\"": "<html lang=\"en\"",
     "<title>Sintera Czech · direct search do výroby a techniky, od CNC po management</title>": "<title>Sintera Czech · Direct search in manufacturing and engineering, from CNC to management</title>",
-    "<meta name=\"description\" content=\"Najdeme lidi, kteří práci mají a sami se nehlásí: CNC programátory, seřizovače, svářeče, techniky, inženýry i manažery. Do 10 dnů první kandidáti na míru zadání.\">": "<meta name=\"description\" content=\"We find people in the Czech Republic who have a job and are not applying: CNC programmers, setters, welders, technicians, engineers and managers. First candidates within 10 days, matched to your brief.\">",
+    "<meta name=\"description\" content=\"Najdeme lidi, kteří práci mají a sami se nehlásí: CNC programátory, seřizovače, svářeče, techniky, inženýry i manažery. Do 10 dnů první kandidáti na míru zadání.\">": "<meta name=\"description\" content=\"We find people in the Czech Republic who have a job and are not applying for new ones: CNC programmers, setters, welders, technicians, engineers and managers. First candidates within 10 days, matched to your brief.\">",
     "<link rel=\"canonical\" href=\"%%BASE%%/\">": "<link rel=\"canonical\" href=\"%%BASE%%/en/\">",
     "<meta property=\"og:locale\" content=\"cs_CZ\">": "<meta property=\"og:locale\" content=\"en_GB\">\n<meta property=\"og:locale:alternate\" content=\"cs_CZ\">",
     "<meta property=\"og:title\" content=\"Sintera Czech · direct search do výroby a techniky, od CNC po management\">": "<meta property=\"og:title\" content=\"Sintera Czech · Direct search in manufacturing and engineering, from CNC to management\">",
-    "<meta property=\"og:description\" content=\"Najdeme lidi, kteří práci mají a sami se nehlásí. Do 10 dnů první kandidáti na míru zadání.\">": "<meta property=\"og:description\" content=\"We find people who have a job and are not applying. First candidates within 10 days, matched to your brief.\">",
+    "<meta property=\"og:description\" content=\"Najdeme lidi, kteří práci mají a sami se nehlásí. Do 10 dnů první kandidáti na míru zadání.\">": "<meta property=\"og:description\" content=\"We find people who have a job and are not applying for new ones. First candidates within 10 days, matched to your brief.\">",
     "<meta property=\"og:url\" content=\"%%BASE%%/\">": "<meta property=\"og:url\" content=\"%%BASE%%/en/\">",
-    "<meta name=\"twitter:description\" content=\"Najdeme lidi, kteří práci mají a sami se nehlásí. Do 10 dnů první kandidáti na míru zadání.\">": "<meta name=\"twitter:description\" content=\"We find people who have a job and are not applying. First candidates within 10 days, matched to your brief.\">",
+    "<meta name=\"twitter:description\" content=\"Najdeme lidi, kteří práci mají a sami se nehlásí. Do 10 dnů první kandidáti na míru zadání.\">": "<meta name=\"twitter:description\" content=\"We find people who have a job and are not applying for new ones. First candidates within 10 days, matched to your brief.\">",
     "\"url\":\"%%BASE%%/\",\"inLanguage\":\"cs\"": "\"url\":\"%%BASE%%/en/\",\"inLanguage\":\"en\"",
     "<a class=\"skip-link\" href=\"#top\">Přeskočit na obsah</a>": "<a class=\"skip-link\" href=\"#top\">Skip to content</a>",
     "<a href=\"#trh\">Jak pracujeme</a>": "<a href=\"#trh\">How we work</a>",
@@ -43,7 +43,7 @@
     "<span class=\"hl-in\">už jste viděli.</span>": "<span class=\"hl-in\">the active candidates.</span>",
     "<span class=\"hl-in\">My najdeme</span>": "<span class=\"hl-in\">We find</span>",
     "<span class=\"hl-in\"><em>ty ostatní.</em></span>": "<span class=\"hl-in\"><em>the others.</em></span>",
-    "<p class=\"hero-sub rv-load\" style=\"--d:5\">Hledáme lidi, kteří práci mají a sami se nehlásí, <a href=\"co-obsazujeme/\">od seřizovačů a CNC programátorů po výrobní ředitele</a>. Do 10 dnů vám představíme první kandidáty podle zadání, které si společně odsouhlasíme.</p>": "<p class=\"hero-sub rv-load\" style=\"--d:5\">We search the Czech labour market for people who have a job and are not applying, <a href=\"./roles/\">from CNC setters and programmers to production directors</a>. Within 10 days we present the first candidates, matched to a brief we agree on together.</p>",
+    "<p class=\"hero-sub rv-load\" style=\"--d:5\">Hledáme lidi, kteří práci mají a sami se nehlásí, <a href=\"co-obsazujeme/\">od seřizovačů a CNC programátorů po výrobní ředitele</a>. Do 10 dnů vám představíme první kandidáty podle zadání, které si společně odsouhlasíme.</p>": "<p class=\"hero-sub rv-load\" style=\"--d:5\">We search the Czech labour market for people who have a job and are not applying for new ones, <a href=\"./roles/\">from CNC setters and programmers to production directors</a>. Within 10 days we present the first candidates, matched to a brief we agree on together.</p>",
     "Pošlete nám pozici, která vám nedá spát<span": "Send us the role that keeps you up at night<span",
     "<a class=\"btn btn-line\" href=\"tel:+420499599861\">Zavolejte nám</a>": "<a class=\"btn btn-line\" href=\"tel:+420499599861\">Call us</a>",
     "<p class=\"proof-intro rv\">Klienti nás neoceňují za množství CV. Oceňují <b>přesnost profilů</b>, <b>použitelné podklady</b> a <b>přehled o tom, co se na trhu skutečně děje.</b></p>": "<p class=\"proof-intro rv\">Clients do not value us for the number of CVs. They value <b>accurate profiles</b>, <b>candidate notes they can use</b> and <b>a clear view of what is really happening in the market.</b></p>",
@@ -220,7 +220,7 @@
       "long": "Work on filling the position started immediately after the order. Communication is open and efficient. A suitable person was selected from the candidates presented, the contract was signed and the new employee started on the agreed date."
     },
     "ref_linet": {
-      "role": "Country Manager India and strategic management roles",
+      "role": "Country Manager for India and strategic management roles",
       "quote": "The position was filled ahead of the planned date.",
       "long": "The consultants identified exactly which companies were likely to employ a suitable candidate. The candidates matched both the requirements and the budget. A position that had been difficult to fill in the past was filled ahead of the planned date."
     },
@@ -236,10 +236,10 @@
       "_zdroj": "fbd33018db1a",
       "meta": "Technical roles for a data centre and emergency response · Systems integrator · Prague",
       "name": "Candidates who had seemed unreachable",
-      "situ": "Specialised technical roles in a narrow field, where the usual channels do not bring enough relevant candidates.",
-      "why": "Some of the people the role needed looked, from the company's side, as if they did not exist on the market.",
+      "situ": "Specialised technical roles in a narrow field, where the usual channels do not produce enough relevant candidates.",
+      "why": "From the company's perspective, some of the people needed for the role seemed unavailable on the market.",
       "change": "Sintera ran a targeted search based on the company's specific needs, required expertise and budget.",
-      "win": "Within a very short time, a large number of strong candidates came forward."
+      "win": "Within a very short time, the company had a large number of strong candidates."
     },
     "case_presnost_misto_objemu_99_kandidatu_na_pohovor": {
       "slug": "accuracy-over-volume-99-percent-to-interview",
@@ -264,7 +264,7 @@
     "case_mezinarodni_manazer_pred_planovanym_terminem": {
       "slug": "international-manager-ahead-of-schedule",
       "_zdroj": "6e2a34b545fd",
-      "meta": "Country Manager India and strategic management roles · Medical device manufacturer · Central Bohemia",
+      "meta": "Country Manager for India and strategic management roles · Medical device manufacturer · Central Bohemia",
       "name": "An international manager ahead of schedule",
       "situ": "Demanding international roles that had been difficult to fill in the past.",
       "why": "Earlier attempts to fill these positions had run into difficulties.",
@@ -277,26 +277,26 @@
       "meta": "Mould maintenance specialist, design engineer · Automotive and automation · Czech Republic",
       "name": "Roles where a well-defined brief made the difference",
       "situ": "Very specific technical positions can be slowed down by an unclear brief.",
-      "why": "A standard job ad rarely brings a highly specialised profile. On top of that, one imprecise brief is enough to slow the whole process down.",
+      "why": "A standard job ad rarely brings a highly specialised profile. In addition, one imprecise brief is enough to slow the whole process down.",
       "change": "Sintera structures the brief, asks follow-up questions and turns the profile into a concrete search plan.",
-      "win": "The selection ended sooner than expected, and further positions were filled in a short time."
+      "win": "The recruitment process was completed sooner than expected, and further positions were filled in a short time."
     },
     "case_pozice_kterou_trh_dlouho_nenabidl": {
       "slug": "a-position-the-market-had-not-offered",
       "_zdroj": "1a103f078cce",
       "meta": "Textile specialist · Manufacturer of viscose and technical fibres · Lovosice area",
-      "name": "A position the market had not offered for a long time",
+      "name": "A position that had been hard to fill for a long time",
       "situ": "The position had been open for a long time and could not be filled.",
       "why": "The search had already taken a long time. The standard channels did not produce a candidate.",
-      "change": "Sintera ran a targeted search and provided regular reporting.",
-      "win": "The position was filled in a very short time, and the cooperation extended to further roles."
+      "change": "Sintera ran a targeted search and provided regular reports.",
+      "win": "The position was filled in a very short time, and the cooperation continued with further roles."
     },
     "case_dlouhodobe_partnerstvi_napric_obory": {
       "slug": "long-term-partnership-across-fields",
       "_zdroj": "c60252e4a6db",
       "meta": "Management positions and specialists · Certification, testing and automotive · Prague and other regions",
       "name": "A long-term partnership across fields",
-      "situ": "Repeated filling of senior and specialised roles in demanding fields.",
+      "situ": "Repeated recruitment for senior and specialised roles in demanding fields.",
       "why": "Narrow expertise requires knowledge of the company, the industry and the candidate market.",
       "change": "Sintera keeps a stable team of consultants and maintains its knowledge of the company over the long term.",
       "win": "The references confirm long-term cooperation, accurate profiles and filled senior positions."
@@ -313,7 +313,7 @@
     }
   },
   "organization": {
-    "description": "Sintera Czech is a recruitment consultancy specialising in direct search for manufacturing and engineering companies in the Czech Republic. It fills skilled trade and technical roles (CNC programmers, machine setters, milling operators, welders, fitters, toolmakers, electromechanics, maintenance technicians), technician and engineering roles (quality, design, process engineering, automation) as well as management and top management. It approaches people directly who have a job and are not actively looking.",
+    "description": "Sintera Czech is a recruitment consultancy specialising in direct search for manufacturing and engineering companies in the Czech Republic. It fills skilled trade and technical roles (CNC programmers, machine setters, milling operators, welders, fitters, toolmakers, electromechanical technicians, maintenance technicians), technician and engineering roles (quality, design, process engineering, automation) as well as management and top management. It approaches people directly who have a job and are not actively looking.",
     "areaServed": [
       {
         "@type": "Country",
@@ -359,7 +359,7 @@
       "welder",
       "fitter",
       "toolmaker",
-      "electromechanic",
+      "electromechanical technician",
       "maintenance technician",
       "service technician",
       "PLC programmer",
@@ -457,7 +457,7 @@
     "cta": {
       "h2": "Do you have a role you cannot fill?",
       "p": "Send us the job description or a few sentences about the role. We will get back to you and suggest how to approach it.",
-      "send": "Send us a position",
+      "send": "Send us a role",
       "call": "Call us"
     },
     "steps": [
@@ -466,7 +466,7 @@
       "We approach them directly, including people who are not actively looking for a job.",
       "We present a shortlist with a comment on each candidate: why they match, their motivation, availability and expectations."
     ],
-    "stepsNote": "We usually present the first candidates matched to your brief within 10 days of the moment we agree on the role profile together. A named consultant is responsible for each search.",
+    "stepsNote": "We usually present the first candidates matched to your brief within 10 days after we agree on the role profile together. A named consultant is responsible for each search.",
     "industry": {
       "back": "← All industries",
       "kicker": "Industries",
@@ -501,7 +501,7 @@
         [
           "remeslo",
           "Skilled trades and production roles",
-          "We look for machine setters, CNC programmers and milling operators, welders, fitters, toolmakers and electromechanics with the same care as for managers. These are exactly the people who have a job, whom companies want to keep and who do not respond to job ads."
+          "We look for machine setters, CNC programmers and milling operators, welders, fitters, toolmakers and electromechanical technicians with the same care as for managers. These are exactly the people who have a job, whom companies want to keep and who do not respond to job ads."
         ],
         [
           "technik",
@@ -561,7 +561,7 @@
         "An experienced machine setter or CNC programmer is hard for a company to replace. They are not actively looking for a job. When they do consider a change, they decide based on the specific machines, the shift pattern, the commute and the people they will work with. A general ad such as “CNC operator wanted” will not reach them.",
         "It is similar with leadership roles in production. A foreman or production manager who can lead people and also understands the technology is rarely available on the market. These people need to be found and approached, and they need to hear why a change makes sense for them."
       ],
-      "jak": "We translate your brief into the language of the market: which machines and control systems, what type of production (single-piece or series), what tolerances and what shift pattern. Based on this, we search in companies where the same work is actually done, and we give candidates concrete reasons to talk to you.",
+      "jak": "We translate your brief into the language of the market: which machines and control systems, what type of production (single-piece or series production), what tolerances and what shift pattern. Based on this, we search in companies where the same work is actually done, and we give candidates concrete reasons to talk to you.",
       "faq": [
         {
           "q": "Do you fill technical and skilled trade roles, or only management?",
@@ -569,7 +569,7 @@
         },
         {
           "q": "How quickly will you present the first candidates?",
-          "a": "Usually within 10 days of the moment we agree on the role profile together. The candidates are matched to your brief."
+          "a": "Usually within 10 days after we agree on the role profile together. The candidates are matched to your brief."
         }
       ]
     },
@@ -582,7 +582,7 @@
       "lead": "For automotive suppliers, we look for quality engineers, process and production specialists, maintenance staff, design engineers and managers. We have worked with automotive companies over the long term.",
       "proc": [
         "Automotive depends on standards, audits and precise processes. A quality engineer usually needs experience with IATF 16949 and tools such as FMEA or 8D. A process engineer needs experience with the specific technology of the line. People with this combination work for other suppliers and do not respond to job ads.",
-        "The second trap is volume. When a job ad brings dozens of CVs that do not meet the requirements, the quality or production team loses time sorting them instead of doing its own work."
+        "The second problem is volume. When a job ad brings dozens of CVs that do not meet the requirements, the quality or production team loses time sorting them instead of doing its own work."
       ],
       "jak": "We search in companies with the same type of production and customers. For each candidate we add a comment: what they can do, why they are considering a change, when they can start and what salary they expect.",
       "faq": [
@@ -624,13 +624,13 @@
       "_zdroj": "ed8423e5f68e",
       "nazev": "Electrical engineering and automation",
       "h1": "Direct search in electrical engineering and automation",
-      "desc": "We find electrical designers, PLC specialists, robot programmers, electrical engineers and electromechanics by approaching them directly.",
-      "lead": "We look for electrical designers, electrical engineers, PLC specialists, robot programmers, electromechanics and engineers for power electronics.",
+      "desc": "We find electrical designers, PLC specialists, robot programmers, electrical engineers and electromechanical technicians by approaching them directly.",
+      "lead": "We look for electrical designers, electrical engineers, PLC specialists, robot programmers, electromechanical technicians and power electronics engineers.",
       "proc": [
         "There are few PLC and robot programmers on the market, and they often work on projects that people do not leave halfway through. An electrical designer needs to know specific standards, software and types of projects.",
         "A standard job ad does not show the difference between an electrician and a person who designs switchboards and machine control systems. So the people who respond are mostly those who do not match the role."
       ],
-      "jak": "We clarify the control systems, robots and software, and how much of the work is done on installation sites or at customers. We approach people from integrators, machine builders and plants where the same technology is used.",
+      "jak": "We clarify the control systems, robots and software, and how much of the work is done on installation sites or at customer sites. We approach people from integrators, machine builders and plants where the same technology is used.",
       "faq": [
         {
           "q": "Do you also fill roles for integrators and machine builders?",
@@ -638,7 +638,7 @@
         },
         {
           "q": "How quickly will you present the first candidates?",
-          "a": "Usually within 10 days of the moment we agree on the role profile together. The candidates are matched to your brief."
+          "a": "Usually within 10 days after we agree on the role profile together. The candidates are matched to your brief."
         }
       ]
     },
@@ -684,7 +684,7 @@
         },
         {
           "q": "How quickly will you present the first candidates?",
-          "a": "Usually within 10 days of the moment we agree on the role profile together. The candidates are matched to your brief."
+          "a": "Usually within 10 days after we agree on the role profile together. The candidates are matched to your brief."
         }
       ]
     },
@@ -719,10 +719,10 @@
       "desc": "We find buyers, procurement managers, category managers, logistics specialists, dispatchers and analysts by approaching them directly.",
       "lead": "We look for buyers and procurement managers, project buyers, category managers, logistics specialists, dispatchers and logistics process analysts.",
       "proc": [
-        "A good buyer knows the supplier market, can negotiate and often speaks another language. The company keeps them, because they have costs under their control.",
+        "A good buyer knows the supplier market, can negotiate and often speaks another language. The company keeps them because they control costs.",
         "In logistics, knowledge of specific processes and systems is what matters. A general “buyer” or “logistics specialist” profile covers very different jobs, so a job ad attracts mostly responses that do not fit."
       ],
-      "jak": "We clarify whether it is strategic, operational or project procurement, which material category, which language and which systems. We search in companies with a similar type of procurement and suppliers.",
+      "jak": "We clarify whether it is strategic, operational or project procurement, which material category, which language and which systems. We search in companies with a similar type of procurement and similar suppliers.",
       "faq": [
         {
           "q": "Do you fill strategic as well as project procurement roles?",
@@ -730,7 +730,7 @@
         },
         {
           "q": "How quickly will you present the first candidates?",
-          "a": "Usually within 10 days of the moment we agree on the role profile together. The candidates are matched to your brief."
+          "a": "Usually within 10 days after we agree on the role profile together. The candidates are matched to your brief."
         }
       ]
     }
@@ -740,7 +740,7 @@
     "CNC Programátor": "CNC programmer",
     "CNC Programátor / Specialista": "CNC programmer / specialist",
     "CNC specialista": "CNC specialist",
-    "Elektromechanik": "Electromechanic",
+    "Elektromechanik": "Electromechanical technician",
     "Frézař": "Milling machine operator",
     "Horizontkář CNC": "CNC horizontal boring machine operator",
     "Nástrojař": "Toolmaker",
@@ -792,9 +792,9 @@
     "Technický projektový manažer R&D": "Technical project manager (R&D)",
     "Technolog": "Manufacturing engineer",
     "Testovací technik": "Test technician",
-    "Vývojový konstruktér": "Development design engineer",
+    "Vývojový konstruktér": "R&D design engineer",
     "Zkušební specialista": "Test specialist",
-    "Zkušební technik": "Testing technician",
+    "Zkušební technik": "Test technician",
     "Field Service & Site Manager": "Field Service & Site Manager",
     "Manager vývojového a testovacího centra": "Head of development and testing centre",
     "Manažer CNC výroby": "CNC production manager",
@@ -816,7 +816,7 @@
     "Stavbyvedoucí": "Construction site manager",
     "Vedoucí montáže": "Head of assembly",
     "Vedoucí týmu": "Team leader",
-    "Vedoucí výrobního úseku": "Head of production section",
+    "Vedoucí výrobního úseku": "Production section manager",
     "Vedoucí výroby": "Head of production",
     "Programátor CNC": "CNC programmer"
   }

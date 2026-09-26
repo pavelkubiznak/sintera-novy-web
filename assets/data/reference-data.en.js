@@ -147,7 +147,7 @@ window.SINTERA_DATA = {
     },
     {
       "company": "LINET",
-      "role": "Country Manager India and strategic management roles",
+      "role": "Country Manager for India and strategic management roles",
       "quote": "The position was filled ahead of the planned date.",
       "long": "The consultants identified exactly which companies were likely to employ a suitable candidate. The candidates matched both the requirements and the budget. A position that had been difficult to fill in the past was filled ahead of the planned date.",
       "logo": "../assets/logos/processed/mono-light/linet-mono-light.png",
@@ -168,10 +168,10 @@ window.SINTERA_DATA = {
     {
       "meta": "Technical roles for a data centre and emergency response · Systems integrator · Prague",
       "name": "Candidates who had seemed unreachable",
-      "situ": "Specialised technical roles in a narrow field, where the usual channels do not bring enough relevant candidates.",
-      "why": "Some of the people the role needed looked, from the company's side, as if they did not exist on the market.",
+      "situ": "Specialised technical roles in a narrow field, where the usual channels do not produce enough relevant candidates.",
+      "why": "From the company's perspective, some of the people needed for the role seemed unavailable on the market.",
       "change": "Sintera ran a targeted search based on the company's specific needs, required expertise and budget.",
-      "win": "Within a very short time, a large number of strong candidates came forward.",
+      "win": "Within a very short time, the company had a large number of strong candidates.",
       "id": "case_uchazeci_kteri_na_trhu_pusobili_jako_nedostupni",
       "slug": "candidates-who-had-seemed-unreachable",
       "url": "case-studies/candidates-who-had-seemed-unreachable/"
@@ -199,7 +199,7 @@ window.SINTERA_DATA = {
       "url": "case-studies/specific-positions-in-a-short-time/"
     },
     {
-      "meta": "Country Manager India and strategic management roles · Medical device manufacturer · Central Bohemia",
+      "meta": "Country Manager for India and strategic management roles · Medical device manufacturer · Central Bohemia",
       "name": "An international manager ahead of schedule",
       "situ": "Demanding international roles that had been difficult to fill in the past.",
       "why": "Earlier attempts to fill these positions had run into difficulties.",
@@ -213,20 +213,20 @@ window.SINTERA_DATA = {
       "meta": "Mould maintenance specialist, design engineer · Automotive and automation · Czech Republic",
       "name": "Roles where a well-defined brief made the difference",
       "situ": "Very specific technical positions can be slowed down by an unclear brief.",
-      "why": "A standard job ad rarely brings a highly specialised profile. On top of that, one imprecise brief is enough to slow the whole process down.",
+      "why": "A standard job ad rarely brings a highly specialised profile. In addition, one imprecise brief is enough to slow the whole process down.",
       "change": "Sintera structures the brief, asks follow-up questions and turns the profile into a concrete search plan.",
-      "win": "The selection ended sooner than expected, and further positions were filled in a short time.",
+      "win": "The recruitment process was completed sooner than expected, and further positions were filled in a short time.",
       "id": "case_role_kde_rozhodlo_spravne_prelozene_zadani",
       "slug": "roles-where-a-well-defined-brief-made-the-difference",
       "url": "case-studies/roles-where-a-well-defined-brief-made-the-difference/"
     },
     {
       "meta": "Textile specialist · Manufacturer of viscose and technical fibres · Lovosice area",
-      "name": "A position the market had not offered for a long time",
+      "name": "A position that had been hard to fill for a long time",
       "situ": "The position had been open for a long time and could not be filled.",
       "why": "The search had already taken a long time. The standard channels did not produce a candidate.",
-      "change": "Sintera ran a targeted search and provided regular reporting.",
-      "win": "The position was filled in a very short time, and the cooperation extended to further roles.",
+      "change": "Sintera ran a targeted search and provided regular reports.",
+      "win": "The position was filled in a very short time, and the cooperation continued with further roles.",
       "id": "case_pozice_kterou_trh_dlouho_nenabidl",
       "slug": "a-position-the-market-had-not-offered",
       "url": "case-studies/a-position-the-market-had-not-offered/"
@@ -234,7 +234,7 @@ window.SINTERA_DATA = {
     {
       "meta": "Management positions and specialists · Certification, testing and automotive · Prague and other regions",
       "name": "A long-term partnership across fields",
-      "situ": "Repeated filling of senior and specialised roles in demanding fields.",
+      "situ": "Repeated recruitment for senior and specialised roles in demanding fields.",
       "why": "Narrow expertise requires knowledge of the company, the industry and the candidate market.",
       "change": "Sintera keeps a stable team of consultants and maintains its knowledge of the company over the long term.",
       "win": "The references confirm long-term cooperation, accurate profiles and filled senior positions.",

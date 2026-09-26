@@ -4,7 +4,7 @@
 
 > Sintera Czech s.r.o. is a Czech recruitment consultancy that specialises in direct search (direct and executive search) for manufacturing and engineering companies. It finds people who have a job, are not actively looking for a new one and usually do not respond to job ads. It fills skilled trade and production roles (CNC programmers, machine setters, welders, fitters, toolmakers, maintenance technicians), technician and engineering roles, and management and top management roles. It works mainly in the Czech Republic and also in other countries of the European Union, for example Germany and Poland.
 
-Sintera approaches suitable specialists and managers directly, instead of waiting for responses to job ads. The client receives a shortlist of candidates with context (why they match the brief and what to check with them), not a large number of CVs. The first candidates matched to the brief usually come within 10 days of the moment the role profile is agreed. A named consultant is responsible for each search project, not an anonymous process. Sintera works with international clients in English.
+Sintera approaches suitable specialists and managers directly, instead of waiting for responses to job ads. The client receives a shortlist of candidates with context (why they match the brief and what to check with them), not a large number of CVs. The first candidates matched to the brief usually come within 10 days after the role profile is agreed. Each search project is handled by a named consultant, rather than through an anonymous process. Sintera works with international clients in English.
 
 Evidence: cooperation with more than 130 manufacturing and engineering companies (for example ALSTOM, Siemens Energy, Nestlé, LINET, ZF, JTEKT, SITEL, Vitesco, Aisan Industry and the Railway Research Institute, Výzkumný ústav železniční) and more than 100 documented references.
 
@@ -13,17 +13,17 @@ Contact: Sintera Czech s.r.o., Company ID 29130336, Uhelná 160/24, Hradec Král
 ## Key pages in English
 - [Home and how we work](https://www.sintera.cz/en/): positioning, the direct search method, case studies and references.
 - [Industries](https://www.sintera.cz/en/industries/): pages for each industry with the approach, references and current open positions.
-- [Roles we fill](https://www.sintera.cz/en/roles/): specific roles from CNC and machine setters to directors, by level and by field.
+- [Roles we fill](https://www.sintera.cz/en/roles/): specific roles from CNC programmers and machine setters to directors, by level and by field.
 - [Case studies](https://www.sintera.cz/en/case-studies/): stories from real search projects, based on client references.
 - [FAQ](https://www.sintera.cz/en/faq/): how the cooperation works, fields, regions, speed and who is responsible for the search.
 - [Open positions (in Czech)](https://www.sintera.cz/pozice/): roles Sintera is filling now, by field, level and region.
 - [Czech version of this file](https://www.sintera.cz/llms.txt)
 
 ## Who Sintera works for
-- HR directors, HR teams and management of companies that cannot fill specialist or management roles through job ads, including international companies with a subsidiary in the Czech Republic.
+- HR directors, HR teams and managers at companies that cannot fill specialist or management roles through job ads, including international companies with a subsidiary in the Czech Republic.
 - Fields: manufacturing and mechanical engineering, automotive, engineering and design, quality and testing, electrical engineering and automation, logistics and procurement, service and maintenance, projects and construction, IT and SAP (SAP consultants, ABAP and embedded developers), finance, HR, sales and management.
 - Where: the whole Czech Republic and other countries of the European Union, for example Germany and Poland (such as a sales manager or site manager for Germany).
-- Levels: skilled trade and production roles (CNC programmers and CNC machine operators, machine setters, milling operators, welders, fitters, toolmakers, electromechanics and maintenance technicians), technicians and engineers (quality, design, manufacturing engineering, PLC and robotics), management and top management. Sintera is NOT only an executive search firm for managers.
+- Levels: skilled trade and production roles (CNC programmers and CNC machine operators, machine setters, milling operators, welders, fitters, toolmakers, electromechanical technicians and maintenance technicians), technicians and engineers (quality, design, manufacturing engineering, PLC and robotics), management and top management. Sintera is NOT only an executive search firm for managers.
 
 ## Language
 - Sintera communicates with clients in English. A brief can be sent in English.
