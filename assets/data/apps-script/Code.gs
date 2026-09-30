@@ -321,9 +321,13 @@ function handleHit_(body) {
 }
 
 /* ============ B3) Reakce na pozici (formulář na webu) ============
-   Web pošle { action:'application', id, position, loc, name, contact, note, website, source }.
+   Web pošle { action:'application', id, position, loc, name, contact, note, website, source,
+   files?: [{ name, data(base64) }] }.
    Zapíše řádek do neveřejné tabulky (list "reakce_pozice"), pošle e-mail do Sintery
-   (APPLY_TO, výchozí info@sintera.cz) a uchazeči potvrzení, pokud uvedl e-mail. */
+   (APPLY_TO, výchozí info@sintera.cz) a uchazeči potvrzení, pokud uvedl e-mail.
+   Životopis (až 5 souborů) jede jako PŘÍLOHA toho interního e-mailu: e-mail je zároveň
+   upozornění, nic se neukládá do složky, kterou by nikdo nehlídal. Odpověď nese
+   `prilohy` = kolik souborů opravdu odešlo; web podle toho uchazeči řekne, když ne všechny. */
 function handleApplication_(body) {
   if (body.website) return json_({ ok: true });                       // honeypot: skryté pole vyplní jen robot
 
@@ -338,31 +342,43 @@ function handleApplication_(body) {
 
   // stejný člověk, stejná pozice, do 2 minut = dvojklik, nezapisovat dvakrát
   var cache = CacheService.getScriptCache();
-  var ck = 'app:' + id + ':' + contact.toLowerCase();
+  // (počet příloh je v klíči: když pošle reakci a hned znovu už se životopisem, druhá projde)
+  var ck = 'app:' + id + ':' + contact.toLowerCase() + ':' + (Array.isArray(body.files) ? body.files.length : 0);
   if (cache.get(ck)) return json_({ ok: true, note: 'duplicate' });
   cache.put(ck, '1', 120);
 
   var cas = Utilities.formatDate(new Date(), 'Europe/Prague', 'yyyy-MM-dd HH:mm:ss');
-  logApplication_({ cas: cas, id: id, position: position, loc: loc, name: name, contact: contact, note: note, source: source });
+  var prilohy = prilohyZWebu_(body.files, name);
+  var odeslano = 0;                                                    // kolik příloh opravdu odešlo e-mailem
 
   // Interní upozornění má vlastní strop (40/h), aby záplava robotů nevyčerpala denní kvótu Gmailu.
   // Reakce je v tabulce i tehdy, když se e-mail neposlal.
   var applyTo = prop_('APPLY_TO', 'info@sintera.cz');
   var contactEmail = emailDomain_(contact) ? contact.toLowerCase() : '';
   if (lzeOdeslatInterni_()) {
-    var subject = 'Reakce na pozici: ' + position + (loc ? ' (' + loc + ')' : '');
+    var subject = 'Reakce na pozici: ' + position + (loc ? ' (' + loc + ')' : '') + (prilohy.length ? ' · životopis v příloze' : '');
     var text =
       'Nová reakce z webu sintera.cz\n\n' +
       'Pozice: ' + position + (loc ? ' (' + loc + ')' : '') + (id ? '  [id ' + id + ']' : '') + '\n' +
       'Jméno: ' + name + '\n' +
       'Kontakt: ' + contact + '\n' +
-      'Čas: ' + cas + '\n\n' +
-      (note ? note + '\n\n' : '(bez zprávy)\n\n') +
+      'Čas: ' + cas + '\n' +
+      (prilohy.length ? 'Přílohy (' + prilohy.length + '): ' + prilohy.map(function (b) { return b.getName(); }).join(', ') + '\n' : '') +
+      (prilohy.chyby.length ? 'Nepřijato: ' + prilohy.chyby.join(', ') + '\n' : '') +
+      '\n' + (note ? note + '\n\n' : '(bez zprávy)\n\n') +
       'Záznam je i v tabulce, list "reakce_pozice".';
     var opt = { name: 'Sintera web' };
     if (contactEmail) opt.replyTo = contactEmail;                     // Odpovědět = rovnou uchazeči
-    try { GmailApp.sendEmail(applyTo, subject, text, opt); } catch (e) {}
+    if (prilohy.length) opt.attachments = prilohy;
+    try { GmailApp.sendEmail(applyTo, subject, text, opt); odeslano = prilohy.length; } catch (e) {
+      // e-mail s přílohou neprošel (třeba vadný soubor): upozornění pošli aspoň bez ní, ať reakce nezapadne
+      delete opt.attachments;
+      try { GmailApp.sendEmail(applyTo, subject.replace(' · životopis v příloze', ' · PŘÍLOHU SE NEPODAŘILO PŘIPOJIT'), text, opt); } catch (e2) {}
+    }
   }
+
+  logApplication_({ cas: cas, id: id, position: position, loc: loc, name: name, contact: contact, note: note, source: source,
+    prilohy: prilohy.length ? prilohy.map(function (b) { return b.getName(); }).join('\n') + (odeslano ? '\n(v e-mailu na ' + applyTo + ')' : '\n(NEODESLÁNO, chybí v e-mailu)') : '' });
 
   // potvrzení uchazeči: jen když dal e-mail, a jen v rámci společného stropu (chrání před rozesíláním jménem Sintery)
   if (contactEmail && lzeOdeslatReferenci_()) {
@@ -371,6 +387,7 @@ function handleApplication_(body) {
     var potvrzeni =
       'Dobrý den,\n\n' +
       'děkujeme za vaši reakci na pozici ' + position + (loc ? ' (' + loc + ')' : '') + '. ' +
+      (odeslano ? 'Váš životopis jsme přijali. ' : '') +
       'Dorazila k nám a ozveme se vám.\n\n' +
       'Kdybyste chtěli cokoli doplnit, stačí odpovědět na tento e-mail.\n\n' +
       'Sintera Czech\n+420 499 599 861';
@@ -379,14 +396,43 @@ function handleApplication_(body) {
     try { GmailApp.sendEmail(contactEmail, 'Vaše reakce na pozici ' + position, potvrzeni, o2); } catch (e) {}
   }
 
-  return json_({ ok: true });
+  return json_({ ok: true, prilohy: odeslano });
 }
 
 function logApplication_(d) {
   var ss = neverejnaTabulka_();                 // osobní údaje NIKDY do veřejné tabulky
   var sh = ss.getSheetByName('reakce_pozice') || ss.insertSheet('reakce_pozice');
-  if (sh.getLastRow() === 0) sh.appendRow(['cas', 'pozice_id', 'pozice', 'misto', 'jmeno', 'kontakt', 'zprava', 'zdroj']);
-  sh.appendRow([d.cas, bunka_(d.id), bunka_(d.position), bunka_(d.loc), bunka_(d.name), bunka_(d.contact), bunka_(d.note), bunka_(d.source)]);
+  if (sh.getLastRow() === 0) sh.appendRow(['cas', 'pozice_id', 'pozice', 'misto', 'jmeno', 'kontakt', 'zprava', 'zdroj', 'prilohy']);
+  else if (sh.getRange(1, 9).getValue() !== 'prilohy') sh.getRange(1, 9).setValue('prilohy');   // starší list: doplnit sloupec
+  sh.appendRow([d.cas, bunka_(d.id), bunka_(d.position), bunka_(d.loc), bunka_(d.name), bunka_(d.contact), bunka_(d.note), bunka_(d.source), bunka_(d.prilohy)]);
+}
+
+/* Přílohy z formuláře → pole blobů pro GmailApp (+ .chyby = co se odmítlo).
+   Typ se určuje podle přípony, ne podle toho, co tvrdí prohlížeč. Limity drží i web
+   (apply-form.js): 5 souborů, 10 MB na soubor, 15 MB celkem (Gmail bere přílohy do 25 MB). */
+var PRILOHY_TYPY = { pdf: 'application/pdf', doc: 'application/msword',
+  docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  odt: 'application/vnd.oasis.opendocument.text', rtf: 'application/rtf', txt: 'text/plain',
+  jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png' };
+
+function prilohyZWebu_(files, jmeno) {
+  var out = [], celkem = 0;
+  out.chyby = [];
+  if (!Array.isArray(files)) return out;
+  var predpona = String(jmeno || '').replace(/[\\/:*?"<>|\r\n\t]+/g, ' ').trim().slice(0, 60);
+  files.slice(0, 5).forEach(function (f) {
+    var nazev = String((f && f.name) || '').replace(/[\\/:*?"<>|\r\n\t]+/g, ' ').trim().slice(-120);
+    var m = /\.([a-z0-9]+)$/i.exec(nazev), typ = m && PRILOHY_TYPY[m[1].toLowerCase()];
+    if (!typ || !f.data) { out.chyby.push(nazev || '(bez názvu)'); return; }
+    var bajty;
+    try { bajty = Utilities.base64Decode(String(f.data)); } catch (e) { out.chyby.push(nazev); return; }
+    if (bajty.length > 10 * 1024 * 1024 || celkem + bajty.length > 15 * 1024 * 1024) { out.chyby.push(nazev + ' (moc velký)'); return; }
+    celkem += bajty.length;
+    // jméno uchazeče do názvu souboru, ať se v poště nesejde deset „CV.pdf“
+    var cil = predpona && nazev.toLowerCase().indexOf(predpona.toLowerCase()) === -1 ? predpona + ' - ' + nazev : nazev;
+    out.push(Utilities.newBlob(bajty, typ, cil));
+  });
+  return out;
 }
 
 // Interní upozornění na reakce: strop za hodinu (nezávislý na stropu pro e-maily ven)
