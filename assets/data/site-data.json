@@ -1,6 +1,182 @@
 {
   "positions": [
     {
+      "id": 892,
+      "t": "Vedoucí oddělení Pozemní stavby",
+      "o": "projekty",
+      "s": "man",
+      "k": [
+        "Praha"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "2026-10-03",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Když se rozhoduje o podobě stavby, váš odborný názor má mít váhu.\n\nMáte za sebou projekty, na kterých jste získali zkušenosti, a láká vás příležitost využít je ve větším měřítku?\n\nSilný lídr ve svém oboru hledá do týmu kolegu či kolegyni pro projektování pozemních staveb. Čekají vás technicky zajímavé zakázky, spolupráce se zkušenými odborníky a prostor ovlivnit řešení od prvního návrhu po výslednou dokumentaci.",
+      "whyTalk": "Dlouhodobé, technicky náročné a strategické projekty, u kterých uvidíte skutečný význam své práce.",
+      "responsibilities": [
+        "Na návrhu pozemních staveb a koordinaci jejich technického řešení.",
+        "Na kvalitě projektové dokumentace a návaznostech mezi profesemi.",
+        "Na přípravě technických podkladů, nabídek a harmonogramů.",
+        "Na projektech, které propojují více odborností a dávají prostor moderním postupům včetně BIM."
+      ],
+      "mustHave": [
+        "Zkušenosti s projektováním pozemních staveb, stavební vzdělání a schopnost vidět souvislosti celého projektu. Autorizace ČKAIT v oboru Pozemní stavby je nezbytná."
+      ],
+      "niceToHave": [
+        "Zkušenosti s koordinací zakázek, BIM nebo vedením týmu budou výhodou. Délku praxe posoudíme individuálně podle toho, co máte za sebou.",
+        "Angličtinu uvítáme jako výhodu. Ozvěte se i bez její znalosti."
+      ],
+      "offer": [
+        "Práci pro lídra ve svém oboru na atraktivních projektech.",
+        "Dlouhodobé, technicky náročné a strategické projekty, u kterých uvidíte skutečný význam své práce.",
+        "Nadstandardní platové ohodnocení a motivační výkonové odměny.",
+        "Služební auto i pro soukromé účely.",
+        "Silné odborné zázemí a profesionální spolupráci s evropským přesahem.",
+        "Prostor pro odborný i osobní rozvoj včetně specializovaných kurzů.",
+        "Pružnou pracovní dobu, 5 týdnů dovolené a zdravotní volno navíc.",
+        "Další nadstandardní zaměstnanecké benefity."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Nadstandardní platové ohodnocení a motivační výkonové odměny.",
+      "cta": "Láká vás vědět víc? Napište nám a připojte telefonní číslo. Prvním krokem může být jen krátký rozhovor o projektech a o tom, co hledáte vy.",
+      "featured": true
+    },
+    {
+      "id": 893,
+      "t": "Vedoucí oddělení Statika a dynamika staveb",
+      "o": "projekty",
+      "s": "man",
+      "k": [
+        "Praha",
+        "Zlínský kraj"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "2026-10-03",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Konstrukce, které vás zaměstnají. Projekty, které vás posunou.\n\nBaví vás hledat správné konstrukční řešení, promýšlet varianty a jít do hloubky technického problému?\n\nSilný lídr ve svém oboru hledá do týmu kolegu či kolegyni se zkušenostmi ve statice a dynamice staveb. Nabízí komplexní konstrukce, zajímavé výpočtové úlohy a spolupráci s odborníky, se kterými můžete řešení skutečně diskutovat.\n\nVaše zkušenosti se tu promítnou do návrhů i do odborné kvality celého projektu.",
+      "whyTalk": "Dlouhodobé, technicky náročné a strategické projekty, u kterých uvidíte skutečný význam své práce.",
+      "responsibilities": [
+        "Na návrhu a posuzování stavebních konstrukcí.",
+        "Na statických a dynamických výpočtech a volbě vhodných technických řešení.",
+        "Na odborné kvalitě projektové dokumentace.",
+        "Na koordinaci statiky s ostatními profesemi.",
+        "Na využívání moderních výpočtových nástrojů a postupů."
+      ],
+      "mustHave": [
+        "Zkušenosti s navrhováním konstrukcí, stavební vzdělání a orientace v technických normách. Autorizace ČKAIT v oboru Statika a dynamika staveb je nezbytná."
+      ],
+      "niceToHave": [
+        "Znalost moderních výpočtových programů, zkušenosti s většími stavebními celky nebo vedením týmu budou výhodou. Pevnou hranici počtu let praxe nestanovujeme – zajímají nás především vaše zkušenosti a konstrukce, na kterých jste pracovali.",
+        "Angličtinu uvítáme jako výhodu. Ozvěte se i bez její znalosti."
+      ],
+      "offer": [
+        "Práci pro lídra ve svém oboru na atraktivních projektech.",
+        "Dlouhodobé, technicky náročné a strategické projekty, u kterých uvidíte skutečný význam své práce.",
+        "Nadstandardní platové ohodnocení a motivační výkonové odměny.",
+        "Služební auto i pro soukromé účely.",
+        "Silné odborné zázemí a profesionální spolupráci s evropským přesahem.",
+        "Prostor pro odborný i osobní rozvoj včetně specializovaných kurzů.",
+        "Pružnou pracovní dobu, 5 týdnů dovolené a zdravotní volno navíc.",
+        "Další nadstandardní zaměstnanecké benefity.",
+        "Pracoviště si můžete zvolit v Praze nebo Uherském Brodě."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Nadstandardní platové ohodnocení a motivační výkonové odměny.",
+      "cta": "Zajímá vás, jaké konstrukce a projekty vás čekají? Napište nám a připojte telefonní číslo. Rádi probereme podrobnosti i vaše představy o dalším profesním kroku.",
+      "featured": true
+    },
+    {
+      "id": 894,
+      "t": "Vedoucí oddělení Vodohospodářské stavby a TZB",
+      "o": "projekty",
+      "s": "man",
+      "k": [
+        "Praha"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "2026-10-03",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Od první koncepce k řešení, které funguje jako celek.\n\nMáte zkušenosti s vodohospodářskými stavbami a baví vás projekty, ve kterých je potřeba propojit více technických disciplín?\n\nSilný lídr ve svém oboru hledá do týmu kolegu či kolegyni, kteří chtějí využít svou odbornost na komplexních investičních projektech. Čeká vás propojení vodohospodářských řešení a technických zařízení budov, spolupráce napříč profesemi a prostor ovlivnit podobu projektu v jednotlivých stupních dokumentace.",
+      "whyTalk": "Dlouhodobé, technicky náročné a strategické projekty, u kterých uvidíte skutečný význam své práce.",
+      "responsibilities": [
+        "Na návrhu a koordinaci vodohospodářských řešení a TZB.",
+        "Na dokumentaci od koncepčních studií po realizační stupeň.",
+        "Na technické kvalitě projektu a návaznostech mezi profesemi.",
+        "Na spolupráci s investory, úřady a externími dodavateli.",
+        "Na přípravě technických částí nabídek a využívání moderních projektových postupů."
+      ],
+      "mustHave": [
+        "Zkušenosti s projektováním, technické či stavební vzdělání a orientace v normách a povolovacích procesech. Autorizace ČKAIT v oboru Stavby vodního hospodářství a krajinného inženýrství je nezbytná."
+      ],
+      "niceToHave": [
+        "Přesah do TZB, znalost BIM, koordinace komplexních zakázek nebo zkušenost s vedením týmu budou výhodou. Délku praxe posoudíme podle vašich dosavadních projektů a zkušeností.",
+        "Angličtinu uvítáme jako výhodu. Ozvěte se i bez její znalosti."
+      ],
+      "offer": [
+        "Práci pro lídra ve svém oboru na atraktivních projektech.",
+        "Dlouhodobé, technicky náročné a strategické projekty, u kterých uvidíte skutečný význam své práce.",
+        "Nadstandardní platové ohodnocení a motivační výkonové odměny.",
+        "Služební auto i pro soukromé účely.",
+        "Silné odborné zázemí a profesionální spolupráci s evropským přesahem.",
+        "Prostor pro odborný i osobní rozvoj včetně specializovaných kurzů.",
+        "Pružnou pracovní dobu, 5 týdnů dovolené a zdravotní volno navíc.",
+        "Další nadstandardní zaměstnanecké benefity."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Nadstandardní platové ohodnocení a motivační výkonové odměny.",
+      "cta": "Vidíte v tom příležitost pro sebe? Napište nám a připojte telefonní číslo. Během krátkého rozhovoru zjistíte víc o projektech i možnostech svého uplatnění.",
+      "featured": true
+    },
+    {
+      "id": 895,
+      "t": "Vedoucí požární ochrany a BOZP",
+      "o": "projekty",
+      "s": "man",
+      "k": [
+        "Praha"
+      ],
+      "bonus": "",
+      "rezim": "onsite",
+      "datePosted": "2026-10-03",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Bezpečnost stavby začíná u dobrého návrhu. Právě ten můžete ovlivnit.\n\nRozumíte požárně bezpečnostním řešením a baví vás hledat cestu, která obstojí po odborné stránce a zároveň funguje v celém projektu?\n\nSilný lídr ve svém oboru hledá do týmu kolegu či kolegyni se zkušenostmi v požární bezpečnosti staveb. Nabízí atraktivní projekty, spolupráci s odborníky dalších profesí a prostor zapojit vlastní zkušenosti už od prvních návrhů.\n\nČeká vás práce, ve které mají technický úsudek, promyšlené řešení a kvalitní dokumentace skutečnou váhu.",
+      "whyTalk": "Dlouhodobé, technicky náročné a strategické projekty, u kterých uvidíte skutečný význam své práce.",
+      "responsibilities": [
+        "Na požárně bezpečnostních řešeních staveb v jednotlivých stupních projektu.",
+        "Na odborné koordinaci dokumentace požární ochrany a BOZP.",
+        "Na technické kvalitě a správnosti projektových výstupů.",
+        "Na spolupráci s projektanty, investory, státní správou a externími specialisty.",
+        "Na přípravě odborných podkladů a technických částí nabídek."
+      ],
+      "mustHave": [
+        "Zkušenosti s požární bezpečností staveb, technické vzdělání a orientace v souvisejících předpisech a normách. Autorizace ČKAIT v oboru Požární bezpečnost staveb je nezbytná."
+      ],
+      "niceToHave": [
+        "Zkušenosti s většími stavebními celky, přesah do BOZP, koordinace projektů nebo vedení týmu budou výhodou. Délku praxe posoudíme individuálně podle vašeho odborného zaměření a zkušeností.",
+        "Angličtinu uvítáme jako výhodu. Ozvěte se i bez její znalosti."
+      ],
+      "offer": [
+        "Práci pro lídra ve svém oboru na atraktivních projektech.",
+        "Dlouhodobé, technicky náročné a strategické projekty, u kterých uvidíte skutečný význam své práce.",
+        "Nadstandardní platové ohodnocení a motivační výkonové odměny.",
+        "Silné odborné zázemí a profesionální spolupráci s evropským přesahem.",
+        "Prostor pro odborný i osobní rozvoj včetně specializovaných kurzů.",
+        "Pružnou pracovní dobu, 5 týdnů dovolené a zdravotní volno navíc.",
+        "Další nadstandardní zaměstnanecké benefity."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Nadstandardní platové ohodnocení a motivační výkonové odměny.",
+      "cta": "Zaujalo vás to? Napište nám a připojte telefonní číslo. Rádi vám představíme projekty a probereme, co by pro vás mělo být zajímavé na další pracovní příležitosti.",
+      "featured": true
+    },
+    {
       "id": 891,
       "t": "Mistr výroby",
       "o": "prumysl",
