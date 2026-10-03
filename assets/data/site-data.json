@@ -457,7 +457,7 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Má smysl se ozvat i bez zkušenosti přímo ze seřizování. Pokud vás baví technika, jste manuálně zruční a chcete zjistit, jestli by vám tahle práce seděla, můžeme si nejdřív krátce a nezávazně zavolat. Klidně i bez životopisu.",
-      "featured": true
+      "featured": false
     },
     {
       "id": 787,
@@ -503,7 +503,7 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "Rádi vám k roli řekneme víc diskrétně a bez závazku. Stačí krátká zpráva, i bez životopisu. Probereme, jak role reálně vypadá, s kým budete spolupracovat, jaké typy problémů se v kvalitě řeší a jaký prostor budete mít pro návrhy změn. Pokud vás baví kvalita ve výrobě, hledání příčin a praktické dotahování řešení do výsledku, může dávat smysl se nezávazně pobavit.",
-      "featured": true
+      "featured": false
     },
     {
       "id": 881,
