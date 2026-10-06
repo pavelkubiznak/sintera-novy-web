@@ -455,7 +455,7 @@ Yes. We work with international clients in English. You can send the brief in En
 ### How do we start working together?
 Send a job description or a few sentences about the role to info@sintera.cz, or call +420 499 599 861. We will get back to you and suggest how to approach the role.
 
-## Current open positions (106)
+## Current open positions (65)
 The job titles and descriptions are in Czech, because the positions are aimed at candidates in the Czech Republic. Each position has its own page with a description and a response form. Full list with filters: https://www.sintera.cz/pozice/
 
 - [Key Account Manager / Business Development Manager](https://www.sintera.cz/pozice/896.html): Sales · Management · Liberec Region
@@ -522,45 +522,4 @@ The job titles and descriptions are in Czech, because the positions are aimed at
 - [Sales Manager für Deutschland](https://www.sintera.cz/pozice/813.html): Sales · Management · Germany
 - [Supplier Quality Engineer](https://www.sintera.cz/pozice/805.html): Quality and quality control · Specialists and technicians · Prague
 - [Service Manager](https://www.sintera.cz/pozice/803.html): Service and maintenance · Management · Olomouc Region
-- [Specialista technologie](https://www.sintera.cz/pozice/798.html): Engineering and development · Specialists and technicians · Plzeň Region
-- [Project Procurement Manager](https://www.sintera.cz/pozice/795.html): Procurement · Management · Czech Republic (nationwide), Germany
-- [Project Manager](https://www.sintera.cz/pozice/793.html): Projects and construction · Management · Germany
-- [Field Service & Site Manager](https://www.sintera.cz/pozice/792.html): Service and maintenance · Management · Germany
-- [Stavbyvedoucí](https://www.sintera.cz/pozice/790.html): Projects and construction · Management · Czech Republic (nationwide)
 - [Inženýr kvality](https://www.sintera.cz/pozice/787.html): Quality and quality control · Specialists and technicians · Plzeň Region
-- [Strojní zámečník](https://www.sintera.cz/pozice/784.html): Mechanical engineering · Specialists and technicians · South Moravian Region
-- [Process Engineer – Automatisation and Robotics](https://www.sintera.cz/pozice/781.html): Electrical engineering and energy · Specialists and technicians · Vysočina Region
-- [Elektromechanik](https://www.sintera.cz/pozice/778.html): Electrical engineering and energy · Specialists and technicians · Prague, Central Bohemian Region
-- [Zkušební technik](https://www.sintera.cz/pozice/777.html): Quality and quality control · Specialists and technicians · Prague
-- [Servisní technik](https://www.sintera.cz/pozice/776.html): Service and maintenance · Specialists and technicians · Prague, Central Bohemian Region
-- [Seřizovač CNC strojů](https://www.sintera.cz/pozice/772.html): Mechanical engineering · Specialists and technicians · Prague
-- [Electrical Designer Senior/Junior](https://www.sintera.cz/pozice/766.html): Electrical engineering and energy · Specialists and technicians · Prague
-- [Projektový manažer](https://www.sintera.cz/pozice/764.html): Projects and construction · Management · Prague
-- [Technolog](https://www.sintera.cz/pozice/754.html): Engineering and development · Specialists and technicians · Plzeň Region
-- [Seřizovač CNC soustruh/frézka](https://www.sintera.cz/pozice/744.html): Mechanical engineering · Specialists and technicians · Prague
-- [Project Manager (AJ + NJ)](https://www.sintera.cz/pozice/736.html): Projects and construction · Management · Prague
-- [Technik údržby](https://www.sintera.cz/pozice/735.html): Service and maintenance · Specialists and technicians · Vysočina Region
-- [Seřizovač CNC strojů](https://www.sintera.cz/pozice/723.html): Mechanical engineering · Specialists and technicians · Plzeň Region, Karlovy Vary Region
-- [Strojní zámečník](https://www.sintera.cz/pozice/719.html): Mechanical engineering · Specialists and technicians · Plzeň Region
-- [Svářeč](https://www.sintera.cz/pozice/700.html): Mechanical engineering · Specialists and technicians · South Moravian Region
-- [Seřizovač CNC karuselu](https://www.sintera.cz/pozice/695.html): Mechanical engineering · Specialists and technicians · South Moravian Region
-- [Seřizovač CNC soustruhu](https://www.sintera.cz/pozice/694.html): Mechanical engineering · Specialists and technicians · South Moravian Region
-- [Electrical Designer](https://www.sintera.cz/pozice/691.html): Electrical engineering and energy · Specialists and technicians · Prague
-- [Electrical Engineer](https://www.sintera.cz/pozice/688.html): Electrical engineering and energy · Specialists and technicians · Prague
-- [Converter Engineer](https://www.sintera.cz/pozice/683.html): Electrical engineering and energy · Specialists and technicians · Prague
-- [Dispečer/ka logistiky](https://www.sintera.cz/pozice/680.html): Transport, logistics and supply · Specialists and technicians · Prague
-- [Technik údržby](https://www.sintera.cz/pozice/670.html): Service and maintenance · Specialists and technicians · Vysočina Region, South Moravian Region
-- [CNC Frézař](https://www.sintera.cz/pozice/634.html): Mechanical engineering · Specialists and technicians · Plzeň Region
-- [Technolog](https://www.sintera.cz/pozice/623.html): Engineering and development · Specialists and technicians · Plzeň Region
-- [Servisní technik](https://www.sintera.cz/pozice/620.html): Service and maintenance · Specialists and technicians · Prague, Central Bohemian Region
-- [Zkušební specialista](https://www.sintera.cz/pozice/603.html): Quality and quality control · Specialists and technicians · Prague
-- [Testovací technik](https://www.sintera.cz/pozice/602.html): Quality and quality control · Specialists and technicians · Prague
-- [Vývojový konstruktér](https://www.sintera.cz/pozice/592.html): Engineering and development · Specialists and technicians · Prague
-- [Specialista elektroúdržby](https://www.sintera.cz/pozice/574.html): Service and maintenance · Specialists and technicians · Pardubice Region
-- [Electrical Designer](https://www.sintera.cz/pozice/571.html): Electrical engineering and energy · Specialists and technicians · Prague
-- [Manager vývojového a testovacího centra](https://www.sintera.cz/pozice/570.html): Engineering and development · Management · Vysočina Region
-- [Programátor CNC](https://www.sintera.cz/pozice/541.html): Mechanical engineering · Specialists and technicians · Plzeň Region
-- [Horizontkář CNC](https://www.sintera.cz/pozice/540.html): Mechanical engineering · Specialists and technicians · Plzeň Region
-- [Frézař – CNC](https://www.sintera.cz/pozice/539.html): Mechanical engineering · Specialists and technicians · Plzeň Region
-- [Servisní technik](https://www.sintera.cz/pozice/521.html): Service and maintenance · Specialists and technicians · Prague, Central Bohemian Region
-- [Zkušební technik](https://www.sintera.cz/pozice/465.html): Quality and quality control · Specialists and technicians · Prague, Central Bohemian Region

@@ -442,7 +442,7 @@ Zaměření jsou výrobní a technické firmy, včetně podpůrných rolí v nic
 - [Dlouhodobé partnerství napříč obory](https://www.sintera.cz/case-studies/dlouhodobe-partnerstvi-napric-obory/): Manažerské pozice a odborní specialisté · Certifikace, zkušebnictví a automotive · Praha a další regiony. Reference potvrzují dlouhodobou spolupráci, přesnost profilů a obsazené seniorní pozice.
 - [Search řízený detailním briefem](https://www.sintera.cz/case-studies/search-rizeny-detailnim-briefem/): Inženýři kvality a technické role · Automotive · Středočeský kraj. Lepší vytipování uchazečů a pružná reakce při změně profilu za pochodu.
 
-## Aktuální volné pozice (106)
+## Aktuální volné pozice (65)
 Každá pozice má vlastní stránku s popisem a formulářem pro reakci. Úplný přehled s filtry: https://www.sintera.cz/pozice/
 
 - [Key Account Manager / Business Development Manager](https://www.sintera.cz/pozice/896.html): Prodej a obchod · Management · Liberecký kraj
@@ -509,45 +509,56 @@ Každá pozice má vlastní stránku s popisem a formulářem pro reakci. Úpln�
 - [Sales Manager für Deutschland](https://www.sintera.cz/pozice/813.html): Prodej a obchod · Management · Německo
 - [Supplier Quality Engineer](https://www.sintera.cz/pozice/805.html): Kvalita a kontrola jakosti · Specialisté a technici · Praha
 - [Service Manager](https://www.sintera.cz/pozice/803.html): Servis a údržba · Management · Olomoucký kraj
-- [Specialista technologie](https://www.sintera.cz/pozice/798.html): Technika a vývoj · Specialisté a technici · Plzeňský kraj
-- [Project Procurement Manager](https://www.sintera.cz/pozice/795.html): Nákup · Management · Celá ČR, Německo
-- [Project Manager](https://www.sintera.cz/pozice/793.html): Projekty a stavebnictví · Management · Německo
-- [Field Service & Site Manager](https://www.sintera.cz/pozice/792.html): Servis a údržba · Management · Německo
-- [Stavbyvedoucí](https://www.sintera.cz/pozice/790.html): Projekty a stavebnictví · Management · Celá ČR
 - [Inženýr kvality](https://www.sintera.cz/pozice/787.html): Kvalita a kontrola jakosti · Specialisté a technici · Plzeňský kraj
-- [Strojní zámečník](https://www.sintera.cz/pozice/784.html): Strojírenství · Specialisté a technici · Jihomoravský kraj
-- [Process Engineer – Automatisation and Robotics](https://www.sintera.cz/pozice/781.html): Elektrotechnika a energetika · Specialisté a technici · Vysočina
-- [Elektromechanik](https://www.sintera.cz/pozice/778.html): Elektrotechnika a energetika · Specialisté a technici · Praha, Středočeský kraj
-- [Zkušební technik](https://www.sintera.cz/pozice/777.html): Kvalita a kontrola jakosti · Specialisté a technici · Praha
-- [Servisní technik](https://www.sintera.cz/pozice/776.html): Servis a údržba · Specialisté a technici · Praha, Středočeský kraj
-- [Seřizovač CNC strojů](https://www.sintera.cz/pozice/772.html): Strojírenství · Specialisté a technici · Praha
-- [Electrical Designer Senior/Junior](https://www.sintera.cz/pozice/766.html): Elektrotechnika a energetika · Specialisté a technici · Praha
-- [Projektový manažer](https://www.sintera.cz/pozice/764.html): Projekty a stavebnictví · Management · Praha
-- [Technolog](https://www.sintera.cz/pozice/754.html): Technika a vývoj · Specialisté a technici · Plzeňský kraj
-- [Seřizovač CNC soustruh/frézka](https://www.sintera.cz/pozice/744.html): Strojírenství · Specialisté a technici · Praha
-- [Project Manager (AJ + NJ)](https://www.sintera.cz/pozice/736.html): Projekty a stavebnictví · Management · Praha
-- [Technik údržby](https://www.sintera.cz/pozice/735.html): Servis a údržba · Specialisté a technici · Vysočina
-- [Seřizovač CNC strojů](https://www.sintera.cz/pozice/723.html): Strojírenství · Specialisté a technici · Plzeňský kraj, Karlovarský kraj
-- [Strojní zámečník](https://www.sintera.cz/pozice/719.html): Strojírenství · Specialisté a technici · Plzeňský kraj
-- [Svářeč](https://www.sintera.cz/pozice/700.html): Strojírenství · Specialisté a technici · Jihomoravský kraj
-- [Seřizovač CNC karuselu](https://www.sintera.cz/pozice/695.html): Strojírenství · Specialisté a technici · Jihomoravský kraj
-- [Seřizovač CNC soustruhu](https://www.sintera.cz/pozice/694.html): Strojírenství · Specialisté a technici · Jihomoravský kraj
-- [Electrical Designer](https://www.sintera.cz/pozice/691.html): Elektrotechnika a energetika · Specialisté a technici · Praha
-- [Electrical Engineer](https://www.sintera.cz/pozice/688.html): Elektrotechnika a energetika · Specialisté a technici · Praha
-- [Converter Engineer](https://www.sintera.cz/pozice/683.html): Elektrotechnika a energetika · Specialisté a technici · Praha
-- [Dispečer/ka logistiky](https://www.sintera.cz/pozice/680.html): Doprava, logistika a zásobování · Specialisté a technici · Praha
-- [Technik údržby](https://www.sintera.cz/pozice/670.html): Servis a údržba · Specialisté a technici · Vysočina, Jihomoravský kraj
-- [CNC Frézař](https://www.sintera.cz/pozice/634.html): Strojírenství · Specialisté a technici · Plzeňský kraj
-- [Technolog](https://www.sintera.cz/pozice/623.html): Technika a vývoj · Specialisté a technici · Plzeňský kraj
-- [Servisní technik](https://www.sintera.cz/pozice/620.html): Servis a údržba · Specialisté a technici · Praha, Středočeský kraj
-- [Zkušební specialista](https://www.sintera.cz/pozice/603.html): Kvalita a kontrola jakosti · Specialisté a technici · Praha
-- [Testovací technik](https://www.sintera.cz/pozice/602.html): Kvalita a kontrola jakosti · Specialisté a technici · Praha
-- [Vývojový konstruktér](https://www.sintera.cz/pozice/592.html): Technika a vývoj · Specialisté a technici · Praha
-- [Specialista elektroúdržby](https://www.sintera.cz/pozice/574.html): Servis a údržba · Specialisté a technici · Pardubický kraj
-- [Electrical Designer](https://www.sintera.cz/pozice/571.html): Elektrotechnika a energetika · Specialisté a technici · Praha
-- [Manager vývojového a testovacího centra](https://www.sintera.cz/pozice/570.html): Technika a vývoj · Management · Vysočina
-- [Programátor CNC](https://www.sintera.cz/pozice/541.html): Strojírenství · Specialisté a technici · Plzeňský kraj
-- [Horizontkář CNC](https://www.sintera.cz/pozice/540.html): Strojírenství · Specialisté a technici · Plzeňský kraj
-- [Frézař – CNC](https://www.sintera.cz/pozice/539.html): Strojírenství · Specialisté a technici · Plzeňský kraj
-- [Servisní technik](https://www.sintera.cz/pozice/521.html): Servis a údržba · Specialisté a technici · Praha, Středočeský kraj
-- [Zkušební technik](https://www.sintera.cz/pozice/465.html): Kvalita a kontrola jakosti · Specialisté a technici · Praha, Středočeský kraj
+
+## Archiv: pozice, které Sintera obsazovala (41)
+Uzavřené search projekty, nábor na ně už neběží. Ukazují, jaké role Sintera pro firmy hledá. Přehled: https://www.sintera.cz/pozice/archiv/
+
+### Strojírenství
+- [CNC Frézař](https://www.sintera.cz/pozice/634.html): Specialisté a technici · Plzeňský kraj
+- [Frézař – CNC](https://www.sintera.cz/pozice/539.html): Specialisté a technici · Plzeňský kraj
+- [Horizontkář CNC](https://www.sintera.cz/pozice/540.html): Specialisté a technici · Plzeňský kraj
+- [Programátor CNC](https://www.sintera.cz/pozice/541.html): Specialisté a technici · Plzeňský kraj
+- [Seřizovač CNC karuselu](https://www.sintera.cz/pozice/695.html): Specialisté a technici · Jihomoravský kraj
+- [Seřizovač CNC soustruh/frézka](https://www.sintera.cz/pozice/744.html): Specialisté a technici · Praha
+- [Seřizovač CNC soustruhu](https://www.sintera.cz/pozice/694.html): Specialisté a technici · Jihomoravský kraj
+- [Seřizovač CNC strojů](https://www.sintera.cz/pozice/772.html): Specialisté a technici · Praha (obsazováno 2×)
+- [Strojní zámečník](https://www.sintera.cz/pozice/784.html): Specialisté a technici · Jihomoravský kraj (obsazováno 2×)
+- [Svářeč](https://www.sintera.cz/pozice/700.html): Specialisté a technici · Jihomoravský kraj
+
+### Elektrotechnika a energetika
+- [Converter Engineer](https://www.sintera.cz/pozice/683.html): Specialisté a technici · Praha
+- [Electrical Designer](https://www.sintera.cz/pozice/691.html): Specialisté a technici · Praha (obsazováno 2×)
+- [Electrical Designer Senior/Junior](https://www.sintera.cz/pozice/766.html): Specialisté a technici · Praha
+- [Electrical Engineer](https://www.sintera.cz/pozice/688.html): Specialisté a technici · Praha
+- [Elektromechanik](https://www.sintera.cz/pozice/778.html): Specialisté a technici · Praha, Středočeský kraj
+- [Process Engineer – Automatisation and Robotics](https://www.sintera.cz/pozice/781.html): Specialisté a technici · Vysočina
+
+### Technika a vývoj
+- [Manager vývojového a testovacího centra](https://www.sintera.cz/pozice/570.html): Management · Vysočina
+- [Specialista technologie](https://www.sintera.cz/pozice/798.html): Specialisté a technici · Plzeňský kraj
+- [Technolog](https://www.sintera.cz/pozice/754.html): Specialisté a technici · Plzeňský kraj (obsazováno 2×)
+- [Vývojový konstruktér](https://www.sintera.cz/pozice/592.html): Specialisté a technici · Praha
+
+### Servis a údržba
+- [Field Service & Site Manager](https://www.sintera.cz/pozice/792.html): Management · Německo
+- [Servisní technik](https://www.sintera.cz/pozice/776.html): Specialisté a technici · Praha, Středočeský kraj (obsazováno 3×)
+- [Specialista elektroúdržby](https://www.sintera.cz/pozice/574.html): Specialisté a technici · Pardubický kraj
+- [Technik údržby](https://www.sintera.cz/pozice/735.html): Specialisté a technici · Vysočina (obsazováno 2×)
+
+### Projekty a stavebnictví
+- [Project Manager](https://www.sintera.cz/pozice/793.html): Management · Německo
+- [Project Manager (AJ + NJ)](https://www.sintera.cz/pozice/736.html): Management · Praha
+- [Projektový manažer](https://www.sintera.cz/pozice/764.html): Management · Praha
+- [Stavbyvedoucí](https://www.sintera.cz/pozice/790.html): Management · Celá ČR
+
+### Kvalita a kontrola jakosti
+- [Testovací technik](https://www.sintera.cz/pozice/602.html): Specialisté a technici · Praha
+- [Zkušební specialista](https://www.sintera.cz/pozice/603.html): Specialisté a technici · Praha
+- [Zkušební technik](https://www.sintera.cz/pozice/777.html): Specialisté a technici · Praha (obsazováno 2×)
+
+### Doprava, logistika a zásobování
+- [Dispečer/ka logistiky](https://www.sintera.cz/pozice/680.html): Specialisté a technici · Praha
+
+### Nákup
+- [Project Procurement Manager](https://www.sintera.cz/pozice/795.html): Management · Celá ČR, Německo
