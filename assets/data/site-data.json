@@ -1,6 +1,58 @@
 {
   "positions": [
     {
+      "id": 896,
+      "t": "Key Account Manager / Business Development Manager",
+      "o": "obchod",
+      "s": "man",
+      "k": [
+        "Liberecký kraj"
+      ],
+      "bonus": "",
+      "rezim": "",
+      "datePosted": "2026-10-06",
+      "validThrough": "",
+      "employmentType": "FULL_TIME",
+      "intro": "Umíte obchod nejen udržovat, ale také ho skutečně rozvíjet?\n\nHledáme zkušeného obchodníka, kterého baví hledat nové příležitosti, otevírat dveře k novým zákazníkům a postupně z nich vytvářet dlouhodobý byznys.\n\nNečeká vás role postavená pouze na správě stávajícího portfolia. Dostanete prostor pro vlastní obchodní aktivitu, nové nápady i způsob, jakým budete trh rozvíjet.\n\nZároveň nebudete začínat od nuly – navážete na existující obchodní kontakty a budete mít podporu zkušených kolegů z dalších odborných týmů.",
+      "whyTalk": "Prostor pro vlastní obchodní aktivitu, nové nápady a skutečný vliv na další rozvoj obchodu.",
+      "responsibilities": [
+        "Aktivní vyhledávání a oslovování nových zákazníků.",
+        "Získávání nových obchodních příležitostí a projektů.",
+        "Rozvoj spolupráce se stávajícími zákazníky.",
+        "Vedení obchodních jednání od prvního kontaktu až po konkrétní nabídku.",
+        "Příprava a prezentace obchodních nabídek.",
+        "Vyjednávání obchodních a cenových podmínek.",
+        "Posuzování potenciálu nových zakázek a obchodních příležitostí.",
+        "Úzká spolupráce s kolegy z technických, projektových a dalších odborných týmů.",
+        "Sledování trhu a hledání nových možností dalšího obchodního rozvoje.",
+        "Prostor ovlivnit další směřování obchodu a přicházet s vlastními nápady."
+      ],
+      "mustHave": [
+        "Hledáme především obchodníka, kterého baví aktivní obchod a práce se zákazníkem.",
+        "Výhodou pro vás bude zkušenost s B2B obchodem, aktivním získáváním nových zákazníků, samostatným vedením obchodních jednání a orientace v technickém nebo výrobním prostředí. Oceníme dobré komunikační a vyjednávací schopnosti, samostatnost, iniciativu a přirozené obchodní uvažování.",
+        "Budete potřebovat angličtinu pro běžnou obchodní komunikaci a řidičský průkaz skupiny B."
+      ],
+      "niceToHave": [
+        "Němčina je výhodou, nikoliv podmínkou.",
+        "Nejde nám o to, abyste splňovali každý bod seznamu. Pokud máte silnou obchodní zkušenost, umíte si získat důvěru zákazníka a baví vás nový byznys, rádi se s vámi potkáme."
+      ],
+      "offer": [
+        "Nadstandardní platové ohodnocení.",
+        "Zajímavou obchodní roli s velkým prostorem pro vlastní iniciativu.",
+        "Možnost aktivně budovat nové zákaznické portfolio.",
+        "Existující síť kontaktů, na kterou můžete navázat.",
+        "Podporu zkušených kolegů a odborného zázemí.",
+        "Velkou míru samostatnosti při rozvoji obchodu.",
+        "Služební automobil i k soukromému využití.",
+        "Možnost home office dle dohody.",
+        "Pracovní zázemí v Libereckém kraji."
+      ],
+      "salaryRange": "",
+      "salaryNote": "Nadstandardní platové ohodnocení.",
+      "cta": "Máte za sebou obchodní výsledky a láká vás role, ve které dostanete prostor něco dalšího vybudovat?\n\nOzvěte se nám. Rádi s vámi nejprve nezávazně probereme, co od další pracovní příležitosti očekáváte a jestli by vám tato role mohla dávat smysl.",
+      "featured": true
+    },
+    {
       "id": 892,
       "t": "Vedoucí oddělení Pozemní stavby",
       "o": "projekty",
@@ -411,7 +463,7 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Jestli máte zkušenost se SAPem nebo SAP HANA a chcete roli, kde budete mít skutečný vliv, stojí za to si o této příležitosti promluvit. Nejde jen o operativní správu systému nebo vyřizování jednotlivých požadavků. Firma hledá člověka, který se postupně stane klíčovým odborným partnerem pro oblast SAP, bude rozumět návaznosti procesů a pomůže určovat, kam se má systém dál posouvat.\n\nV prvním hovoru si diskrétně projdeme, jak je role nastavená, jaké SAP prostředí vás čeká, s kým budete spolupracovat a kde bude prostor pro vlastní rozhodování. Otevřeně probereme také mzdové podmínky, očekávání firmy a to, jak velkou odpovědnost byste v čase přebírali. Probereme i to, jak role zapadá do širšího fungování firmy, kde bude největší dopad a jaká témata bude potřeba v SAP prostředí rozvíjet.\n\nNemusíte mít hotový životopis ani jistotu, že chcete měnit práci. Stačí chuť zjistit, jestli by pro vás tahle role mohla být zajímavým dalším krokem. Pokud se ukáže, že role dává smysl, navážeme konkrétními informacemi. Pokud ne, zůstane jen u neformálního rozhovoru.",
-      "featured": true
+      "featured": false
     },
     {
       "id": 843,
