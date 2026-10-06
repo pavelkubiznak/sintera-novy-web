@@ -50,7 +50,8 @@
       "salaryRange": "",
       "salaryNote": "Nadstandardní platové ohodnocení.",
       "cta": "Máte za sebou obchodní výsledky a láká vás role, ve které dostanete prostor něco dalšího vybudovat?\n\nOzvěte se nám. Rádi s vámi nejprve nezávazně probereme, co od další pracovní příležitosti očekáváte a jestli by vám tato role mohla dávat smysl.",
-      "featured": true
+      "featured": true,
+      "archiv": false
     },
     {
       "id": 892,
@@ -93,7 +94,8 @@
       "salaryRange": "",
       "salaryNote": "Nadstandardní platové ohodnocení a motivační výkonové odměny.",
       "cta": "Láká vás vědět víc? Napište nám a připojte telefonní číslo. Prvním krokem může být jen krátký rozhovor o projektech a o tom, co hledáte vy.",
-      "featured": true
+      "featured": true,
+      "archiv": false
     },
     {
       "id": 893,
@@ -139,7 +141,8 @@
       "salaryRange": "",
       "salaryNote": "Nadstandardní platové ohodnocení a motivační výkonové odměny.",
       "cta": "Zajímá vás, jaké konstrukce a projekty vás čekají? Napište nám a připojte telefonní číslo. Rádi probereme podrobnosti i vaše představy o dalším profesním kroku.",
-      "featured": true
+      "featured": true,
+      "archiv": false
     },
     {
       "id": 894,
@@ -183,7 +186,8 @@
       "salaryRange": "",
       "salaryNote": "Nadstandardní platové ohodnocení a motivační výkonové odměny.",
       "cta": "Vidíte v tom příležitost pro sebe? Napište nám a připojte telefonní číslo. Během krátkého rozhovoru zjistíte víc o projektech i možnostech svého uplatnění.",
-      "featured": true
+      "featured": true,
+      "archiv": false
     },
     {
       "id": 895,
@@ -226,7 +230,8 @@
       "salaryRange": "",
       "salaryNote": "Nadstandardní platové ohodnocení a motivační výkonové odměny.",
       "cta": "Zaujalo vás to? Napište nám a připojte telefonní číslo. Rádi vám představíme projekty a probereme, co by pro vás mělo být zajímavé na další pracovní příležitosti.",
-      "featured": true
+      "featured": true,
+      "archiv": false
     },
     {
       "id": 891,
@@ -271,7 +276,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Pokud máte zkušenosti s vedením výroby a hledáte pozici, kde budete mít reálnou odpovědnost a možnost ovlivnit fungování provozu, rádi Vám představíme více detailů. Ozvat se můžete diskrétně a nezávazně, i bez životopisu.",
-      "featured": true
+      "featured": true,
+      "archiv": false
     },
     {
       "id": 889,
@@ -317,7 +323,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Zaujala Vás tahle příležitost? Napište nám nebo pošlete svůj životopis. Rádi Vám přiblížíme tým, konkrétní náplň práce i možnosti dalšího rozvoje. Ozvat se můžete i bez životopisu.",
-      "featured": true
+      "featured": true,
+      "archiv": false
     },
     {
       "id": 887,
@@ -363,7 +370,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "Zaujala Vás tahle příležitost? Napište nám zprávu nebo pošlete životopis. Rádi Vám diskrétně přiblížíme tým, konkrétní náplň práce i možnosti dalšího rozvoje. Klidně i bez životopisu na začátek.",
-      "featured": true
+      "featured": true,
+      "archiv": false
     },
     {
       "id": 885,
@@ -412,7 +420,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Pokud máte zkušenost s technickými dodavateli, umíte propojit kvalitu, techniku a business a chcete být v roli, kde budete mít skutečný vliv, ráda vám o této příležitosti řeknu více. Ozvat se můžete i bez životopisu. Stačí krátká zpráva a diskrétně probereme, jestli pro vás role dává smysl. Možná právě vy budete člověkem, který posune Supplier Quality zase o úroveň výš.",
-      "featured": true
+      "featured": true,
+      "archiv": false
     },
     {
       "id": 884,
@@ -463,7 +472,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Jestli máte zkušenost se SAPem nebo SAP HANA a chcete roli, kde budete mít skutečný vliv, stojí za to si o této příležitosti promluvit. Nejde jen o operativní správu systému nebo vyřizování jednotlivých požadavků. Firma hledá člověka, který se postupně stane klíčovým odborným partnerem pro oblast SAP, bude rozumět návaznosti procesů a pomůže určovat, kam se má systém dál posouvat.\n\nV prvním hovoru si diskrétně projdeme, jak je role nastavená, jaké SAP prostředí vás čeká, s kým budete spolupracovat a kde bude prostor pro vlastní rozhodování. Otevřeně probereme také mzdové podmínky, očekávání firmy a to, jak velkou odpovědnost byste v čase přebírali. Probereme i to, jak role zapadá do širšího fungování firmy, kde bude největší dopad a jaká témata bude potřeba v SAP prostředí rozvíjet.\n\nNemusíte mít hotový životopis ani jistotu, že chcete měnit práci. Stačí chuť zjistit, jestli by pro vás tahle role mohla být zajímavým dalším krokem. Pokud se ukáže, že role dává smysl, navážeme konkrétními informacemi. Pokud ne, zůstane jen u neformálního rozhovoru.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 843,
@@ -509,7 +519,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Má smysl se ozvat i bez zkušenosti přímo ze seřizování. Pokud vás baví technika, jste manuálně zruční a chcete zjistit, jestli by vám tahle práce seděla, můžeme si nejdřív krátce a nezávazně zavolat. Klidně i bez životopisu.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 787,
@@ -555,7 +566,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "Rádi vám k roli řekneme víc diskrétně a bez závazku. Stačí krátká zpráva, i bez životopisu. Probereme, jak role reálně vypadá, s kým budete spolupracovat, jaké typy problémů se v kvalitě řeší a jaký prostor budete mít pro návrhy změn. Pokud vás baví kvalita ve výrobě, hledání příčin a praktické dotahování řešení do výsledku, může dávat smysl se nezávazně pobavit.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 881,
@@ -601,7 +613,8 @@
       "salaryRange": "",
       "salaryNote": "Nadstandardní platové ohodnocení.",
       "cta": "Zajímá vás role, kde procesní zlepšení nejsou jen prezentace, ale skutečně se promítají do výroby? Ozvěte se nám diskrétně. Rádi s vámi probereme, jaké projekty vás čekají, jak velký prostor budete mít pro vlastní návrhy, s kým budete spolupracovat a jak může role navazovat na vaše dosavadní zkušenosti.\n\nNemusíte mít připravený životopis ani být rozhodnutí, že chcete měnit práci. Stačí, když vám dává smysl zjistit víc. V prvním hovoru si otevřeně řekneme, jak role vypadá v praxi, jaké technické výzvy firma řeší a jaký typ zkušeností je pro ni důležitý. Stejně tak se pobavíme o tom, co je důležité pro vás: projekty, technologie, míra samostatnosti, další růst i očekávání ke mzdě.\n\nVše probíhá diskrétně. Pokud po prvním rozhovoru usoudíte, že role není pro vás, nic se neděje. Pokud naopak uvidíme oboustranný smysl, domluvíme další krok a pomůžeme vám získat jasný obrázek o pozici, týmu i prostředí. Napište nám pár vět o své zkušenosti s výrobními procesy, nebo jen pošlete kontakt. Ozveme se zpět a domluvíme se na čase, který vám bude vyhovovat.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 880,
@@ -647,7 +660,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Ozvěte se nám diskrétně, i pokud zatím nemáte aktualizovaný životopis. V prvním hovoru si otevřeně řekneme, jak role funguje, jaký typ controllingové agendy převažuje, jak je nastavený hybridní režim a jaké jsou mzdové podmínky.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 879,
@@ -696,7 +710,8 @@
       "salaryRange": "",
       "salaryNote": "Nadstandardní platové ohodnocení.",
       "cta": "Zajímá vás role, kde budete mít celkovou odpovědnost za výrobu a prostor ovlivnit její výkon, kvalitu i další směřování? Ozvěte se nám diskrétně. Stačí krátká zpráva, klidně i bez životopisu. V prvním hovoru si otevřeně řekneme, o jakou firmu jde, jak je role nastavená, jaký prostor k rozhodování budete mít a jaké jsou finanční podmínky.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 878,
@@ -745,7 +760,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Zaujala vás technická role, kde nejde jen o koordinaci tabulek, ale o skutečné vedení vývojového směru produktu? Rádi s vámi projdeme detaily diskrétně a bez zbytečné administrativy. V prvním hovoru si řekneme, jaké typy projektů vás čekají, s jakými týmy budete spolupracovat, jak vypadá rozhodování v R&D a kde budete mít největší prostor ovlivnit výsledek. Probereme také mzdové podmínky, očekávání firmy a to, jestli role odpovídá vaší zkušenosti i dalšímu směru, kterým se chcete profesně posunout. Nemusíte mít připravený životopis. Stačí krátká zpráva nebo kontakt a domluvíme se na čase, který vám bude vyhovovat.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 877,
@@ -783,7 +799,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Chcete nákup posunout dál a být u toho vidět? Ozvěte se nám diskrétně. Klidně i bez životopisu, nejdřív si jen řekneme, co od další role čekáte a jestli Vám tahle příležitost dává smysl.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 876,
@@ -827,7 +844,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Pokud vás láká kvalita, která má skutečný dopad na výrobu, procesy i spolupráci napříč firmou, ozvěte se nám. Rádi si s vámi diskrétně promluvíme o tom, co už máte za sebou, co by vás v kvalitě bavilo dál a jestli by tahle role dávala smysl. Stačí krátká zpráva, i bez životopisu.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 830,
@@ -876,7 +894,8 @@
       "salaryRange": "",
       "salaryNote": "Nadstandardní platové ohodnocení.",
       "cta": "Rádi vám ji představíme diskrétně a bez závazků. Ozvěte se i bez životopisu. Stačí krátká zpráva nebo kontakt a domluvíme si první rozhovor.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 874,
@@ -919,7 +938,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "Zaujala vás role? Napište mi i bez životopisu. Ráda doplním konkrétní informace o projektech, firmě i podmínkách a společně ověříme, jestli dává smysl se potkat.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 873,
@@ -965,7 +985,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Zaujala vás IT role v Pardubickém kraji? Napište nám i bez životopisu. Krátce si řekneme, jaké systémy a technologie máte za sebou, co vás v IT baví a doplníme konkrétní detaily k náplni práce, týmu, očekáváním i mzdě.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 872,
@@ -1009,7 +1030,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Zaujala vás práce ve skladu v Pardubickém kraji? Napište nám i bez životopisu. Krátce si řekneme, co máte za sebou, co od práce čekáte a doplníme konkrétní detaily k náplni, směnám i mzdě.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 871,
@@ -1056,7 +1078,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Zajímá vás kvalita, která nekončí u kontroly a tabulek? Ozvěte se nám. Rádi s vámi diskrétně projdeme, jak je role nastavená, jaký typ výroby a procesů řeší a jestli dává smysl pro vaše další směřování. Stačí krátká zpráva, i bez životopisu.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 870,
@@ -1103,7 +1126,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Rádi si s vámi diskrétně zavoláme a řekneme víc o týmu, výrobním prostředí i o tom, jak velký prostor pro změny v roli opravdu je. Nemusíte mít připravený životopis. Stačí krátce napsat, co dnes v kvalitě řešíte, jaký tým vedete nebo kam se chcete posunout. Společně rychle ověříme, jestli pro vás role dává smysl.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 869,
@@ -1151,7 +1175,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Zaujala vás role, ale nechcete hned posílat životopis? Ozvěte se nám diskrétně. V krátkém hovoru si projdeme náplň práce, platové podmínky, očekávání firmy i to, jestli vám prostředí a odpovědnost za vedení lidí dávají smysl.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 868,
@@ -1202,7 +1227,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Ozvěte se nám diskrétně. Rádi si s vámi krátce projdeme, co už z výroby nebo technického provozu znáte, co vás baví a jaká směna, lokalita nebo podmínky pro vás dávají smysl. Životopis není nutný hned na začátku. Stačí pár vět o vaší praxi a domluvíme se na dalším kroku.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 867,
@@ -1255,7 +1281,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "Rádi vám diskrétně řekneme víc o firmě, týmu i konkrétních podmínkách. Stačí krátký rozhovor, i bez životopisu. Společně si ověříme, jestli dává role smysl vzhledem k vašim zkušenostem, očekávání a tomu, jaký typ výrobního prostředí vám sedí.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 866,
@@ -1304,7 +1331,8 @@
       "salaryRange": "",
       "salaryNote": "Nadstandardní mzdové podmínky probereme otevřeně v prvním hovoru.",
       "cta": "Ozvěte se nám diskrétně, i když zatím nemáte připravený životopis nebo si jen chcete ověřit, jestli by vám role dávala smysl. V prvním hovoru si projdeme, jak je logistika ve firmě nastavená, s jakými dopravci a partnery se pracuje, jak velký prostor budete mít pro vlastní návrhy a co se od vás bude čekat v prvních měsících. Otevřeně probereme také mzdové podmínky, režim práce po zapracování a to, jak často se v roli řeší operativa, smlouvy, data nebo komunikace se zahraničními partnery. Pokud máte zkušenost z logistiky, dopravy nebo přepravních procesů a chcete práci, kde nejde jen o každodenní hašení problémů, ale i o zlepšování spolupráce a nastavení pravidel, rádi si s vámi promluvíme.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 865,
@@ -1348,7 +1376,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Máte za sebou praxi v nákupu a chcete roli, kde se nebudete točit jen kolem objednávek a rutinní administrativy? Tady budete jednat s dodavateli, vyjednávat podmínky, porovnávat možnosti na trhu a pracovat s podklady, podle kterých se dělají konkrétní rozhodnutí. Role dává smysl někomu, kdo se umí domluvit, pohlídat si detail a dotahovat věci do praxe.\n\nRádi si s vámi nezávazně a diskrétně promluvíme o tom, jak je nákup v této firmě nastavený, s jakými dodavateli se pracuje a jaký prostor budete mít pro vlastní návrhy. Pro první kontakt nepotřebujeme hotový životopis. Stačí krátká zpráva, odkaz na profil nebo pár vět o tom, co v nákupu řešíte dnes.\n\nBěhem prvního hovoru vám otevřeně řekneme i mzdové podmínky, rozsah odpovědnosti a další praktické informace. Cílem není tlačit vás do rychlého rozhodnutí, ale zjistit, jestli role odpovídá tomu, kam se chcete v nákupu posunout. Když to bude dávat smysl oběma stranám, domluvíme další krok.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 864,
@@ -1394,7 +1423,8 @@
       "salaryRange": "",
       "salaryNote": "Mzdové podmínky řekneme otevřeně v prvním hovoru.",
       "cta": "Ozvěte se nám diskrétně, klidně i bez životopisu. Projdeme spolu, jestli vám role dává smysl.",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 776,
@@ -1419,7 +1449,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 777,
@@ -1443,7 +1474,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 541,
@@ -1467,7 +1499,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 540,
@@ -1491,7 +1524,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 539,
@@ -1515,7 +1549,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 691,
@@ -1539,7 +1574,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 570,
@@ -1563,7 +1599,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 574,
@@ -1587,7 +1624,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 592,
@@ -1611,7 +1649,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 603,
@@ -1635,7 +1674,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 602,
@@ -1659,7 +1699,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 620,
@@ -1684,7 +1725,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 833,
@@ -1708,7 +1750,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 634,
@@ -1732,7 +1775,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 683,
@@ -1756,7 +1800,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 688,
@@ -1780,7 +1825,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 571,
@@ -1804,7 +1850,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 700,
@@ -1828,7 +1875,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 858,
@@ -1852,7 +1900,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 784,
@@ -1876,7 +1925,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 772,
@@ -1900,7 +1950,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 695,
@@ -1924,7 +1975,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 694,
@@ -1948,7 +2000,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 735,
@@ -1972,7 +2025,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 736,
@@ -1996,7 +2050,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 680,
@@ -2020,7 +2075,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 744,
@@ -2044,7 +2100,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 754,
@@ -2068,7 +2125,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 764,
@@ -2092,7 +2150,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 723,
@@ -2117,7 +2176,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 521,
@@ -2142,7 +2202,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 778,
@@ -2167,7 +2228,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 465,
@@ -2192,7 +2254,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 781,
@@ -2216,7 +2279,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 719,
@@ -2240,7 +2304,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 793,
@@ -2264,7 +2329,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 792,
@@ -2288,7 +2354,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 790,
@@ -2312,7 +2379,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 795,
@@ -2337,7 +2405,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 766,
@@ -2361,7 +2430,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 798,
@@ -2385,7 +2455,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 805,
@@ -2409,7 +2480,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 813,
@@ -2433,7 +2505,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 814,
@@ -2457,7 +2530,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 847,
@@ -2481,7 +2555,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 882,
@@ -2506,7 +2581,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 824,
@@ -2531,7 +2607,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 803,
@@ -2555,7 +2632,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 623,
@@ -2579,7 +2657,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 827,
@@ -2603,7 +2682,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 863,
@@ -2628,7 +2708,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 862,
@@ -2653,7 +2734,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 861,
@@ -2678,7 +2760,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 859,
@@ -2703,7 +2786,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 670,
@@ -2728,7 +2812,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 857,
@@ -2752,7 +2837,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 856,
@@ -2776,7 +2862,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 855,
@@ -2801,7 +2888,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 853,
@@ -2826,7 +2914,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 852,
@@ -2850,7 +2939,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 849,
@@ -2874,7 +2964,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 848,
@@ -2898,7 +2989,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 845,
@@ -2922,7 +3014,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 846,
@@ -2947,7 +3040,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 844,
@@ -2971,7 +3065,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 883,
@@ -2995,7 +3090,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 840,
@@ -3019,7 +3115,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 839,
@@ -3043,7 +3140,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 838,
@@ -3067,7 +3165,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 836,
@@ -3091,7 +3190,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 835,
@@ -3115,7 +3215,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 834,
@@ -3139,7 +3240,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 832,
@@ -3163,7 +3265,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 875,
@@ -3187,7 +3290,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 829,
@@ -3211,7 +3315,8 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     },
     {
       "id": 822,
@@ -3235,9 +3340,11 @@
       "salaryRange": "",
       "salaryNote": "",
       "cta": "",
-      "featured": false
+      "featured": false,
+      "archiv": false
     }
   ],
+  "archiv": [],
   "references": [
     {
       "company": "ZF Passive Safety",

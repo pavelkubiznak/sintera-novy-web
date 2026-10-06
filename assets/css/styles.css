@@ -1197,3 +1197,8 @@ footer { flex-wrap: wrap; row-gap: 40px; }
 .foot-col a { white-space: nowrap; }
 .hero-sub a { color: inherit; border-bottom: 1px solid color-mix(in oklab, var(--accent) 70%, transparent); transition: color 0.25s; }
 .hero-sub a:hover { color: var(--accent); }
+
+/* Archiv pozic (/pozice/archiv/ a archivní detail): počet obsazení a pruh „archivní pozice" */
+.pos-count { display: inline-block; margin-left: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; vertical-align: middle; }
+.archiv-pruh { margin: 0 0 28px; padding: 16px 20px; max-width: 820px; font-size: 15px; line-height: 1.55; color: var(--dim); background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; }
+.archiv-pruh strong { color: var(--ink); font-weight: 600; }

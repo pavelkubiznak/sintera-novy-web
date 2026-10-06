@@ -31,6 +31,23 @@ const BASE = cfg.site.baseUrl.replace(/\/$/, "");
 
 /* ---------- util ---------- */
 const yes = v => String(v || "").trim().toLowerCase() === "ano";
+/* Stav pozice = sloupec `stav` v listu pozice (od 6. 10. 2026 nahradil dvojici featured + zverejnit):
+     „vystaveno + highlight" → na webu i na homepage, „vystaveno" → na webu,
+     „nevystaveno" → nikde (koncept, důvěrné, stažené), „archiv" → v archivu jako ukázka práce.
+   Rozdíl nevystaveno × archiv: nevystaveno nesmí vidět nikdo, archiv vidět může, jen se už nenabírá.
+   Bez sloupce stav (starý formát) se stav odvodí z featured/zverejnit, aby build přežil i přechod. */
+function stavPozice(r) {
+  const v = String(r.stav || "").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  if (v) {
+    if (/archiv/.test(v)) return "archiv";
+    if (/^(ne|skry)/.test(v)) return "skryto";              // „nevystaveno", „ne", „skrýt"
+    if (/highlight|homepage|featured/.test(v)) return "highlight";
+    if (/vystav|zobraz|ano/.test(v)) return "vystaveno";
+    return "skryto";                                          // neznámá hodnota → radši nikde
+  }
+  if (!yes(r.zverejnit)) return "skryto";
+  return yes(r.featured) ? "highlight" : "vystaveno";
+}
 const esc = s => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 /* ---------- Content-Security-Policy (GitHub Pages neumí HTTP hlavičky, proto <meta>) ----------
@@ -349,9 +366,11 @@ function mapReferenceWall(rows) {
     full2: r.scan2 ? "full/" + r.scan2 : "",
   }));
 }
+// Vrací vystavené i archivní pozice (pole archiv: true/false). Pořadí id se počítá přes obě skupiny,
+// takže přepnutí řádku z „vystaveno" na „archiv" nezmění id (ani URL) jiných pozic se stejným názvem.
 function mapPositions(rows) {
   const seen = new Map();
-  return rows.filter(r => yes(r.zverejnit)).map((r, i) => {
+  return rows.map(r => ({ r, stav: stavPozice(r) })).filter(x => x.stav !== "skryto").map(({ r, stav }, i) => {
     let id = (r.id || "").trim();                               // pokud Sheet má sloupec id, použij ho
     // id je součást názvu souboru (pozice/<id>.html), URL i inline JS v 404.html: povolit jen čísla,
     // jinak by hodnota jako "../index" ze Sheetu přepsala cizí soubor.
@@ -373,7 +392,7 @@ function mapPositions(rows) {
       intro: r.uvod || "", whyTalk: r.proc_mluvit || "",
       responsibilities: splitList(r.naplne), mustHave: splitList(r.must), niceToHave: splitList(r.vyhoda), offer: splitList(r.nabizime),
       salaryRange: r.mzda_rozsah || "", salaryNote: r.mzda_pozn || "", cta: r.cta || "",
-      featured: yes(r.featured),
+      featured: stav === "highlight", archiv: stav === "archiv",
     };
   });
 }
@@ -513,12 +532,19 @@ function applyFormHTML(p, loc) {
 }
 
 /* ---------- samostatná stránka pozice ---------- */
+// Archivní pozice (p.archiv) má stránku na stejné adrese, aby nepřišly vniveč odkazy, které na ni vedou,
+// ale v jiném režimu: pruh „archiv", bez formuláře pro uchazeče, bez mzdy a příspěvku a hlavně BEZ JobPosting
+// (Google for Jobs trestá weby, které nechávají v datech neaktivní inzeráty). Výzva míří na firmy.
 function detailPage(p, labels) {
+  const arch = !!p.archiv;
   const obor = labels.OBORY[p.o] || p.o, sen = labels.SENIORITY[p.s] || p.s, loc = (p.k || []).join(" / ");
-  const bonus = p.bonus ? `<span>${esc(bonusLabel(p.bonus, "Příspěvek"))}</span>` : "";
-  const title = `${esc(p.t)} · ${esc(loc)} · Sintera Czech`;
-  const desc = `${esc(p.t)} (${esc(obor)}, ${esc(sen)}), lokalita ${esc(loc)}. Obsazujeme přímým vyhledáváním. Reagujte e-mailem na info@sintera.cz.`;
+  const bonus = p.bonus && !arch ? `<span>${esc(bonusLabel(p.bonus, "Příspěvek"))}</span>` : "";
+  const title = arch ? `${esc(p.t)} · archiv pozic · Sintera Czech` : `${esc(p.t)} · ${esc(loc)} · Sintera Czech`;
+  const desc = arch
+    ? `${esc(p.t)} (${esc(obor)}, ${esc(sen)}), lokalita ${esc(loc)}. Archivní pozice: tuto roli Sintera obsazovala přímým vyhledáváním. Nábor je uzavřený.`
+    : `${esc(p.t)} (${esc(obor)}, ${esc(sen)}), lokalita ${esc(loc)}. Obsazujeme přímým vyhledáváním. Reagujte e-mailem na info@sintera.cz.`;
   const url = `${BASE}/pozice/${p.id}.html`;
+  const telo = arch ? positionBodyHTML({ ...p, salaryRange: "", salaryNote: "", cta: "" }, labels) : positionBodyHTML(p, labels);
   return `<!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -537,14 +563,15 @@ function detailPage(p, labels) {
 <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
 <link rel="stylesheet" href="../assets/css/fonts.css">
 <link rel="stylesheet" href="../assets/css/styles.css">
-<script type="application/ld+json">
+${arch ? "" : `<script type="application/ld+json">
 ${ldJson(jobPosting(p, labels))}
 </script>
-<script type="application/ld+json">
+`}<script type="application/ld+json">
 ${ldJson({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
   { "@type": "ListItem", position: 1, name: "Sintera", item: BASE + "/" },
   { "@type": "ListItem", position: 2, name: "Volné pozice", item: BASE + "/pozice/" },
-  { "@type": "ListItem", position: 3, name: p.t, item: url },
+  ...(arch ? [{ "@type": "ListItem", position: 3, name: "Archiv pozic", item: BASE + ARCHIV_URL }] : []),
+  { "@type": "ListItem", position: arch ? 4 : 3, name: p.t, item: url },
 ] })}
 </script>
 ${ORG_LD}
@@ -560,27 +587,37 @@ ${ANALYTICS}
     <a href="./">Volné pozice</a>
     <a href="../index.html#kontakt">Kontakt</a>
   </div>
-  <a class="nav-cta" href="#reagovat">Reagovat</a>
+  ${arch ? `<a class="nav-cta" href="../index.html#kontakt">Marně hledáte lidi?</a>` : `<a class="nav-cta" href="#reagovat">Reagovat</a>`}
 </nav>
 <main>
 <section class="block" style="padding-top:clamp(140px,16vw,180px)">
   <div class="block-inner narrow">
-    <a class="ref-more" href="./" style="display:inline-flex;margin-bottom:28px">← Všechny volné pozice</a>
-    <div class="kicker">${esc(obor)} · ${esc(sen)}</div>
+    ${arch ? `<a class="ref-more" href="archiv/" style="display:inline-flex;margin-bottom:28px">← Archiv pozic</a>` : `<a class="ref-more" href="./" style="display:inline-flex;margin-bottom:28px">← Všechny volné pozice</a>`}
+${arch ? `    <p class="archiv-pruh"><strong>Archivní pozice.</strong> Tuto roli jsme pro klienta obsazovali v minulosti, nábor je uzavřený. Inzerát tu necháváme jako ukázku toho, jaké pozice hledáme a jak zadání popisujeme.</p>\n` : ""}    <div class="kicker">${esc(obor)} · ${esc(sen)}</div>
     <h1 class="lead">${esc(p.t)}</h1>
     <div class="pos-tags" style="margin-top:22px"><span>${esc(loc)}</span><span>${esc(obor)}</span><span>${esc(sen)}</span>${bonus}</div>
-    <div class="body" style="margin-top:28px">${positionBodyHTML(p, labels)}</div>
-    <div id="reagovat" style="margin-top:48px;max-width:680px;scroll-margin-top:120px">
+    <div class="body" style="margin-top:28px">${telo}</div>
+${arch ? `    <div class="ref-archive" style="max-width:820px">
+      <div class="ref-archive__text">
+        <strong>Hledáte podobného člověka?</strong>
+        <span>Pošlete nám job description nebo pár vět k roli. Ozveme se a navrhneme, jak ji konkrétně uchopit.</span>
+      </div>
+      <a class="btn btn-primary" href="../index.html#kontakt">Pošlete nám pozici</a>
+    </div>
+    <div class="hero-ctas" style="margin-top:28px;flex-wrap:wrap">
+      <a class="btn btn-line" href="./">Aktuální volné pozice →</a>
+      <a class="btn btn-line" href="tel:+420499599861">Zavolejte nám · +420 499 599 861</a>
+    </div>` : `    <div id="reagovat" style="margin-top:48px;max-width:680px;scroll-margin-top:120px">
 ${applyFormHTML(p, loc)}
       <div class="hero-ctas" style="margin-top:28px;flex-wrap:wrap">
         <a class="btn btn-line" href="tel:+420499599861">Zavolejte nám · +420 499 599 861</a>
       </div>
-    </div>
+    </div>`}
   </div>
 </section>
 </main>
 ${footerHTML("../")}
-<script src="../assets/js/apply-form.js"></script>
+${arch ? "" : `<script src="../assets/js/apply-form.js"></script>`}
 </body>
 </html>
 `;
@@ -607,6 +644,7 @@ function prerender(site, labels) {
     "<!--ANALYTICS-->": ANALYTICS,
     "<!--HREFLANG-->": HREFLANG,
     "<!--FOOT_OBORY-->": OBORY_STRANKY.map(o => `<a href="obory/${o.slug}/">${esc(o.nazev)}</a>`).join("<br>"),
+    "<!--ARCHIV_TEASER-->": ARCHIV_N ? `\n    <div class="rv" style="margin-top:clamp(28px,3vw,40px)">${archivTeaserHTML("")}</div>` : "",
   };
   fs.writeFileSync(path.join(ROOT, "index.html"), withCsp(fillMarkers(html, repl)));
   console.log("  ✓ index.html (prerender)");
@@ -695,6 +733,7 @@ function prerenderEn(site) {
     "<!--ANALYTICS-->": ANALYTICS,
     "<!--HREFLANG-->": HREFLANG,
     "<!--FOOT_OBORY-->": enObory().map(o => `<a href="./industries/${o.en.slug}/">${esc(o.en.nazev)}</a>`).join("<br>"),
+    "<!--ARCHIV_TEASER-->": "", // archiv pozic je jen česky
   });
   const dir = path.join(ROOT, "en");
   fs.mkdirSync(dir, { recursive: true });
@@ -706,20 +745,22 @@ function prerenderEn(site) {
   console.log(`  ✓ en/index.html (${refs.length} referencí, ${cases.length} case studies)`);
 }
 
-function writeDetailPages(positions, labels) {
+function writeDetailPages(positions, labels) { // positions = vystavené i archivní
   fs.mkdirSync(POZICE_DIR, { recursive: true });
   // úklid: smaž staré detailní stránky (kromě index.html), ať nezůstanou osiřelé po změně sady pozic
   for (const f of fs.readdirSync(POZICE_DIR)) {
     if (f.endsWith(".html") && f !== "index.html") fs.unlinkSync(path.join(POZICE_DIR, f));
   }
   for (const p of positions) fs.writeFileSync(path.join(POZICE_DIR, `${p.id}.html`), withCsp(detailPage(p, labels)));
-  console.log(`  ✓ ${positions.length} stránek pozic (pozice/<id>.html)`);
+  const a = positions.filter(p => p.archiv).length;
+  console.log(`  ✓ ${positions.length} stránek pozic (pozice/<id>.html)${a ? `, z toho ${a} archivních` : ""}`);
 }
 
 /* ---------- SEO výstupy ---------- */
 function writeSitemap(positions, extra = [], site) {
   const sections = ["/", "/en/", "/pozice/", "/faq/", "/reference-info/", ...extra]; // bez #kotev — vyhledávače fragmenty v sitemap ignorují
-  const jobs = positions.map(p => `/pozice/${p.id}.html`);
+  const jobs = positions.map(p => `/pozice/${p.id}.html`)  // positions = vystavené i archivní
+    .concat(site && site.archiv && site.archiv.length ? [ARCHIV_URL] : []);
   // jazykové protějšky cs ↔ en jako xhtml:link (Google tak páruje verze i bez čtení <head>)
   const pary = new Map();
   for (const [cs, en] of jazykovePary(site)) { pary.set(cs, [cs, en]); pary.set(en, [cs, en]); }
@@ -902,9 +943,14 @@ function writeLlmsTxt(positions, labels, site) {
   });
   const obory = OBORY_STRANKY.map(o => `- [${o.h1}](${BASE}/obory/${o.slug}/): ${o.lead}`).join("\n");
   const cases = site.cases.map(c => `- [${c.name}](${BASE}/case-studies/${caseSlug(c.id)}/): ${c.meta}. ${c.win}`).join("\n");
+  // Archiv = doklad pro AI na dotaz „kdo v Česku obsazuje X": konkrétní role, které Sintera obsazovala.
+  const archiv = (site.archiv || []).length ? `\n## Archiv: pozice, které Sintera obsazovala (${site.archiv.length})\n` +
+    `Uzavřené search projekty, nábor na ně už neběží. Ukazují, jaké role Sintera pro firmy hledá. Přehled: ${BASE}${ARCHIV_URL}\n\n` +
+    archivSkupiny(site.archiv, labels).map(g => `### ${g.label}\n` + g.items.map(({ p, n }) =>
+      `- [${p.t}](${BASE}/pozice/${p.id}.html): ${[labels.SENIORITY[p.s], (p.k || []).join(", ")].filter(Boolean).join(" · ")}${n > 1 ? ` (obsazováno ${n}×)` : ""}`).join("\n")).join("\n\n") + "\n" : "";
   const out = `${intro}\n\n${anglickaSekceLlms()}\n\n${profeseLlms()}\n\n## Obory\n${obory}\n\n## Case studies\n${cases}\n\n## Aktuální volné pozice (${positions.length})\n` +
     `Každá pozice má vlastní stránku s popisem a formulářem pro reakci. Úplný přehled s filtry: ${BASE}/pozice/\n\n` +
-    rows.join("\n") + "\n";
+    rows.join("\n") + "\n" + archiv;
   fs.writeFileSync(path.join(ROOT, "llms.txt"), out);
   console.log(`  ✓ llms.txt (kořen, indexovatelný, ${positions.length} pozic)`);
 }
@@ -932,8 +978,14 @@ function writePoziceIndex(positions, labels) {
   const obRe = /<!--POZICE_OBORY_START-->[\s\S]*?<!--POZICE_OBORY_END-->/;
   html = obRe.test(html) ? html.replace(obRe, () => oboryLinks)
     : html.replace('<div class="pos-empty" id="pos-all-empty"', () => oboryLinks + '\n        <div class="pos-empty" id="pos-all-empty"');
+  const archivBlok = `<!--POZICE_ARCHIV_START-->${ARCHIV_N ? `\n        <div style="margin-top:48px">${archivTeaserHTML("../")}</div>\n        ` : ""}<!--POZICE_ARCHIV_END-->`;
+  const arRe = /<!--POZICE_ARCHIV_START-->[\s\S]*?<!--POZICE_ARCHIV_END-->/;
+  html = arRe.test(html) ? html.replace(arRe, () => archivBlok) : html.replace("<!--POZICE_OBORY_END-->", () => "<!--POZICE_OBORY_END-->\n        " + archivBlok);
+  // krátký odkaz i nahoře (box dole je až za celým seznamem, firmy tam nemusí dojet)
+  const archivTop = `<!--POZICE_ARCHIV_TOP_START-->${ARCHIV_N ? `<p class="positions-lead" style="margin-top:-8px">Pozice, které jsme obsazovali dříve, najdete v <a href="archiv/">archivu pozic</a>.</p>` : ""}<!--POZICE_ARCHIV_TOP_END-->`;
+  html = html.replace(/<!--POZICE_ARCHIV_TOP_START-->[\s\S]*?<!--POZICE_ARCHIV_TOP_END-->/, () => archivTop);
   fs.writeFileSync(fp, html);
-  console.log(`  ✓ pozice/index.html (${positions.length} pozic přímo v HTML + ItemList)`);
+  console.log(`  ✓ pozice/index.html (${positions.length} pozic přímo v HTML + ItemList${ARCHIV_N ? ", odkaz na archiv" : ""})`);
 }
 // Org JSON-LD + měření do statických stránek (idempotentně přes markery; jediný zdroj = source soubory).
 function injectIntoStatic(relFiles) {
@@ -978,7 +1030,7 @@ function footerHTML(rel) {
   <a class="nav-logo nav-wordmark" href="${rel}index.html">Sintera<span>.</span></a>
   <div class="foot-col"><strong>Kontakt</strong>Uhelná 160/24, Hradec Králové<br><a href="tel:+420499599861">+420 499 599 861</a><br><a href="mailto:info@sintera.cz">info@sintera.cz</a></div>
   <div class="foot-col"><strong>Obory</strong>${obory}</div>
-  <div class="foot-col"><strong>Více</strong><a href="${rel}co-obsazujeme/">Jaké pozice obsazujeme</a><br><a href="${rel}pozice/">Volné pozice</a><br><a href="${rel}case-studies/">Case studies</a><br><a href="${rel}faq/">Časté dotazy</a><br><a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a></div>
+  <div class="foot-col"><strong>Více</strong><a href="${rel}co-obsazujeme/">Jaké pozice obsazujeme</a><br><a href="${rel}pozice/">Volné pozice</a><br>${ARCHIV_N ? `<a href="${rel}pozice/archiv/">Archiv pozic</a><br>` : ""}<a href="${rel}case-studies/">Case studies</a><br><a href="${rel}faq/">Časté dotazy</a><br><a href="https://www.linkedin.com/company/sintera-czech-s-r-o-" target="_blank" rel="noopener">LinkedIn</a></div>
   <span class="copy">© ${new Date().getFullYear()} Sintera Czech s.r.o. · IČ 29130336 · <a href="${rel}ochrana-osobnich-udaju/">Ochrana osobních údajů</a></span>
 </footer>`;
 }
@@ -1100,6 +1152,84 @@ function oborPositions(o, positions) {
     (!o.obory.length || o.obory.includes(p.o)) && (!o.seniority || o.seniority.includes(p.s)) && (o.obory.length || o.seniority));
 }
 
+/* ---------- Archiv pozic /pozice/archiv/ ----------
+   Pro klienty (firmy), ne pro uchazeče: konkrétní inzeráty z dřívějších search projektů jako doklad,
+   čím se zabýváme (vedle referencí a case studies). Záměrně BEZ dat (staré datum působí jako neaktuální
+   web, bez data je to portfolio) a BEZ mezd (stará čísla by klient četl jako dnešní cenu trhu).
+   Seskupeno podle oboru, stejné názvy sloučené („3×"). Prázdný archiv = žádná stránka ani odkazy. */
+const ARCHIV_URL = "/pozice/archiv/";
+let ARCHIV_N = 0; // počet archivních pozic; nastaví main() před generováním stránek (řídí odkazy na archiv)
+function archivSkupiny(archiv, labels) {
+  const byKey = new Map();
+  for (const p of newestFirst(archiv)) {
+    const k = norm(p.t);
+    if (byKey.has(k)) byKey.get(k).n++; else byKey.set(k, { p, n: 1 });
+  }
+  const items = [...byKey.values()];
+  const kody = [...Object.keys(labels.OBORY), ...new Set(items.map(x => x.p.o).filter(o => !labels.OBORY[o]))];
+  return kody.map(code => ({ code, label: labels.OBORY[code] || "Další obory",
+    items: items.filter(x => x.p.o === code).sort((a, b) => a.p.t.localeCompare(b.p.t, "cs")) }))
+    .filter(g => g.items.length).sort((a, b) => b.items.length - a.items.length);
+}
+function archivRowsHTML(items, labels, rel) {
+  return `<div class="pos-list">` + items.map(({ p, n }) =>
+    `<a class="pos-row" href="${rel}pozice/${esc(p.id)}.html">` +
+    `<span class="t">${esc(p.t)}${n > 1 ? `<span class="pos-count" title="Tuto roli jsme obsazovali ${n}×">${n}×</span>` : ""}</span>` +
+    `<span class="m field">${esc(labels.OBORY[p.o] || p.o)}</span>` +
+    `<span class="m level">${esc(labels.SENIORITY[p.s] || p.s)}</span>` +
+    `<span class="m loc">${esc((p.k || []).join(" / "))}</span>` +
+    `<span class="arr" aria-hidden="true">→</span></a>`).join("\n") + `</div>`;
+}
+// Upoutávka na archiv (stejný box jako „Archiv více než 100 referencí" na homepage).
+function archivTeaserHTML(rel, n = ARCHIV_N) {
+  if (!n) return "";
+  return `<div class="ref-archive">
+      <div class="ref-archive__text">
+        <strong>Archiv: ${n} ${pocetPozic(n)}, které jsme obsazovali</strong>
+        <span>Jaké role a v jakých oborech jsme pro firmy v minulosti hledali. Od výrobních profesí po management.</span>
+      </div>
+      <a class="btn btn-primary" href="${rel}pozice/archiv/">Prohlédnout archiv</a>
+    </div>`;
+}
+const pocetPozic = n => n === 1 ? "pozice" : (n >= 2 && n <= 4) ? "pozice" : "pozic";
+function archivPage(site, labels) {
+  const rel = "../../", url = BASE + ARCHIV_URL;
+  const skupiny = archivSkupiny(site.archiv, labels);
+  const kraje = new Set(site.archiv.flatMap(p => p.k || []));
+  const n = site.archiv.length;
+  const body = `        <a class="ref-more" href="../" style="display:inline-flex;margin-bottom:28px">← Aktuální volné pozice</a>
+        <div class="kicker">Archiv pozic</div>
+        <h1 class="lead">Pozice, které jsme obsazovali</h1>
+        <div class="body"><p>Výběr inzerátů z našich dřívějších search projektů. Ukazuje, jaké role a v jakých oborech pro firmy hledáme, od výrobních a řemeslných profesí po management. Každý inzerát si můžete otevřít a podívat se, jak zadání popisujeme.</p>
+        <p>Na tyto pozice už nenabíráme. Aktuálně otevřené role najdete ve <a href="../">volných pozicích</a>.</p></div>
+        <div class="pos-tags" style="margin-top:24px"><span>${n} ${pocetPozic(n)}</span><span>${skupiny.length} ${skupiny.length >= 5 ? "oborů" : skupiny.length === 1 ? "obor" : "obory"}</span>${kraje.size ? `<span>${kraje.size} ${kraje.size >= 5 ? "lokalit" : kraje.size === 1 ? "lokalita" : "lokality"}</span>` : ""}</div>
+${skupiny.length > 1 ? `        <p class="positions-lead" style="margin:28px 0 0">Podle oboru: ${skupiny.map(g => `<a href="#obor-${esc(g.code)}">${esc(g.label)}</a>`).join(" · ")}</p>\n` : ""}${skupiny.map(g => `        <h2 class="page-h2" id="obor-${esc(g.code)}" style="scroll-margin-top:120px">${esc(g.label)}</h2>
+        ${archivRowsHTML(g.items, labels, rel)}`).join("\n")}
+        <div class="body" style="margin-top:36px"><p>Další doklady naší práce: <a href="${rel}case-studies/">case studies</a> s konkrétními příběhy obsazení a <a href="${rel}reference-info/">reference klientů</a>. Přehled rolí podle úrovně je na stránce <a href="${rel}co-obsazujeme/">Jaké pozice obsazujeme</a>.</p></div>
+        <h2 class="page-h2">Hledáte podobného člověka?</h2>
+        <p class="body">Pošlete nám job description nebo pár vět k roli. Ozveme se a navrhneme, jak ji konkrétně uchopit.</p>
+        <div class="hero-ctas" style="margin-top:24px;flex-wrap:wrap">
+          <a class="btn btn-primary" href="${rel}index.html#kontakt">Pošlete nám pozici</a>
+          <a class="btn btn-line" href="tel:+420499599861">Zavolejte nám · +420 499 599 861</a>
+        </div>`;
+  const ld = [breadcrumbLD([["Sintera", BASE + "/"], ["Volné pozice", BASE + "/pozice/"], ["Archiv pozic", url]]),
+    { "@context": "https://schema.org", "@type": "CollectionPage", name: "Pozice, které jsme obsazovali", url,
+      description: "Archiv pozic, které Sintera Czech obsazovala přímým vyhledáváním (direct search) ve výrobních a technických firmách.",
+      isPartOf: { "@type": "WebSite", name: "Sintera Czech", url: BASE + "/" },
+      mainEntity: { "@type": "ItemList", numberOfItems: n,
+        itemListElement: newestFirst(site.archiv).map((p, i) => ({ "@type": "ListItem", position: i + 1, name: p.t, url: `${BASE}/pozice/${p.id}.html` })) } }];
+  return pageShell({ rel, title: "Archiv pozic: role, které jsme obsazovali · Sintera Czech",
+    desc: `Archiv ${n} ${pocetPozic(n)}, které Sintera obsazovala přímým vyhledáváním: ${skupiny.slice(0, 4).map(g => g.label.toLowerCase()).join(", ")} a další obory.`, url, ld, body });
+}
+function writeArchivPage(site, labels) {
+  const dir = path.join(POZICE_DIR, "archiv");
+  fs.rmSync(dir, { recursive: true, force: true }); // plně generované; prázdný archiv = stránka zmizí
+  if (!site.archiv.length) { console.log("  · archiv pozic je prázdný (žádný řádek se stavem archiv), stránka se negeneruje"); return; }
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, "index.html"), withCsp(archivPage(site, labels)));
+  console.log(`  ✓ pozice/archiv/ (${site.archiv.length} archivních pozic)`);
+}
+
 function oborPage(o, site, labels) {
   const rel = "../../", url = `${BASE}/obory/${o.slug}/`;
   const cases = o.cases.map(id => site.cases.find(c => c.id === id)).filter(Boolean);
@@ -1129,6 +1259,14 @@ function oborPage(o, site, labels) {
     const rel2 = o.souvisejici.map(s => OBORY_STRANKY.find(x => x.slug === s)).filter(Boolean);
     parts.push(`        <h2 class="page-h2">Aktuálně otevřené pozice</h2>
         <div class="body"><p>Pozice pro automotive najdete podle oboru: ${rel2.map(x => `<a href="../${x.slug}/">${esc(x.nazev)}</a>`).join(", ")}, nebo v <a href="${rel}pozice/">přehledu všech volných pozic</a>.</p></div>`);
+  }
+  const archObor = oborPositions(o, site.archiv || []);
+  if (archObor.length) {
+    const items = archivSkupiny(archObor, labels).flatMap(g => g.items).slice(0, 10);
+    parts.push(`        <h2 class="page-h2">Pozice, které jsme v tomto oboru obsazovali</h2>
+        <div class="body"><p>Výběr z archivu dřívějších search projektů. Na tyto pozice už nenabíráme, ale ukazují, jaké role v oboru hledáme.</p></div>
+        ${archivRowsHTML(items, labels, rel)}
+        <p style="margin-top:24px"><a class="btn btn-line" href="${rel}pozice/archiv/">Celý archiv pozic →</a></p>`);
   }
   if (cases.length) parts.push(`        <h2 class="page-h2">Z praxe</h2>
         ${caseRowsHTML(cases, rel)}`);
@@ -1200,7 +1338,7 @@ function casesIndexPage(site) {
         <h1 class="lead">Když běžné cesty nestačily</h1>
         <div class="body"><p>Příběhy z reálných search projektů: jaká byla výchozí situace, proč inzerce nestačila, co jsme udělali jinak a jak to dopadlo. Vycházejí z referencí klientů, názvy firem neuvádíme.</p></div>
         <div style="margin-top:40px">${caseRowsHTML(site.cases, rel)}</div>
-${ctaHTML(rel)}`;
+${ARCHIV_N ? `        <div style="margin-top:48px">${archivTeaserHTML(rel)}</div>\n` : ""}${ctaHTML(rel)}`;
   const ld = [breadcrumbLD([["Sintera", BASE + "/"], ["Case studies", url]]),
     { "@context": "https://schema.org", "@type": "ItemList", itemListElement: site.cases.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, url: `${BASE}/case-studies/${caseSlug(c.id)}/` })) }];
   return pageShell({ rel, title: "Case studies · Sintera Czech", desc: "Příběhy z reálných search projektů ve výrobě, automotive, kvalitě, technice a managementu: situace, postup a výsledek.", url, ld, body,
@@ -1246,7 +1384,7 @@ const ROLE_FAQ = () => FAQ_QA.filter(x => /jen manažerské|CNC programátory, s
 
 function rolePage(site, labels) {
   const rel = "../", url = `${BASE}/co-obsazujeme/`;
-  const kat = katalogRoli(site.positions);
+  const kat = katalogRoli(site.positions.concat(site.archiv || []));
   const tags = arr => `<div class="pos-tags">${arr.map(r => `<span>${esc(r.n)}</span>`).join("")}</div>`;
   const urovne = [
     ["remeslo", "Výrobní a řemeslné profese", "Seřizovače, CNC programátory a frézaře, svářeče, zámečníky, nástrojaře nebo elektromechaniky hledáme stejně pečlivě jako manažery. Právě tihle lidé práci mají, firmy si je drží a na inzeráty neodpovídají."],
@@ -1271,7 +1409,7 @@ ${urovne.map(([k, h, t]) => { const r = kat.filter(x => x.u === k); return r.len
         <div class="body" style="margin-top:28px"><p>Hledáte roli, která v seznamu není? Pošlete nám ji. Seznam ukazuje příklady, ne hranice toho, co umíme.</p></div>
 ${faq.length ? `        <h2 class="page-h2">Časté dotazy</h2>
         <div class="faq-list">${faq.map(x => `<div class="faq-item"><h3 class="faq-q">${esc(x.q)}</h3><p class="faq-a">${esc(x.a)}</p></div>`).join("\n")}</div>` : ""}
-        <p style="margin-top:32px"><a class="btn btn-line" href="${rel}pozice/">Aktuální volné pozice →</a></p>
+        <p style="margin-top:32px"${ARCHIV_N ? ` class="hero-ctas"` : ""}><a class="btn btn-line" href="${rel}pozice/">Aktuální volné pozice →</a>${ARCHIV_N ? `<a class="btn btn-line" href="${rel}pozice/archiv/">Archiv pozic, které jsme obsazovali →</a>` : ""}</p>
 ${ctaHTML(rel)}`;
   const ld = [breadcrumbLD([["Sintera", BASE + "/"], ["Jaké pozice obsazujeme", url]]),
     { "@context": "https://schema.org", "@type": "Service", name: "Direct search pro výrobní, technické i manažerské pozice", serviceType: "Direct search", url,
@@ -1286,7 +1424,7 @@ ${ctaHTML(rel)}`;
 function writeRolePage(site, labels) {
   const dir = path.join(ROOT, "co-obsazujeme"); fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, "index.html"), withCsp(rolePage(site, labels)));
-  const k = katalogRoli(site.positions);
+  const k = katalogRoli(site.positions.concat(site.archiv || []));
   console.log(`  ✓ co-obsazujeme/ (${k.length} rolí: ${["remeslo", "technik", "vedeni"].map(u => k.filter(x => x.u === u).length).join(" / ")})`);
 }
 
@@ -1407,7 +1545,7 @@ function rolePageEn(site) {
   const rel = "../../", url = `${BASE}/en/roles/`, t = EN.ui.rolesPage;
   // anglické názvy rolí; víc českých názvů může mít stejný anglický (Procesní inženýr = Process Engineer)
   const seen = new Set(), kat = [];
-  for (const r of katalogRoli(site.positions)) {
+  for (const r of katalogRoli(site.positions.concat(site.archiv || []))) {
     const n = enRole(r.n); if (!n || seen.has(n.toLowerCase())) continue;
     seen.add(n.toLowerCase()); kat.push({ ...r, n });
   }
@@ -1566,8 +1704,10 @@ async function main() {
   ]);
   zkontrolujDostupnostSheetu(); // nedostupný list = tvrdá chyba (viz komentář u loadSheet)
 
+  const vsechnyPozice = pz ? mapPositions(pz) : null;   // vystavené + archivní (skryté vypadly už tady)
   const site = {
-    positions: pz ? mapPositions(pz) : PZ.POZICE.map(p => ({ ...p })),
+    positions: vsechnyPozice ? vsechnyPozice.filter(p => !p.archiv) : PZ.POZICE.map(p => ({ ...p })),
+    archiv:    vsechnyPozice ? vsechnyPozice.filter(p => p.archiv) : fallback("site-data.json", "archiv"),
     references: rf ? mapReferences(rf) : fallback("reference-data.json", "references"),
     cases:      cs ? mapCases(cs)      : fallback("reference-data.json", "cases"),
     clients:    kl ? mapClients(kl)    : fallback("reference-data.json", "clients"),
@@ -1606,7 +1746,8 @@ async function main() {
       "var KRAJE = " + JSON.stringify(PZ.KRAJE) + ";\n" +
       "var POZICE = " + JSON.stringify(posOut) + ";\n");
     const popisi = {};
-    for (const p of site.positions) { const body = positionBodyHTML(p, labels); if (body) popisi[p.id] = { descHtml: body }; }
+    // i archivní: pozice-popisy.json je záloha popisů starých inzerátů bez strukturovaných polí, bez nich by archivní detail ztratil text
+    for (const p of site.positions.concat(site.archiv)) { const body = positionBodyHTML(p, labels); if (body) popisi[p.id] = { descHtml: body }; }
     const sortedKeys = Object.keys(popisi).sort((a, b) => (!isNaN(+a) && !isNaN(+b)) ? (+a - +b) : String(a).localeCompare(String(b)));
     const sortedPopisi = {}; for (const k of sortedKeys) sortedPopisi[k] = popisi[k];
     fs.writeFileSync(path.join(DATA, "pozice-popisy.json"), JSON.stringify(sortedPopisi, null, 2) + "\n");
@@ -1619,12 +1760,14 @@ async function main() {
     }
   }
 
+  ARCHIV_N = site.archiv.length;   // odkazy na archiv (patička, /pozice/, homepage) jen když v něm něco je
   prerender(site, labels);
   prerenderEn(site);
-  writeDetailPages(site.positions, labels);
-  writeSitemap(site.positions, extraSitemapUrls(site), site);
+  writeDetailPages(site.positions.concat(site.archiv), labels);
+  writeArchivPage(site, labels);
+  writeSitemap(site.positions.concat(site.archiv), extraSitemapUrls(site), site);
   ulozDataPublikace();   // stálé datePosted (viz jobPosting)
-  writeRedirects(site.positions);
+  writeRedirects(site.positions.concat(site.archiv)); // staré odkazy i na archivní pozice vedou na jejich stránku
   writeFaqPage();
   writeLlmsTxt(site.positions, labels, site);
   writeOboryACases(site, labels);

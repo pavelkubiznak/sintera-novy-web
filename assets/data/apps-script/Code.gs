@@ -100,7 +100,7 @@ var TARGETS = {
   pozice: {
     sheet: 'pozice',
     headers: ['nazev','obor','seniorita','kraj','uvazek','rezim','bonus','mzda_rozsah','mzda_pozn',
-      'uvod','proc_mluvit','naplne','must','vyhoda','nabizime','cta','featured','zverejnit',
+      'uvod','proc_mluvit','naplne','must','vyhoda','nabizime','cta','stav',
       'datum_zverejneni','platnost_do'],
     build: function (p) {
       return {
@@ -109,7 +109,7 @@ var TARGETS = {
         bonus: p.bonus || '', mzda_rozsah: p.salaryRange || '', mzda_pozn: p.salaryNote || '',
         uvod: p.intro || '', proc_mluvit: list(p.whyTalk), naplne: list(p.responsibilities),
         must: list(p.mustHave), vyhoda: list(p.niceToHave), nabizime: list(p.offer),
-        cta: p.cta || '', featured: p.featured ? 'ano' : 'ne', zverejnit: 'ne',
+        cta: p.cta || '', stav: STAV.NE, _highlight: !!p.featured,
         datum_zverejneni: p.datePosted || '', platnost_do: p.validThrough || ''
       };
     }
@@ -154,12 +154,17 @@ function handleContentWrite_(body) {
   var publish = (body.publish === true || body.publish === 'ano' || body.publish === 'true');
 
   var ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (target === 'pozice') migrujStavPozic_();   // starý formát (featured + zverejnit) → sloupec stav
   var sh = ss.getSheetByName(def.sheet) || ss.insertSheet(def.sheet);
   if (sh.getLastRow() === 0) sh.appendRow(def.headers);
 
   var map = def.build(record);
   if (publish && def.headers.indexOf('zverejnit') !== -1) map.zverejnit = 'ano';
-  var values = def.headers.map(function (h) { return map[h]; });
+  if (publish && def.headers.indexOf('stav') !== -1) map.stav = map._highlight ? STAV.HL : STAV.VYS;
+  // hodnoty podle SKUTEČNÉ hlavičky listu (ne podle pořadí v def.headers): list má navíc vlastní sloupce
+  // (popis, konzultant…) a pořadí se může měnit, pozicí by se data zapsala do cizích sloupců
+  var head = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0].map(function (h) { return String(h).trim().toLowerCase(); });
+  var values = head.map(function (h) { return map.hasOwnProperty(h) && h.charAt(0) !== '_' ? map[h] : ''; });
   // nový záznam navrch: vlož řádek hned pod hlavičku (newest-first v Sheetu i na webu)
   sh.insertRowBefore(2);
   sh.getRange(2, 1, 1, values.length).setValues([values]);
@@ -170,7 +175,7 @@ function handleContentWrite_(body) {
   if (target === 'pozice') featuredVypnuto = enforceFeaturedLimit_();
 
   var built = false, buildDetail = '';
-  if (publish) { var r = triggerBuild_(); built = r.ok; buildDetail = r.detail || ''; }
+  if (publish) { var r = triggerBuild_(); built = r.ok; buildDetail = r.detail || ''; if (built) try { oznacPublikovano_(); } catch (e) {} }
   return json_({ ok: true, target: target, sheet: def.sheet, row: row,
                  published: publish, build_triggered: built, build_detail: buildDetail,
                  featured_auto_off: featuredVypnuto });
@@ -535,9 +540,17 @@ function doPost(e) {
   }
 }
 
-function doGet() {
+function doGet(e) {
+  // ?sync=1 volá každých 5 minut časovač na serveru (viz C4): změněný a ustálený Sheet → build webu
+  if (e && e.parameter && e.parameter.sync) {
+    var st = 'chyba';
+    try { st = synchronizujWeb_(); } catch (err) { st = 'chyba: ' + err; }
+    return json_({ ok: true, sync: st });
+  }
   var privateOk = false;
-  try { privateOk = !!neverejnaTabulka_(); } catch (e) {}   // založí/zmigruje neveřejnou tabulku při prvním volání
+  try { privateOk = !!neverejnaTabulka_(); } catch (e2) {}   // založí/zmigruje neveřejnou tabulku při prvním volání
+  try { migrujStavPozic_(); } catch (e2) {}                    // jednorázově: featured + zverejnit → stav
+  try { vlozTlacitkoPublikovat_(); } catch (e2) {}             // jednorázově: barevné tlačítko v listu pozice
   return json_({ ok: true, service: 'sintera', private_data: privateOk });   // health-check; nic o konfiguraci ven
 }
 
@@ -548,13 +561,16 @@ function json_(obj) {
 /* ====================== C) Publikace na web (tlačítko v Sheetu) ====================== */
 
 function onOpen() {
+  // samostatné, na první pohled viditelné menu jen s publikací (Šárka ho v menu Sintera nehledala)
+  SpreadsheetApp.getUi().createMenu('▶ PUBLIKOVAT WEB').addItem('Publikovat na web teď', 'publishSite').addToUi();
   SpreadsheetApp.getUi()
     .createMenu('Sintera')
     .addItem('Publikovat na web', 'publishSite')
     .addItem('Statistiky návštěvnosti (vytvořit/obnovit)', 'vytvorStatistiky')
     .addItem('Obory: dropdown + sjednotit', 'nastavOboryDropdown')
     .addToUi();
-  // samoúdržba při otevření Sheetu: featured max 9 + list statistiky (založí chybějící, přestaví rozbitý)
+  // samoúdržba při otevření Sheetu: převod na sloupec stav (jednorázově) + highlight max 9
+  try { migrujStavPozic_(); } catch (e) {}
   try { enforceFeaturedLimit_(); } catch (e) {}
   // statistiky teď žijí v neveřejné tabulce (osobní údaje a měření mimo veřejnou);
   // staví se na vyžádání z menu Sintera, protože k nim má přístup jen majitel.
@@ -585,15 +601,128 @@ function publishSite() {
   var ui = SpreadsheetApp.getUi();
   var vypnuto = enforceFeaturedLimit_();
   var r = triggerBuild_();
-  var extra = vypnuto ? ' Pozn.: featured nad limit 9 — u ' + vypnuto + ' starší pozice automaticky přepnuto na ne.' : '';
+  if (r.ok) try { oznacPublikovano_(); } catch (e) {}
+  var extra = vypnuto ? ' Pozn.: highlight nad limit 9 — u ' + vypnuto + ' starší pozice automaticky přepnuto na „vystaveno".' : '';
   if (r.ok) ui.alert('Spuštěno. Web se přebuilduje, za 1 až 2 minuty bude aktuální.' + extra);
   else ui.alert('Build se nepodařilo spustit: ' + (r.detail || 'neznámá chyba'));
 }
 
-/* ====================== C2) Featured: max 9 nejnovějších ====================== */
-// Homepage zobrazuje max 9 featured pozic (bere je v pořadí Sheetu, nové jsou nahoře).
-// Tahle funkce projde list pozice shora dolů a u ZVEŘEJNĚNÝCH pozic nad limit 9
-// automaticky přepne featured na 'ne' (tj. vypadne vždy ta nejstarší zařazená).
+/* ====================== C2) Stav pozice: jeden sloupec místo featured + zverejnit ====================== */
+// Od 6. 10. 2026 řídí viditelnost pozice jediný sloupec `stav` s rozbalovacím seznamem:
+//   vystaveno + highlight → na webu i na homepage (max 9)
+//   vystaveno             → na webu v seznamu pozic
+//   nevystaveno           → nikde (koncept, důvěrné, stažené)
+//   archiv                → v archivu pozic jako ukázka práce pro firmy, nedá se na ni reagovat
+var STAV = { HL: 'vystaveno + highlight', VYS: 'vystaveno', NE: 'nevystaveno', ARCH: 'archiv' };
+var STAVY = [STAV.HL, STAV.VYS, STAV.NE, STAV.ARCH];
+
+// Jednorázový převod (idempotentní): vloží sloupec stav na místo featured, naplní ho z featured/zverejnit,
+// nastaví dropdown + barvy a staré dva sloupce smaže. Když už stav existuje, jen obnoví dropdown.
+// Spouští se z doGet (web appka běží pod majitelem), při zápisu z GPT a při otevření Sheetu majitelem.
+function migrujStavPozic_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName('pozice');
+  if (!sh || sh.getLastRow() < 1) return 'bez listu';
+  var head = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0].map(function (h) { return String(h).trim().toLowerCase(); });
+  var si = head.indexOf('stav');
+  if (si >= 0) return 'uz hotovo';
+  var fi = head.indexOf('featured'), zi = head.indexOf('zverejnit');
+  if (fi < 0 && zi < 0) return 'chybi sloupce';
+  var n = sh.getLastRow() - 1;
+  var fv = n > 0 && fi >= 0 ? sh.getRange(2, fi + 1, n, 1).getValues() : [];
+  var zv = n > 0 && zi >= 0 ? sh.getRange(2, zi + 1, n, 1).getValues() : [];
+  var ano = function (v) { return String(v).trim().toLowerCase() === 'ano'; };
+  var nove = [];
+  for (var r = 0; r < n; r++) {
+    var pub = zi < 0 || ano(zv[r][0]);
+    nove.push([!pub ? STAV.NE : (fi >= 0 && ano(fv[r][0])) ? STAV.HL : STAV.VYS]);
+  }
+  var kam = Math.min(fi >= 0 ? fi : zi, zi >= 0 ? zi : fi);        // 0-based sloupec, kam stav přijde
+  sh.insertColumnBefore(kam + 1);
+  sh.getRange(1, kam + 1).setValue('stav').setFontWeight('bold');
+  if (n > 0) sh.getRange(2, kam + 1, n, 1).setValues(nove);
+  // staré sloupce se po vložení posunuly o 1 doprava; mazat od vyššího indexu
+  var stare = [fi, zi].filter(function (i) { return i >= 0; }).map(function (i) { return i + 2; }).sort(function (a, b) { return b - a; });
+  stare.forEach(function (c) { sh.deleteColumn(c); });
+  nastavStavDropdown_(sh, kam);
+  try { vytvorNavod(); } catch (e) {}   // návod v Sheetu popisuje nový sloupec
+  return 'prevedeno ' + n + ' radku';
+}
+
+function nastavStavDropdown_(sh, ci) {
+  var rows = Math.max(sh.getMaxRows() - 1, 1);
+  var range = sh.getRange(2, ci + 1, rows, 1);
+  range.setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(STAVY, true)
+    .setAllowInvalid(false).setHelpText('vystaveno + highlight = web i homepage · vystaveno = web · nevystaveno = nikde · archiv = archiv pozic pro firmy').build());
+  // barvy, ať je stav vidět na první pohled (stará pravidla pro tento sloupec nahradit, ostatní nechat)
+  var col = ci + 1;
+  var ostatni = sh.getConditionalFormatRules().filter(function (rule) {
+    return !rule.getRanges().some(function (rg) { return rg.getColumn() === col && rg.getNumColumns() === 1; });
+  });
+  var barva = function (text, bg, fg) {
+    return SpreadsheetApp.newConditionalFormatRule().whenTextEqualTo(text).setBackground(bg).setFontColor(fg).setRanges([range]).build();
+  };
+  sh.setConditionalFormatRules(ostatni.concat([
+    barva(STAV.HL, '#f4d9cc', '#7a3518'), barva(STAV.VYS, '#d9ead3', '#274e13'),
+    barva(STAV.NE, '#eeeeee', '#666666'), barva(STAV.ARCH, '#dfe3f3', '#1e2456')
+  ]));
+}
+
+/* ====================== C4) Automatická publikace (bez tlačítka) ====================== */
+// Kdokoli (Šárka, ChatGPT vyplňující Sheet) stačí změnit obsah; tlačítko není nutné. Časovač na serveru
+// sintera-radar volá každých 5 minut /exec?sync=1. Build se spustí, když se obsah listů, ze kterých web
+// čte, ZMĚNIL a pak se aspoň 4 minuty NEHÝBAL (rozepsaný řádek tak nejde ven v půlce psaní).
+// Proč ne časovač přímo v Apps Scriptu: ScriptApp přidá nové oprávnění a web appka (formuláře na webu)
+// by do nového odsouhlasení majitelem nefungovala.
+var SYNC_LISTY = ['pozice', 'reference', 'case_studies', 'klienti', 'reference_zed'];
+var SYNC_KLID_MS = 4 * 60 * 1000;
+function otiskObsahu_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var data = SYNC_LISTY.map(function (n) { var sh = ss.getSheetByName(n); return sh ? sh.getDataRange().getDisplayValues() : null; });
+  return Utilities.base64Encode(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, JSON.stringify(data), Utilities.Charset.UTF_8));
+}
+function oznacPublikovano_() {
+  var h = otiskObsahu_(), pr = PropertiesService.getScriptProperties();
+  pr.setProperties({ SYNC_BUILT: h, SYNC_SEEN: h, SYNC_SEEN_AT: String(Date.now()) });
+}
+function synchronizujWeb_() {
+  var pr = PropertiesService.getScriptProperties();
+  var h = otiskObsahu_(), now = Date.now();
+  var built = pr.getProperty('SYNC_BUILT');
+  if (!built) { pr.setProperties({ SYNC_BUILT: h, SYNC_SEEN: h, SYNC_SEEN_AT: String(now) }); return 'start'; } // první běh: výchozí stav
+  if (h === built) return 'beze zmen';
+  if (h !== pr.getProperty('SYNC_SEEN')) { pr.setProperties({ SYNC_SEEN: h, SYNC_SEEN_AT: String(now) }); return 'zmena, cekam na klid'; }
+  if (now - Number(pr.getProperty('SYNC_SEEN_AT') || 0) < SYNC_KLID_MS) return 'cekam na klid';
+  try { enforceFeaturedLimit_(); } catch (e) {}
+  h = otiskObsahu_();   // limit highlightů mohl změnit list
+  var r = triggerBuild_();
+  if (!r.ok) return 'build se nespustil: ' + (r.detail || '');
+  pr.setProperties({ SYNC_BUILT: h, SYNC_SEEN: h, SYNC_SEEN_AT: String(now) });
+  return 'build spusten';
+}
+
+// Barevné tlačítko „▶ PUBLIKOVAT NA WEB" v levém horním rohu listu pozice (obrázek s přiřazeným skriptem).
+// Hlavička se kvůli němu zvýší a text sloupců se zarovná dolů, takže ho tlačítko nezakryje.
+var TLACITKO_PNG = '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';
+function vlozTlacitkoPublikovat_() {
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('pozice');
+  if (!sh) return 'bez listu';
+  var uz = sh.getImages().some(function (im) { return im.getAltTextTitle() === 'publikovat'; });
+  if (uz) return 'uz je';
+  sh.setRowHeight(1, 64);
+  sh.getRange(1, 1, 1, sh.getLastColumn()).setVerticalAlignment('bottom');
+  var blob = Utilities.newBlob(Utilities.base64Decode(TLACITKO_PNG), 'image/png', 'publikovat.png');
+  var img = sh.insertImage(blob, 1, 1, 6, 4);
+  img.setWidth(230).setHeight(34).setAltTextTitle('publikovat')
+     .setAltTextDescription('Klikni: web se hned přestaví ze Sheetu (jinak se to stane samo do 10 minut).');
+  img.assignScript('publishSite');
+  return 'vlozeno';
+}
+
+/* ====================== C3) Highlight: max 9 nejnovějších ====================== */
+// Homepage zobrazuje max 9 pozic ve stavu „vystaveno + highlight" (v pořadí Sheetu, nové jsou nahoře).
+// Tahle funkce projde list pozice shora dolů a u pozic nad limit 9 automaticky přepne stav
+// na „vystaveno" (tj. z homepage vypadne vždy ta nejstarší zařazená, na webu zůstane).
 // Volá se automaticky při zápisu z GPT a při kliknutí na Sintera → Publikovat na web.
 function enforceFeaturedLimit_() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -602,6 +731,17 @@ function enforceFeaturedLimit_() {
   var data = sh.getDataRange().getValues();
   if (data.length < 2) return 0;
   var head = data[0].map(function (h) { return String(h).trim().toLowerCase(); });
+  var si = head.indexOf('stav');
+  if (si >= 0) {
+    var hl = 0, zmeneno = 0;
+    for (var i = 1; i < data.length; i++) {
+      if (String(data[i][si]).trim().toLowerCase() !== STAV.HL) continue;
+      hl++;
+      if (hl > 9) { sh.getRange(i + 1, si + 1).setValue(STAV.VYS); zmeneno++; }
+    }
+    return zmeneno;
+  }
+  // starý formát (před migrací): featured + zverejnit
   var fi = head.indexOf('featured'), zi = head.indexOf('zverejnit');
   if (fi < 0) return 0;
   var kept = 0, changed = 0;
@@ -624,26 +764,28 @@ function vytvorNavod() {
 
   var lines = [
     'PROVOZ WEBU sintera.cz — návod',
-    'Web se staví automaticky z tohoto Sheetu. Co je v listech pozice / reference / case_studies a má zverejnit = ano, je na webu. Build trvá 1 až 2 minuty.',
+    'Web se staví automaticky z tohoto Sheetu. Pozice řídí sloupec stav, reference a case studies sloupec zverejnit = ano. Build trvá 1 až 2 minuty.',
     '',
     '1) Přidat obsah přes ChatGPT (nejrychlejší)',
     'Otevři firemní ChatGPT, custom GPT „Sintera – obsah na web". Vlož syrové zadání (pozice, reference nebo case study).',
-    'GPT připraví náhled a zeptá se: uložit jako koncept, nebo zveřejnit na web? U pozice i: má být na homepage (featured)?',
+    'GPT připraví náhled a zeptá se: uložit jako koncept, nebo zveřejnit na web? U pozice i: má být na homepage (highlight)?',
     'Když potvrdíš „zveřejnit", zapíše se to sem a hned se spustí build. Za 1 až 2 minuty je živý.',
     '',
-    '2) Koncept vs. zveřejnění (a stažení z webu)',
-    'Sloupec zverejnit: ano = na webu, ne = koncept (na webu není).',
-    'Zveřejnit ručně: přepni zverejnit na ano a klikni Sintera → Publikovat na web.',
-    'Stáhnout z webu: přepni zverejnit na ne a Publikovat. Řádek nemaž, zůstane jako archiv.',
+    '2) Stav pozice (sloupec stav, rozbalovací seznam)',
+    'vystaveno + highlight = na webu i na homepage (max 9) · vystaveno = na webu v seznamu pozic · nevystaveno = nikde (koncept, důvěrné, stažené) · archiv = v archivu pozic.',
+    'Archiv je pro firmy: ukazuje, jaké pozice jsme obsazovali (bez mzdy, bez data, nedá se na ně reagovat). Inzerát, který nesmí vidět nikdo (třeba kvůli klientovi), dej na nevystaveno, ne do archivu.',
+    'Skončil nábor? Přepni stav na archiv. Řádek nemaž.',
+    'Reference a case studies dál řídí sloupec zverejnit: ano = na webu, ne = koncept.',
     '',
-    '3) Tlačítko Sintera → Publikovat na web',
-    'Po jakékoli ruční změně v Sheetu (text, zverejnit, featured, pořadí) klikni Sintera → Publikovat na web. Za 1 až 2 minuty se to projeví.',
+    '3) Publikace na web: sama, nebo oranžovým tlačítkem',
+    'Web se po změně v Sheetu přestaví SÁM: když se obsah 5 minut nemění, do dalších 5 minut se spustí build. Nic se nemusí mačkat (ani ChatGPT, který Sheet vyplňuje).',
+    'Hned teď: oranžové tlačítko ▶ PUBLIKOVAT NA WEB vlevo nahoře v listu pozice, nebo horní menu ▶ PUBLIKOVAT WEB. Za 1 až 2 minuty se to projeví.',
     '',
     '4) Pořadí pozic (nové nahoře)',
     'Nové záznamy z ChatGPT se vkládají na řádek 2 (nahoru), takže jsou nahoře i na webu. Pořadí na webu = pořadí v Sheetu. Ručně: přesuň řádky a dej Publikovat.',
     '',
-    '5) Featured (homepage) — max 9, nejnovější',
-    'Sloupec featured = ano → pozice se ukáže i na homepage. Homepage zobrazuje max 9 featured; při přidání desáté se ta nejstarší zařazená automaticky přepne na ne (při zápisu z GPT i při Publikovat).',
+    '5) Highlight (homepage) — max 9, nejnovější',
+    'Stav vystaveno + highlight → pozice se ukáže i na homepage. Homepage zobrazuje max 9; při přidání desáté se ta nejstarší zařazená automaticky přepne na vystaveno (při zápisu z GPT i při Publikovat).',
     '',
     '6) Formulář na reference (na webu)',
     'Návštěvník zadá firemní e-mail a přijde mu odkaz na neveřejnou stránku s referencemi. Volné e-maily (gmail, seznam) jsou blokované.',

@@ -2,14 +2,14 @@
 
 Tok: napíšeš raw zadání do GPT → GPT z něj udělá strukturovanou pozici (skill v
 `ai-pozice-writer.md`) → na potvrzení zavolá akci `createPosition`, která přidá řádek
-do listu `pozice` jako **koncept** → člověk řádek zkontroluje, přepne `zverejnit` na `ano`
+do listu `pozice` jako **koncept** → člověk řádek zkontroluje, přepne `stav` na `vystaveno`
 → spustí se build → pozice je živě.
 
 ## Nastavení (jednorázově, ~30 minut)
 
 1. **Sheet:** v Google Sheetu měj list `pozice`. Hlavička (první řádek) přesně:
    `nazev, obor, seniorita, kraj, uvazek, rezim, bonus, mzda_rozsah, mzda_pozn, uvod,
-   proc_mluvit, naplne, must, vyhoda, nabizime, cta, featured, zverejnit,
+   proc_mluvit, naplne, must, vyhoda, nabizime, cta, stav,
    datum_zverejneni, platnost_do`
    (Stačí, když list bude prázdný; skript hlavičku doplní sám při prvním zápisu.)
 
@@ -35,14 +35,14 @@ do listu `pozice` jako **koncept** → člověk řádek zkontroluje, přepne `zv
 
 ## Proč je to bezpečné dost
 
-- Nové pozice se ukládají jako **koncept** (`zverejnit = ne`). Nic nejde živě bez člověka.
+- Nové pozice se ukládají jako **koncept** (`stav = nevystaveno`). Nic nejde živě bez člověka.
 - Token brání náhodnému/cizímu zápisu.
 - I kdyby token unikl, maximum škody je koncept v Sheetu, který nikdo neschválil.
 
 ## Test
 
 - `doGet` (otevři URL `.../exec` v prohlížeči) vrátí `{"ok":true,...}` = web app běží.
-- V GPT řekni „ulož tuhle pozici" po vytvoření; v Sheetu přibude řádek se `zverejnit = ne`.
+- V GPT řekni „ulož tuhle pozici" po vytvoření; v Sheetu přibude řádek se `stav = nevystaveno`.
 
 ## Jeden endpoint, tři cíle
 

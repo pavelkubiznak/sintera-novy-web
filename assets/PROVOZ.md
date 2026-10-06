@@ -1,8 +1,7 @@
 # Provoz webu sintera.cz — návod
 
-Web se staví **automaticky z Google Sheetu „Sintera-obsah"**. Co je v listech `pozice`,
-`reference` a `case_studies` a má `zverejnit = ano`, to je na webu. Sestavení webu (build)
-trvá 1 až 2 minuty.
+Web se staví **automaticky z Google Sheetu „Sintera-obsah"**. Pozice řídí sloupec `stav`,
+reference a case studies sloupec `zverejnit = ano`. Sestavení webu (build) trvá 1 až 2 minuty.
 
 > Tento návod je i přímo v Sheetu jako list **„NÁVOD"** (vlevo dole mezi záložkami).
 
@@ -10,31 +9,48 @@ trvá 1 až 2 minuty.
 
 Otevři firemní ChatGPT a custom GPT **„Sintera – obsah na web"**. Vlož syrové zadání
 (pozice, reference nebo case study). GPT připraví náhled a zeptá se: *uložit jako koncept,
-nebo zveřejnit na web?* U pozice také: *má být vypíchnutá na homepage (featured)?*
+nebo zveřejnit na web?* U pozice také: *má být vypíchnutá na homepage (highlight)?*
 
 Když potvrdíš „zveřejnit", záznam se zapíše do Sheetu a hned se spustí build. Za 1 až 2
-minuty je živý. „Koncept" se uloží s `zverejnit = ne` (na webu zatím není).
+minuty je živý. „Koncept" se uloží se stavem `nevystaveno` (na webu zatím není).
 
-## 2) Koncept vs. zveřejnění (a stažení z webu)
+## 2) Stav pozice (sloupec `stav`, rozbalovací seznam)
 
-- Sloupec **`zverejnit`**: `ano` = na webu, `ne` = koncept (na webu není).
-- **Zveřejnit ručně:** přepni `zverejnit` na `ano` a klikni **Sintera → Publikovat na web**.
-- **Stáhnout z webu:** přepni `zverejnit` na `ne` a Publikovat. Řádek nemaž, zůstane ti jako archiv.
+Od 6. 10. 2026 nahradil sloupce `featured` a `zverejnit` jeden sloupec se čtyřmi hodnotami:
 
-## 3) Tlačítko Sintera → Publikovat na web
+| stav | co se stane |
+|---|---|
+| `vystaveno + highlight` | na webu i na homepage v „Aktuálně hledáme" (max 9) |
+| `vystaveno` | na webu v seznamu /pozice/ |
+| `nevystaveno` | nikde (koncept, důvěrné, stažené) |
+| `archiv` | v [archivu pozic](https://www.sintera.cz/pozice/archiv/) jako ukázka práce pro firmy |
 
-Po jakékoli ruční změně v Sheetu (text, `zverejnit`, `featured`, pořadí) klikni nahoře
-**Sintera → Publikovat na web**. Spustí se build, za 1 až 2 minuty se to projeví.
+- **Archiv** je pro klienty: vidí, jaké pozice jsme obsazovali. Bez data, bez mzdy, nedá se
+  na ně reagovat, strukturovaná data pro Google Jobs zmizí. Adresa inzerátu zůstává.
+- **Nevystaveno × archiv:** inzerát, který nesmí vidět nikdo (třeba kvůli klientovi), patří
+  do `nevystaveno`, ne do archivu.
+- **Skončil nábor?** Přepni stav na `archiv`. Řádek nemaž.
+- Archiv se na webu (homepage, /pozice/, obory, case studies, patička) ukáže, až v něm bude
+  aspoň jedna pozice.
+
+## 3) Publikace: sama, nebo oranžovým tlačítkem
+
+Web se po změně v Sheetu **přestaví sám**: když se obsah 5 minut nemění, do dalších 5 minut
+se spustí build. Nic se nemusí mačkat, ani když Sheet vyplňuje ChatGPT. (Časovač běží na
+serveru sintera-radar, systemd `sintera-sheet-sync.timer`, volá Apps Script `/exec?sync=1`.)
+
+Hned teď: oranžové tlačítko **▶ PUBLIKOVAT NA WEB** vlevo nahoře v listu `pozice`, nebo horní
+menu **▶ PUBLIKOVAT WEB**. Za 1 až 2 minuty se to projeví.
 
 ## 4) Pořadí pozic (nové nahoře)
 
 Nové záznamy z ChatGPT se vkládají na **řádek 2 (nahoru)**, takže jsou nahoře i na webu.
-Pořadí na webu = pořadí v Sheetu. Když chceš pořadí změnit ručně, přesuň řádky a dej Publikovat.
+Pořadí na webu = pořadí v Sheetu. Když chceš pořadí změnit ručně, přesuň řádky.
 
-## 5) Featured (homepage)
+## 5) Highlight (homepage)
 
-Sloupec **`featured = ano`** → pozice se ukáže i na homepage v sekci „Aktuálně hledáme".
-`ne` → je jen v úplném výpisu na /pozice/.
+Stav **`vystaveno + highlight`** → pozice se ukáže i na homepage v sekci „Aktuálně hledáme".
+Max 9: při přidání desáté se ta nejstarší zařazená automaticky přepne na `vystaveno`.
 
 ## 6) Formulář na reference (na webu)
 
