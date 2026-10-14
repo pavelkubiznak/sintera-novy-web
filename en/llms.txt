@@ -458,9 +458,9 @@ Send a job description or a few sentences about the role to info@sintera.cz, or 
 ## Current open positions (68)
 The job titles and descriptions are in Czech, because the positions are aimed at candidates in the Czech Republic. Each position has its own page with a description and a response form. Full list with filters: https://www.sintera.cz/pozice/
 
-- [Mistr (m/ž)](https://www.sintera.cz/pozice/899.html): Manufacturing and industry · Management · Plzeň Region
-- [Mistr (m/ž)](https://www.sintera.cz/pozice/898.html): Manufacturing and industry · Management · Central Bohemian Region
-- [Mistr (m/ž)](https://www.sintera.cz/pozice/897.html): Manufacturing and industry · Management · Prague
+- [Mistr (m/ž)](https://www.sintera.cz/pozice/899.html): Manufacturing and industry · Management · Central Bohemian Region
+- [Mistr (m/ž)](https://www.sintera.cz/pozice/898.html): Manufacturing and industry · Management · Prague
+- [Mistr (m/ž)](https://www.sintera.cz/pozice/897.html): Manufacturing and industry · Management · Plzeň Region
 - [Key Account Manager / Business Development Manager](https://www.sintera.cz/pozice/896.html): Sales · Management · Liberec Region
 - [Vedoucí požární ochrany a BOZP](https://www.sintera.cz/pozice/895.html): Projects and construction · Management · Prague
 - [Vedoucí oddělení Vodohospodářské stavby a TZB](https://www.sintera.cz/pozice/894.html): Projects and construction · Management · Prague
