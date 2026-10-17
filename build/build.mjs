@@ -771,7 +771,7 @@ function writeSitemap(positions, extra = [], site) {
   const urls = sections.concat(jobs).map(u => `  <url><loc>${BASE}${u}</loc>${alt(u)}<changefreq>weekly</changefreq></url>`).join("\n");
   fs.writeFileSync(path.join(ROOT, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`);
-  fs.writeFileSync(path.join(ROOT, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /reference/\nDisallow: /assets/reference-wall/\nSitemap: ${BASE}/sitemap.xml\n`);
+  fs.writeFileSync(path.join(ROOT, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /reference/\nDisallow: /assets/reference-wall/\nDisallow: /statistiky/\nSitemap: ${BASE}/sitemap.xml\n`);
   fs.writeFileSync(path.join(ROOT, ".nojekyll"), "");
   console.log("  ✓ sitemap.xml, robots.txt, .nojekyll");
 }
@@ -807,6 +807,13 @@ function writeRedirects(positions) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Stránka nenalezena — Sintera Czech</title>
+${UMAMI}
+<script>
+// Umami: kromě běžné návštěvy (adresa = hledaná neexistující stránka) zvlášť akce „stranka-nenalezena“ s adresou a odkazem, odkud člověk přišel.
+window.addEventListener("load", function () {
+  try { if (window.umami) window.umami.track("stranka-nenalezena", { adresa: location.pathname + location.search, odkud: document.referrer || "(přímo)" }); } catch (e) {}
+});
+</script>
 <style>
   :root { --navy:#0e1230; --ter:#c8704f; }
   html, body { margin:0; height:100%; }
