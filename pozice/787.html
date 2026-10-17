@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-6xgeodEfXOK/3kuo9EK2lneO6gsnbJhy1JryW1BvpjQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; form-action 'self'; base-uri 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://178-104-207-97.sslip.io 'sha256-e2uQt3eDu0Nn17e8tJJDHmtRVXLwkgwt6Daix4F9EDs='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://178-104-207-97.sslip.io https://script.google.com https://script.googleusercontent.com; form-action 'self'; base-uri 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inženýr kvality · Plzeňský kraj · Sintera Czech</title>
@@ -31,7 +31,8 @@
 /* Sintera · first-party měření návštěvnosti (cookieless).
  * Vlož do <head> všech stránek jako <script>...<\/script> (inline je nejjednodušší).
  * Posílá pageview a akce (klik na e-mail/telefon, odeslání formuláře) do Apps Scriptu,
- * který je loguje do listu "navstevy". Neukládá cookies, IP ani identifikátory.
+ * který je loguje do listu "navstevy". Akce navíc předává do Umami (pageview si Umami měří samo).
+ * Neukládá cookies, IP ani identifikátory.
  */
 (function () {
   var EP = 'https://script.google.com/macros/s/AKfycbyoSQr6qvQhGBTQo9LohaiUf5ph1zc4T9z9c3uXcYEudgOu85Yg-gJzhw6tCu1D2pZY/exec';
@@ -39,11 +40,12 @@
   // přestane počítat (uloží se příznak do localStorage). Znovu zapnout: ?nosterk=0.
   try {
     var q = new URLSearchParams(location.search);
-    if (q.get('nosterk') === '1') localStorage.setItem('sterk_off', '1');
-    if (q.get('nosterk') === '0') localStorage.removeItem('sterk_off');
+    if (q.get('nosterk') === '1') { localStorage.setItem('sterk_off', '1'); localStorage.setItem('umami.disabled', '1'); }
+    if (q.get('nosterk') === '0') { localStorage.removeItem('sterk_off'); localStorage.removeItem('umami.disabled'); }
     if (localStorage.getItem('sterk_off') === '1') return;
   } catch (e) {}
   function send(t, name) {
+    try { if (t === 'event' && window.umami) window.umami.track(name); } catch (e) {}
     try {
       var data = JSON.stringify({
         action: 'hit', t: t, path: location.pathname, ref: document.referrer, name: name || ''
@@ -67,6 +69,7 @@
   window.sterk = function (name) { send('event', name); }; // ruční sledování akce
 })();
 </script>
+<script defer src="https://178-104-207-97.sslip.io/script.js" data-website-id="339426c7-afd2-4f43-baa8-8209e07865eb" data-domains="www.sintera.cz,sintera.cz"></script>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>

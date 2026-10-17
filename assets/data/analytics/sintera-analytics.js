@@ -1,7 +1,8 @@
 /* Sintera · first-party měření návštěvnosti (cookieless).
  * Vlož do <head> všech stránek jako <script>...</script> (inline je nejjednodušší).
  * Posílá pageview a akce (klik na e-mail/telefon, odeslání formuláře) do Apps Scriptu,
- * který je loguje do listu "navstevy". Neukládá cookies, IP ani identifikátory.
+ * který je loguje do listu "navstevy". Akce navíc předává do Umami (pageview si Umami měří samo).
+ * Neukládá cookies, IP ani identifikátory.
  */
 (function () {
   var EP = 'https://script.google.com/macros/s/AKfycbyoSQr6qvQhGBTQo9LohaiUf5ph1zc4T9z9c3uXcYEudgOu85Yg-gJzhw6tCu1D2pZY/exec';
@@ -9,11 +10,12 @@
   // přestane počítat (uloží se příznak do localStorage). Znovu zapnout: ?nosterk=0.
   try {
     var q = new URLSearchParams(location.search);
-    if (q.get('nosterk') === '1') localStorage.setItem('sterk_off', '1');
-    if (q.get('nosterk') === '0') localStorage.removeItem('sterk_off');
+    if (q.get('nosterk') === '1') { localStorage.setItem('sterk_off', '1'); localStorage.setItem('umami.disabled', '1'); }
+    if (q.get('nosterk') === '0') { localStorage.removeItem('sterk_off'); localStorage.removeItem('umami.disabled'); }
     if (localStorage.getItem('sterk_off') === '1') return;
   } catch (e) {}
   function send(t, name) {
+    try { if (t === 'event' && window.umami) window.umami.track(name); } catch (e) {}
     try {
       var data = JSON.stringify({
         action: 'hit', t: t, path: location.pathname, ref: document.referrer, name: name || ''

@@ -64,11 +64,11 @@ function withCsp(html, opts = {}) {
   }
   const csp = [
     "default-src 'self'",
-    "script-src 'self'" + (hashes.size ? " " + [...hashes].join(" ") : ""),
+    "script-src 'self' " + UMAMI_HOST + (hashes.size ? " " + [...hashes].join(" ") : ""),
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data:",
     "font-src 'self'",
-    "connect-src 'self' https://script.google.com https://script.googleusercontent.com",
+    "connect-src 'self' " + UMAMI_HOST + " https://script.google.com https://script.googleusercontent.com",
     "form-action 'self'",
     "base-uri 'none'",
     "object-src 'none'",
@@ -114,7 +114,10 @@ const FAQ_LD = ldScript({
 });
 // First-party cookieless měření návštěvnosti (assets/data/analytics/sintera-analytics.js) → inline do <head> všech stránek.
 // POZOR: případný doslovný </script> v obsahu (i v komentáři) by inline skript předčasně ukončil → escapujeme na <\/script>.
-const ANALYTICS = "<script>\n" + fs.readFileSync(path.join(DATA, "analytics", "sintera-analytics.js"), "utf8").trim().replace(/<\/script>/gi, "<\\/script>") + "\n</script>";
+// Umami (self-hosted na sintera-radar, cookieless): přehledný dashboard návštěvnosti; data-domains = neměří lokální náhledy.
+const UMAMI_HOST = "https://178-104-207-97.sslip.io";
+const UMAMI = `<script defer src="${UMAMI_HOST}/script.js" data-website-id="339426c7-afd2-4f43-baa8-8209e07865eb" data-domains="www.sintera.cz,sintera.cz"></script>`;
+const ANALYTICS = "<script>\n" + fs.readFileSync(path.join(DATA, "analytics", "sintera-analytics.js"), "utf8").trim().replace(/<\/script>/gi, "<\\/script>") + "\n</script>\n" + UMAMI;
 
 function parseCSV(text) {
   const rows = []; let row = [], cur = "", q = false;
